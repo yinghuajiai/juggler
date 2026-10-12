@@ -58,60 +58,62 @@ export async function runTests(_ctx) {
   // language choice cannot change what the next asserts on.
   applyLanguage(LANGUAGE_EN);
 
-  run('an untranslated key renders its English literal unchanged', () => {
-    assert(t('some.untouched.key', 'Hello world') === 'Hello world',
-      'a key with no translation must render its English text verbatim');
+  run('an untranslated message renders its English text unchanged', () => {
+    assert(t('Hello world') === 'Hello world',
+      'a message with no translation must render its English text verbatim');
   });
 
   run('English is used even when a catalogue would override it', () => {
     applyLanguage(LANGUAGE_EN);
-    assert(t('settings.language', 'Language') === 'Language',
+    assert(t('Language') === 'Language',
       'the English locale must not read the Chinese catalogue');
   });
 
-  run('a translated key renders the catalogue text', () => {
+  run('a translated message renders the catalogue text', () => {
     applyLanguage(LANGUAGE_ZH_CN);
-    assert(t('settings.language', 'Language') === '语言',
+    assert(t('Language') === '语言',
       'zh-CN must read its own catalogue');
-    assert(t('settings.language.system', 'System') === '跟随系统',
-      'zh-CN must read its own catalogue for every key');
+    assert(t('System') === '跟随系统',
+      'zh-CN must read its own catalogue for every message');
   });
 
   run('switching language changes what t() returns', () => {
     applyLanguage(LANGUAGE_EN);
-    const before = t('settings.language', 'Language');
+    const before = t('Language');
     applyLanguage(LANGUAGE_ZH_CN);
-    const after = t('settings.language', 'Language');
+    const after = t('Language');
     applyLanguage(LANGUAGE_EN);
     assert(before !== after, `t() did not change with the language (${before})`);
   });
 
-  run('a key missing from the catalogue falls back to English', () => {
+  run('a message missing from the catalogue falls back to English', () => {
     applyLanguage(LANGUAGE_ZH_CN);
-    assert(t('settings.language.description', 'Choose the language of the interface.') === '选择界面显示的语言。',
-      'a translated key should still come from the catalogue');
-    assert(t('a.key.with.no.translation', 'Untranslated') === 'Untranslated',
-      'a key the catalogue lacks must fall back to its English text');
+    assert(t('Choose the language the interface is shown in.') === '选择界面显示的语言。',
+      'a translated message should still come from the catalogue');
+    assert(t('Untranslated') === 'Untranslated',
+      'a message the catalogue lacks must fall back to its English text');
     applyLanguage(LANGUAGE_EN);
   });
 
   run('params are substituted into the text', () => {
-    assert(t('greeting', 'Hello, {name}!', { name: 'Ada' }) === 'Hello, Ada!',
+    assert(t('Hello, {name}!', { name: 'Ada' }) === 'Hello, Ada!',
       'a named placeholder should be replaced');
-    assert(t('count', '{n} of {total}', { n: 2, total: 5 }) === '2 of 5',
+    assert(t('{n} of {total}', { n: 2, total: 5 }) === '2 of 5',
       'every placeholder should be replaced');
   });
 
   run('a placeholder with no value is left as written', () => {
-    assert(t('greeting', 'Hello, {name}!', {}) === 'Hello, {name}!',
+    assert(t('Hello, {name}!', {}) === 'Hello, {name}!',
       'a missing value must leave the placeholder rather than print undefined');
-    assert(t('greeting', 'Hello, {name}!') === 'Hello, {name}!',
+    assert(t('Hello, {name}!') === 'Hello, {name}!',
       'omitting params entirely must leave the text alone');
   });
 
-  run('an unknown key with no English renders the key', () => {
-    assert(t('only.a.key') === 'only.a.key',
-      'with neither a catalogue entry nor English, the key is the last resort');
+  run('a translated message is looked up by its English text', () => {
+    applyLanguage(LANGUAGE_ZH_CN);
+    assert(t('Language') === '语言',
+      'a message present in the catalogue should render its translation');
+    applyLanguage(LANGUAGE_EN);
   });
 
   run('a preference resolves to a locale', () => {

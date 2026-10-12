@@ -5,18 +5,21 @@
 /**
  * Simplified Chinese catalogue.
  *
- * Every key here must also exist as an English literal at a `t(key, 'English')`
- * call site — the English is the fallback, and the key is what the call site and
- * this table agree on. `locale-coverage-test` holds the two catalogues to the
- * same key set, so a translation added in one language and forgotten in another
- * fails the suite rather than silently falling back.
+ * Keyed by the **English source text**, which is also the fallback a call site
+ * passes to `t()`. So each key here is a string that literally appears in the
+ * source, and a key that no longer appears there is a translation orphaned by
+ * an English rewording — `locale-coverage-test` fails on one rather than
+ * letting it sit unread.
+ *
+ * Untranslated English is simply absent: nothing needs an entry that is the
+ * same in both languages.
  * @module i18n/zh-CN
  */
 
 /** @type {Record<string, string>} */
 export const zhCN = {
   // Settings — Appearance tab
-  'settings.language': '语言',
-  'settings.language.description': '选择界面显示的语言。',
-  'settings.language.system': '跟随系统'
+  'Language': '语言',
+  'Choose the language the interface is shown in.': '选择界面显示的语言。',
+  'System': '跟随系统'
 };

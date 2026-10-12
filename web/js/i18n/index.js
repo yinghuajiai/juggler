@@ -5,14 +5,20 @@
 /**
  * i18n — the app's translation layer.
  *
- * **English is the source language and the fallback.** A translated string is
- * asked for as `t('some.key', 'The English text')`: the English text rides at
- * the call site, and a catalogue only supplies what it overrides. That ordering
- * is deliberate. A key with no translation renders as its English original, so
- * a missing or half-finished catalogue degrades to English rather than to a
- * screen full of dotted keys — and because the English is byte-for-byte the
- * literal that was there before, the existing UI (and every test that asserts on
- * it) is unchanged until a translation actually exists.
+ * **English is the source language and the key.** A translated string is asked
+ * for as `t('The English text')`: the English sentence is both the lookup key
+ * and the fallback, so a catalogue only supplies what it overrides. That
+ * ordering is deliberate. A string with no translation renders as its English
+ * original, so a missing or half-finished catalogue degrades to English rather
+ * than to a screen full of dotted keys — and because the English is
+ * byte-for-byte the literal that was there before, the existing UI (and every
+ * test that asserts on it) is unchanged until a translation actually exists.
+ *
+ * Writing the text itself at the call site means the key and the English can
+ * never drift apart, but it does mean changing the English wording orphans that
+ * string's translation (the old key is simply never looked up again). That is
+ * the ordinary gettext trade-off, and `locale-coverage-test` is what catches a
+ * catalogue entry that has been orphaned in this way.
  *
  * The chosen language is a `prefs` User-realm preference, so it is one setting
  * for this person across every project and every window, and a change made in
@@ -120,7 +126,7 @@ export function getLocale() {
  * @returns {string} The label to show in the menu.
  */
 export function languageLabel(value) {
-  if (value === LANGUAGE_SYSTEM) return t('settings.language.system', 'System');
+  if (value === LANGUAGE_SYSTEM) return t('System');
   if (value === LANGUAGE_EN) return 'English';
   if (value === LANGUAGE_ZH_CN) return '简体中文';
   return value;
@@ -142,20 +148,19 @@ function interpolate(text, params) {
 }
 
 /**
- * Translate a key into the current locale.
+ * Translate a string into the current locale.
  *
- * The catalogue for the current locale wins; failing that the English text
- * passed here, and failing that the key itself. The last case is a programming
- * error — but it is the one that still renders something, which matters in a
- * release build with no console.
- * @param {string} key - Stable key, e.g. `'settings.language'`.
+ * The message is its own key and its own fallback: the catalogue for the
+ * current locale wins, and failing that the English text passed here is
+ * rendered. There is no third case — the text is present by construction, so a
+ * missing translation is never a blank or a dotted key.
  * @param {string} english - The English text, used verbatim when the current locale has no translation.
  * @param {Record<string, string|number>} [params] - Values for `{name}` placeholders in the text.
  * @returns {string} The localized string.
  */
-export function t(key, english, params) {
+export function t(english, params) {
   const catalogue = CATALOGUES[_locale];
-  const text = (catalogue && catalogue[key]) || english || key;
+  const text = (catalogue && catalogue[english]) || english;
   return interpolate(text, params);
 }
 

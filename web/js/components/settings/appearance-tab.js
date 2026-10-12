@@ -110,8 +110,8 @@ export class AppearanceTab {
    * @private
    */
   _relabelLanguageRow(select, name, desc) {
-    name.textContent = t('settings.language', 'Language');
-    desc.textContent = t('settings.language.description', 'Choose the language the interface is shown in.');
+    name.textContent = t('Language');
+    desc.textContent = t('Choose the language the interface is shown in.');
     for (const option of Array.from(select.options)) {
       option.textContent = languageLabel(option.value);
     }
@@ -180,10 +180,10 @@ export class AppearanceTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = t('settings.language', 'Language');
+    name.textContent = t('Language');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
-    desc.textContent = t('settings.language.description', 'Choose the language the interface is shown in.');
+    desc.textContent = t('Choose the language the interface is shown in.');
     info.appendChild(name);
     info.appendChild(desc);
 
@@ -193,7 +193,7 @@ export class AppearanceTab {
     const select = document.createElement('select');
     select.className = 'settings-select';
     select.id = 'appearance-language-select';
-    select.setAttribute('aria-label', t('settings.language', 'Language'));
+    select.setAttribute('aria-label', t('Language'));
     for (const opt of LANGUAGES) {
       const option = document.createElement('option');
       option.value = opt.value;
