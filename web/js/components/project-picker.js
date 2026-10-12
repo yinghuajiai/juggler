@@ -56,9 +56,9 @@ export function buildPickerPanel({
   recents = [],
   currentPath = '',
   showCancel = true,
-  title = 'Open project folder',
+  title = t('Open project folder'),
   subtitle = '',
-  placeholder = 'Path to project folder…',
+  placeholder = t('Path to project folder…'),
   dirsOnly = true,
   confirmLabel = 'Open',
   // Where the native chooser opens. A picker asking about a file in the open
@@ -131,7 +131,7 @@ export function buildPickerPanel({
     recentsEl.removeAttribute('hidden');
     const label = document.createElement('div');
     label.className = 'pp-recents-label';
-    label.textContent = 'Recent sessions';
+    label.textContent = t('Recent sessions');
     recentsEl.appendChild(label);
     for (const path of filtered) {
       const btn = document.createElement('button');
@@ -407,17 +407,17 @@ export async function openProjectPicker(currentPath, session) {
   const { element, promise, cancel } = buildPickerPanel({
     recents,
     currentPath,
-    title: newWindowOnly ? 'Open project folder'
-      : switching ? 'Switch project folder'
-        : 'Open project folder',
+    title: newWindowOnly ? t('Open project folder')
+      : switching ? t('Switch project folder')
+        : t('Open project folder'),
     confirmLabel: newWindowOnly ? 'Open'
       : switching ? 'Switch' : 'Open',
     subtitle: newWindowOnly
       ? ''
       : switching
-        ? 'The tabs in a juggler session are stored inside the project folder. Switching '
+        ? t('The tabs in a juggler session are stored inside the project folder. Switching '
           + 'to a different folder will reload the tabs from that folder (or create a '
-          + 'new empty session in it).'
+          + 'new empty session in it).')
         : '',
     // Dismissal is the surface's job (outside-click / Esc / scrim / drag),
     // so the panel needs no in-body Cancel button.
@@ -455,7 +455,7 @@ export async function openProjectPicker(currentPath, session) {
     const ok = await showConfirm(
       `${busy.length} ${noun} still working:\n\n${list}\n\nSwitching projects will stop and discard this work. Continue?`,
       t('Switch project?'),
-      { confirmText: 'Switch project', cancelText: 'Stay', danger: true },
+      { confirmText: t('Switch project'), cancelText: 'Stay', danger: true },
     );
     if (!ok) return;
   }

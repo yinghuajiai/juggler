@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 // Aliased on import: this item exposes its own `grep`/`glob` helpers to sandboxed
 // code (below), so the ops primitives are bound under distinct local names.
@@ -33,7 +34,7 @@ class QueryCodeContextItem extends ContextItem {
     id: 'explore-code',
     name: 'Query Code',
     version: '1.0.0',
-    description: 'Run JavaScript against a read-only filesystem SDK to compute an answer in one call',
+    description: t('Run JavaScript against a read-only filesystem SDK to compute an answer in one call'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -56,11 +57,11 @@ class QueryCodeContextItem extends ContextItem {
           },
           description: {
             type: 'string',
-            description: 'Short user-facing description of what this query does.'
+            description: t('Short user-facing description of what this query does.')
           },
           timeout: {
             type: 'number',
-            description: 'Optional execution timeout in milliseconds (1000–600000, default 120000).'
+            description: t('Optional execution timeout in milliseconds (1000–600000, default 120000).')
           }
         },
         required: ['code']

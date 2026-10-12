@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { computeDiff, regroupHunks } from '../lib/diff-utils.js';
 import {
   DIFF_VIEW_PREFS_EVENT, CONTEXT_CHOICES, WHOLE_FILE,
@@ -500,10 +501,10 @@ class DiffViewer extends HTMLElement {
     const notices = [];
 
     if (this.mode === 'loading') {
-      return { hunks: [], notices: [{ kind: 'loading', text: 'Loading…' }], added: 0, removed: 0, drawable: false };
+      return { hunks: [], notices: [{ kind: 'loading', text: t('Loading…') }], added: 0, removed: 0, drawable: false };
     }
     if (this.mode === 'error') {
-      notices.push({ kind: 'error', text: "Couldn't load this diff.", detail: this.errorText });
+      notices.push({ kind: 'error', text: t("Couldn't load this diff."), detail: this.errorText });
       return { hunks: [], notices, added: 0, removed: 0, drawable: false };
     }
 
@@ -1122,15 +1123,15 @@ registerContextMenuProvider({
     const lineText = clicked?.querySelector('.line-content')?.textContent || '';
     /** @type {import('../services/context-menu-service.js').ContextMenuItem[]} */
     const items = [{
-      label: 'Copy file path',
+      label: t('Copy file path'),
       disabled: !filePath,
       onClick: () => { void copyToClipboard(filePath).catch(() => {}); },
     }, {
-      label: 'Copy line',
+      label: t('Copy line'),
       disabled: !lineText,
       onClick: () => { void copyToClipboard(lineText).catch(() => {}); },
     }, {
-      label: 'Copy new content',
+      label: t('Copy new content'),
       disabled: !newContent,
       onClick: () => { void copyToClipboard(newContent).catch(() => {}); },
     }];

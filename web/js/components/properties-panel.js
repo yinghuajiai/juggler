@@ -14,6 +14,7 @@
  * Auto-fills remaining horizontal space via flex: 1.
  */
 
+import { t } from '../i18n/index.js';
 import { createIconBadge, createTypeBadge } from '../utils/icon-message-renderer.js';
 import { FORK_SVG, INFO_SVG, RETRY_SVG, UNDO_SVG } from '../utils/icons.js';
 import { appendDeleteControls } from '../utils/panel-delete-controls.js';
@@ -422,7 +423,7 @@ class PropertiesPanel extends HTMLElement {
     const root = this.querySelector('properties-panel-section');
     const watch = this.querySelector('properties-panel-content');
     if (!root || !watch) return null;
-    return { root, watch, mount: this, label: 'Find in properties' };
+    return { root, watch, mount: this, label: t('Find in properties') };
   }
 
   /**
@@ -878,7 +879,7 @@ class PropertiesPanel extends HTMLElement {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'properties-panel-header-icon-btn';
-    btn.title = 'View the LLM input/output for this round-trip';
+    btn.title = t('View the LLM input/output for this round-trip');
     btn.setAttribute('aria-label', 'View transaction');
     btn.innerHTML = TRANSACTION_ICON_SVG;
     btn.addEventListener('click', (e) => {

@@ -58,6 +58,7 @@
  * @property {(subject: Element, event: MouseEvent) => (ContextMenuItem[]|null)} build - Build the menu rows for a matched subject.
  */
 
+import { t as _t } from '../i18n/index.js';
 import { copyToClipboard, readFromClipboard } from '../../sdk/lib/clipboard.js';
 import { formatCodeReference } from '../../sdk/lib/context-item-utils.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
@@ -232,7 +233,7 @@ export function buildTextEditMenu(start) {
         if (text) spliceField(field, sel.start, sel.end, text);
       } },
       { separator: true },
-      { label: 'Select All', onClick: () => { field.focus(); field.select(); } },
+      { label: _t('Select All'), onClick: () => { field.focus(); field.select(); } },
     ];
   }
 

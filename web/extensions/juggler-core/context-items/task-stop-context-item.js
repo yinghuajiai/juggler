@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { shellKill } from 'juggler/ops';
 
@@ -22,7 +23,7 @@ class TaskStopContextItem extends ContextItem {
     id: 'task-stop',
     name: 'Task Stop',
     version: '1.0.0',
-    description: 'Stop a background task',
+    description: t('Stop a background task'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -54,13 +55,13 @@ class TaskStopContextItem extends ContextItem {
       {
         name: 'TaskStop',
         category: 'write',
-        description: 'Stop a running background task by id (started by Monitor or by bash with run_in_background). For a monitor, this also ends the stream of events into the conversation.',
+        description: t('Stop a running background task by id (started by Monitor or by bash with run_in_background). For a monitor, this also ends the stream of events into the conversation.'),
         input_schema: {
           type: 'object',
           properties: {
             task_id: {
               type: 'string',
-              description: 'The task id returned when the background task was started.'
+              description: t('The task id returned when the background task was started.')
             }
           },
           required: ['task_id']
@@ -69,13 +70,13 @@ class TaskStopContextItem extends ContextItem {
       {
         name: 'KillShell',
         category: 'write',
-        description: 'Kill a running background shell (or monitor) by its shell id. Alias of TaskStop.',
+        description: t('Kill a running background shell (or monitor) by its shell id. Alias of TaskStop.'),
         input_schema: {
           type: 'object',
           properties: {
             shell_id: {
               type: 'string',
-              description: 'The shell/task id returned when the background task was started.'
+              description: t('The shell/task id returned when the background task was started.')
             }
           },
           required: ['shell_id']

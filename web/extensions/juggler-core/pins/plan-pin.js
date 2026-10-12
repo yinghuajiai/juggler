@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { createPlanBlock } from '../lib/task-lists.js';
 import { mountTaskListPin } from '../lib/task-list-pin.js';
@@ -33,7 +34,7 @@ class PlanPin extends PinboardItemType {
     id: 'plan',
     name: 'Plan',
     version: '1.0.0',
-    description: 'Follows the current plan and its progress',
+    description: t('Follows the current plan and its progress'),
     // What the agent is about to do, which is the first thing worth a glance.
     order: 10,
     defaultPin: true,

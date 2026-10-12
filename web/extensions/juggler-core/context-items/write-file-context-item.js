@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import EditBase from './edit-base.js';
 import { formatDisplayPath, normalizeFilePath, basename } from 'juggler/item-utils';
 import { labeledSubsection } from 'juggler/ui';
@@ -57,7 +58,7 @@ class WriteFileContextItem extends EditBase {
     id: 'write-file',
     name: 'Write File',
     version: '1.0.0',
-    description: 'Create or overwrite files with new content',
+    description: t('Create or overwrite files with new content'),
     author: 'Juggler Team',
     requiresApproval: true
   };
@@ -78,11 +79,11 @@ class WriteFileContextItem extends EditBase {
       properties: {
         file_path: {
           type: 'string',
-          description: 'The absolute path to the file to write. Must be inside the working directory unless the user explicitly asked for a location outside it.'
+          description: t('The absolute path to the file to write. Must be inside the working directory unless the user explicitly asked for a location outside it.')
         },
         content: {
           type: 'string',
-          description: 'The content to write to the file'
+          description: t('The content to write to the file')
         }
       },
       required: ['file_path', 'content']

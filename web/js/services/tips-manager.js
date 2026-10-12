@@ -18,6 +18,7 @@
  * @module services/tips-manager
  */
 
+import { t } from '../i18n/index.js';
 import keyShortcutManager from './key-shortcut-manager.js';
 import { cachedUserPref, setUserPref, notifyPrefChanged, reconcilePref } from './prefs.js';
 
@@ -77,7 +78,7 @@ const TIPS = [
   {
     id: 'paste-images',
     kind: 'feature',
-    title: 'Paste a screenshot',
+    title: t('Paste a screenshot'),
     body: 'Paste an image straight into the composer to attach it to your prompt.',
   },
   { kind: 'shortcut', id: 'rename-conversation', body: 'Give the current conversation a memorable name, straight from the keyboard.' },

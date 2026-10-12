@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
 
+import { t } from '../i18n/index.js';
 import { presentInlineMenu } from '../utils/popup-surface.js';
 import { escapeHtml } from '../../sdk/lib/html.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
@@ -597,7 +598,7 @@ class PermissionControls extends HTMLElement {
       if (!placeholder) {
         placeholder = document.createElement('div');
         placeholder.className = 'no-patterns';
-        placeholder.textContent = 'No paths configured';
+        placeholder.textContent = t('No paths configured');
         listEl.appendChild(placeholder);
       }
     } else if (placeholder) {

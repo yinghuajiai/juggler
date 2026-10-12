@@ -19,6 +19,7 @@
  * @module lib/task-list-pin
  */
 
+import { t } from '../../../js/i18n/index.js';
 import { createElement, injectStylesOnce } from 'juggler/ui';
 import { pinEmpty } from './pin-empty.js';
 
@@ -125,7 +126,7 @@ export function mountTaskListPin(container, pinContext, spec) {
     getActions: () => [
       {
         id: 'reveal',
-        label: 'Reveal in conversation',
+        label: t('Reveal in conversation'),
         primary: true,
         disabled: !shown,
         // The row that wrote the list, when there is one. A list of this kind

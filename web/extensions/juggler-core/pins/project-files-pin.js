@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { expandDirectory, openPath } from 'juggler/ops';
 import { createElement, createFileActions, extractErrorMessage, injectStylesOnce, pinFile } from 'juggler/ui';
@@ -265,7 +266,7 @@ function visibleRows(root, expanded, entries) {
     if (!state.items) {
       // A folder that is merely opening contributes nothing. Saying "Reading…"
       // for the millisecond a local directory takes is a flicker, not news.
-      if (state.slow) rows.push({ kind: 'note', key: `${dir}\u0000loading`, depth, text: 'Reading…' });
+      if (state.slow) rows.push({ kind: 'note', key: `${dir}\u0000loading`, depth, text: t('Reading…') });
       return;
     }
     if (state.items.length === 0) {
@@ -313,7 +314,7 @@ class ProjectFilesPin extends PinboardItemType {
     id: 'project-files',
     name: 'Project files',
     version: '1.0.0',
-    description: "The project's files, as a tree",
+    description: t("The project's files, as a tree"),
     // One project, so one tree. A second would be the same tree twice.
     instances: 'single',
     order: 10,

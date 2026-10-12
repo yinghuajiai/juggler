@@ -575,7 +575,7 @@ class PluginCatalog extends JugglerElement {
       `${count} conversation${count === 1 ? '' : 's'} ${count === 1 ? 'is' : 'are'} running. ` +
       'Changing extensions will stop them so the capability set can be safely rebuilt.',
       t('Stop conversations and apply extension change?'),
-      { confirmText: 'Stop & apply', cancelText: 'Cancel', danger: true }
+      { confirmText: t('Stop & apply'), cancelText: 'Cancel', danger: true }
     );
     if (!confirmed) return false;
 
@@ -711,8 +711,8 @@ class PluginCatalog extends JugglerElement {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'btn-ghost catalog-reload';
-    button.textContent = 'Reload extensions';
-    button.title = 'Re-import every extension from disk';
+    button.textContent = t('Reload extensions');
+    button.title = t('Re-import every extension from disk');
     button.disabled = this._busy;
     button.addEventListener('click', () => { void this._requestReload(button); });
     return button;
@@ -978,7 +978,7 @@ class PluginCatalog extends JugglerElement {
       badge.className = 'plugin-tree-toggle plugin-tree-toggle-unknown';
       badge.textContent = 'unknown';
       badge.disabled = true;
-      badge.title = "This extension declares no id, so it can't be switched on or off.";
+      badge.title = t("This extension declares no id, so it can't be switched on or off.");
       return badge;
     }
 
@@ -987,9 +987,9 @@ class PluginCatalog extends JugglerElement {
 
     if (!canToggle) {
       badge.disabled = true;
-      badge.title = 'Enable the extension to toggle this capability';
+      badge.title = t('Enable the extension to toggle this capability');
     } else {
-      badge.title = enabled ? 'Click to disable' : 'Click to enable';
+      badge.title = enabled ? t('Click to disable') : t('Click to enable');
       badge.addEventListener('click', (e) => {
         e.stopPropagation();
         this._toggle([id], !enabled);

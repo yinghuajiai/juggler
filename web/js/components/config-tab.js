@@ -24,6 +24,7 @@
  * @module components/config-tab
  */
 
+import { t } from '../i18n/index.js';
 import { showConfirm } from './modal-dialog.js';
 
 // ---------------------------------------------------------------------------
@@ -487,7 +488,7 @@ export class ConfigTabController {
       const logsBtn = document.createElement('button');
       logsBtn.type = 'button';
       logsBtn.className = 'settings-btn small';
-      logsBtn.textContent = this.logFor === name ? 'Hide log' : 'Log';
+      logsBtn.textContent = this.logFor === name ? t('Hide log') : 'Log';
       logsBtn.addEventListener('click', () => this._toggleLog(name));
       btnRow.appendChild(logsBtn);
     }
@@ -516,8 +517,8 @@ export class ConfigTabController {
       const pre = document.createElement('pre');
       pre.className = 'mcp-log-view';
       pre.textContent = this.logText === null
-        ? 'Loading…'
-        : (this.logText || 'No output yet.');
+        ? t('Loading…')
+        : (this.logText || t('No output yet.'));
       list.appendChild(pre);
     }
   }
@@ -534,7 +535,7 @@ export class ConfigTabController {
     const restart = this.spec.ops.restart;
     if (!restart) return;
     btn.disabled = true;
-    btn.textContent = 'Restarting…';
+    btn.textContent = t('Restarting…');
     this.error = '';
     try {
       await restart(name);
@@ -698,12 +699,12 @@ export class ConfigTabController {
     scopeSelect.className = `mcp-input ${spec.id}-scope-input`;
     const optGlobal = document.createElement('option');
     optGlobal.value = 'global';
-    optGlobal.textContent = 'Global (all projects)';
+    optGlobal.textContent = t('Global (all projects)');
     scopeSelect.appendChild(optGlobal);
     if (this.config.hasProject || f.scope === 'project') {
       const optProject = document.createElement('option');
       optProject.value = 'project';
-      optProject.textContent = 'This project only';
+      optProject.textContent = t('This project only');
       scopeSelect.appendChild(optProject);
     }
     scopeSelect.value = f.scope;
@@ -830,7 +831,7 @@ export class ConfigTabController {
     const addArg = document.createElement('button');
     addArg.type = 'button';
     addArg.className = 'settings-btn small mcp-add-row';
-    addArg.textContent = 'Add argument';
+    addArg.textContent = t('Add argument');
     addArg.addEventListener('click', () => {
       f.args = this._readArgs();
       f.args.push('');
@@ -845,7 +846,7 @@ export class ConfigTabController {
     envField.className = 'mcp-form-field';
     const envLabel = document.createElement('label');
     envLabel.className = 'mcp-field-label';
-    envLabel.textContent = 'Environment variables';
+    envLabel.textContent = t('Environment variables');
     envField.appendChild(envLabel);
     const envList = document.createElement('div');
     envList.className = 'mcp-env-list';
@@ -853,7 +854,7 @@ export class ConfigTabController {
     const addEnv = document.createElement('button');
     addEnv.type = 'button';
     addEnv.className = 'settings-btn small mcp-add-row';
-    addEnv.textContent = 'Add variable';
+    addEnv.textContent = t('Add variable');
     addEnv.addEventListener('click', () => {
       f.envPairs = this._readEnvPairs();
       f.envPairs.push({ key: '', value: '' });
@@ -894,7 +895,7 @@ export class ConfigTabController {
     const addHeader = document.createElement('button');
     addHeader.type = 'button';
     addHeader.className = 'settings-btn small mcp-add-row';
-    addHeader.textContent = 'Add header';
+    addHeader.textContent = t('Add header');
     addHeader.addEventListener('click', () => {
       f.headerPairs = this._readHeaderPairs();
       f.headerPairs.push({ key: '', value: '' });
@@ -990,7 +991,7 @@ export class ConfigTabController {
       reveal.type = 'button';
       reveal.className = 'mcp-reveal-btn';
       reveal.setAttribute('aria-label', 'Reveal value');
-      reveal.textContent = '👁';
+      reveal.textContent = t('👁');
       reveal.addEventListener('click', () => {
         value.type = value.type === 'password' ? 'text' : 'password';
       });
@@ -1041,7 +1042,7 @@ export class ConfigTabController {
       reveal.type = 'button';
       reveal.className = 'mcp-reveal-btn';
       reveal.setAttribute('aria-label', 'Reveal value');
-      reveal.textContent = '👁';
+      reveal.textContent = t('👁');
       reveal.addEventListener('click', () => {
         value.type = value.type === 'password' ? 'text' : 'password';
       });

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import BaseMessage, { FINAL_ITEM_ATTR } from './base-message.js';
 import { createErrorArticle } from '../utils/icon-message-renderer.js';
 import { openSettings } from '../services/settings-launcher.js';
@@ -104,7 +105,7 @@ class ErrorMessage extends BaseMessage {
         const modelBtn = document.createElement('button');
         modelBtn.type = 'button';
         modelBtn.className = 'message-action-btn error-model-btn';
-        modelBtn.title = 'Pick a model from another provider';
+        modelBtn.title = t('Pick a model from another provider');
         modelBtn.innerHTML = `${SWAP_ICON}Choose another model`;
         modelBtn.addEventListener('click', (event) => {
           event.preventDefault();
@@ -120,7 +121,7 @@ class ErrorMessage extends BaseMessage {
         const settingsBtn = document.createElement('button');
         settingsBtn.type = 'button';
         settingsBtn.className = 'message-action-btn error-settings-btn';
-        settingsBtn.title = 'Open provider settings';
+        settingsBtn.title = t('Open provider settings');
         settingsBtn.innerHTML = `${SETTINGS_ICON}Provider settings`;
         settingsBtn.addEventListener('click', (event) => {
           event.preventDefault();
@@ -134,7 +135,7 @@ class ErrorMessage extends BaseMessage {
         const retryBtn = document.createElement('button');
         retryBtn.type = 'button';
         retryBtn.className = 'message-action-btn error-retry-btn';
-        retryBtn.title = 'Delete this error and continue the conversation';
+        retryBtn.title = t('Delete this error and continue the conversation');
         // A circular arrow, distinct from the footer's Continue "play" glyph so
         // the affordance reads as "try that turn again".
         retryBtn.innerHTML = `${RETRY_SVG}Retry`;

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { renderAssistantContentWrapped, decorateCodeBlocks } from '../../sdk/lib/markdown.js';
 import { stripThinkingTags } from './content-utils.js';
 import { escapeHtml } from '../../sdk/lib/html.js';
@@ -173,7 +174,7 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
   // reason to hide the route to it. Mirrors the tab's awaiting-trumps-everything
   // rule in conversation-bar._refreshTabStatus.
   if (hasPendingApprovalInTree(items)) {
-    return { kind: 'paused', goal, message: 'Waiting for approval', spinner: false };
+    return { kind: 'paused', goal, message: t('Waiting for approval'), spinner: false };
   }
 
   // Is the worker driving this session right now? Keyed on the canonical,
@@ -220,7 +221,7 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
   }
 
   if (thread.get('needsStrategyRun')) {
-    return { kind: 'pending', goal, message: 'Waiting to start…', spinner: false };
+    return { kind: 'pending', goal, message: t('Waiting to start…'), spinner: false };
   }
 
   // At rest carrying a summary from an earlier run: nothing is driving it, so
@@ -250,7 +251,7 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
         // it. A run left open behind one — a child stopped by a provider cap is
         // the ordinary case — still has its caller parked, and this tile is the
         // only place that parking can be ended.
-        return { kind: 'errored', goal, message: 'Stopped (error)', spinner: false, openRun: !!record && !record.status };
+        return { kind: 'errored', goal, message: t('Stopped (error)'), spinner: false, openRun: !!record && !record.status };
       }
     }
   }
@@ -263,7 +264,7 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
   // returned 'running' above off its own entry, so it never reaches here. Once
   // nothing is running at all a still-unfinished thread falls through to 'idle'.
   if (anyThreadLive(live)) {
-    return { kind: 'queued', goal, message: 'Waiting for its turn…', spinner: false };
+    return { kind: 'queued', goal, message: t('Waiting for its turn…'), spinner: false };
   }
 
   // A run was started for this call and never settled, and nothing is driving
@@ -339,7 +340,7 @@ export function paintThreadSummary(el, text, opts) {
 
   if (!status) {
     el.className = 'thread-summary not-summarised';
-    el.textContent = 'Thread not yet summarised';
+    el.textContent = t('Thread not yet summarised');
     return;
   }
 

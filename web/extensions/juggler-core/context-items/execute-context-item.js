@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { shellKill, MAX_EXEC_TIMEOUT_MS, DEFAULT_EXEC_TIMEOUT_MS } from 'juggler/ops';
 import { createHighlightedCode, createSummaryWithSubtitle } from 'juggler/ui';
@@ -184,7 +185,7 @@ class ExecuteContextItem extends ContextItem {
     id: 'execute',
     name: 'Execute Command',
     version: '1.0.0',
-    description: 'Execute shell commands',
+    description: t('Execute shell commands'),
     author: 'Juggler Team',
     requiresApproval: true
   };
@@ -307,11 +308,11 @@ class ExecuteContextItem extends ContextItem {
       properties: {
         command: {
           type: 'string',
-          description: 'The command to execute'
+          description: t('The command to execute')
         },
         description: {
           type: 'string',
-          description: 'Clear, concise description of what this command does in 5-10 words'
+          description: t('Clear, concise description of what this command does in 5-10 words')
         },
         timeout: {
           type: 'number',

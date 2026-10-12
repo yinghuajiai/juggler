@@ -165,7 +165,7 @@ function buildPresetMenuItem(item, preset, defaultId, selectedId, dropdown, cont
   } else {
     const setBtn = document.createElement('button');
     setBtn.className = 'sp-preset-setdefault-btn';
-    setBtn.textContent = 'Set default';
+    setBtn.textContent = t('Set default');
     setBtn.title = `Make "${preset.name}" the default for new conversations`;
     setBtn.addEventListener('click', async (e) => {
       e.stopPropagation();

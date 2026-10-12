@@ -22,6 +22,7 @@
  * @module components/workspace-create-dialog
  */
 
+import { t } from '../i18n/index.js';
 import { presentModal } from '../utils/modal-surface.js';
 import {
   NEW_ROW_PREFIX,
@@ -276,7 +277,7 @@ export function openWorkspaceCreate(session) {
       header.className = 'workspace-create-header';
       const title = document.createElement('h2');
       title.className = 'workspace-create-title';
-      title.textContent = 'New workspace';
+      title.textContent = t('New workspace');
       header.appendChild(title);
       const close = setupButton('close-button workspace-create-close', '', () => modal.close(undefined));
       close.setAttribute('aria-label', 'Close');
@@ -293,7 +294,7 @@ export function openWorkspaceCreate(session) {
       // to make one carries the definition.
       const lead = document.createElement('p');
       lead.className = 'workspace-create-lead';
-      lead.textContent = 'Workspace plugins provide different environments for the LLM to work inside.';
+      lead.textContent = t('Workspace plugins provide different environments for the LLM to work inside.');
       dialog.appendChild(lead);
 
       const body = document.createElement('div');
@@ -366,7 +367,7 @@ export function openWorkspaceCreate(session) {
       // in the rail as well it is a sentence shown as its first four words,
       // under a name that had to wrap to three lines to make room for it.
       band({
-        label: 'What kind of workspace to make',
+        label: t('What kind of workspace to make'),
         rows: offered.filter((row) => row.kind === 'new').map((row) => ({ ...row, meaning: undefined }))
       });
 
@@ -375,7 +376,7 @@ export function openWorkspaceCreate(session) {
       // created. Nothing in this band can be the selection, so it is a group of
       // offers rather than a second set of radios with nothing checked in it.
       band({
-        label: 'Trees found with no workspace',
+        label: t('Trees found with no workspace'),
         role: 'group',
         rows: offered.filter((row) => row.kind === 'adopt')
       });
@@ -412,7 +413,7 @@ export function openWorkspaceCreate(session) {
         // dialog reads as one that is still loading.
         const none = document.createElement('p');
         none.className = 'workspace-create-empty';
-        none.textContent = 'Nothing can make one.';
+        none.textContent = t('Nothing can make one.');
         detail.appendChild(none);
       }
 

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import { generateText, extensionConfigResolve } from 'juggler/ops';
 import DefaultStrategyType from './default-strategy-type.js';
 import { TOOL_STATES, itemField } from 'juggler/model';
@@ -89,7 +90,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
     id: 'auto-approve',
     name: 'Auto-approve',
     version: '1.0.0',
-    description: 'Like Default, but a cheap model auto-approves the routine prompts it is sure are safe — so you only get asked about the risky ones.',
+    description: t('Like Default, but a cheap model auto-approves the routine prompts it is sure are safe — so you only get asked about the risky ones.'),
     author: 'Juggler Team',
     color: 'var(--accent-green)',
     icon: 'icon-auto-awesome',

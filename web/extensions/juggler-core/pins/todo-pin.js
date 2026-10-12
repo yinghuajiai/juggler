@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { createTodoBlock } from '../lib/task-lists.js';
 import { mountTaskListPin } from '../lib/task-list-pin.js';
@@ -29,7 +30,7 @@ class TodoPin extends PinboardItemType {
     id: 'todo',
     name: 'Todos',
     version: '1.0.0',
-    description: 'Follows the current checklist',
+    description: t('Follows the current checklist'),
     order: 20,
     defaultPin: true,
   };

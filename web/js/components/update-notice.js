@@ -353,7 +353,7 @@ class UpdateNotice extends HTMLElement {
       const p = document.createElement('p');
       p.textContent = vm.currentVersion
         ? `You're on the latest version (${vm.currentVersion}).`
-        : "You're on the latest version.";
+        : t("You're on the latest version.");
       body.appendChild(p);
       return body;
     }
@@ -364,7 +364,7 @@ class UpdateNotice extends HTMLElement {
       const p = document.createElement('p');
       p.textContent = vm.targetVersion
         ? `Version ${vm.targetVersion} is now available.`
-        : 'A newer version is now available.';
+        : t('A newer version is now available.');
       body.appendChild(p);
     }
 
@@ -465,13 +465,13 @@ class UpdateNotice extends HTMLElement {
     if (fill) fill.style.width = indeterminate ? '' : `${Math.max(0, Math.min(100, vm.pct || 0))}%`;
     if (text) {
       if (vm.updaterState === 'ready') {
-        text.textContent = 'Update downloaded.';
+        text.textContent = t('Update downloaded.');
       } else if (vm.updaterState === 'downloading') {
         text.textContent = vm.pct === null
-          ? 'Downloading update…'
+          ? t('Downloading update…')
           : `Downloading update… ${Math.round(vm.pct)}%`;
       } else {
-        text.textContent = 'Preparing update…';
+        text.textContent = t('Preparing update…');
       }
     }
   }
@@ -577,7 +577,7 @@ class UpdateNotice extends HTMLElement {
         const proceed = await showConfirm(
           res.message || 'A conversation is still working. Restarting will stop and discard it.',
           t('Restart to update?'),
-          { confirmText: 'Restart anyway', cancelText: 'Keep working', danger: true },
+          { confirmText: t('Restart anyway'), cancelText: t('Keep working'), danger: true },
         );
         if (!proceed) return;
         res = await requestRestart({ force: true });

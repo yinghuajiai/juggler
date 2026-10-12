@@ -4,6 +4,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 
+import { t } from '../../../../js/i18n/index.js';
+
 /**
  * Bash plugin's permission-controls UI fragment.
  *
@@ -148,7 +150,7 @@ export function renderExecutePermissionSection(messageThread) {
       if (!placeholder) {
         placeholder = document.createElement('div');
         placeholder.className = 'no-patterns';
-        placeholder.textContent = 'No shell patterns configured';
+        placeholder.textContent = t('No shell patterns configured');
         listEl.appendChild(placeholder);
       }
     } else if (placeholder) {
@@ -325,7 +327,7 @@ export function renderExecutePermissionSection(messageThread) {
   render();
   return {
     id: ITEM_TYPE,
-    title: 'Shell command patterns',
+    title: t('Shell command patterns'),
     element: section,
     dispose: () => {
       messageThread.conversation.unobserveMetadata(observer);

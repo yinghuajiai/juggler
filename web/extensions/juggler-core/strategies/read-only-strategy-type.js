@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../js/i18n/index.js';
 import StrategyType, { APPROVAL_POLICY } from 'juggler/strategy-type';
 
 /**
@@ -29,7 +30,7 @@ export default class ReadOnlyStrategyType extends StrategyType {
     id: 'read-only',
     name: 'Read-only',
     version: '3.0.0',
-    description: 'Read-only mode — any actions that may change files are automatically refused',
+    description: _t('Read-only mode — any actions that may change files are automatically refused'),
     author: 'Juggler Team',
     color: 'var(--accent-purple)',
     icon: 'icon-grep',

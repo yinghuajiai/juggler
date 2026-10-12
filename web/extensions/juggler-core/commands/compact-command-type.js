@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 import {
   isCompactionPending,
@@ -25,7 +26,7 @@ class CompactCommandType extends CommandType {
     id: 'compact',
     name: 'Compact',
     version: '1.0.0',
-    description: 'Compact the entire conversation into a summary thread',
+    description: t('Compact the entire conversation into a summary thread'),
     icon: 'icon-compact',
     mutatesConversation: true
   };
@@ -37,13 +38,13 @@ class CompactCommandType extends CommandType {
    */
   async execute(_args) {
     if (!this.messageThread?.modelConfig) {
-      return { handled: true, message: 'Please select a model before compacting', error: true };
+      return { handled: true, message: t('Please select a model before compacting'), error: true };
     }
 
     const mt = /** @type {import('../../../js/model/message-thread.js').MessageThread} */ (this.messageThread);
 
     if (isCompactionPending(mt.conversationId)) {
-      return { handled: true, message: 'Compaction already in progress', error: true };
+      return { handled: true, message: t('Compaction already in progress'), error: true };
     }
 
     startCompaction(mt.conversationId);
@@ -59,7 +60,7 @@ class CompactCommandType extends CommandType {
         return { handled: true, message: `Compaction failed: ${error}`, error: true };
       }
       if (!folded) {
-        return { handled: true, message: 'Nothing to compact', error: true };
+        return { handled: true, message: t('Nothing to compact'), error: true };
       }
 
       return { handled: true };

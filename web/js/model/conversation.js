@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import ResponseHandler from '../services/response-handler.js';
 import wsService from '../services/websocket.js';
 import providersCache from '../services/providers-cache.js';
@@ -2746,7 +2747,7 @@ class Conversation {
       return;
     }
     const goToSettings = await showConfirm(message, title, {
-      confirmText: 'Go to provider settings',
+      confirmText: _t('Go to provider settings'),
       cancelText: 'Cancel',
     });
     if (goToSettings && typeof (/** @type {any} */ (window).openSettings) === 'function') {

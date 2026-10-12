@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { webSearch } from 'juggler/ops';
 import { parseDuckDuckGoResponse, looksLikeNoResults, filterResults } from './web-search/ddg-parser.js';
@@ -44,7 +45,7 @@ class WebSearchContextItem extends ContextItem {
     id: 'web-search',
     name: 'Web Search',
     version: '2.0.0',
-    description: 'Search the web (no API key required)',
+    description: t('Search the web (no API key required)'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -70,17 +71,17 @@ class WebSearchContextItem extends ContextItem {
         query: {
           type: 'string',
           minLength: 2,
-          description: 'The search query to use'
+          description: t('The search query to use')
         },
         allowed_domains: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Only include search results from these domains'
+          description: t('Only include search results from these domains')
         },
         blocked_domains: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Exclude search results from these domains'
+          description: t('Exclude search results from these domains')
         }
       },
       required: ['query']

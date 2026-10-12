@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../../js/i18n/index.js';
 import SubagentStrategyType from './subagent-strategy.js';
 import { EXPLORE_GUIDANCE } from './explore-prompt.js';
 
@@ -32,7 +33,7 @@ export default class ExploreSubagentStrategyType extends SubagentStrategyType {
     id: 'subagent-explore',
     name: 'Explore (sub-agent)',
     version: '1.0.0',
-    description: 'Read-only codebase investigation for a delegated Explore run — no network, no edits.',
+    description: _t('Read-only codebase investigation for a delegated Explore run — no network, no edits.'),
     author: 'Juggler Team',
     hidden: true,
     showsApprovalControls: false

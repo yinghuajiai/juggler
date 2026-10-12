@@ -31,6 +31,7 @@
  * @module workspaces/project-folder-workspace-provider
  */
 
+import { t } from '../../../js/i18n/index.js';
 import WorkspaceProvider from 'juggler/workspace-provider';
 import { extractErrorMessage } from 'juggler/ui';
 import { join, relativePath } from '../lib/workspace-paths.js';
@@ -63,7 +64,7 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
     id: 'project-folder',
     name: 'Subfolder',
     version: '1.0.0',
-    description: 'Conversations here work in a subfolder instead of the project root',
+    description: t('Conversations here work in a subfolder instead of the project root'),
     setupLabel: 'A subfolder of this project',
     recommendations: {
       bestFor: 'one package, service or subrepo of a large project',
@@ -330,7 +331,7 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
   async cleanupPartial(workspace, ctx) {
     void workspace;
     void ctx;
-    return { removed: true, message: 'Nothing was built for a folder, so nothing is left of it.' };
+    return { removed: true, message: t('Nothing was built for a folder, so nothing is left of it.') };
   }
 }
 

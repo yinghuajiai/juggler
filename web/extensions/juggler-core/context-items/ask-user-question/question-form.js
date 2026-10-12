@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
+
 /**
  * The pending-approval form for AskUserQuestion: the question rows, the
  * custom-answer field, the Submit/Cancel row, and the draft-selection store
@@ -218,15 +220,15 @@ function buildCustomAnswerOption(q, optionLabels, btnGroup, form) {
 
   const customLabel = document.createElement('span');
   customLabel.className = 'option-btn-label';
-  customLabel.textContent = 'Your own answer';
+  customLabel.textContent = t('Your own answer');
   customOption.appendChild(customLabel);
 
   const customField = document.createElement('textarea');
   customField.className = 'question-custom-field';
   customField.rows = 1;
   customField.placeholder = q.multiSelect
-    ? 'Type another answer…'
-    : 'Type a different answer…';
+    ? t('Type another answer…')
+    : t('Type a different answer…');
   customOption.appendChild(customField);
 
   /** @param {boolean} on - Whether the typed answer counts as selected */

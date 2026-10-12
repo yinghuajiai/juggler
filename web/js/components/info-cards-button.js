@@ -26,6 +26,7 @@
  * @module components/info-cards-button
  */
 
+import { t } from '../i18n/index.js';
 import {
   providers,
   allInfoCards,
@@ -76,7 +77,7 @@ class InfoCardsButton extends JugglerElement {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'info-cards-button';
-    btn.title = 'Show info cards';
+    btn.title = t('Show info cards');
     btn.setAttribute('aria-label', 'Show info cards');
     btn.setAttribute('aria-haspopup', 'menu');
     btn.setAttribute('aria-expanded', 'false');
@@ -151,13 +152,13 @@ class InfoCardsButton extends JugglerElement {
 
     const heading = document.createElement('li');
     heading.className = 'category-header';
-    heading.textContent = 'Info cards';
+    heading.textContent = t('Info cards');
     list.appendChild(heading);
 
     if (cards.length === 0) {
       const empty = document.createElement('li');
       empty.className = 'menu-item unavailable';
-      empty.textContent = 'No info cards.';
+      empty.textContent = t('No info cards.');
       list.appendChild(empty);
       this._menu.replaceChildren(list);
       return;

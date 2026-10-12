@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatDisplayPath } from 'juggler/item-utils';
 import { isPathInsideAllowedRoots, canonicalRoot } from 'juggler/utils/path-containment';
@@ -262,7 +263,7 @@ class EditBase extends ContextItem {
     suggestions.push({
       itemType: EDIT_ITEM_TYPE,
       rules: [allowRule],
-      label: 'file edits (writes outside the project still prompt)'
+      label: _t('file edits (writes outside the project still prompt)')
     });
     return suggestions;
   }

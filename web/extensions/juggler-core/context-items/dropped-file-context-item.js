@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatFileContentForLLM, injectFileContentStyles } from 'juggler/item-utils';
 import { fileSourceFromText } from 'juggler/file-source';
@@ -45,7 +46,7 @@ class DroppedFileContextItem extends ContextItem {
     id: 'dropped-file',
     name: 'Dropped File',
     version: '1.0.0',
-    description: 'Text file dropped into the composer (inline content snapshot)',
+    description: t('Text file dropped into the composer (inline content snapshot)'),
     author: 'Juggler Team',
     idPrefix: 'DROP',
     userAddable: false,

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { StatusMessageBuilder } from './status-message-builder.js';
 
 // The elapsed-time ticker uses requestAnimationFrame in the viewer. The engine
@@ -858,7 +859,7 @@ class LLMState {
       // is the only progress the user sees for the whole run.
       case 'compacting':
         this.start(conversationId, frame.startedAt, threadItemId);
-        this.updateStatus(conversationId, 'custom', { ...tokenData, message: message || 'Summarizing conversation' }, threadItemId);
+        this.updateStatus(conversationId, 'custom', { ...tokenData, message: message || t('Summarizing conversation') }, threadItemId);
         break;
 
       case 'idle':

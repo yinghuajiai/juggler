@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { createTextBlock, formatFileContentForLLM } from 'juggler/item-utils';
 import { formatGrepResults } from './search/grep-format.js';
@@ -54,7 +55,7 @@ class BatchContextItem extends ContextItem {
     id: 'batch',
     name: 'Batch Operations',
     version: '1.0.0',
-    description: 'Batch read and grep operations for context efficiency',
+    description: t('Batch read and grep operations for context efficiency'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -68,27 +69,27 @@ class BatchContextItem extends ContextItem {
       {
         name: 'batch_read',
         category: 'read',
-        description: 'Read up to 10 files in a single call. Returns combined content with file separators. More efficient than multiple read calls.',
+        description: t('Read up to 10 files in a single call. Returns combined content with file separators. More efficient than multiple read calls.'),
         input_schema: {
           type: 'object',
           properties: {
             files: {
               type: 'array',
-              description: 'Array of files to read (max 10)',
+              description: t('Array of files to read (max 10)'),
               items: {
                 type: 'object',
                 properties: {
                   file_path: {
                     type: 'string',
-                    description: 'Absolute file path'
+                    description: t('Absolute file path')
                   },
                   offset: {
                     type: 'number',
-                    description: 'Line number to start from (1-indexed)'
+                    description: t('Line number to start from (1-indexed)')
                   },
                   limit: {
                     type: 'number',
-                    description: 'Number of lines to read'
+                    description: t('Number of lines to read')
                   }
                 },
                 required: ['file_path']
@@ -102,32 +103,32 @@ class BatchContextItem extends ContextItem {
       {
         name: 'batch_grep',
         category: 'read',
-        description: 'Run up to 10 grep searches in a single call. Returns combined results with search separators. More efficient than multiple grep calls.',
+        description: t('Run up to 10 grep searches in a single call. Returns combined results with search separators. More efficient than multiple grep calls.'),
         input_schema: {
           type: 'object',
           properties: {
             searches: {
               type: 'array',
-              description: 'Array of searches to run (max 10)',
+              description: t('Array of searches to run (max 10)'),
               items: {
                 type: 'object',
                 properties: {
                   pattern: {
                     type: 'string',
-                    description: 'Regex pattern to search for'
+                    description: t('Regex pattern to search for')
                   },
                   path: {
                     type: 'string',
-                    description: 'Directory to search in'
+                    description: t('Directory to search in')
                   },
                   glob: {
                     type: 'string',
-                    description: 'File glob filter'
+                    description: t('File glob filter')
                   },
                   output_mode: {
                     type: 'string',
                     enum: ['content', 'files_with_matches', 'count'],
-                    description: 'Output format (default: files_with_matches)'
+                    description: t('Output format (default: files_with_matches)')
                   }
                 },
                 required: ['pattern']

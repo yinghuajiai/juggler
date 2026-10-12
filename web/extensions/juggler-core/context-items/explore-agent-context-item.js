@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import SubagentContextItem from './subagents/subagent-item.js';
 import ExploreSubagentStrategyType from './subagents/explore-strategy.js';
 
@@ -26,7 +27,7 @@ class ExploreAgentContextItem extends SubagentContextItem {
     id: 'explore-agent',
     name: 'Explore',
     version: '1.0.0',
-    description: 'Investigate this codebase in a sub-agent context',
+    description: t('Investigate this codebase in a sub-agent context'),
     author: 'Juggler Team',
     requiresApproval: false,
     // Always delegates: buildSubthreadSpec never returns null, and there is no

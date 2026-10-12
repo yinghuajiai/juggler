@@ -32,6 +32,7 @@
  * @module components/composer-schedule
  */
 
+import { t } from '../i18n/index.js';
 import scheduledSendService from '../services/scheduled-send-service.js';
 import { presentPopup } from '../utils/popup-surface.js';
 
@@ -335,14 +336,14 @@ function openSchedulePicker(composer) {
     const targetLine = document.createElement('div');
     targetLine.className = 'schedule-armed-target';
     targetLine.textContent = composer._scheduledSendMode === 'turn-end'
-      ? 'Sending when this turn ends'
+      ? t('Sending when this turn ends')
       : `Sending at ${formatClockTime(composer._scheduledSendAt)}`;
     menu.appendChild(targetLine);
 
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
     cancelBtn.className = 'schedule-cancel-btn schedule-cancel-only';
-    cancelBtn.textContent = 'Cancel timer';
+    cancelBtn.textContent = t('Cancel timer');
     cancelBtn.addEventListener('click', () => {
       cancelScheduledSend(composer);
       closeSchedulePicker(composer);
@@ -358,7 +359,7 @@ function openSchedulePicker(composer) {
 
   const heading = document.createElement('div');
   heading.className = 'schedule-send-heading';
-  heading.textContent = 'Send after a delay';
+  heading.textContent = t('Send after a delay');
   menu.appendChild(heading);
 
   // Preset chips — stretch to fill the row.
@@ -424,7 +425,7 @@ function openSchedulePicker(composer) {
     minutesValueEl.textContent = String(minutes).padStart(2, '0');
     const totalMin = hours * 60 + minutes;
     if (totalMin <= 0) {
-      scheduleBtn.textContent = 'Pick a delay above';
+      scheduleBtn.textContent = t('Pick a delay above');
       scheduleBtn.disabled = true;
     } else {
       scheduleBtn.disabled = false;
@@ -460,11 +461,11 @@ function openSchedulePicker(composer) {
   const turnEndBtn = document.createElement('button');
   turnEndBtn.type = 'button';
   turnEndBtn.className = 'schedule-turn-end-btn';
-  turnEndBtn.textContent = 'Run at end of turn';
+  turnEndBtn.textContent = t('Run at end of turn');
   turnEndBtn.disabled = !turnRunning;
   turnEndBtn.title = turnRunning
-    ? 'Wait for the current turn to finish, then send — the running turn is left alone'
-    : 'Nothing is running';
+    ? t('Wait for the current turn to finish, then send — the running turn is left alone')
+    : t('Nothing is running');
   turnEndBtn.addEventListener('click', () => {
     armScheduledSend(composer, Date.now(), 'turn-end');
     closeSchedulePicker(composer);

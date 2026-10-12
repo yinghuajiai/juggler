@@ -138,7 +138,7 @@ export class ExtensionSettingsEditor {
     const save = document.createElement('button');
     save.type = 'submit';
     save.className = 'settings-btn primary small extension-settings-save';
-    save.textContent = 'Save settings';
+    save.textContent = t('Save settings');
     actions.appendChild(save);
     form.appendChild(actions);
 
@@ -228,7 +228,7 @@ export class ExtensionSettingsEditor {
       select.className = 'settings-select extension-setting-input';
       const blank = document.createElement('option');
       blank.value = '';
-      blank.textContent = setting.required ? 'Choose an option' : 'Use default';
+      blank.textContent = setting.required ? t('Choose an option') : t('Use default');
       select.appendChild(blank);
       for (const option of setting.options || []) {
         const el = document.createElement('option');
@@ -258,7 +258,7 @@ export class ExtensionSettingsEditor {
       input.spellcheck = false;
     } else if (setting.type === 'secret') {
       input.type = 'password';
-      input.placeholder = 'Enter a new value';
+      input.placeholder = t('Enter a new value');
       input.autocomplete = 'new-password';
       input.spellcheck = false;
     } else {
@@ -275,7 +275,7 @@ export class ExtensionSettingsEditor {
   _appendSecretControls(setting, wrap, control) {
     const status = document.createElement('span');
     status.className = 'extension-secret-status';
-    status.textContent = 'Not set';
+    status.textContent = t('Not set');
     wrap.appendChild(status);
 
     const buttons = document.createElement('div');
@@ -290,7 +290,7 @@ export class ExtensionSettingsEditor {
     clear.className = 'settings-btn danger small extension-secret-clear';
     clear.textContent = 'Clear';
     clear.disabled = !!setting.required;
-    if (setting.required) clear.title = 'Required settings cannot be cleared';
+    if (setting.required) clear.title = t('Required settings cannot be cleared');
     clear.addEventListener('click', () => this._saveSecret(setting, ''));
     buttons.append(save, clear);
     wrap.appendChild(buttons);
@@ -323,7 +323,7 @@ export class ExtensionSettingsEditor {
         control.value = '';
         const row = control.closest('.extension-setting-field');
         const status = row?.querySelector('.extension-secret-status');
-        if (status) status.textContent = present ? 'Set' : 'Not set';
+        if (status) status.textContent = present ? 'Set' : t('Not set');
         const clear = /** @type {HTMLButtonElement|null} */ (row?.querySelector('.extension-secret-clear'));
         if (clear && !setting.required) clear.disabled = !present;
       } else if (setting.type === 'boolean') {

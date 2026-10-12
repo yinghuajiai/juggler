@@ -378,12 +378,12 @@ class NoProjectOverlay extends HTMLElement {
 
     if (names.length === 0) {
       host.classList.add('np-provider--none');
-      text.textContent = 'No AI provider connected. Juggler needs one before it can answer.';
+      text.textContent = t('No AI provider connected. Juggler needs one before it can answer.');
       host.appendChild(text);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'onboarding-link np-connect';
-      btn.textContent = 'Connect one';
+      btn.textContent = t('Connect one');
       btn.addEventListener('click', () => openSettings('providers'));
       host.appendChild(btn);
       return;

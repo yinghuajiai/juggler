@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 
 /**
@@ -13,7 +14,7 @@ class ClearCommandType extends CommandType {
     id: 'clear',
     name: 'Clear Conversation',
     version: '1.0.0',
-    description: 'Clear conversation messages',
+    description: t('Clear conversation messages'),
     danger: true,
     icon: 'icon-trashcan',
     mutatesConversation: true,
@@ -36,7 +37,7 @@ class ClearCommandType extends CommandType {
     await conversation?.session?.seedConversationAutoItems(conversation, mt);
     return {
       handled: true,
-      message: 'Conversation cleared'
+      message: t('Conversation cleared')
     };
   }
 }

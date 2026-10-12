@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
+
 /**
  * @typedef {object} ToolDefinition
  * @property {string} name - Tool name
@@ -153,7 +155,7 @@ export async function generateToolDefinitions() {
     {
       name: 'drop_context_items',
       category: 'meta',
-      description: 'Removes context items from context when no longer needed. Use this to free up context space.',
+      description: _t('Removes context items from context when no longer needed. Use this to free up context space.'),
       input_schema: {
         type: 'object',
         properties: {

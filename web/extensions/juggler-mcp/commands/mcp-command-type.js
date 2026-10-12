@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Apache-2.0 - see LICENSE
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 import { mcpListServers, mcpServerControl, mcpGetLog } from 'juggler/ops';
 import { extractErrorMessage } from 'juggler/ui';
@@ -22,7 +23,7 @@ class McpCommandType extends CommandType {
     id: 'mcp',
     name: 'MCP Servers',
     version: '1.0.0',
-    description: 'List and control connected MCP servers',
+    description: t('List and control connected MCP servers'),
     icon: 'icon-search'
   };
 
@@ -51,7 +52,7 @@ class McpCommandType extends CommandType {
           return { handled: true, message: await McpCommandType._list() };
         }
         case 'logs':
-          if (!name) return { handled: true, message: 'Usage: /mcp logs <server>' };
+          if (!name) return { handled: true, message: t('Usage: /mcp logs <server>') };
           {
             const { log } = await mcpGetLog({ server: name });
             return { handled: true, message: log ? `MCP "${name}" recent output:\n\n${log}` : `No recent output for "${name}".` };

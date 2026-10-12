@@ -75,7 +75,7 @@ async function confirmStoppingTurn(commandName) {
   const answer = await showConfirm(
     `/${commandName} can't run while a turn is in flight. Running it now stops the turn.`,
     t('Stop the current turn?'),
-    { confirmText: 'Stop turn', cancelText: 'Leave it running', danger: true }
+    { confirmText: t('Stop turn'), cancelText: t('Leave it running'), danger: true }
   );
   return !!answer;
 }
@@ -136,7 +136,7 @@ class SlashCommandHandler {
     if (CommandClass.MANIFEST?.rejectWhileBusy && conv?.isTurnActive()) {
       return {
         handled: true,
-        message: 'Wait for the current turn to finish before creating a new thread.',
+        message: t('Wait for the current turn to finish before creating a new thread.'),
         error: true
       };
     }

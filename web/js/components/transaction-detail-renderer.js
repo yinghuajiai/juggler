@@ -17,6 +17,7 @@
  * first time it is opened, so a hundred-message history costs nothing to show.
  */
 
+import { t as _t } from '../i18n/index.js';
 import { formatNumber, formatTokens } from '../utils/format.js';
 import { escapeJsonContent } from '../../sdk/lib/html.js';
 import { createCopyButton } from '../utils/properties-panel-helpers.js';
@@ -318,7 +319,7 @@ function _row(kind, label, value, { open = false, body = undefined } = {}) {
   const sizeEl = document.createElement('span');
   sizeEl.className = 'tx-row-size';
   sizeEl.textContent = `~${formatTokens(estimateValueTokens(value))}`;
-  sizeEl.title = 'Estimated tokens (~4 characters per token)';
+  sizeEl.title = _t('Estimated tokens (~4 characters per token)');
   summary.appendChild(sizeEl);
 
   summary.appendChild(createCopyButton(
@@ -401,7 +402,7 @@ function _buildToolList(groups, tools, blob, messageThread) {
     const count = document.createElement('span');
     count.className = 'tx-tool-group-count';
     count.textContent = `${group.tools.length} · ~${formatTokens(group.tokens)}`;
-    count.title = 'Tools in this group, and their estimated share of the request';
+    count.title = _t('Tools in this group, and their estimated share of the request');
     heading.appendChild(count);
 
     body.appendChild(heading);
@@ -510,7 +511,7 @@ function _buildToolEntry(tool, server) {
   const size = document.createElement('span');
   size.className = 'tx-row-size';
   size.textContent = `~${formatTokens(estimateValueTokens(tool))}`;
-  size.title = 'Estimated tokens (~4 characters per token)';
+  size.title = _t('Estimated tokens (~4 characters per token)');
   summary.appendChild(size);
 
   entry.appendChild(summary);

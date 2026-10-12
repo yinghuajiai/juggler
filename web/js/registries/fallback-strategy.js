@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import StrategyType from 'juggler/strategy-type';
 
 /**
@@ -37,7 +38,7 @@ export default class FallbackStrategy extends StrategyType {
     id: 'fallback',
     name: 'No Strategy',
     version: '1.0.0',
-    description: 'Built-in placeholder used when no strategy plugin is enabled. It only keeps the app alive and the Extensions settings reachable so a strategy can be re-enabled.',
+    description: t('Built-in placeholder used when no strategy plugin is enabled. It only keeps the app alive and the Extensions settings reachable so a strategy can be re-enabled.'),
     author: 'Juggler',
   };
 }

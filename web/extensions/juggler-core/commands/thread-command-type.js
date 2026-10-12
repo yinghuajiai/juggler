@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 
 /**
@@ -16,7 +17,7 @@ class ThreadCommandType extends CommandType {
     id: 'thread',
     name: 'New Thread',
     version: '1.0.0',
-    description: 'Create a new sub-conversation thread',
+    description: t('Create a new sub-conversation thread'),
     icon: 'icon-thread',
     mutatesConversation: true,
     rejectWhileBusy: true

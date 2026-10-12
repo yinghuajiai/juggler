@@ -18,6 +18,7 @@
  * @module components/workspace-setup-form
  */
 
+import { t } from '../i18n/index.js';
 import workspaceProviderRegistry from '../registries/workspace-provider-registry.js';
 import { createBoundOps } from '../../sdk/ops.js';
 // For the side effect of defining <path-input>: a provider builds its fields
@@ -78,7 +79,7 @@ export function buildProviderFields(request) {
 
   const provider = workspaceProviderRegistry.createProvider(providerId, session) ?? null;
   if (!provider) {
-    fields.textContent = 'This provider is not loaded.';
+    fields.textContent = t('This provider is not loaded.');
     return { element: fields, provider: null, getValue: () => ({ valid: false, values: {} }) };
   }
 

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatDisplayPath, formatFileSize, formatFileContentForLLM, normalizeFilePath, injectFileContentStyles, basename } from 'juggler/item-utils';
 import { addFilePath } from 'juggler/ui';
@@ -64,7 +65,7 @@ class ReadFileContextItem extends ContextItem {
     id: 'read-file',
     name: 'Read File',
     version: '1.0.0',
-    description: 'Read file content with support for full files, line ranges, tail/head modes',
+    description: t('Read file content with support for full files, line ranges, tail/head modes'),
     author: 'Juggler Team',
     // Reads are approval-gated, but only OUT-OF-ROOT ones ever prompt: isPermitted
     // auto-approves any read inside the project or a granted allowed path, so the
@@ -85,15 +86,15 @@ class ReadFileContextItem extends ContextItem {
       properties: {
         file_path: {
           type: 'string',
-          description: 'The absolute path to the file to read'
+          description: t('The absolute path to the file to read')
         },
         offset: {
           type: 'number',
-          description: 'The line number to start reading from (1-indexed). Only provide if the file is too large to read at once.'
+          description: t('The line number to start reading from (1-indexed). Only provide if the file is too large to read at once.')
         },
         limit: {
           type: 'number',
-          description: 'The number of lines to read. Only provide if the file is too large to read at once.'
+          description: t('The number of lines to read. Only provide if the file is too large to read at once.')
         }
       },
       required: ['file_path']

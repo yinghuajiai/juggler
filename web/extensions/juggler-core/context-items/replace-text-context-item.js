@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import EditBase from './edit-base.js';
 import { normalizeFilePath, basename } from 'juggler/item-utils';
 import { checkFileFreshness, recordWrittenHash, restageBaseline, acquirePathLock } from './read-history.js';
@@ -52,7 +53,7 @@ class ReplaceTextContextItem extends EditBase {
     id: 'replace-text',
     name: 'Replace Text',
     version: '1.0.0',
-    description: 'Find and replace text in files',
+    description: t('Find and replace text in files'),
     author: 'Juggler Team',
     requiresApproval: true
   };
@@ -73,20 +74,20 @@ class ReplaceTextContextItem extends EditBase {
       properties: {
         file_path: {
           type: 'string',
-          description: 'The absolute path to the file to modify. Must be inside the working directory unless the user explicitly asked for a location outside it.'
+          description: t('The absolute path to the file to modify. Must be inside the working directory unless the user explicitly asked for a location outside it.')
         },
         old_string: {
           type: 'string',
-          description: 'The text to replace (must be different from new_string)'
+          description: t('The text to replace (must be different from new_string)')
         },
         new_string: {
           type: 'string',
-          description: 'The text to replace it with (must be different from old_string)'
+          description: t('The text to replace it with (must be different from old_string)')
         },
         replace_all: {
           type: 'boolean',
           default: false,
-          description: 'Replace all occurrences of old_string (default false)'
+          description: t('Replace all occurrences of old_string (default false)')
         }
       },
       required: ['file_path', 'old_string', 'new_string']

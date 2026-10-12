@@ -22,6 +22,7 @@
  * @module components/pinboard-add-picker
  */
 
+import { t } from '../i18n/index.js';
 import pinboardItemRegistry from '../registries/pinboard-item-registry.js';
 import pinboardStore from '../services/pinboard-store.js';
 import { presentPopup } from '../utils/popup-surface.js';
@@ -113,7 +114,7 @@ export function openAddPicker({ anchor, active, onPick }) {
     filter = document.createElement('input');
     filter.type = 'search';
     filter.className = 'pinboard-add-picker__filter';
-    filter.placeholder = 'Search…';
+    filter.placeholder = t('Search…');
     filter.setAttribute('aria-label', 'Search pinboard items');
     filter.addEventListener('input', () => render(filter?.value || ''));
     menu.appendChild(filter);
@@ -138,7 +139,7 @@ export function openAddPicker({ anchor, active, onPick }) {
     if (!shown.length) {
       const empty = document.createElement('li');
       empty.className = 'menu-item unavailable';
-      empty.textContent = needle ? 'Nothing.' : 'Nothing to add.';
+      empty.textContent = needle ? t('Nothing.') : t('Nothing to add.');
       list.appendChild(empty);
       return;
     }

@@ -23,6 +23,7 @@
  * @module components/workspace-move-dialog
  */
 
+import { t } from '../i18n/index.js';
 import { presentModal } from '../utils/modal-surface.js';
 import { rebindConversation } from '../services/workspace-rebinding.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -61,7 +62,7 @@ export function openWorkspaceMove(conversation, workspaceId) {
      * @returns {{label: string, path: string}} Its name and its address.
      */
     const describe = (id) => {
-      if (!id) return { label: 'The project folder', path: session?.projectPath || '' };
+      if (!id) return { label: t('The project folder'), path: session?.projectPath || '' };
       const workspace = session?.getWorkspace?.(id);
       // The id is the last resort rather than a lie: a workspace this window
       // cannot resolve is one the move is about to be refused for, and the
@@ -170,7 +171,7 @@ export function openWorkspaceMove(conversation, workspaceId) {
       header.className = 'workspace-move-header';
       const title = document.createElement('h2');
       title.className = 'workspace-move-title';
-      title.textContent = 'Move this conversation';
+      title.textContent = t('Move this conversation');
       header.appendChild(title);
       const close = setupButton('close-button workspace-move-close', '', () => modal.close(undefined));
       close.setAttribute('aria-label', 'Close');

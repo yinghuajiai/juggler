@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 import { createFileContentBlock, formatFileContentForLLM } from 'juggler/item-utils';
 import { languageForPath } from 'juggler/ui';
@@ -29,7 +30,7 @@ class TextFileViewer extends FileViewer {
     id: 'text',
     name: 'Text',
     version: '1.0.0',
-    description: 'Renders text and source files with syntax highlighting',
+    description: t('Renders text and source files with syntax highlighting'),
     matchAll: true,
     priority: 0,
   };

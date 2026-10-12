@@ -185,8 +185,8 @@ export function setupHeaderControls(session) {
   const updateProjectPath = (/** @type {string} */ projectPath) => {
     if (!pathDisplay || !pathLabel) return;
     if (!projectPath) {
-      pathLabel.textContent = 'Set project folder';
-      if (pathChip) pathChip.title = 'Click to set the project folder';
+      pathLabel.textContent = t('Set project folder');
+      if (pathChip) pathChip.title = t('Click to set the project folder');
       pathDisplay.classList.add('is-empty');
     } else {
       pathLabel.textContent = projectPath;

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { createElement, createFileActions, createReviewPanel, injectStylesOnce } from 'juggler/ui';
 import { pinEmpty } from '../lib/pin-empty.js';
@@ -166,7 +167,7 @@ class GitPin extends PinboardItemType {
     id: 'git',
     name: 'Git',
     version: '1.0.0',
-    description: "Review the working tree against HEAD — the project's, or the visible conversation's workspace — and comment on the changes",
+    description: t("Review the working tree against HEAD — the project's, or the visible conversation's workspace — and comment on the changes"),
     order: 40,
     defaultPin: true,
   };
@@ -186,7 +187,7 @@ class GitPin extends PinboardItemType {
    * @returns {import('juggler/pinboard-item-type').PinDescription} The tab's words.
    */
   describe() {
-    return { title: this.name, subtitle: 'Review changes' };
+    return { title: this.name, subtitle: t('Review changes') };
   }
 
   /**

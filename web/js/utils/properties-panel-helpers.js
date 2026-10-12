@@ -11,6 +11,7 @@
  * without coupling to the PropertiesPanel component.
  */
 
+import { t } from '../i18n/index.js';
 import { revealLabel } from '../components/reveal-button.js';
 import { showNotice } from '../components/modal-dialog.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -218,7 +219,7 @@ export function createFileActions(path, options = {}) {
     const open = document.createElement('button');
     open.type = 'button';
     open.className = 'properties-panel-filepath-btn';
-    open.title = 'Open file';
+    open.title = t('Open file');
     open.setAttribute('aria-label', 'Open file');
     open.innerHTML = OPEN_IN_NEW_SVG;
     open.addEventListener('click', () => { void openPath(path); });
@@ -424,10 +425,10 @@ registerContextMenuProvider({
     if (!path) return null;
     /** @type {import('../services/context-menu-service.js').ContextMenuItem[]} */
     const items = [
-      { label: 'Open file', onClick: () => { void openPath(path); } },
+      { label: t('Open file'), onClick: () => { void openPath(path); } },
       { label: revealLabel(), onClick: () => { void showPath(path); } },
       {
-        label: 'Copy path',
+        label: t('Copy path'),
         // The menu row has no button to flash a tick on, so a clipboard the
         // browser refused would otherwise look exactly like one that worked.
         onClick: () => {
@@ -457,7 +458,7 @@ registerContextMenuProvider({
     const unpin = host && /** @type {any} */ (host)._jugglerRemoveFromContext;
     if (typeof unpin === 'function') {
       items.push({ separator: true });
-      items.push({ label: 'Remove from context', danger: true, onClick: () => unpin() });
+      items.push({ label: t('Remove from context'), danger: true, onClick: () => unpin() });
     }
     return items;
   },

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { buildMultiQuestionForm } from './ask-user-question/question-form.js';
 
@@ -110,7 +111,7 @@ class AskUserQuestionContextItem extends ContextItem {
     id: 'ask-user-question',
     name: 'Ask User Question',
     version: '1.0.0',
-    description: 'Ask the user questions with structured options',
+    description: t('Ask the user questions with structured options'),
     author: 'Juggler Team',
     requiresApproval: true,
     // This tool's approval surface is a data-entry form, not a go/no-go gate:
@@ -140,13 +141,13 @@ class AskUserQuestionContextItem extends ContextItem {
       {
         name: 'AskUserQuestion',
         category: 'read',
-        description: 'Ask the user questions to gather preferences, clarify instructions, or get decisions on implementation choices.',
+        description: t('Ask the user questions to gather preferences, clarify instructions, or get decisions on implementation choices.'),
         input_schema: {
           type: 'object',
           properties: {
             questions: {
               type: 'array',
-              description: 'Questions to ask the user (1-4 questions)',
+              description: t('Questions to ask the user (1-4 questions)'),
               minItems: 1,
               maxItems: 4,
               items: {
@@ -154,15 +155,15 @@ class AskUserQuestionContextItem extends ContextItem {
                 properties: {
                   question: {
                     type: 'string',
-                    description: 'The complete question to ask the user'
+                    description: t('The complete question to ask the user')
                   },
                   header: {
                     type: 'string',
-                    description: 'Short label displayed as a chip/tag'
+                    description: t('Short label displayed as a chip/tag')
                   },
                   options: {
                     type: 'array',
-                    description: 'The available choices (2-4 options)',
+                    description: t('The available choices (2-4 options)'),
                     minItems: 2,
                     maxItems: 4,
                     items: {
@@ -170,11 +171,11 @@ class AskUserQuestionContextItem extends ContextItem {
                       properties: {
                         label: {
                           type: 'string',
-                          description: 'The display text for this option'
+                          description: t('The display text for this option')
                         },
                         description: {
                           type: 'string',
-                          description: 'Explanation of what this option means'
+                          description: t('Explanation of what this option means')
                         }
                       },
                       required: ['label', 'description']
@@ -182,7 +183,7 @@ class AskUserQuestionContextItem extends ContextItem {
                   },
                   multiSelect: {
                     type: 'boolean',
-                    description: 'Whether to allow multiple selections'
+                    description: t('Whether to allow multiple selections')
                   }
                 },
                 required: ['question', 'header', 'options', 'multiSelect']
@@ -352,7 +353,7 @@ class AskUserQuestionContextItem extends ContextItem {
         // text is rendered in full inside the form below, so repeating it here
         // would duplicate it.
         summary: questions.length === 1
-          ? (questions[0]?.header || 'Waiting for user response...')
+          ? (questions[0]?.header || t('Waiting for user response...'))
           : `Answering ${questions.length} questions...`,
         customFormElement: context ? this._buildMultiQuestionForm(questions, context) : undefined
       }),

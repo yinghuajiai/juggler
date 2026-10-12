@@ -20,6 +20,7 @@
  * @module services/workspace-places
  */
 
+import { t } from '../i18n/index.js';
 import workspaceProviderRegistry from '../registries/workspace-provider-registry.js';
 import { workspaceStatus } from './workspace-provisioning.js';
 import { registerWorkspace, isWorkspaceUsable } from './workspaces.js';
@@ -84,7 +85,7 @@ export function setupRows(session) {
   const rows = [{
     kind: 'project',
     id: PROJECT_ROW_ID,
-    label: 'The project folder',
+    label: t('The project folder'),
     // Where every conversation worked before workspaces existed, said plainly:
     // the reader deciding this has met the word "workspace" for the first time a
     // moment ago, and what they need is what happens to their files. It is named

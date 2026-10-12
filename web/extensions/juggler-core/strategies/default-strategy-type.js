@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import StrategyType from 'juggler/strategy-type';
 
 /**
@@ -25,7 +26,7 @@ export default class DefaultStrategyType extends StrategyType {
     id: 'default',
     name: 'Default Strategy',
     version: '2.0.0',
-    description: 'Standard Juggler behavior - general-purpose coding assistant',
+    description: t('Standard Juggler behavior - general-purpose coding assistant'),
     author: 'Juggler Team',
     color: 'var(--accent-yellow)',
     icon: 'icon-live-help',

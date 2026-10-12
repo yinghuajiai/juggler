@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import { modelLabelFromList } from '../../model/model-display.js';
 import { buildModelConfig } from '../../model/model-config.js';
 import { presentPopup } from '../../utils/popup-surface.js';
@@ -236,8 +237,8 @@ export class DefaultsTab {
     const description = document.createElement('div');
     description.className = 'provider-description';
     description.textContent =
-      'A custom instruction for the naming model, replacing the built-in one ' +
-      'shown here. Leave blank for the default.';
+      t('A custom instruction for the naming model, replacing the built-in one ' +
+      'shown here. Leave blank for the default.');
     wrap.appendChild(description);
 
     const textarea = document.createElement('textarea');
@@ -262,14 +263,14 @@ export class DefaultsTab {
     const save = async () => {
       const value = textarea.value.trim();
       if (value === (/** @type {any} */ (this.config).autoNameInstruction || '')) return;
-      status.textContent = 'Saving…';
+      status.textContent = t('Saving…');
       try {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { auto_name_instruction: value } });
         /** @type {any} */ (this.config).autoNameInstruction = value;
-        status.textContent = value ? 'Saved custom instruction.' : 'Saved. Using the built-in prompt.';
+        status.textContent = value ? t('Saved custom instruction.') : t('Saved. Using the built-in prompt.');
       } catch (e) {
         console.error('[SettingsPanel] Failed to save auto-name instruction:', e);
-        status.textContent = 'Failed to save.';
+        status.textContent = t('Failed to save.');
       }
     };
 
@@ -305,12 +306,12 @@ export class DefaultsTab {
     infoColumn.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Default strategy for new conversations';
+    name.textContent = t('Default strategy for new conversations');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
     desc.textContent =
-      'The strategy each new conversation starts on. You can still switch strategy per ' +
-      'conversation afterwards.';
+      t('The strategy each new conversation starts on. You can still switch strategy per ' +
+      'conversation afterwards.');
     infoColumn.appendChild(name);
     infoColumn.appendChild(desc);
 
@@ -410,12 +411,12 @@ export class DefaultsTab {
     container.appendChild(autoCompactRow);
 
     this._appendNumberField(container, {
-      heading: 'Stream idle timeout',
+      heading: t('Stream idle timeout'),
       name: 'Seconds to wait',
       description:
-        'Seconds to wait for the next stream event before treating the connection ' +
+        t('Seconds to wait for the next stream event before treating the connection ' +
         'as dropped ("stream stalled"). Raise it for gateways with slow cold ' +
-        'starts. Leave blank for the default (180).',
+        'starts. Leave blank for the default (180).'),
       inputId: 'stream-idle-timeout-input',
       placeholder: '180',
       current: () => /** @type {any} */ (this.config).streamIdleTimeout || '',
@@ -432,15 +433,15 @@ export class DefaultsTab {
     // the figure people reason about is "twenty million", and a field asking
     // them to count zeroes invites the slip that switches the guard off.
     this._appendNumberField(container, {
-      heading: 'Spend ceiling',
+      heading: t('Spend ceiling'),
       name: 'Million tokens per conversation',
       description:
-        'Counts the input a conversation has not already paid for, across all of ' +
+        t('Counts the input a conversation has not already paid for, across all of ' +
         'its threads: context re-read from cache does not add to it. Past the ' +
         'ceiling, sub-threads an agent started are asked to finish up and report ' +
         'what they have, and no new ones are started — in your own threads too, ' +
         'though your turns are never stopped. Leave blank for the default (10). ' +
-        '0 removes the ceiling.',
+        '0 removes the ceiling.'),
       inputId: 'spend-limit-input',
       placeholder: '10',
       current: () => {
@@ -498,7 +499,7 @@ export class DefaultsTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Lines of context';
+    name.textContent = t('Lines of context');
     const description = document.createElement('div');
     description.className = 'provider-description';
     description.textContent =
@@ -600,7 +601,7 @@ export class DefaultsTab {
       const value = input.value.trim();
       if (value === opts.current()) return;
       if (value !== '' && !/^\d+$/.test(value)) {
-        status.textContent = 'Enter a whole number.';
+        status.textContent = t('Enter a whole number.');
         return;
       }
       const invalid = value === '' ? '' : (opts.validate?.(value) || '');
@@ -608,12 +609,12 @@ export class DefaultsTab {
         status.textContent = invalid;
         return;
       }
-      status.textContent = 'Saving…';
+      status.textContent = t('Saving…');
       try {
         status.textContent = await opts.save(value);
       } catch (e) {
         console.error(`[SettingsPanel] Failed to save ${opts.failureLog}:`, e);
-        status.textContent = 'Failed to save.';
+        status.textContent = t('Failed to save.');
       }
     };
 
@@ -665,7 +666,7 @@ export class DefaultsTab {
     this._renderModelRow({
       containerId: '#cheap-model-field-container',
       nameLabel: 'Cheap model',
-      description: '"Automatic" derives one from the model in use.',
+      description: t('"Automatic" derives one from the model in use.'),
       current: this.cheapModel || { explicit: false },
       // The one row with a third state. Turning it off is a real answer — the
       // tasks it runs are optional — and recording it is what stops the server

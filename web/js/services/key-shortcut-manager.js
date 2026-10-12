@@ -27,6 +27,7 @@
  * @module services/key-shortcut-manager
  */
 
+import { t } from '../i18n/index.js';
 import { isAnyPopupOpen } from '../utils/popup-manager.js';
 import { hasNativeHost } from '../../sdk/lib/window-control.js';
 
@@ -236,7 +237,7 @@ export function formatBindingForPlatform(binding, mac) {
 const SHORTCUT_DEFS = [
   {
     id: 'jump-to-attention',
-    label: 'Jump to conversation needing attention',
+    label: t('Jump to conversation needing attention'),
     description: 'Switch to the next conversation waiting on you; select its first '
       + 'pending approval, or scroll to the end if it just needs a look.',
     category: 'Conversations',
@@ -245,8 +246,8 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'new-conversation',
-    label: 'New conversation',
-    description: 'Create a new conversation and switch to it.',
+    label: t('New conversation'),
+    description: t('Create a new conversation and switch to it.'),
     category: 'Conversations',
     // shift:false is load-bearing: an omitted shift is *tolerant* (see
     // eventMatchesBinding), so ⌘N and ⇧⌘N would both match — and ⇧⌘N is the New
@@ -264,17 +265,17 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'new-window',
-    label: 'New window',
-    description: 'Open a new app window. Desktop app only — in a plain browser tab '
-      + 'the key is left to the browser.',
+    label: t('New window'),
+    description: t('Open a new app window. Desktop app only — in a plain browser tab '
+      + 'the key is left to the browser.'),
     category: 'Conversations',
     defaultBinding: { mod: true, shift: true, key: 'n' },
     allowInInput: true,
   },
   {
     id: 'prev-tab',
-    label: 'Previous conversation',
-    description: 'Switch to the conversation above in the tab list (wraps around).',
+    label: t('Previous conversation'),
+    description: t('Switch to the conversation above in the tab list (wraps around).'),
     category: 'Conversations',
     // ⌥⌘↑/↓ is the established "move between tabs" gesture on the Mac (Discord,
     // others), and macOS is the only place it ships: the Windows/Linux twin,
@@ -302,8 +303,8 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'next-tab',
-    label: 'Next conversation',
-    description: 'Switch to the conversation below in the tab list (wraps around).',
+    label: t('Next conversation'),
+    description: t('Switch to the conversation below in the tab list (wraps around).'),
     category: 'Conversations',
     defaultBinding: { mod: true, alt: true, key: 'ArrowDown', platform: 'mac' },
     aliasBindings: [{ shift: false, key: 'PageDown' }],
@@ -311,9 +312,9 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'move-tab-up',
-    label: 'Move conversation up',
-    description: 'Move the current conversation one place up the tab list, within its '
-      + 'own workspace box.',
+    label: t('Move conversation up'),
+    description: t('Move the current conversation one place up the tab list, within its '
+      + 'own workspace box.'),
     category: 'Conversations',
     // The Shift-ed twin of the Page key that steps to the tab above: the same key
     // moves the tab instead of the selection.
@@ -325,18 +326,18 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'move-tab-down',
-    label: 'Move conversation down',
-    description: 'Move the current conversation one place down the tab list, within its '
-      + 'own workspace box.',
+    label: t('Move conversation down'),
+    description: t('Move the current conversation one place down the tab list, within its '
+      + 'own workspace box.'),
     category: 'Conversations',
     defaultBinding: { shift: true, key: 'PageDown' },
     allowInInput: 'unscrolled',
   },
   {
     id: 'select-prev-item',
-    label: 'Select previous item',
-    description: 'Move the selection to the item above in the conversation, without '
-      + 'leaving the message box.',
+    label: t('Select previous item'),
+    description: t('Move the selection to the item above in the conversation, without '
+      + 'leaving the message box.'),
     category: 'Conversations',
     // ⌥↑/Alt+Up, the chat-app "move in the sidebar while typing" key (Slack,
     // Discord). Its native meaning in a text field is macOS's paragraph jump —
@@ -351,17 +352,17 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'select-next-item',
-    label: 'Select next item',
-    description: 'Move the selection to the item below in the conversation, without '
-      + 'leaving the message box.',
+    label: t('Select next item'),
+    description: t('Move the selection to the item below in the conversation, without '
+      + 'leaving the message box.'),
     category: 'Conversations',
     defaultBinding: { alt: true, shift: false, key: 'ArrowDown' },
     allowInInput: true,
   },
   {
     id: 'bin-conversation',
-    label: 'Move conversation to bin',
-    description: 'Move the current conversation to the bin.',
+    label: t('Move conversation to bin'),
+    description: t('Move the current conversation to the bin.'),
     category: 'Conversations',
     // Fires from the composer only when it's empty, so it works when you'd press
     // it (the composer is focused most of the time) without hijacking ⌘⌫ /
@@ -373,17 +374,17 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'toggle-file-editing',
-    label: 'Toggle file edit permission',
-    description: 'Allow or ask-before file edits for the current conversation.',
+    label: t('Toggle file edit permission'),
+    description: t('Allow or ask-before file edits for the current conversation.'),
     category: 'Conversations',
     defaultBinding: { mod: true, key: 'e' },
     allowInInput: true,
   },
   {
     id: 'rename-conversation',
-    label: 'Rename conversation',
-    description: 'Rename the current conversation (opens the tab\u2019s inline name '
-      + 'editor). Also on Return when the tab bar itself is focused.',
+    label: t('Rename conversation'),
+    description: t('Rename the current conversation (opens the tab\u2019s inline name '
+      + 'editor). Also on Return when the tab bar itself is focused.'),
     category: 'Conversations',
     // F2 is the cross-platform rename key (Explorer/most tree views on
     // Windows/Linux; unclaimed on macOS, so it's safe to bind app-wide). It has
@@ -395,10 +396,10 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'pause-conversation',
-    label: 'Pause conversation',
-    description: 'Stops as soon as possible without interrupting any tool'
+    label: t('Pause conversation'),
+    description: t('Stops as soon as possible without interrupting any tool'
       + ' uses or in-flight LLM responses. Trades places with plain Escape under'
-      + ' some Escape-key behaviours (see below).',
+      + ' some Escape-key behaviours (see below).'),
     category: 'Conversations',
     // Dispatched externally: both Escape keydown handlers (conversation-tab.js and
     // composer.js) delegate to escape-behaviour.js, which routes Shift+Escape to
@@ -414,7 +415,7 @@ const SHORTCUT_DEFS = [
     // though Find long ago stopped being about conversations alone.
     id: 'find-in-conversation',
     label: 'Find',
-    description: 'Open the find bar to search for text in the panel you are in.',
+    description: t('Open the find bar to search for text in the panel you are in.'),
     category: 'Search',
     // Works while typing in the composer — the find bar is a search overlay, so
     // it must be reachable without first leaving the text field.
@@ -424,7 +425,7 @@ const SHORTCUT_DEFS = [
   {
     id: 'undo',
     label: 'Undo',
-    description: 'Undo the last change in the current conversation.',
+    description: t('Undo the last change in the current conversation.'),
     category: 'Editing',
     // Not in text fields — the composer has its own native undo.
     defaultBinding: { mod: true, shift: false, key: 'z' },
@@ -433,32 +434,32 @@ const SHORTCUT_DEFS = [
   {
     id: 'redo',
     label: 'Redo',
-    description: 'Redo the last undone change in the current conversation.',
+    description: t('Redo the last undone change in the current conversation.'),
     category: 'Editing',
     defaultBinding: { mod: true, shift: true, key: 'z' },
     allowInInput: false,
   },
   {
     id: 'zoom-in',
-    label: 'Zoom in',
-    description: 'Increase the interface zoom level.',
+    label: t('Zoom in'),
+    description: t('Increase the interface zoom level.'),
     category: 'View',
     defaultBinding: { mod: true, key: '=', displayKey: '+' },
     allowInInput: true,
   },
   {
     id: 'zoom-out',
-    label: 'Zoom out',
-    description: 'Decrease the interface zoom level.',
+    label: t('Zoom out'),
+    description: t('Decrease the interface zoom level.'),
     category: 'View',
     defaultBinding: { mod: true, key: '-', displayKey: '−' },
     allowInInput: true,
   },
   {
     id: 'toggle-tool-grouping',
-    label: 'Group consecutive tool uses',
-    description: 'Collapse runs of adjacent tool uses into a single group item, or '
-      + 'show them individually again.',
+    label: t('Group consecutive tool uses'),
+    description: t('Collapse runs of adjacent tool uses into a single group item, or '
+      + 'show them individually again.'),
     category: 'View',
     // ⌥⌘G / Ctrl+Alt+G — G for "group"; bare ⌘G is find-next everywhere, so the
     // Option is load-bearing. Fires from the composer (allowInInput) since it is
@@ -469,9 +470,9 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'toggle-pinboard',
-    label: 'Toggle Pinboard',
-    description: 'Open or close the pinboard \u2014 the tabbed panel of pinned items '
-      + 'behind the right edge of the window.',
+    label: t('Toggle Pinboard'),
+    description: t('Open or close the pinboard \u2014 the tabbed panel of pinned items '
+      + 'behind the right edge of the window.'),
     category: 'View',
     // ⌥⌘P / Ctrl+Alt+P — P for pinboard, in the same ⌥⌘ family as the other
     // panel/mode toggles (⌥⌘G, ⌥⌘M, ⌥⌘T). Bare ⌘P is Print in every browser and
@@ -487,7 +488,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'prev-pin',
-    label: 'Previous pin',
+    label: t('Previous pin'),
     description: 'Show the pinboard tab to the left. Plain \u2190 does the same when the '
       + 'board has focus and nothing inside the pin wants the key; this chord works '
       + 'wherever focus is.',
@@ -507,7 +508,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'next-pin',
-    label: 'Next pin',
+    label: t('Next pin'),
     description: 'Show the pinboard tab to the right. Plain \u2192 does the same when the '
       + 'board has focus and nothing inside the pin wants the key; this chord works '
       + 'wherever focus is.',
@@ -519,8 +520,8 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'show-shortcuts',
-    label: 'Show keyboard shortcuts',
-    description: 'Open Settings to this Keyboard shortcuts tab.',
+    label: t('Show keyboard shortcuts'),
+    description: t('Open Settings to this Keyboard shortcuts tab.'),
     category: 'View',
     // ⌘/ (Ctrl+/) is the near-universal "show shortcuts" chord (Slack, GitHub,
     // Gmail). It fires from the composer (allowInInput) since it is invoked with
@@ -530,9 +531,9 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'open-settings',
-    label: 'Open Settings',
-    description: 'Open the Settings panel. On macOS, desktop app only — in a browser '
-      + 'tab \u2318, is left to the browser\u2019s own settings.',
+    label: t('Open Settings'),
+    description: t('Open the Settings panel. On macOS, desktop app only — in a browser '
+      + 'tab \u2318, is left to the browser\u2019s own settings.'),
     category: 'View',
     // ⌘, / Ctrl+, is the platform Settings key: macOS's standard, and the one
     // cross-platform apps use on Windows and Linux, where no OS key exists. Every
@@ -544,7 +545,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'strategy-switch',
-    label: 'Switch strategy',
+    label: t('Switch strategy'),
     description: 'Cycle the active strategy; hold to open the strategy menu.',
     category: 'Conversations',
     defaultBinding: { shift: true, key: 'Tab' },
@@ -552,7 +553,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'cycle-model',
-    label: 'Switch model',
+    label: t('Switch model'),
     description: 'Cycle through recently-used models; hold to open the model menu.',
     category: 'Conversations',
     // ⌥⌘M / Ctrl+Alt+M — bare ⌘M is macOS minimize, so the Option is load-bearing.
@@ -567,7 +568,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'cycle-thinking',
-    label: 'Switch thinking level',
+    label: t('Switch thinking level'),
     description: 'Cycle the current model\u2019s thinking level; hold to open the level popover.',
     category: 'Conversations',
     // ⌥⌘T / Ctrl+Alt+T — bare ⌘T is the browser new-tab key, deliberately avoided.
@@ -578,9 +579,9 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'open-model-picker',
-    label: 'Open model picker',
-    description: 'Open the model picker and leave it open, so the list can be read '
-      + 'rather than cycled. Type to filter, arrows to move, Enter to pick, Escape to close.',
+    label: t('Open model picker'),
+    description: t('Open the model picker and leave it open, so the list can be read '
+      + 'rather than cycled. Type to filter, arrows to move, Enter to pick, Escape to close.'),
     category: 'Conversations',
     // ⇧⌥⌘M / Ctrl+Alt+Shift+M — the Shift-ed twin of the model cycler's chord,
     // which pins shift:false so exactly one of the two fires. The Option is

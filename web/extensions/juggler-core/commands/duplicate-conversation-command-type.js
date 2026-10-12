@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
 
@@ -26,7 +27,7 @@ class DuplicateConversationCommandType extends CommandType {
     id: 'duplicate',
     name: 'Duplicate Conversation',
     version: '1.0.0',
-    description: 'Clone this conversation into a new one',
+    description: t('Clone this conversation into a new one'),
     icon: 'icon-box'
   };
 
@@ -39,7 +40,7 @@ class DuplicateConversationCommandType extends CommandType {
     const sourceConversation = this.messageThread?.conversation;
     const session = sourceConversation?.session;
     if (!session) {
-      return { handled: true, message: 'No session available', error: true };
+      return { handled: true, message: t('No session available'), error: true };
     }
 
     try {

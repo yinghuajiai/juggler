@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
+
 /**
  * The `thoroughness` dial both sub-agent tools expose.
  *
@@ -68,6 +70,6 @@ export function thoroughnessSchema() {
     type: 'string',
     enum: [...THOROUGHNESS_LEVELS],
     default: DEFAULT_THOROUGHNESS,
-    description: 'How much effort to spend before answering: "quick" for a first solid answer, "medium" (default) to corroborate it, "thorough" to be exhaustive.'
+    description: t('How much effort to spend before answering: "quick" for a first solid answer, "medium" (default) to corroborate it, "thorough" to be exhaustive.')
   };
 }

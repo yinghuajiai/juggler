@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import './permission-controls.js';
 
 
@@ -847,8 +848,8 @@ class Composer extends HTMLElement {
     if (button) {
       button.disabled = busy;
       button.title = busy
-        ? 'Wait for the current turn to finish before creating a new thread'
-        : 'Create a new sub-thread';
+        ? _t('Wait for the current turn to finish before creating a new thread')
+        : _t('Create a new sub-thread');
     }
     this.querySelectorAll('[data-command="thread"], [data-action="new-thread"]').forEach((row) => {
       row.classList.toggle('disabled', busy);
@@ -1649,7 +1650,7 @@ class Composer extends HTMLElement {
     if (textarea) {
       if (blocked) {
         textarea.disabled = true;
-        textarea.placeholder = reason || 'Input blocked';
+        textarea.placeholder = reason || _t('Input blocked');
         textarea.setAttribute('data-blocked', 'true');
       } else {
         textarea.disabled = false;
@@ -2317,7 +2318,7 @@ class Composer extends HTMLElement {
       hint.className = 'menu-item menu-item-hint';
       const text = document.createElement('span');
       text.className = 'menu-hint-text';
-      text.textContent = 'No skills installed.';
+      text.textContent = _t('No skills installed.');
       hint.appendChild(text);
       menu.appendChild(hint);
     } else {
@@ -2333,7 +2334,7 @@ class Composer extends HTMLElement {
     const manage = document.createElement('li');
     manage.className = 'menu-item skill-menu-manage';
     manage.dataset.action = 'manage-skills';
-    manage.textContent = 'Manage skills…';
+    manage.textContent = _t('Manage skills…');
     manage.addEventListener('click', () => {
       this._closeSkillMenu();
       openSettings('skills');
@@ -2576,7 +2577,7 @@ class Composer extends HTMLElement {
     manageSkillsRow.dataset.action = 'manage-skills';
     const manageSkillsLabel = document.createElement('span');
     manageSkillsLabel.className = 'actions-sheet-label';
-    manageSkillsLabel.textContent = 'Manage skills…';
+    manageSkillsLabel.textContent = _t('Manage skills…');
     manageSkillsRow.appendChild(manageSkillsLabel);
     manageSkillsRow.addEventListener('click', () => {
       this._closeActionsSheet();

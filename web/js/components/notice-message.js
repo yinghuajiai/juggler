@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import BaseMessage from './base-message.js';
 import { renderResultStatusMessage } from '../../sdk/lib/html.js';
 import { wrapWithIcon, TYPE_ICONS } from '../utils/icon-message-renderer.js';
@@ -85,7 +86,7 @@ class NoticeMessage extends BaseMessage {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'message-action-btn notice-settings-btn';
-      button.textContent = 'Set context window';
+      button.textContent = t('Set context window');
       button.title = `Open ${target.model}'s Context window field in Settings → Providers`;
       button.addEventListener('click', (event) => {
         // The row is selectable; opening settings is not a selection.

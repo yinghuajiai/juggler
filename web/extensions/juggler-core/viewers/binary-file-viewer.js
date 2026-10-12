@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 import { stat } from 'juggler/ops';
 import { extensionOf } from 'juggler/file-source';
@@ -110,7 +111,7 @@ class BinaryFileViewer extends FileViewer {
     id: 'binary',
     name: 'Binary',
     version: '1.0.0',
-    description: 'Describes files nothing else can display: kind, size, last modified',
+    description: t('Describes files nothing else can display: kind, size, last modified'),
     matchAll: true,
     // Below the text viewer's fallback tier, so this viewer is the answer only
     // when there is no other answer at all.

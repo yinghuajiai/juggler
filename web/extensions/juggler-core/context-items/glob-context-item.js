@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatPathForStatus } from 'juggler/item-utils';
 import { toolInputPath, isPathAllowed, folderGrantSuggestions, stripInjectedApprovalFlags, gitignoreDisabled } from './path-approval.js';
@@ -42,7 +43,7 @@ class GlobContextItem extends ContextItem {
     id: 'glob',
     name: 'Glob',
     version: '1.0.0',
-    description: 'Fast file pattern matching tool that works with any codebase size',
+    description: t('Fast file pattern matching tool that works with any codebase size'),
     author: 'Juggler Team',
     // Approval-gated like read: the `pattern` is confined to `path` by the
     // backend, so only an out-of-root search `path` prompts. No path (cwd) or an
@@ -61,15 +62,15 @@ class GlobContextItem extends ContextItem {
       properties: {
         pattern: {
           type: 'string',
-          description: 'The glob pattern to match files against'
+          description: t('The glob pattern to match files against')
         },
         path: {
           type: 'string',
-          description: 'The directory to search in. If not specified, the current working directory will be used.'
+          description: t('The directory to search in. If not specified, the current working directory will be used.')
         },
         noIgnore: {
           type: 'boolean',
-          description: 'Match files ignored by .gitignore too. Default false.'
+          description: t('Match files ignored by .gitignore too. Default false.')
         }
       },
       required: ['pattern']

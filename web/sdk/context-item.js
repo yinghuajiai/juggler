@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../js/i18n/index.js';
 import { extractErrorMessage } from './lib/error-utils.js';
 import { FormattingHelpers } from './lib/formatting-helpers.js';
 import { isEngine, isViewer } from './lib/client-role.js';
@@ -228,7 +229,7 @@ class ContextItem {
   static validateSummary(summary) {
     if (!summary || typeof summary !== 'object') {
       console.error('[ContextItem] getSummary returned non-object:', summary);
-      return { summary: 'Error formatting result', details: '', success: false, icon: '✗' };
+      return { summary: t('Error formatting result'), details: '', success: false, icon: '✗' };
     }
 
     const validated = { ...summary };
@@ -948,7 +949,7 @@ class ContextItem {
    */
   createPropertiesPanelElement() {
     const el = document.createElement('div');
-    el.textContent = this.type || 'Unknown item';
+    el.textContent = this.type || t('Unknown item');
     return el;
   }
 

@@ -23,6 +23,7 @@
  * @module components/pinboard-panel
  */
 
+import { t } from '../i18n/index.js';
 import JugglerElement from './juggler-element.js';
 import pinboardStore from '../services/pinboard-store.js';
 import pinboardView from '../services/pinboard-view.js';
@@ -558,7 +559,7 @@ class PinboardPanel extends JugglerElement {
     const popOut = document.createElement('button');
     popOut.type = 'button';
     popOut.className = 'btn-ghost pinboard-toolbar__popout';
-    popOut.title = 'Open this board in its own window';
+    popOut.title = t('Open this board in its own window');
     popOut.setAttribute('aria-label', 'Pop out Pinboard');
     popOut.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="${POPOUT_ICON_PATH}"/></svg><span>Pop-out</span>`;
     popOut.hidden = !canLinkBoards();
@@ -572,7 +573,7 @@ class PinboardPanel extends JugglerElement {
     // The app's close button, glyph and all: a surface that puts itself away
     // should not have a private way of saying so.
     close.className = 'close-button';
-    close.title = 'Close Pinboard';
+    close.title = t('Close Pinboard');
     close.setAttribute('aria-label', 'Close Pinboard');
     close.innerHTML = '<span class="icon-close"></span>';
     this.on(close, 'click', () => pinboardView.close());
@@ -633,7 +634,7 @@ class PinboardPanel extends JugglerElement {
       if (linked) {
         const button = /** @type {HTMLButtonElement} */ (conversation);
         button.type = 'button';
-        button.title = 'Show this conversation in the main window';
+        button.title = t('Show this conversation in the main window');
         button.setAttribute('aria-label', 'Show this conversation in the main window');
         // Listeners rather than `this.on`: the node is replaced whenever the name
         // changes, and a per-render cleanup entry for a node already discarded
@@ -783,9 +784,9 @@ class PinboardPanel extends JugglerElement {
     const gone = this._boardState === 'missing';
     const line = document.createElement('p');
     line.className = 'pinboard-placeholder__line';
-    if (!gone) line.textContent = 'Opening the conversation.';
+    if (!gone) line.textContent = t('Opening the conversation.');
     else if (this._boardTitle) line.textContent = `“${this._boardTitle}” has gone.`;
-    else line.textContent = 'This conversation is no longer available';
+    else line.textContent = t('This conversation is no longer available');
     placeholder.replaceChildren(line);
     return true;
   }

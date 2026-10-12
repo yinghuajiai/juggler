@@ -21,6 +21,7 @@
  *    delta-patch closure with the panel's observer dispatch.
  */
 
+import { t } from '../../i18n/index.js';
 import { renderAssistantContent, decorateCodeBlocks } from '../../../sdk/lib/markdown.js';
 import { createStreamingMarkdown } from '../../utils/streaming-markdown.js';
 import { stripThinkingTags } from '../../utils/content-utils.js';
@@ -108,10 +109,10 @@ function badgeCtx(host) {
  * @type {Record<string, {label: string, icon: string, title: string}>}
  */
 const APPROVAL_SOURCE_META = {
-  user: { label: 'User', icon: 'icon-check', title: 'Approved by the user' },
-  rule: { label: 'Permitted', icon: 'icon-checklist', title: 'Allowed by a permission rule' },
-  strategy: { label: 'Strategy', icon: 'icon-auto-awesome', title: 'Approved by the active strategy' },
-  hook: { label: 'Hook', icon: 'icon-checklist', title: 'Approved by a tool hook' }
+  user: { label: 'User', icon: 'icon-check', title: t('Approved by the user') },
+  rule: { label: 'Permitted', icon: 'icon-checklist', title: t('Allowed by a permission rule') },
+  strategy: { label: 'Strategy', icon: 'icon-auto-awesome', title: t('Approved by the active strategy') },
+  hook: { label: 'Hook', icon: 'icon-checklist', title: t('Approved by a tool hook') }
 };
 
 /**
@@ -382,7 +383,7 @@ export function renderContextItem(host, container, contextItem) {
       itemContent.appendChild(itemInstance.createPropertiesPanelElement());
     } catch (err) {
       console.error(`[PropertiesPanel] Failed to render context item ${itemInstance.id}:`, err);
-      itemContent.textContent = 'Error rendering context item';
+      itemContent.textContent = t('Error rendering context item');
     }
     wrapper.appendChild(itemContent);
     container.appendChild(wrapper);
@@ -462,7 +463,7 @@ export function renderToolAction(host, container, toolAction) {
         const seconds = Math.max(0, Math.round((Date.now() - startMs) / 1000));
         span.textContent = `Running… ${formatDuration(seconds)}`;
       } else {
-        span.textContent = 'Running…';
+        span.textContent = t('Running…');
       }
       statusText = span;
     }
@@ -560,7 +561,7 @@ export function renderToolAction(host, container, toolAction) {
         if (resultText === '') {
           const empty = document.createElement('div');
           empty.className = 'properties-panel-result empty';
-          empty.textContent = 'No output';
+          empty.textContent = t('No output');
           resultSection.appendChild(empty);
         } else {
           // ANSI terminal rendering wins; otherwise highlight per the plugin's

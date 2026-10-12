@@ -57,6 +57,7 @@
  * @module services/escape-behaviour
  */
 
+import { t } from '../i18n/index.js';
 import { cachedUserPref, setUserPref, notifyPrefChanged, reconcilePref } from './prefs.js';
 import { isMac, formatBindingForPlatform } from './key-shortcut-manager.js';
 import { postWindowControl, hasNativeHost } from '../../sdk/lib/window-control.js';
@@ -127,7 +128,7 @@ export const ESCAPE_QUIET_MS = 1000;
 export const ESCAPE_PRESETS = [
   {
     id: 'stop',
-    label: 'Stop immediately',
+    label: t('Stop immediately'),
     description: '{esc} stops the turn at once; {shiftEsc} pauses instead '
       + '(the current step finishes, then it rests). With nothing running, {esc} clears the prompt.',
     running: 'stop',
@@ -135,7 +136,7 @@ export const ESCAPE_PRESETS = [
   },
   {
     id: 'pause',
-    label: 'Pause instead of stopping',
+    label: t('Pause instead of stopping'),
     description: '{esc} pauses — the current step finishes and records its result, then it rests at idle; '
       + 'nothing is cancelled. {shiftEsc} stops outright. With nothing running, {esc} clears the prompt.',
     running: 'pause',
@@ -143,7 +144,7 @@ export const ESCAPE_PRESETS = [
   },
   {
     id: 'two-step',
-    label: 'Pause, then stop',
+    label: t('Pause, then stop'),
     description: 'The first {esc} pauses; pressing it again while the pause is pending stops outright. '
       + '{shiftEsc} stops on the first press. With nothing running, {esc} clears the prompt.',
     running: 'two-step',
@@ -151,7 +152,7 @@ export const ESCAPE_PRESETS = [
   },
   {
     id: 'double-press',
-    label: 'Press Escape twice to stop',
+    label: t('Press Escape twice to stop'),
     description: 'One {esc} does nothing; pressing it twice quickly stops the turn. '
       + '{shiftEsc} pauses. With nothing running, {esc} clears the prompt.',
     running: 'double-press',
@@ -159,7 +160,7 @@ export const ESCAPE_PRESETS = [
   },
   {
     id: 'clear-only',
-    label: 'Never stop — only clear the prompt',
+    label: t('Never stop — only clear the prompt'),
     description: '{esc} never touches a running turn; it always clears the prompt (undoably). '
       + 'Stop from the footer button, or pause with {shiftEsc}.',
     running: 'clear',
@@ -167,7 +168,7 @@ export const ESCAPE_PRESETS = [
   },
   {
     id: 'inert',
-    label: 'Never stop, never clear',
+    label: t('Never stop, never clear'),
     description: '{esc} only dismisses menus and dialogs — it leaves both the turn and the prompt alone. '
       + 'Stop from the footer button, or pause with {shiftEsc}.',
     running: 'none',
@@ -632,7 +633,7 @@ export function buildEscapeBehaviourRow() {
   info.className = 'provider-info';
   const nameEl = document.createElement('div');
   nameEl.className = 'provider-name';
-  nameEl.textContent = 'Escape key';
+  nameEl.textContent = t('Escape key');
   const desc = document.createElement('div');
   desc.className = 'provider-description';
   info.appendChild(nameEl);

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 import { uploadAssetBase64 } from 'juggler/ops';
 import { createImageThumb } from 'juggler/ui';
@@ -41,7 +42,7 @@ class ImageFileViewer extends FileViewer {
     id: 'image',
     name: 'Image',
     version: '1.0.0',
-    description: 'Displays images and attaches them for multimodal models',
+    description: t('Displays images and attaches them for multimodal models'),
     mimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
     extensions: ['png', 'jpg', 'jpeg', 'gif', 'webp'],
     priority: 50,

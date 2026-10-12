@@ -25,6 +25,7 @@
  * @module workspaces/group-workspace-provider
  */
 
+import { t } from '../../../js/i18n/index.js';
 import WorkspaceProvider from 'juggler/workspace-provider';
 import { field, nextFormSequence, showNote } from '../lib/setup-fields.js';
 
@@ -52,7 +53,7 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
     id: 'group',
     name: 'Group',
     version: '1.0.0',
-    description: 'A container for you to group related conversations together.',
+    description: t('A container for you to group related conversations together.'),
     setupLabel: 'New group',
     recommendations: {
       bestFor: 'keeping related conversations together in the strip',
@@ -147,13 +148,13 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
       {
         id: 'ungroup',
         label: 'Ungroup',
-        description: 'Its conversations go back into the project, and the group is removed.'
+        description: t('Its conversations go back into the project, and the group is removed.')
       },
       {
         id: 'delete',
-        label: 'Delete group',
+        label: t('Delete group'),
         danger: true,
-        description: 'Its conversations go to the bin, and the group is removed. Nothing in the project changes.'
+        description: t('Its conversations go to the bin, and the group is removed. Nothing in the project changes.')
       }
     ];
   }
@@ -181,7 +182,7 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
   async cleanupPartial(workspace, ctx) {
     void workspace;
     void ctx;
-    return { removed: true, message: 'Nothing was built for a group, so nothing is left of it.' };
+    return { removed: true, message: t('Nothing was built for a group, so nothing is left of it.') };
   }
 }
 

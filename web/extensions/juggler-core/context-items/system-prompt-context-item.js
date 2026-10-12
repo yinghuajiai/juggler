@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { createElement, injectStylesOnce } from 'juggler/ui';
 import { createTextBlock } from 'juggler/item-utils';
@@ -351,7 +352,7 @@ class SystemPromptContextItem extends ContextItem {
     id: 'system-prompt',
     name: 'System Prompt',
     version: '1.0.0',
-    description: 'Base system instructions for the LLM',
+    description: t('Base system instructions for the LLM'),
     author: 'Juggler Team',
     idPrefix: 'SYSTEM',
     preventUserDeletion: true,
@@ -557,7 +558,7 @@ class SystemPromptContextItem extends ContextItem {
     // Editable textarea
     const textArea = document.createElement('textarea');
     textArea.className = 'system-prompt-textarea';
-    textArea.placeholder = 'Enter system prompt identity text...';
+    textArea.placeholder = t('Enter system prompt identity text...');
     textArea.rows = 6;
     textArea.value = this._getEffectiveText();
     textArea.setAttribute('autocorrect', 'off');
@@ -579,7 +580,7 @@ class SystemPromptContextItem extends ContextItem {
 
     // Preset selector button
     const presetBtn = document.createElement('button');
-    presetBtn.textContent = 'Select a preset';
+    presetBtn.textContent = t('Select a preset');
     presetBtn.className = 'system-prompt-preset-btn';
     presetBtn.onclick = (e) => { e.stopPropagation(); showPresetBrowser(this, presetBtn, container); };
     body.appendChild(presetBtn);
@@ -782,7 +783,7 @@ class SystemPromptContextItem extends ContextItem {
     count.textContent = inventory.offered.length === 1
       ? `1 tool available to the model · ~${formatTokens(tokens)} tokens`
       : `${inventory.offered.length} tools available to the model · ~${formatTokens(tokens)} tokens`;
-    count.title = 'Estimated tokens (~4 characters per token), sent on every turn.';
+    count.title = t('Estimated tokens (~4 characters per token), sent on every turn.');
     wrap.appendChild(count);
 
     if (drift?.changes) {

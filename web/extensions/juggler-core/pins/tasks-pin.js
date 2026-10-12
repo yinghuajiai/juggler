@@ -260,7 +260,7 @@ class TasksPin extends PinboardItemType {
     id: 'tasks',
     name: 'Background tasks',
     version: '1.0.0',
-    description: 'Lists the background tasks this conversation is running',
+    description: t('Lists the background tasks this conversation is running'),
     order: 50,
     defaultPin: true,
   };

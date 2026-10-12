@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import slashCommandHandler from '../services/slash-command-handler.js';
 import { longestCommonPrefix } from './completion-menu.js';
 import { openCommandEditor, openCommandManager } from './command-editor-dialog.js';
@@ -115,7 +116,7 @@ export const slashCommandProvider = {
       li.dataset.command = '__new__';
       const code = document.createElement('code');
       code.className = 'menu-item-command';
-      code.textContent = cmd.query ? `New command “/${cmd.query}”…` : 'New command…';
+      code.textContent = cmd.query ? `New command “/${cmd.query}”…` : t('New command…');
       li.appendChild(code);
       return li;
     }

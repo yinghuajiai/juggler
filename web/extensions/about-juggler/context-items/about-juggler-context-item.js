@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import keyShortcutManager, { isMac, formatBindingForPlatform } from '../../../js/services/key-shortcut-manager.js';
 import CORPUS from '../corpus.js';
@@ -104,7 +105,7 @@ class AboutJugglerContextItem extends ContextItem {
     id: 'about-juggler',
     name: 'About Juggler',
     version: '1.0.0',
-    description: 'Answer questions about the Juggler application itself',
+    description: t('Answer questions about the Juggler application itself'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -132,8 +133,8 @@ class AboutJugglerContextItem extends ContextItem {
       properties: {
         question: {
           type: 'string',
-          description: 'Optional: the specific question, recorded for display. '
-            + 'The full manual is returned regardless.'
+          description: t('Optional: the specific question, recorded for display. '
+            + 'The full manual is returned regardless.')
         }
       },
       required: []

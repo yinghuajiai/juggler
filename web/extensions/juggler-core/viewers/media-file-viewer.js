@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 import { extensionOf } from 'juggler/file-source';
 import { formatFileSize } from 'juggler/item-utils';
@@ -106,7 +107,7 @@ class MediaFileViewer extends FileViewer {
     id: 'media',
     name: 'Media',
     version: '1.0.0',
-    description: 'Plays video and audio, and displays images',
+    description: t('Plays video and audio, and displays images'),
     mimeTypes: [
       'video/mp4', 'video/quicktime', 'video/webm', 'video/ogg',
       'audio/mpeg', 'audio/wav', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'audio/aiff',

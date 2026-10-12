@@ -27,6 +27,7 @@
  * @module components/workspace-reconnect-dialog
  */
 
+import { t } from '../i18n/index.js';
 import { presentModal } from '../utils/modal-surface.js';
 import { setupRows, probeSetupAdoptions, adoptSetupRow } from '../services/workspace-places.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -134,7 +135,7 @@ export function openWorkspaceReconnect(conversation) {
       header.className = 'workspace-move-header';
       const title = document.createElement('h2');
       title.className = 'workspace-move-title';
-      title.textContent = 'Where was this conversation working?';
+      title.textContent = t('Where was this conversation working?');
       header.appendChild(title);
       const close = setupButton('close-button workspace-move-close', '', () => modal.close(undefined));
       close.setAttribute('aria-label', 'Close');
@@ -155,7 +156,7 @@ export function openWorkspaceReconnect(conversation) {
       lead.className = 'workspace-move-work-lead';
       lead.textContent = bound > 1
         ? `${bound} conversations work in a workspace this session has no record of. Naming where it was puts it back for all of them.`
-        : 'This session has no record of the workspace this conversation works in. Naming where it was puts it back.';
+        : t('This session has no record of the workspace this conversation works in. Naming where it was puts it back.');
       explains.appendChild(lead);
       dialog.appendChild(explains);
 
@@ -163,13 +164,13 @@ export function openWorkspaceReconnect(conversation) {
       if (rows.length) {
         const heading = document.createElement('div');
         heading.className = 'setup-section-title';
-        heading.textContent = 'Places with no workspace';
+        heading.textContent = t('Places with no workspace');
         dialog.appendChild(heading);
 
         const group = buildPlaceRows({
           rows,
           selection: null,
-          label: 'Where this conversation was working',
+          label: t('Where this conversation was working'),
           adoptVerb: 'It was here',
           onSelect: () => {},
           onAdopt: (row) => { void reconnect(row); }
@@ -181,7 +182,7 @@ export function openWorkspaceReconnect(conversation) {
         // is not coming back, and the ways out are on the banner behind this.
         const nothing = document.createElement('div');
         nothing.className = 'setup-row-detail';
-        nothing.textContent = 'No provider can find a place that has no workspace.';
+        nothing.textContent = t('No provider can find a place that has no workspace.');
         dialog.appendChild(nothing);
       }
 

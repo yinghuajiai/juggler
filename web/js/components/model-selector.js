@@ -410,8 +410,8 @@ class ModelSelector extends HTMLElement {
     picker.loading = this.loadingProviders;
     picker.note = this._turnNote();
     picker.footerActions = [
-      { id: 'providers', label: 'Manage LLM providers…', iconClass: 'menu-settings-icon' },
-      { id: 'defaults', label: 'Manage default models…', iconClass: 'menu-settings-icon' },
+      { id: 'providers', label: t('Manage LLM providers…'), iconClass: 'menu-settings-icon' },
+      { id: 'defaults', label: t('Manage default models…'), iconClass: 'menu-settings-icon' },
     ];
     picker.addEventListener('change', (/** @type {Event} */ e) => {
       this._onPickerChange(/** @type {CustomEvent} */ (e).detail);
@@ -657,7 +657,7 @@ class ModelSelector extends HTMLElement {
    */
   async _offerProviderSettings(message) {
     const goToSettings = await showConfirm(message, t('Problem selecting model'), {
-      confirmText: 'Go to provider settings',
+      confirmText: t('Go to provider settings'),
       cancelText: 'Cancel',
     });
     if (goToSettings) {
@@ -939,7 +939,7 @@ class ModelSelector extends HTMLElement {
     this.innerHTML = '<model-chip></model-chip>';
     const chip = this._chip;
     if (!chip) return;
-    chip.update({ placeholder: 'Select Model', pulseWhenEmpty: true, buttonTitle: modelTitle });
+    chip.update({ placeholder: t('Select Model'), pulseWhenEmpty: true, buttonTitle: modelTitle });
     chip.addEventListener('chip-toggle', () => this.toggleDropdown());
     chip.addEventListener('mini-requested', () => {
       // The pill promises the mini popover, so the picker sitting over it goes

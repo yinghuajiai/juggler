@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * Approval button construction — the single framework rule for turning a
  * plugin's auto-approval suggestions into approval-dialog buttons.
@@ -34,7 +36,7 @@ export function buildApprovalButtons(action, params = {}) {
 
   suggestions.forEach((s, i) => {
     options.push({
-      label: 'Yes + Don\'t Ask Again',
+      label: t('Yes + Don\'t Ask Again'),
       value: `yes-always:${i}`,
       style: 'primary-always',
       pattern: s.label,

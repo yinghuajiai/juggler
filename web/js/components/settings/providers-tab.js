@@ -251,12 +251,12 @@ export class ProvidersTab {
 
     const heading = document.createElement('div');
     heading.className = 'settings-section-heading';
-    heading.textContent = 'Your own endpoints';
+    heading.textContent = _t('Your own endpoints');
     root.appendChild(heading);
 
     const note = document.createElement('div');
     note.className = 'custom-endpoints-note';
-    note.textContent = 'Anything that speaks the OpenAI Chat Completions API — a gateway, a tenant, a local server. Each one is a provider of its own in the model picker.';
+    note.textContent = _t('Anything that speaks the OpenAI Chat Completions API — a gateway, a tenant, a local server. Each one is a provider of its own in the model picker.');
     root.appendChild(note);
 
     for (const endpoint of this.endpoints) root.appendChild(this._buildCard(endpoint));
@@ -303,7 +303,7 @@ export class ProvidersTab {
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'settings-btn small custom-endpoint-add-open';
-    add.textContent = 'Add endpoint';
+    add.textContent = _t('Add endpoint');
     add.addEventListener('click', () => {
       this.addingEndpoint = true;
       const form = this._buildAddControl();
@@ -459,8 +459,8 @@ export class ProvidersTab {
     status.id = `${provider.name}-oauth-status`;
     status.style.display = 'block';
     status.textContent = provider.available
-      ? (provider.authHint || 'Signed in')
-      : (provider.authHint || 'Sign in to continue');
+      ? (provider.authHint || _t('Signed in'))
+      : (provider.authHint || _t('Sign in to continue'));
     controlColumn.appendChild(status);
 
     const buttonGroup = document.createElement('div');
@@ -473,15 +473,15 @@ export class ProvidersTab {
         const signOutBtn = document.createElement('button');
         signOutBtn.type = 'button';
         signOutBtn.className = 'settings-btn danger small';
-        signOutBtn.textContent = 'Sign out';
-        signOutBtn.title = 'Sign out of the GitHub login stored by Juggler';
+        signOutBtn.textContent = _t('Sign out');
+        signOutBtn.title = _t('Sign out of the GitHub login stored by Juggler');
         signOutBtn.addEventListener('click', () => this._copilotSignOut(provider, signOutBtn));
         buttonGroup.appendChild(signOutBtn);
       } else {
         const signInBtn = document.createElement('button');
         signInBtn.type = 'button';
         signInBtn.className = 'settings-btn primary small';
-        signInBtn.textContent = 'Sign in with GitHub';
+        signInBtn.textContent = _t('Sign in with GitHub');
         signInBtn.addEventListener('click', () => this._copilotSignIn(provider, signInBtn));
         buttonGroup.appendChild(signInBtn);
       }
@@ -657,14 +657,14 @@ export class ProvidersTab {
     const label = document.createElement('label');
     label.className = 'copilot-host-label';
     label.setAttribute('for', inputId);
-    label.textContent = 'GitHub host';
+    label.textContent = _t('GitHub host');
 
     const input = document.createElement('input');
     input.type = 'text';
     input.id = inputId;
     input.className = 'settings-input small';
     input.value = 'github.com';
-    input.placeholder = 'github.com or your-tenant.ghe.com';
+    input.placeholder = _t('github.com or your-tenant.ghe.com');
     input.autocapitalize = 'off';
     input.autocomplete = 'off';
     input.spellcheck = false;
@@ -715,7 +715,7 @@ export class ProvidersTab {
     const host = (hostInput && hostInput.value.trim()) || 'github.com';
     const originalText = button.textContent;
     button.disabled = true;
-    button.textContent = 'Starting\u2026';
+    button.textContent = _t('Starting\u2026');
     try {
       const data = await fetchJson(apiUrl('/providers/copilot/device/start'), { method: 'POST', body: { host } });
       if (!data?.success) throw new Error(data?.error || 'Failed to start sign-in');
@@ -723,7 +723,7 @@ export class ProvidersTab {
       const { userCode, verificationUri, deviceCode, interval } = data;
       try { await navigator.clipboard.writeText(userCode); } catch { /* clipboard is best-effort */ }
       if (verificationUri) openExternalURL(verificationUri);
-      button.textContent = 'Waiting\u2026';
+      button.textContent = _t('Waiting\u2026');
       setStatus(`Enter code ${userCode} at ${verificationUri} (opened in your browser, copied to clipboard). Waiting for authorization\u2026`);
 
       await this._pollCopilotLogin(deviceCode, Number(interval) || 5, host);
@@ -985,7 +985,7 @@ export class ProvidersTab {
 
     button.addEventListener('click', async () => {
       button.disabled = true;
-      status.textContent = 'Switching…';
+      status.textContent = _t('Switching…');
       const next = this._nextProvidersUpdate((list) =>
         list.some((p) => p.name === provider.name && !p.credentialed));
       try {
@@ -996,7 +996,7 @@ export class ProvidersTab {
         this.updateAllButtons();
       } catch (err) {
         button.disabled = false;
-        status.textContent = httpErrorText(err, "Couldn't switch provider");
+        status.textContent = httpErrorText(err, _t("Couldn't switch provider"));
       }
     });
     return notice;
@@ -1040,7 +1040,7 @@ export class ProvidersTab {
       keyLink.target = '_blank';
       keyLink.rel = 'noopener noreferrer';
       keyLink.className = 'get-api-key-link';
-      keyLink.textContent = 'Get API Key \u2192';
+      keyLink.textContent = _t('Get API Key \u2192');
       infoColumn.appendChild(keyLink);
     }
 
@@ -1051,7 +1051,7 @@ export class ProvidersTab {
     input.type = 'text';
     input.id = fieldId;
     input.name = provider.configKeyName;
-    input.placeholder = '...';
+    input.placeholder = _t('...');
     input.autocomplete = 'off';
     input.setAttribute('autocorrect', 'off');
     input.setAttribute('autocapitalize', 'off');
@@ -1173,7 +1173,7 @@ export class ProvidersTab {
 
     const summaryLabel = document.createElement('span');
     summaryLabel.className = 'model-visibility-label';
-    summaryLabel.textContent = 'Models and token limits';
+    summaryLabel.textContent = _t('Models and token limits');
     summary.appendChild(summaryLabel);
 
     // The count carries the state, so it's the part that stays legible when the
@@ -1202,7 +1202,7 @@ export class ProvidersTab {
     const filter = document.createElement('input');
     filter.type = 'text';
     filter.className = 'settings-value-input model-visibility-filter';
-    filter.placeholder = 'Filter models';
+    filter.placeholder = _t('Filter models');
     filter.autocomplete = 'off';
     filter.setAttribute('autocorrect', 'off');
     filter.setAttribute('autocapitalize', 'off');
@@ -1220,16 +1220,16 @@ export class ProvidersTab {
     nameHeading.textContent = 'Model';
     const windowHeading = document.createElement('span');
     windowHeading.className = 'model-visibility-header-limit';
-    windowHeading.textContent = 'Context window';
+    windowHeading.textContent = _t('Context window');
     const outputHeading = document.createElement('span');
     outputHeading.className = 'model-visibility-header-limit';
-    outputHeading.textContent = 'Max output';
+    outputHeading.textContent = _t('Max output');
     header.append(nameHeading, windowHeading, outputHeading);
     list.appendChild(header);
 
     const empty = document.createElement('div');
     empty.className = 'model-visibility-empty';
-    empty.textContent = 'Nothing.';
+    empty.textContent = _t('Nothing.');
     empty.style.display = 'none';
 
     // The overrides this provider currently has, seeded from the catalogue: the
@@ -1304,7 +1304,7 @@ export class ProvidersTab {
       } else if (model.windowAssumed) {
         input.title = field === 'contextWindow'
           ? `${reported} tokens is a guess. The server didn't say how large this model's context window is, so Juggler assumed a small, safe size. Enter the size the model is loaded with.`
-          : 'Worked out from the guessed context window. Type a number to set it yourself.';
+          : _t('Worked out from the guessed context window. Type a number to set it yourself.');
       } else {
         input.title = `${reported} tokens, from Juggler's list of ${who}'s models. ${who} doesn't report limits itself — if it's out of date, type the right figure.`;
       }
@@ -1556,7 +1556,7 @@ export class ProvidersTab {
     const save = async () => {
       const value = input.value.trim();
       if (value === (/** @type {any} */ (this.config)[configField] || '')) return;
-      status.textContent = 'Saving…';
+      status.textContent = _t('Saving…');
       try {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { [configKey]: value } });
         /** @type {any} */ (this.config)[configField] = value;
@@ -1565,7 +1565,7 @@ export class ProvidersTab {
           : `Saved. Using default (${defaultLabel}).`;
       } catch (err) {
         console.error(`[SettingsPanel] Failed to save host for ${configField}:`, err);
-        status.textContent = 'Failed to save.';
+        status.textContent = _t('Failed to save.');
       }
     };
 
@@ -1605,7 +1605,7 @@ export class ProvidersTab {
     input.id = 'claudecode-binary-input';
     // Non-secret persisted value: keep visible across close/reopen (see close()).
     input.className = 'settings-value-input';
-    input.placeholder = 'CLI path (leave blank for auto)';
+    input.placeholder = _t('CLI path (leave blank for auto)');
     input.autocomplete = 'off';
     input.setAttribute('autocorrect', 'off');
     input.setAttribute('autocapitalize', 'off');
@@ -1621,7 +1621,7 @@ export class ProvidersTab {
     const save = async () => {
       const value = input.value.trim();
       if (value === (/** @type {any} */ (this.config).claudecodeBinaryPath || '')) return;
-      status.textContent = 'Saving…';
+      status.textContent = _t('Saving…');
       try {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { claudecode_binary_path: value } });
         /** @type {any} */ (this.config).claudecodeBinaryPath = value;
@@ -1635,11 +1635,11 @@ export class ProvidersTab {
           }
           status.textContent = `Saved. Using ${value}.`;
         } else {
-          status.textContent = 'Saved. Auto-detecting the claude CLI.';
+          status.textContent = _t('Saved. Auto-detecting the claude CLI.');
         }
       } catch (err) {
         console.error('[SettingsPanel] Failed to save Claude Code binary path:', err);
-        status.textContent = 'Failed to save.';
+        status.textContent = _t('Failed to save.');
       }
     };
 

@@ -39,6 +39,7 @@
  * @module components/model-picker/model-picker
  */
 
+import { t as _t } from '../../i18n/index.js';
 import recentModels from '../../services/recent-models.js';
 import usageStatsCache from '../../services/usage-stats-cache.js';
 import { getRecommendedModels, sortModelsByVersion } from '../../utils/model-filter.js';
@@ -856,7 +857,7 @@ class ModelPicker extends JugglerElement {
       this._pick(switched || to, model);
     } catch (err) {
       button.disabled = false;
-      button.title = httpErrorText(err, "Couldn't switch provider");
+      button.title = httpErrorText(err, _t("Couldn't switch provider"));
     }
   }
 

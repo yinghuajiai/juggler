@@ -53,6 +53,7 @@
  *   - 'confirm': Show message with Yes/No buttons
  *   - 'prompt': Show input field with OK/Cancel buttons
  */
+import { t } from '../i18n/index.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
 import { createButton as makeButton } from '../../sdk/lib/html.js';
 import { focusWhenShown } from '../utils/focus.js';
@@ -333,7 +334,7 @@ class ModalDialog extends HTMLElement {
     if (allowCustom) {
       const otherButton = document.createElement('button');
       otherButton.className = 'modal-choice-button';
-      otherButton.textContent = 'Other (enter custom answer)';
+      otherButton.textContent = t('Other (enter custom answer)');
       otherButton.dataset.index = String(allButtons.length);
       otherButton.addEventListener('click', () => {
         // Show custom input and focus it

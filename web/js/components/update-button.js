@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import wsService from '../services/websocket.js';
 import { getUpdaterState, startInstall } from '../services/updater-control.js';
 import { fetchJson } from '../services/http.js';
@@ -241,9 +242,9 @@ class UpdateButton extends JugglerElement {
       this._btn.classList.toggle('update-btn--error', vm.present && st === 'error');
       // Tint the pill background to download progress when we have a percentage.
       this._btn.style.setProperty('--update-pct', vm.pct === null ? '0%' : `${Math.round(vm.pct)}%`);
-      this._btn.title = st === 'ready' ? 'Install the downloaded update and reopen'
+      this._btn.title = st === 'ready' ? t('Install the downloaded update and reopen')
         : st === 'error' ? (vm.error || 'Update failed — click for details')
-          : 'Update available';
+          : t('Update available');
 
       // One-shot attention pulse the first time the pill appears.
       if (!this._wasVisible) {

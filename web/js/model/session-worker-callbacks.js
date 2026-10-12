@@ -13,6 +13,7 @@
  * @module model/session-worker-callbacks
  */
 
+import { t as _t } from '../i18n/index.js';
 import workerManager from '../services/worker-manager.js';
 
 /** Fallback context-window size when the model config hasn't reported one yet. */
@@ -149,7 +150,7 @@ export async function handleApprovalRequest(session, request, conversationId) {
     if (!validation.valid) {
       updateToolActionApprovalOptions(conv, req.toolUseId, {
         title: `Invalid: ${action.getTitle()}`,
-        message: validation.error || 'Invalid parameters',
+        message: validation.error || _t('Invalid parameters'),
         options: [{ label: 'Cancel', value: 'cancel', style: 'secondary' }]
       });
       return;
@@ -177,7 +178,7 @@ export async function handleApprovalRequest(session, request, conversationId) {
     console.error(`[Session] Error building approval options for ${req.toolUseId}:`, errorMsg);
     updateToolActionApprovalOptions(conv, req.toolUseId, {
       title: req.toolName,
-      message: 'Error building approval UI',
+      message: _t('Error building approval UI'),
       options: allowDenyOptions()
     });
   }

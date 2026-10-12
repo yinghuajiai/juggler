@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatDisplayPath, formatFileContentForLLM, parseFileContentForLLM, basename } from 'juggler/item-utils';
 import { fileSourceFromText } from 'juggler/file-source';
@@ -123,7 +124,7 @@ class FileContentContextItem extends ContextItem {
     id: 'file-content',
     name: 'File Content',
     version: '1.0.0',
-    description: 'Add file content to context',
+    description: t('Add file content to context'),
     author: 'Juggler Team',
     idPrefix: 'FILE',
     userAddable: true,
@@ -163,7 +164,7 @@ class FileContentContextItem extends ContextItem {
    */
   getStatusUI() {
     if (!this.data.path) {
-      return { typeName: 'File Content', summary: 'No file selected' };
+      return { typeName: 'File Content', summary: t('No file selected') };
     }
     if (this.data.isDirectory) {
       const displayPath = basename(this.data.path) || this.data.path;
@@ -197,8 +198,8 @@ class FileContentContextItem extends ContextItem {
     document.body.appendChild(overlay);
 
     const { element, promise, cancel } = buildPickerPanel({
-      title: 'Add File Content',
-      placeholder: 'File path…',
+      title: t('Add File Content'),
+      placeholder: t('File path…'),
       dirsOnly: false,
       confirmLabel: 'Add',
       showCancel: true,

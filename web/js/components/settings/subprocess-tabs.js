@@ -19,6 +19,7 @@
  * @module components/settings/subprocess-tabs
  */
 
+import { t as _t } from '../../i18n/index.js';
 import wsService from '../../services/websocket.js';
 import { fetchJson } from '../../services/http.js';
 import {
@@ -232,7 +233,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
   argsField.className = 'mcp-form-field';
   const argsLabel = document.createElement('label');
   argsLabel.className = 'mcp-field-label';
-  argsLabel.textContent = 'Fixed arguments';
+  argsLabel.textContent = _t('Fixed arguments');
   argsField.appendChild(argsLabel);
   const ta = document.createElement('textarea');
   ta.className = 'mcp-input mcp-default-args-input';
@@ -354,7 +355,7 @@ const MCP_SPEC = {
     getLog: async (name) => (await mcpGetLog({ server: name })).log,
   },
   addLabel: 'Add server',
-  emptyText: 'No MCP servers yet. Add one to give the assistant extra tools — for example a filesystem, GitHub, or database server.',
+  emptyText: _t('No MCP servers yet. Add one to give the assistant extra tools — for example a filesystem, GitHub, or database server.'),
   // The rows below report the manager's view: servers run, discover tools, and
   // show green dots whether or not anything publishes those tools to the model.
   // With the extension off, every one of them is telling the truth and the whole
@@ -364,7 +365,7 @@ const MCP_SPEC = {
   toolbarExtra: (toolbar) => {
     const soon = document.createElement('span');
     soon.className = 'mcp-import-soon';
-    soon.textContent = 'Importing from other apps is coming soon.';
+    soon.textContent = _t('Importing from other apps is coming soon.');
     toolbar.appendChild(soon);
   },
   validateName: validateMcpServerName,
@@ -381,7 +382,7 @@ const MCP_SPEC = {
   rowError: (s) => (s.status === 'failed' && s.error) ? (String(s.error).split('\n')[0] || '') : '',
   deleteConfirm: (name) => ({
     message: `Remove the MCP server "${name}"? Its tools will disappear from conversations.`,
-    title: 'Remove server',
+    title: _t('Remove server'),
   }),
   formAddTitle: 'Add MCP server',
   namePlaceholder: 'name',
@@ -423,7 +424,7 @@ const ACP_SPEC = {
     setConfig: (scope, agents) => acpSetConfig({ scope, agents }),
   },
   addLabel: 'Add agent',
-  emptyText: 'No ACP agents yet. Add one — for example Gemini CLI in ACP mode — and it will appear as a model in the picker.',
+  emptyText: _t('No ACP agents yet. Add one — for example Gemini CLI in ACP mode — and it will appear as a model in the picker.'),
   validateName: validateAcpAgentName,
   dotClass: (s) => acpDotClass(s.status),
   dotTitle: (s) => s.status || 'unavailable',
@@ -431,7 +432,7 @@ const ACP_SPEC = {
   rowError: (s) => (s.status === 'unavailable' && s.error) ? s.error : '',
   deleteConfirm: (name) => ({
     message: `Remove the ACP agent "${name}"? It will disappear from the model picker.`,
-    title: 'Remove agent',
+    title: _t('Remove agent'),
   }),
   formAddTitle: 'Add ACP agent',
   namePlaceholder: 'gemini',

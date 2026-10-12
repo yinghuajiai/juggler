@@ -194,7 +194,7 @@ export function buildEndpointCard(endpoint, ctx) {
   const idCode = document.createElement('code');
   idCode.className = 'custom-endpoint-id';
   idCode.textContent = endpoint.providerId;
-  idCode.title = 'The provider id. Permanent: conversations and settings refer to it.';
+  idCode.title = t('The provider id. Permanent: conversations and settings refer to it.');
   providerId.appendChild(idCode);
   info.appendChild(providerId);
 
@@ -430,7 +430,7 @@ function buildHeadersField(endpoint, saveFields) {
     row.className = 'custom-endpoint-header-row';
 
     const name = wrappedInput({
-      value: key, placeholder: 'X-Tenant', ariaLabel: 'Header name', className: 'custom-endpoint-header-name',
+      value: key, placeholder: t('X-Tenant'), ariaLabel: 'Header name', className: 'custom-endpoint-header-name',
     });
     const val = wrappedInput({
       value, placeholder: 'value', ariaLabel: `Value for header ${key || 'being added'}`, className: 'custom-endpoint-header-value',
@@ -461,7 +461,7 @@ function buildHeadersField(endpoint, saveFields) {
   const add = document.createElement('button');
   add.type = 'button';
   add.className = 'settings-btn small custom-endpoint-header-add';
-  add.textContent = 'Add header';
+  add.textContent = t('Add header');
   add.addEventListener('click', () => {
     const row = addRow('', '');
     /** @type {HTMLInputElement} */ (row.querySelector('.custom-endpoint-header-name')).focus();
@@ -504,7 +504,7 @@ function buildKeyField(endpoint, ctx) {
   input.disabled = fromEnv;
   input.placeholder = fromEnv
     ? `using $${endpoint.envVarName}`
-    : (endpoint.hasKey ? '' : 'optional — some endpoints need none');
+    : (endpoint.hasKey ? '' : t('optional — some endpoints need none'));
 
   const badge = document.createElement('span');
   badge.className = 'provider-active-badge';
@@ -537,7 +537,7 @@ function buildKeyField(endpoint, ctx) {
     badge.style.display = endpoint.hasKey && !fromEnv && !typed ? 'inline-flex' : 'none';
     input.placeholder = fromEnv
       ? `using $${endpoint.envVarName}`
-      : (endpoint.hasKey ? '' : 'optional — some endpoints need none');
+      : (endpoint.hasKey ? '' : t('optional — some endpoints need none'));
   };
 
   input.addEventListener('input', refresh);
@@ -641,7 +641,7 @@ export function buildAddEndpointForm(ctx) {
   info.className = 'provider-info';
   const heading = document.createElement('div');
   heading.className = 'provider-name';
-  heading.textContent = 'New endpoint';
+  heading.textContent = t('New endpoint');
   info.appendChild(heading);
 
   const idNote = document.createElement('div');
@@ -653,7 +653,7 @@ export function buildAddEndpointForm(ctx) {
 
   const nameField = subfield('Name');
   const name = wrappedInput({
-    placeholder: 'Acme Gateway', ariaLabel: 'Name shown in the model picker', className: 'custom-endpoint-add-name',
+    placeholder: t('Acme Gateway'), ariaLabel: 'Name shown in the model picker', className: 'custom-endpoint-add-name',
   });
   nameField.body.appendChild(name.wrapper);
 

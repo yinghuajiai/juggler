@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 
 /**
@@ -124,7 +125,7 @@ class PdfFileViewer extends FileViewer {
     id: 'pdf',
     name: 'PDF',
     version: '1.0.0',
-    description: 'Renders PDF documents and extracts their text',
+    description: t('Renders PDF documents and extracts their text'),
     mimeTypes: ['application/pdf'],
     extensions: ['pdf'],
     priority: 50,
@@ -201,7 +202,7 @@ class PdfFileViewer extends FileViewer {
     if (ctx.header) {
       const meta = document.createElement('span');
       meta.className = 'pdf-view-pagecount';
-      meta.textContent = doc.numPages === 1 ? '1 page' : `${doc.numPages} pages`;
+      meta.textContent = doc.numPages === 1 ? t('1 page') : `${doc.numPages} pages`;
       ctx.header.appendChild(meta);
     }
 

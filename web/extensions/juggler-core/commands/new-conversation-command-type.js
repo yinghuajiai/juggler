@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 import { extractErrorMessage } from 'juggler/ui';
 
@@ -22,7 +23,7 @@ class NewConversationCommandType extends CommandType {
     id: 'new',
     name: 'New Conversation',
     version: '1.0.0',
-    description: 'Open a new, empty conversation',
+    description: t('Open a new, empty conversation'),
     icon: 'icon-document'
   };
 
@@ -34,7 +35,7 @@ class NewConversationCommandType extends CommandType {
   async execute(_args) {
     const session = this.messageThread?.conversation?.session;
     if (!session) {
-      return { handled: true, message: 'No session available', error: true };
+      return { handled: true, message: t('No session available'), error: true };
     }
 
     try {

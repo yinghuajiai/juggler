@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { shellOutputDelta } from 'juggler/ops';
 
@@ -17,7 +18,7 @@ class TaskOutputContextItem extends ContextItem {
     id: 'task-output',
     name: 'Task Output',
     version: '1.0.0',
-    description: 'Read output from a background task',
+    description: t('Read output from a background task'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -40,13 +41,13 @@ class TaskOutputContextItem extends ContextItem {
       {
         name: 'TaskOutput',
         category: 'read',
-        description: 'Read a background task\'s status and only the NEW output since your last read (tasks started by Monitor or bash run_in_background), plus the exit code once finished — polling is cheap and never repeats output. To learn of completion without polling, prefer an `until … done` guard in the background command, or Monitor.',
+        description: t('Read a background task\'s status and only the NEW output since your last read (tasks started by Monitor or bash run_in_background), plus the exit code once finished — polling is cheap and never repeats output. To learn of completion without polling, prefer an `until … done` guard in the background command, or Monitor.'),
         input_schema: {
           type: 'object',
           properties: {
             task_id: {
               type: 'string',
-              description: 'The task id returned when the background task was started.'
+              description: t('The task id returned when the background task was started.')
             }
           },
           required: ['task_id']

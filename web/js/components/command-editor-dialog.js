@@ -185,7 +185,7 @@ export function openCommandEditor(options = {}) {
       modelChip.update({
         providers: providersCache.get(),
         config: modelConfig,
-        placeholder: 'Inherit from parent',
+        placeholder: t('Inherit from parent'),
         buttonTitle: 'Model for the thread',
       });
     };
@@ -433,7 +433,7 @@ function userGroup(title, defs, refresh) {
   if (defs.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'command-editor-hint';
-    empty.textContent = 'None yet.';
+    empty.textContent = t('None yet.');
     group.appendChild(empty);
     return group;
   }

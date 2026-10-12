@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import { formatTimeAgo } from '../../utils/format.js';
 import { createCopyButton } from '../../../sdk/lib/copy-button.js';
 import wsService from '../../services/websocket.js';
@@ -338,7 +339,7 @@ export class ConnectivityTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Connected clients';
+    name.textContent = t('Connected clients');
     info.appendChild(name);
 
     const ctrl = document.createElement('div');
@@ -347,7 +348,7 @@ export class ConnectivityTab {
     if (others.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'connectivity-clients-empty';
-      empty.textContent = 'No other clients connected';
+      empty.textContent = t('No other clients connected');
       ctrl.appendChild(empty);
     } else {
       const list = document.createElement('ul');
@@ -398,10 +399,10 @@ export class ConnectivityTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'LAN access';
+    name.textContent = t('LAN access');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
-    desc.textContent = 'Allow other devices on your local network to connect.';
+    desc.textContent = t('Allow other devices on your local network to connect.');
     info.appendChild(name);
     info.appendChild(desc);
 
@@ -424,7 +425,7 @@ export class ConnectivityTab {
         const hint = document.createElement('div');
         hint.className = 'key-source-hint';
         hint.style.display = 'block';
-        hint.textContent = 'No LAN interfaces detected.';
+        hint.textContent = t('No LAN interfaces detected.');
         ctrl.appendChild(hint);
       }
 
@@ -434,7 +435,7 @@ export class ConnectivityTab {
       stopBtn.textContent = 'Stop';
       stopBtn.addEventListener('click', () => {
         stopBtn.disabled = true;
-        stopBtn.textContent = 'Stopping…';
+        stopBtn.textContent = t('Stopping…');
         this._setLAN(false);
       });
       ctrl.appendChild(stopBtn);
@@ -442,10 +443,10 @@ export class ConnectivityTab {
       const startBtn = document.createElement('button');
       startBtn.type = 'button';
       startBtn.className = 'settings-btn primary small';
-      startBtn.textContent = 'Start LAN access';
+      startBtn.textContent = t('Start LAN access');
       startBtn.addEventListener('click', () => {
         startBtn.disabled = true;
-        startBtn.textContent = 'Starting…';
+        startBtn.textContent = t('Starting…');
         this._setLAN(true);
       });
       ctrl.appendChild(startBtn);
@@ -490,7 +491,7 @@ export class ConnectivityTab {
     input.checked = !!opts.checked;
     input.addEventListener('change', () => opts.onChange(input.checked));
     const text = document.createElement('span');
-    text.textContent = 'Start on launch';
+    text.textContent = t('Start on launch');
     label.appendChild(input);
     label.appendChild(text);
     return label;
@@ -582,7 +583,7 @@ export class ConnectivityTab {
 
     const heading = document.createElement('div');
     heading.className = 'settings-section-heading';
-    heading.textContent = 'WAN access';
+    heading.textContent = t('WAN access');
     section.appendChild(heading);
 
     const activeMode = c.tunnelEnabled ? (c.tunnelMode || '') : '';
@@ -643,8 +644,8 @@ export class ConnectivityTab {
       statusHint.className = 'key-source-hint';
       statusHint.style.display = 'block';
       statusHint.textContent = opts.url
-        ? 'Open this URL in a remote browser to connect.'
-        : 'Connecting…';
+        ? t('Open this URL in a remote browser to connect.')
+        : t('Connecting…');
       ctrl.appendChild(statusHint);
 
       if (opts.url) {
@@ -665,7 +666,7 @@ export class ConnectivityTab {
       stopBtn.textContent = 'Stop';
       stopBtn.addEventListener('click', () => {
         stopBtn.disabled = true;
-        stopBtn.textContent = 'Stopping…';
+        stopBtn.textContent = t('Stopping…');
         this._stopTunnel();
       });
       ctrl.appendChild(stopBtn);
@@ -676,7 +677,7 @@ export class ConnectivityTab {
       startBtn.textContent = opts.startLabel;
       startBtn.addEventListener('click', () => {
         startBtn.disabled = true;
-        startBtn.textContent = 'Starting…';
+        startBtn.textContent = t('Starting…');
         this._startTunnel(opts.mode);
       });
       ctrl.appendChild(startBtn);

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 
 /**
@@ -17,7 +18,7 @@ class CommandsCommandType extends CommandType {
     id: 'commands',
     name: 'Manage Commands',
     version: '1.0.0',
-    description: 'Create and manage user-defined slash commands',
+    description: t('Create and manage user-defined slash commands'),
     icon: 'icon-slash',
   };
 

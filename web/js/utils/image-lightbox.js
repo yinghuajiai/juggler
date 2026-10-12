@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { presentModal } from './modal-surface.js';
 import { ADD_SVG, withAttrs } from './icons.js';
 
@@ -132,7 +133,7 @@ export function openImageLightbox(src, alt) {
   const levelBtn = document.createElement('button');
   levelBtn.type = 'button';
   levelBtn.className = 'image-lightbox-btn image-lightbox-level';
-  levelBtn.title = 'Fit to window';
+  levelBtn.title = t('Fit to window');
   const zoomInBtn = toolbarButton('image-lightbox-zoom-in', 'Zoom in', ZOOM_IN_SVG);
   const closeBtn = toolbarButton('image-lightbox-close', 'Close', CLOSE_SVG);
   toolbar.append(zoomOutBtn, levelBtn, zoomInBtn, closeBtn);

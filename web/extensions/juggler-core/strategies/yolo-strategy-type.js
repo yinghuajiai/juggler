@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import { APPROVAL_POLICY } from 'juggler/strategy-type';
 import { INTERACTION_KIND } from 'juggler/context-item';
 import DefaultStrategyType from './default-strategy-type.js';
@@ -42,7 +43,7 @@ export default class YoloStrategyType extends DefaultStrategyType {
     id: 'yolo',
     name: 'YOLO',
     version: '1.0.0',
-    description: 'Auto-approves every tool use — use at your own risk!',
+    description: t('Auto-approves every tool use — use at your own risk!'),
     author: 'Juggler Team',
     color: 'var(--accent-red)',
     icon: 'icon-warning',

@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * Shared "Monitor" status + Stop control for a background-task output delivery
  * binding (the generic `deliverTaskOutput` mechanism).
@@ -59,7 +61,7 @@ export function renderTaskDeliveryControl(wrapper, { messageThread, taskId, labe
   const stopBtn = document.createElement('button');
   stopBtn.type = 'button';
   stopBtn.className = 'properties-panel-btn danger';
-  stopBtn.textContent = 'Stop monitor';
+  stopBtn.textContent = t('Stop monitor');
   // Shrink to fit its label: `.properties-panel-btn` is `display:flex` and the
   // subsection is a column flex container, so without this the button would
   // stretch to the full panel width. Scoped inline so the global rule (relied

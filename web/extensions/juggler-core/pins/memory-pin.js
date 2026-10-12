@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { readFile, writeFile } from 'juggler/ops';
 import { createElement, extractErrorMessage, injectStylesOnce } from 'juggler/ui';
@@ -97,7 +98,7 @@ class MemoryPin extends PinboardItemType {
     id: 'memory',
     name: 'Memory',
     version: '1.0.0',
-    description: 'Shows the project facts the assistant keeps',
+    description: t('Shows the project facts the assistant keeps'),
     // Last of the starting tabs: the one that changes least often.
     order: 60,
     defaultPin: true,
@@ -191,7 +192,7 @@ class MemoryPin extends PinboardItemType {
         const del = document.createElement('button');
         del.type = 'button';
         del.className = 'memory-delete icon-btn';
-        del.title = 'Forget this';
+        del.title = t('Forget this');
         del.setAttribute('aria-label', 'Delete memory item');
         del.innerHTML = '<span class="icon-trashcan"></span>';
         del.addEventListener('click', async (event) => {

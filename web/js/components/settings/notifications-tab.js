@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import {
   getAttentionPrefs,
   setSoundEnabled,
@@ -226,7 +227,7 @@ export class NotificationsTab {
     name.textContent = 'Chime';
     const desc = document.createElement('div');
     desc.className = 'provider-description';
-    desc.textContent = 'Pick a pattern and sound, set the volume, and preview it.';
+    desc.textContent = t('Pick a pattern and sound, set the volume, and preview it.');
     info.appendChild(name);
     info.appendChild(desc);
 

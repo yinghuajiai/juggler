@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { resolveAssetUrl } from '../../../js/utils/asset-url.js';
 
@@ -74,7 +75,7 @@ class JugglerSourceContextItem extends ContextItem {
     id: 'juggler-source',
     name: 'Read Juggler Source',
     version: '1.0.0',
-    description: 'Read Juggler SDK base classes and example-extension source',
+    description: t('Read Juggler SDK base classes and example-extension source'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -90,10 +91,10 @@ class JugglerSourceContextItem extends ContextItem {
       properties: {
         path: {
           type: 'string',
-          description: 'Repo-relative path under sdk/ or extensions/ — e.g. '
+          description: t('Repo-relative path under sdk/ or extensions/ — e.g. '
             + '"sdk/context-item.js" or '
             + '"extensions/juggler-core/context-items/read-file-context-item.js". '
-            + 'A leading "web/" is accepted.'
+            + 'A leading "web/" is accepted.')
         }
       },
       required: ['path']

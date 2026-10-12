@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { basename } from 'juggler/item-utils';
 import { buildPickerPanel, createElement, injectStylesOnce } from 'juggler/ui';
@@ -61,7 +62,7 @@ class FilePin extends PinboardItemType {
     id: 'file',
     name: 'File',
     version: '1.0.0',
-    description: 'Keeps a live file within reach',
+    description: t('Keeps a live file within reach'),
     instances: 'multiple',
     // The one type that shows whatever the user names rather than something the
     // conversation already has, so it leads the add picker and says in the row
@@ -97,11 +98,11 @@ class FilePin extends PinboardItemType {
     document.body.appendChild(overlay);
 
     const { element, promise, cancel } = buildPickerPanel({
-      title: 'Add a file to view',
+      title: t('Add a file to view'),
       // A folder is as pinnable as a file — a trailing slash names one, and the
       // pin shows its tree — so the prompt says both rather than only the common
       // half.
-      placeholder: 'File or folder path…',
+      placeholder: t('File or folder path…'),
       dirsOnly: false,
       confirmLabel: 'Add',
       showCancel: true,

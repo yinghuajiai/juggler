@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import { renderResultStatusMessage } from '../../sdk/lib/html.js';
 import {
@@ -278,7 +279,7 @@ class ToolActionMessage extends HTMLElement {
     const text = document.createElement('span');
     text.className = 'approval-review-status-label';
     // textContent, never innerHTML: the note is model-authored text.
-    text.textContent = label || 'Reviewing…';
+    text.textContent = label || _t('Reviewing…');
     row.appendChild(text);
     return row;
   }

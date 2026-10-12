@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../../js/i18n/index.js';
 import SubagentStrategyType from './subagent-strategy.js';
 import { RESEARCH_GUIDANCE } from './research-prompt.js';
 
@@ -43,7 +44,7 @@ export default class ResearchSubagentStrategyType extends SubagentStrategyType {
     id: 'subagent-research',
     name: 'Research (sub-agent)',
     version: '1.0.0',
-    description: 'Web research for a delegated Research run — search and fetch, plus read-only local lookups.',
+    description: _t('Web research for a delegated Research run — search and fetch, plus read-only local lookups.'),
     author: 'Juggler Team',
     hidden: true,
     showsApprovalControls: false

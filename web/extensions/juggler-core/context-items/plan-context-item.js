@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { createElement } from 'juggler/ui';
 import {
@@ -78,7 +79,7 @@ class PlanContextItem extends ContextItem {
     id: 'plan',
     name: 'Plan',
     version: '4.0.0',
-    description: 'Implementation plan with step tracking and sub-thread orchestration',
+    description: t('Implementation plan with step tracking and sub-thread orchestration'),
     author: 'Juggler Team',
     requiresApproval: true,
     // 'none': the plan is not re-injected into the trailing tail every turn.
@@ -89,7 +90,7 @@ class PlanContextItem extends ContextItem {
     contextPosition: 'none',
     syntheticToolName: 'plan',
     exampleData: {
-      title: 'Implement User Authentication',
+      title: t('Implement User Authentication'),
       status: 'executing',
       steps: [
         { content: 'Create user model in `models/user.js`', status: 'completed', threadItemId: null, result: 'Created User model with email and password fields' },
@@ -151,11 +152,11 @@ class PlanContextItem extends ContextItem {
             action: {
               type: 'string',
               enum: ['submit', 'start_step', 'complete_step', 'fail_step', 'skip_step'],
-              description: 'Action to perform'
+              description: t('Action to perform')
             },
             title: {
               type: 'string',
-              description: 'Descriptive title for the plan, specific enough to distinguish this approach (required for submit)'
+              description: t('Descriptive title for the plan, specific enough to distinguish this approach (required for submit)')
             },
             items: {
               type: 'array',
@@ -164,29 +165,29 @@ class PlanContextItem extends ContextItem {
                 properties: {
                   content: {
                     type: 'string',
-                    description: 'What this step accomplishes, in enough detail to review: the files involved (`backticks` for paths/code), the change, and how it is verified. One reviewable unit of work per step.'
+                    description: t('What this step accomplishes, in enough detail to review: the files involved (`backticks` for paths/code), the change, and how it is verified. One reviewable unit of work per step.')
                   },
                   status: {
                     type: 'string',
                     enum: ['pending', 'in_progress', 'completed', 'failed', 'skipped'],
-                    description: 'Initial status (usually pending)'
+                    description: t('Initial status (usually pending)')
                   }
                 },
                 required: ['content']
               },
-              description: 'List of plan steps (required for submit)'
+              description: t('List of plan steps (required for submit)')
             },
             index: {
               type: 'number',
-              description: 'Step index, 1-based (required for start_step, complete_step, fail_step, skip_step)'
+              description: t('Step index, 1-based (required for start_step, complete_step, fail_step, skip_step)')
             },
             result: {
               type: 'string',
-              description: 'Summary of what was accomplished (optional for complete_step, fail_step)'
+              description: t('Summary of what was accomplished (optional for complete_step, fail_step)')
             },
             threadItemId: {
               type: 'string',
-              description: 'Thread item ID that executed this step (optional for complete_step)'
+              description: t('Thread item ID that executed this step (optional for complete_step)')
             }
           },
           required: ['action']
@@ -543,7 +544,7 @@ class PlanContextItem extends ContextItem {
       message: `${planParams.items.length} step${planParams.items.length !== 1 ? 's' : ''} - Review and approve to begin execution`,
       options: [
         { label: 'Approve', value: 'yes', style: 'primary' },
-        { label: 'Discuss further', value: 'no', style: 'secondary' }
+        { label: t('Discuss further'), value: 'no', style: 'secondary' }
       ],
       display: { planData }
     };
@@ -960,7 +961,7 @@ class PlanContextItem extends ContextItem {
     if (!actionStatus) {
       return {
         typeName: 'Plan',
-        summary: this.data.title || 'Implementation Plan'
+        summary: this.data.title || t('Implementation Plan')
       };
     }
 
@@ -980,7 +981,7 @@ class PlanContextItem extends ContextItem {
         typeName,
         summary: isStepAction
           ? this._stepActionSummary(action, toolInput?.index)
-          : (planData?.title || 'Implementation Plan')
+          : (planData?.title || t('Implementation Plan'))
       };
     }
 

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import {
   isUserMessage,
   isAssistantMessage,
@@ -900,7 +901,7 @@ class ConversationArea extends HTMLElement {
       mount: /** @type {HTMLElement} */ (
         this.querySelector('conversation-message-list-wrapper') || this
       ),
-      label: 'Find in conversation',
+      label: _t('Find in conversation'),
       restoreFocus: () => {
         const textarea = /** @type {HTMLElement|null} */ (
           this.querySelector('composer-box textarea')

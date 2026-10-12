@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { extensionConfigResolve, httpRequest } from 'juggler/ops';
 
@@ -77,7 +78,7 @@ class ExaSearchContextItem extends ContextItem {
     id: 'exa-search',
     name: 'Exa Search',
     version: '0.1.0',
-    description: 'Search the web with Exa',
+    description: t('Search the web with Exa'),
     author: 'Juggler Team',
     requiresApproval: false
   };
@@ -94,7 +95,7 @@ class ExaSearchContextItem extends ContextItem {
           query: {
             type: 'string',
             minLength: 1,
-            description: 'The search query'
+            description: t('The search query')
           },
           numResults: {
             type: 'integer',
@@ -107,17 +108,17 @@ class ExaSearchContextItem extends ContextItem {
             type: 'string',
             enum: ['instant', 'fast', 'auto', 'deep-lite', 'deep', 'deep-reasoning'],
             default: 'auto',
-            description: 'Search mode (default auto)'
+            description: t('Search mode (default auto)')
           },
           include_domains: {
             type: 'array',
             items: { type: 'string' },
-            description: 'Only include results from these domains or domain paths'
+            description: t('Only include results from these domains or domain paths')
           },
           exclude_domains: {
             type: 'array',
             items: { type: 'string' },
-            description: 'Exclude results from these domains or domain paths'
+            description: t('Exclude results from these domains or domain paths')
           },
           contents: {
             type: 'string',

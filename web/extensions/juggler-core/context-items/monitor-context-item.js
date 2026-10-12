@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { MAX_EXEC_TIMEOUT_MS } from 'juggler/ops';
 import { createSummaryWithSubtitle } from 'juggler/ui';
@@ -31,7 +32,7 @@ class MonitorContextItem extends ContextItem {
     id: 'monitor',
     name: 'Monitor',
     version: '1.0.0',
-    description: 'Run a background command and stream its output into the conversation',
+    description: _t('Run a background command and stream its output into the conversation'),
     author: 'Juggler Team',
     requiresApproval: true
   };
@@ -57,15 +58,15 @@ class MonitorContextItem extends ContextItem {
       properties: {
         command: {
           type: 'string',
-          description: 'Shell command whose stdout lines become events. Self-filter so only lines you would act on are emitted (e.g. `tail -f build.log | grep --line-buffered -E "ERROR|FAILED"`), and flush every pipe stage (grep --line-buffered, awk fflush()).'
+          description: _t('Shell command whose stdout lines become events. Self-filter so only lines you would act on are emitted (e.g. `tail -f build.log | grep --line-buffered -E "ERROR|FAILED"`), and flush every pipe stage (grep --line-buffered, awk fflush()).')
         },
         description: {
           type: 'string',
-          description: 'Short human-readable description of what is being monitored (shown with each event).'
+          description: _t('Short human-readable description of what is being monitored (shown with each event).')
         },
         persistent: {
           type: 'boolean',
-          description: 'Keep the monitor running for the session\'s lifetime (for log tails watched indefinitely). When false (default) it ends when the command exits or times out.'
+          description: _t('Keep the monitor running for the session\'s lifetime (for log tails watched indefinitely). When false (default) it ends when the command exits or times out.')
         },
         timeout_ms: {
           type: 'number',

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { presentPopup } from '../utils/popup-surface.js';
 import { caretViewportRect } from '../utils/textarea-caret.js';
 
@@ -347,7 +348,7 @@ export class CompletionMenu {
     if (results.length === 0) {
       const li = document.createElement('li');
       li.className = 'menu-item menu-item-empty';
-      li.textContent = provider.emptyLabel ?? 'No matches';
+      li.textContent = provider.emptyLabel ?? t('No matches');
       menu.appendChild(li);
     }
 

@@ -144,11 +144,11 @@ class BinModal extends JugglerElement {
       console.error('[BinModal] Failed to load binned list:', e);
       this._binned = [];
       empty.classList.remove('hidden');
-      empty.textContent = 'Couldn’t load the bin.';
+      empty.textContent = _t('Couldn’t load the bin.');
       list.innerHTML = '';
       if (emptyBtn) {
         emptyBtn.disabled = true;
-        emptyBtn.textContent = 'Empty Bin';
+        emptyBtn.textContent = _t('Empty Bin');
       }
       return;
     }
@@ -166,7 +166,7 @@ class BinModal extends JugglerElement {
       const sizeBytes = this._session.bin.sizeBytes || 0;
       emptyBtn.textContent = binned.length > 0 && sizeBytes > 0
         ? `Empty Bin (${formatBytes(sizeBytes)})`
-        : 'Empty Bin';
+        : _t('Empty Bin');
     }
     if (binned.length === 0) {
       empty.classList.remove('hidden');
@@ -174,8 +174,8 @@ class BinModal extends JugglerElement {
       // user got here. After they restore, delete, or empty something the
       // emptiness is their own doing, so it is stated plainly.
       empty.textContent = onOpen
-        ? 'Empty. Either you’re very tidy or you’re new.'
-        : 'The bin is empty.';
+        ? _t('Empty. Either you’re very tidy or you’re new.')
+        : _t('The bin is empty.');
       return;
     }
     empty.classList.add('hidden');
@@ -386,7 +386,7 @@ class BinModal extends JugglerElement {
         ? `Permanently delete ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
         : 'Permanently delete every conversation in the bin?\n\nThis cannot be undone.',
       _t('Empty Bin'),
-      { confirmText: doomed ? 'Delete' : 'Empty Bin', cancelText: 'Cancel', danger: true }
+      { confirmText: doomed ? 'Delete' : _t('Empty Bin'), cancelText: 'Cancel', danger: true }
     );
     if (!confirmed) return;
 
@@ -400,7 +400,7 @@ class BinModal extends JugglerElement {
     const empty = /** @type {HTMLElement|null} */ (this.querySelector('.bin-empty'));
     if (emptyBtn) {
       emptyBtn.disabled = true;
-      emptyBtn.textContent = 'Emptying…';
+      emptyBtn.textContent = _t('Emptying…');
     }
     if (doomed) {
       for (const id of doomed) {
@@ -411,7 +411,7 @@ class BinModal extends JugglerElement {
     }
     if (empty && !list?.children.length) {
       empty.classList.remove('hidden');
-      empty.textContent = 'The bin is empty.';
+      empty.textContent = _t('The bin is empty.');
     }
 
     try {

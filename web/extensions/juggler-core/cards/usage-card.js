@@ -16,6 +16,7 @@
  * @module extensions/juggler-core/cards/usage-card
  */
 
+import { t } from '../../../js/i18n/index.js';
 import InfoCardType from 'juggler/info-card-type';
 import defaultModelCache from '../../../js/services/default-model-cache.js';
 import providersCache from '../../../js/services/providers-cache.js';
@@ -90,7 +91,7 @@ export default class UsageCard extends InfoCardType {
     id: 'usage',
     name: 'Usage',
     version: '1.0.0',
-    description: 'Show your active model provider’s quota usage in the sidebar.',
+    description: t('Show your active model provider’s quota usage in the sidebar.'),
     eyebrow: 'Usage',
     priority: 20,
   };

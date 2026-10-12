@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { presentPopup } from '../utils/popup-surface.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
 import { attachSwipeDismiss } from '../utils/swipe-dismiss.js';
@@ -32,11 +33,11 @@ import { toggleTheme, getPaintedTheme, THEME_MODE_EVENT } from '../utils/theme-m
 const THEME_BUTTON_UI = {
   light: {
     path: 'M579-381q41-41 41-99t-41-99q-41-41-99-41t-99 41q-41 41-41 99t41 99q41 41 99 41t99-41Zm-240.5 42.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-450H40v-60h160v60Zm720 0H760v-60h160v60ZM450-760v-160h60v160h-60Zm0 720v-160h60v160h-60ZM262-658l-100-97 43-44 96 100-39 41Zm494 496-98-100 41-41 99 98-42 43Zm-99-537 98-99 44 42-99 98-43-41ZM162-205l99-98 42 42-98 99-43-43Zm318-275Z',
-    title: 'Theme: Light — click for Dark'
+    title: t('Theme: Light — click for Dark')
   },
   dark: {
     path: 'M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q8 0 17 .5t23 1.5q-36 32-56 79t-20 99q0 90 63 153t153 63q52 0 99-18.5t79-51.5q1 12 1.5 19.5t.5 14.5q0 150-105 255T480-120Zm0-60q109 0 190-67.5T771-406q-25 11-53.67 16.5Q688.67-384 660-384q-114.69 0-195.34-80.66Q384-545.31 384-660q0-24 5-51.5t18-62.5q-98 27-162.5 109.5T180-480q0 125 87.5 212.5T480-180Zm-4-297Z',
-    title: 'Theme: Dark — click for Light'
+    title: t('Theme: Dark — click for Light')
   }
 };
 import { toggleSound, isSoundEnabled, ATTENTION_PREFS_EVENT } from '../utils/attention-manager.js';
@@ -441,10 +442,10 @@ class UIEventManager {
       return;
     }
     this._overflowMenu = setupHeaderOverflowMenu(overflowButton, [
-      { label: 'Decrease font size', shortcutId: 'zoom-out', run: () => zoomOut() },
-      { label: 'Increase font size', shortcutId: 'zoom-in', run: () => zoomIn() },
+      { label: t('Decrease font size'), shortcutId: 'zoom-out', run: () => zoomOut() },
+      { label: t('Increase font size'), shortcutId: 'zoom-in', run: () => zoomIn() },
       {
-        label: 'Tips & keyboard shortcuts',
+        label: t('Tips & keyboard shortcuts'),
         shortcutId: 'show-shortcuts',
         run: () => openSettings('shortcuts'),
         // The same reason the touch header drops the help button: a keyboard
@@ -631,7 +632,7 @@ class UIEventManager {
       const aiFilesItem = document.createElement('li');
       aiFilesItem.className = 'menu-item';
       aiFilesItem.setAttribute('role', 'menuitem');
-      aiFilesItem.textContent = 'AI assistant files';
+      aiFilesItem.textContent = t('AI assistant files');
       aiFilesItem.addEventListener('click', async () => {
         await this._addAIAssistantFiles(threadItemId);
         close();

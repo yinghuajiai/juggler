@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 
 /**
@@ -28,7 +29,7 @@ class ThreadContextItem extends ContextItem {
     id: 'thread',
     name: 'Create Thread',
     version: '1.0.0',
-    description: 'Create a nested sub-conversation (thread)',
+    description: t('Create a nested sub-conversation (thread)'),
     author: 'Juggler',
     requiresApproval: false,
     workerManaged: true // Execution handled by Go worker, not browser
@@ -49,11 +50,11 @@ class ThreadContextItem extends ContextItem {
           properties: {
             goal: {
               type: 'string',
-              description: 'Very short, single-line, user-facing label (for example, "Trace auth flow"). No instructions, background, or output requirements here.'
+              description: t('Very short, single-line, user-facing label (for example, "Trace auth flow"). No instructions, background, or output requirements here.')
             },
             prompt: {
               type: 'string',
-              description: 'The complete, self-contained task: every relevant fact, path, symbol, decision, and constraint. The required shape of the answer goes in `resultSpec`, not here.'
+              description: t('The complete, self-contained task: every relevant fact, path, symbol, decision, and constraint. The required shape of the answer goes in `resultSpec`, not here.')
             },
             resultSpec: {
               type: 'string',
@@ -61,7 +62,7 @@ class ThreadContextItem extends ContextItem {
             },
             session: {
               type: 'string',
-              description: 'Optional session name of a thread you already ran here: your prompt continues that thread, which keeps everything it has read and worked out. Omit it to start a fresh thread.'
+              description: t('Optional session name of a thread you already ran here: your prompt continues that thread, which keeps everything it has read and worked out. Omit it to start a fresh thread.')
             }
           },
           required: ['goal', 'prompt']

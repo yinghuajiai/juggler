@@ -20,6 +20,7 @@
  * @module components/pinboard-content
  */
 
+import { t } from '../i18n/index.js';
 import JugglerElement from './juggler-element.js';
 import pinboardItemRegistry from '../registries/pinboard-item-registry.js';
 import pinboardStore from '../services/pinboard-store.js';
@@ -530,7 +531,7 @@ class PinboardContent extends JugglerElement {
     return {
       root,
       mount: this,
-      label: 'Find in pinboard',
+      label: t('Find in pinboard'),
       restoreFocus: () => this.focusBody(),
     };
   }
@@ -1941,11 +1942,11 @@ class PinboardContent extends JugglerElement {
     empty.className = 'pinboard-empty';
     const line = document.createElement('p');
     line.className = 'pinboard-empty__line';
-    line.textContent = 'Nothing pinned.';
+    line.textContent = t('Nothing pinned.');
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'pinboard-empty__add';
-    add.textContent = 'Add…';
+    add.textContent = t('Add…');
     add.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('pinboard-add', { bubbles: true }));
     });
@@ -1991,7 +1992,7 @@ class PinboardContent extends JugglerElement {
     line.textContent = `Nothing provides "${pin.type}".`;
     const note = document.createElement('p');
     note.className = 'pinboard-placeholder__note';
-    note.textContent = 'The pin keeps its settings until you remove it.';
+    note.textContent = t('The pin keeps its settings until you remove it.');
     missing.append(line, note);
     this._showPlaceholder(missing);
   }
@@ -2028,7 +2029,7 @@ class PinboardContent extends JugglerElement {
     shell.className = 'pinboard-placeholder';
     const line = document.createElement('p');
     line.className = 'pinboard-placeholder__line';
-    line.textContent = "Couldn't show this pin.";
+    line.textContent = t("Couldn't show this pin.");
     const detail = document.createElement('pre');
     detail.className = 'pinboard-placeholder__error';
     detail.textContent = extractErrorMessage(err);

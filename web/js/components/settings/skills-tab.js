@@ -40,9 +40,9 @@ const DEPRECATED_CATEGORIES = new Set(['deprecated', 'in-progress']);
 
 /** The three install destinations offered by the "choose install location" dialog. */
 const SCOPE_OPTIONS = [
-  { value: 'user:agents', label: 'Shared with all agents', hint: '~/.agents/skills' },
-  { value: 'user:juggler', label: 'Juggler only', hint: '~/.juggler/skills' },
-  { value: 'project:juggler', label: 'This project (committed)', hint: '.juggler/skills' },
+  { value: 'user:agents', label: _t('Shared with all agents'), hint: _t('~/.agents/skills') },
+  { value: 'user:juggler', label: _t('Juggler only'), hint: _t('~/.juggler/skills') },
+  { value: 'project:juggler', label: _t('This project (committed)'), hint: _t('.juggler/skills') },
 ];
 
 /**
@@ -899,7 +899,7 @@ export class SkillsTab {
     // Manual URL entry.
     const urlItem = document.createElement('li');
     urlItem.className = 'menu-item';
-    urlItem.textContent = 'Enter a URL…';
+    urlItem.textContent = _t('Enter a URL…');
     urlItem.addEventListener('click', () => {
       close();
       this._promptAddSource();
@@ -914,7 +914,7 @@ export class SkillsTab {
 
       const header = document.createElement('li');
       header.className = 'menu-header';
-      header.textContent = 'Suggested sources';
+      header.textContent = _t('Suggested sources');
       menu.appendChild(header);
 
       for (const s of defaults) {

@@ -134,8 +134,8 @@ export class AppearanceTab {
     name.textContent = 'Theme';
     const desc = document.createElement('div');
     desc.className = 'provider-description';
-    desc.textContent = 'Follow the system setting, or hold this app to light or dark. '
-      + 'The header button flips between light and dark without coming here.';
+    desc.textContent = t('Follow the system setting, or hold this app to light or dark. '
+      + 'The header button flips between light and dark without coming here.');
     info.appendChild(name);
     info.appendChild(desc);
 

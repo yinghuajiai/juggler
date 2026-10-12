@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 // Memory is the PROJECT's, not the workspace's: `.juggler/MEMORY.md` is a
 // relative path, and a conversation working in a worktree must still remember
@@ -87,7 +88,7 @@ class MemoryContextItem extends ContextItem {
     id: 'memory',
     name: 'Project Memory',
     version: '1.0.0',
-    description: 'Durable, user-visible project memory the assistant maintains across conversations',
+    description: t('Durable, user-visible project memory the assistant maintains across conversations'),
     author: 'Juggler Team',
     idPrefix: 'MEM',
     requiresApproval: false,
@@ -152,15 +153,15 @@ class MemoryContextItem extends ContextItem {
             action: {
               type: 'string',
               enum: ['remember', 'forget'],
-              description: 'Whether to add a fact ("remember") or remove matching facts ("forget")'
+              description: t('Whether to add a fact ("remember") or remove matching facts ("forget")')
             },
             fact: {
               type: 'string',
-              description: 'The durable one-line fact to record (required for "remember")'
+              description: t('The durable one-line fact to record (required for "remember")')
             },
             match: {
               type: 'string',
-              description: 'Case-insensitive substring identifying the entry/entries to remove (required for "forget")'
+              description: t('Case-insensitive substring identifying the entry/entries to remove (required for "forget")')
             }
           },
           required: ['action']
@@ -474,7 +475,7 @@ class MemoryContextItem extends ContextItem {
     // Standing store card: state, not an event. Names what it is and that it
     // reaches the model, so it never reads as a duplicate of the action below.
     if (!actionStatus) {
-      return { typeName: 'Project Memory', summary: 'Durable facts — in context since this conversation began' };
+      return { typeName: 'Project Memory', summary: t('Durable facts — in context since this conversation began') };
     }
     // Tool-action row: the write event. A verb typeName ('Remember'/'Forget')
     // plus the edit badge distinguishes it from the 'Project Memory' store.
@@ -620,7 +621,7 @@ class MemoryContextItem extends ContextItem {
 
       const del = document.createElement('button');
       del.className = 'memory-delete icon-btn';
-      del.title = 'Forget this';
+      del.title = t('Forget this');
       del.innerHTML = '<span class="icon-trashcan"></span>';
       del.addEventListener('click', async (ev) => {
         ev.stopPropagation();

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatPathForStatus } from 'juggler/item-utils';
 import { toolInputPath, isPathAllowed, folderGrantSuggestions, stripInjectedApprovalFlags, gitignoreDisabled } from './path-approval.js';
@@ -64,7 +65,7 @@ class SearchContextItem extends ContextItem {
     id: 'search',
     name: 'Search',
     version: '1.0.0',
-    description: 'Search codebase for patterns and symbols',
+    description: t('Search codebase for patterns and symbols'),
     author: 'Juggler Team',
     // Approval-gated like read, but only an out-of-root NON-glob `path` prompts:
     // a search with no path (cwd) or a glob path is confined to the project by
@@ -83,11 +84,11 @@ class SearchContextItem extends ContextItem {
       properties: {
         pattern: {
           type: 'string',
-          description: 'The regular expression pattern to search for in file contents'
+          description: t('The regular expression pattern to search for in file contents')
         },
         path: {
           type: 'string',
-          description: 'File or directory to search in. Defaults to current working directory.'
+          description: t('File or directory to search in. Defaults to current working directory.')
         },
         glob: {
           type: 'string',
@@ -95,48 +96,48 @@ class SearchContextItem extends ContextItem {
         },
         type: {
           type: 'string',
-          description: 'File type to search (e.g., js, py, go, rust). More efficient than glob for standard file types.'
+          description: t('File type to search (e.g., js, py, go, rust). More efficient than glob for standard file types.')
         },
         output_mode: {
           type: 'string',
           enum: ['content', 'files_with_matches', 'count'],
-          description: 'Output mode: "content" shows matching lines, "files_with_matches" shows file paths (default), "count" shows match counts.'
+          description: t('Output mode: "content" shows matching lines, "files_with_matches" shows file paths (default), "count" shows match counts.')
         },
         '-A': {
           type: 'number',
-          description: 'Number of lines to show after each match. Requires output_mode: "content".'
+          description: t('Number of lines to show after each match. Requires output_mode: "content".')
         },
         '-B': {
           type: 'number',
-          description: 'Number of lines to show before each match. Requires output_mode: "content".'
+          description: t('Number of lines to show before each match. Requires output_mode: "content".')
         },
         '-C': {
           type: 'number',
-          description: 'Number of lines to show before and after each match. Requires output_mode: "content".'
+          description: t('Number of lines to show before and after each match. Requires output_mode: "content".')
         },
         '-i': {
           type: 'boolean',
-          description: 'Case insensitive search'
+          description: t('Case insensitive search')
         },
         '-n': {
           type: 'boolean',
-          description: 'Show line numbers in output. Defaults to true.'
+          description: t('Show line numbers in output. Defaults to true.')
         },
         multiline: {
           type: 'boolean',
-          description: 'Enable multiline mode where patterns can span lines. Default: false.'
+          description: t('Enable multiline mode where patterns can span lines. Default: false.')
         },
         head_limit: {
           type: 'number',
-          description: 'Limit output to first N entries.'
+          description: t('Limit output to first N entries.')
         },
         offset: {
           type: 'number',
-          description: 'Skip first N entries before applying head_limit.'
+          description: t('Skip first N entries before applying head_limit.')
         },
         noIgnore: {
           type: 'boolean',
-          description: 'Search files ignored by .gitignore too. Default false.'
+          description: t('Search files ignored by .gitignore too. Default false.')
         }
       },
       required: ['pattern']

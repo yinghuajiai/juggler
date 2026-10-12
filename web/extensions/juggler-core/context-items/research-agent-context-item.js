@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import SubagentContextItem from './subagents/subagent-item.js';
 import ResearchSubagentStrategyType from './subagents/research-strategy.js';
 
@@ -25,7 +26,7 @@ class ResearchAgentContextItem extends SubagentContextItem {
     id: 'research-agent',
     name: 'Research',
     version: '1.0.0',
-    description: 'Answer a question from the web in a sub-agent context',
+    description: t('Answer a question from the web in a sub-agent context'),
     author: 'Juggler Team',
     requiresApproval: false,
     // Always delegates: buildSubthreadSpec never returns null, and there is no

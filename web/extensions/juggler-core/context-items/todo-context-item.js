@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { createElement } from 'juggler/ui';
 import { createEmptyState } from 'juggler/item-utils';
@@ -53,7 +54,7 @@ class TodoContextItem extends ContextItem {
     id: 'todo',
     name: 'Todo list',
     version: '1.0.0',
-    description: 'Lightweight todo checklist the assistant tracks during multi-step work',
+    description: _t('Lightweight todo checklist the assistant tracks during multi-step work'),
     author: 'Juggler Team',
     idPrefix: 'TODO',
     requiresApproval: false,
@@ -106,17 +107,17 @@ class TodoContextItem extends ContextItem {
                 properties: {
                   content: {
                     type: 'string',
-                    description: 'What this item covers. Supports markdown (use `backticks` for file paths and code).'
+                    description: _t('What this item covers. Supports markdown (use `backticks` for file paths and code).')
                   },
                   status: {
                     type: 'string',
                     enum: ['pending', 'in_progress', 'completed'],
-                    description: 'Item status (defaults to pending).'
+                    description: _t('Item status (defaults to pending).')
                   }
                 },
                 required: ['content']
               },
-              description: 'The complete todo list — replaces the previous one in full.'
+              description: _t('The complete todo list — replaces the previous one in full.')
             }
           },
           required: ['todos']
@@ -411,7 +412,7 @@ class TodoContextItem extends ContextItem {
     }
 
     if (actionStatus.pending) {
-      return { typeName: 'Todos', summary: 'Updating todos' };
+      return { typeName: 'Todos', summary: _t('Updating todos') };
     }
 
     if (actionStatus.success) {

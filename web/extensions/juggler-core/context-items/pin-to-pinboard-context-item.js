@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { pinToPinboard, loadPinAgentDescriptors } from 'juggler/pinboard';
 import { createShowPinControl, injectStylesOnce, showPin } from 'juggler/ui';
@@ -147,7 +148,7 @@ class PinToPinboardContextItem extends ContextItem {
     id: 'pin-to-pinboard',
     name: 'Pin to Pinboard',
     version: '1.0.0',
-    description: 'Show something on the user’s pinboard',
+    description: t('Show something on the user’s pinboard'),
     author: 'Juggler',
     requiresApproval: false,
   };
@@ -210,11 +211,11 @@ class PinToPinboardContextItem extends ContextItem {
         properties: {
           type: {
             type: 'string',
-            description: 'Which kind of Pinboard item to add — the id of one of the installed types listed above.',
+            description: t('Which kind of Pinboard item to add — the id of one of the installed types listed above.'),
           },
           parameters: {
             type: 'object',
-            description: 'Parameters for the requested type, as listed above. Pass an empty object for a type that takes none.',
+            description: t('Parameters for the requested type, as listed above. Pass an empty object for a type that takes none.'),
           },
         },
         required: ['type', 'parameters'],
@@ -289,7 +290,7 @@ class PinToPinboardContextItem extends ContextItem {
   getStatusUI(actionStatus) {
     const typeName = 'pinned';
     if (!actionStatus || actionStatus.pending) {
-      return { typeName, summary: actionStatus ? 'Pinning…' : 'Pin to Pinboard', status: actionStatus ? 'running' : undefined };
+      return { typeName, summary: actionStatus ? t('Pinning…') : t('Pin to Pinboard'), status: actionStatus ? 'running' : undefined };
     }
     if (actionStatus.success) {
       const result = /** @type {{type?: string, parameters?: Record<string, any>}} */ (actionStatus.result || {});
@@ -317,7 +318,7 @@ class PinToPinboardContextItem extends ContextItem {
     link.type = 'button';
     link.className = 'pinned-summary-link';
     link.textContent = label;
-    link.title = 'Show on Pinboard';
+    link.title = t('Show on Pinboard');
     link.addEventListener('click', () => { void showPin(ref); });
     return link;
   }

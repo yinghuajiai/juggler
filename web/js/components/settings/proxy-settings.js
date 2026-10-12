@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
 import { fetchJson } from '../../services/http.js';
 import { apiUrl } from '../../utils/api-url.js';
@@ -21,18 +22,18 @@ import { apiUrl } from '../../utils/api-url.js';
 const MODES = [
   {
     value: 'system',
-    label: 'System (recommended)',
-    hint: 'Uses the proxy environment variables and the operating-system proxy, falling back to a direct connection when none is set.',
+    label: t('System (recommended)'),
+    hint: t('Uses the proxy environment variables and the operating-system proxy, falling back to a direct connection when none is set.'),
   },
   {
     value: 'none',
-    label: 'Direct (no proxy)',
-    hint: 'Always connects directly, ignoring any environment or system proxy.',
+    label: t('Direct (no proxy)'),
+    hint: t('Always connects directly, ignoring any environment or system proxy.'),
   },
   {
     value: 'manual',
     label: 'Manual',
-    hint: 'Routes through the proxy URL below.',
+    hint: t('Routes through the proxy URL below.'),
   },
 ];
 
@@ -92,10 +93,10 @@ export class ProxySettings {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Outbound proxy';
+    name.textContent = t('Outbound proxy');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
-    desc.textContent = "Route Juggler's outbound connections through a proxy. Local addresses (localhost / 127.0.0.1) always bypass it.";
+    desc.textContent = t("Route Juggler's outbound connections through a proxy. Local addresses (localhost / 127.0.0.1) always bypass it.");
     info.appendChild(name);
     info.appendChild(desc);
 

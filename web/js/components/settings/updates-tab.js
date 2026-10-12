@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import { getUpdaterState, startCheck } from '../../services/updater-control.js';
 import { fetchJson } from '../../services/http.js';
 import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
@@ -22,17 +23,17 @@ const MODES = [
   {
     value: 'automatic',
     label: 'Automatic',
-    description: 'Check periodically and download updates in the background.',
+    description: t('Check periodically and download updates in the background.'),
   },
   {
     value: 'notify',
-    label: 'Notify only',
-    description: 'Check periodically and show an Update button, but never download automatically.',
+    label: t('Notify only'),
+    description: t('Check periodically and show an Update button, but never download automatically.'),
   },
   {
     value: 'off',
     label: 'Off',
-    description: 'Never check automatically. You can still check manually below.',
+    description: t('Never check automatically. You can still check manually below.'),
   },
 ];
 
@@ -73,7 +74,7 @@ export class UpdatesTab {
     const versionDesc = document.createElement('div');
     versionDesc.className = 'provider-description';
     versionDesc.id = 'updates-version-info';
-    versionDesc.textContent = 'Loading…';
+    versionDesc.textContent = t('Loading…');
     versionInfo.appendChild(versionName);
     versionInfo.appendChild(versionDesc);
     versionBlock.appendChild(versionInfo);
@@ -82,7 +83,7 @@ export class UpdatesTab {
     // ── Update mode radios ──────────────────────────────────────────────
     const modeHeading = document.createElement('div');
     modeHeading.className = 'settings-section-heading';
-    modeHeading.textContent = 'When updates are available';
+    modeHeading.textContent = t('When updates are available');
     container.appendChild(modeHeading);
 
     const modeGroup = document.createElement('div');
@@ -139,7 +140,7 @@ export class UpdatesTab {
     btn.type = 'button';
     btn.id = 'updates-check-btn';
     btn.className = 'settings-btn primary small';
-    btn.textContent = 'Check for updates';
+    btn.textContent = t('Check for updates');
     btn.addEventListener('click', () => void this._checkNow());
     actionCtrl.appendChild(btn);
 

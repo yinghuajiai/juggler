@@ -3,9 +3,11 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
+
 /** @type {import('juggler/pinboard-item-type').PinAgentDescriptor} */
 export default {
   id: 'memory',
-  description: 'The durable project facts kept in memory.',
+  description: t('The durable project facts kept in memory.'),
   parameters: { type: 'object', properties: {}, required: [] },
 };

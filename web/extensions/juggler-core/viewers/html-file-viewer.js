@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import FileViewer from 'juggler/file-viewer';
 import { createFileContentBlock, formatFileContentForLLM } from 'juggler/item-utils';
 import { injectStylesOnce } from 'juggler/ui';
@@ -111,7 +112,7 @@ class HtmlFileViewer extends FileViewer {
     id: 'html',
     name: 'HTML',
     version: '1.0.0',
-    description: 'Renders HTML files as a live page, with the source a click away',
+    description: t('Renders HTML files as a live page, with the source a click away'),
     mimeTypes: ['text/html'],
     extensions: ['html', 'htm'],
     priority: 50,

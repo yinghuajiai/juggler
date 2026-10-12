@@ -28,6 +28,7 @@
  * @module components/conversation-area-rendering
  */
 
+import { t } from '../i18n/index.js';
 import {
   isUserMessage,
   isAssistantMessage,
@@ -171,7 +172,7 @@ function ensureQueuedDeleteButton(area, el, itemId) {
     button = document.createElement('button');
     button.type = 'button';
     button.className = 'queued-message-delete-btn icon-btn';
-    button.title = 'Remove from queue';
+    button.title = t('Remove from queue');
     button.setAttribute('aria-label', 'Remove queued message');
     button.innerHTML = '<span class="icon-trashcan"></span>';
     button.addEventListener('click', (event) => {
@@ -307,7 +308,7 @@ export function ensureWorkspaceBanner(area, messageList) {
     const open = document.createElement('button');
     open.type = 'button';
     open.className = 'workspace-banner-open';
-    open.title = 'Show this workspace';
+    open.title = t('Show this workspace');
 
     const lead = document.createElement('span');
     lead.className = 'workspace-banner-lead';
@@ -420,7 +421,7 @@ function ensureStrandedBanner(conversation, binding, existing, messageList) {
       const found = document.createElement('button');
       found.type = 'button';
       found.className = 'workspace-banner-reconnect';
-      found.textContent = 'Put it back…';
+      found.textContent = t('Put it back…');
       found.addEventListener('click', () => { void openWorkspaceReconnect(conversation); });
       banner.appendChild(found);
     }
@@ -428,7 +429,7 @@ function ensureStrandedBanner(conversation, binding, existing, messageList) {
     const rebind = document.createElement('button');
     rebind.type = 'button';
     rebind.className = 'workspace-banner-rebind';
-    rebind.textContent = 'Work in the project';
+    rebind.textContent = t('Work in the project');
     rebind.addEventListener('click', () => { void rebindConversation(conversation, ''); });
     banner.appendChild(rebind);
 
@@ -493,7 +494,7 @@ function renderThreadResultBody(body, text) {
     decorateCodeBlocks(body);
     return;
   }
-  body.textContent = 'The folded transcript is intact in this thread. Re-summarise to write a summary for it.';
+  body.textContent = t('The folded transcript is intact in this thread. Re-summarise to write a summary for it.');
 }
 
 /**
@@ -606,9 +607,9 @@ export function ensureThreadResult(area, messageList, footer) {
   const resummariseBtn = document.createElement('button');
   resummariseBtn.type = 'button';
   resummariseBtn.className = 'thread-result-resummarise-btn';
-  resummariseBtn.title = 'Summarise this fold again';
+  resummariseBtn.title = t('Summarise this fold again');
   resummariseBtn.setAttribute('aria-label', 'Summarise this fold again');
-  resummariseBtn.textContent = 'Re-summarise';
+  resummariseBtn.textContent = t('Re-summarise');
   resummariseBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     const tid = threadYMap?.get?.('itemId');

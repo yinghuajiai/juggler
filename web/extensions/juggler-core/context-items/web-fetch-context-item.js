@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { webFetch } from 'juggler/ops';
 
@@ -44,7 +45,7 @@ class WebFetchContextItem extends ContextItem {
     id: 'web-fetch',
     name: 'Web Fetch',
     version: '2.0.0',
-    description: 'Fetch and process web content',
+    description: t('Fetch and process web content'),
     author: 'Juggler Team',
     requiresApproval: false,
     // With a `prompt`, buildSubthreadSpec fetches the page here and delegates to
@@ -74,15 +75,15 @@ class WebFetchContextItem extends ContextItem {
         url: {
           type: 'string',
           format: 'uri',
-          description: 'The URL to fetch content from'
+          description: t('The URL to fetch content from')
         },
         goal: {
           type: 'string',
-          description: 'Very short, single-line, user-facing label for EXTRACT mode (for example, "Find release date"). Ignored in RAW mode.'
+          description: t('Very short, single-line, user-facing label for EXTRACT mode (for example, "Find release date"). Ignored in RAW mode.')
         },
         prompt: {
           type: 'string',
-          description: 'Leave UNSET to read the content (RAW). Set ONLY to ask one question about a large, noisy page you do not want in your context — the answer is a lossy summary, so never set it for a file you mean to read, quote, or work with (.md, .txt, JSON, source).'
+          description: t('Leave UNSET to read the content (RAW). Set ONLY to ask one question about a large, noisy page you do not want in your context — the answer is a lossy summary, so never set it for a file you mean to read, quote, or work with (.md, .txt, JSON, source).')
         },
         session: {
           type: 'string',

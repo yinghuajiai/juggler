@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { formatFileSize } from 'juggler/item-utils';
 import { smartTruncate, createElement, renderMarkdown, decorateCodeBlocks } from 'juggler/ui';
@@ -42,7 +43,7 @@ class SkillContextItem extends ContextItem {
     id: 'skill',
     name: 'Skills',
     version: '1.0.0',
-    description: 'Progressive-disclosure Agent Skills the assistant can load on demand',
+    description: t('Progressive-disclosure Agent Skills the assistant can load on demand'),
     author: 'Juggler Team',
     idPrefix: 'SKILL',
     requiresApproval: false,
@@ -92,7 +93,7 @@ class SkillContextItem extends ContextItem {
           properties: {
             name: {
               type: 'string',
-              description: 'The exact name of the skill to load (from the Skills list in the system prompt).'
+              description: t('The exact name of the skill to load (from the Skills list in the system prompt).')
             }
           },
           required: ['name']
@@ -555,12 +556,12 @@ class SkillContextItem extends ContextItem {
     }
     if (skill.hasScripts) {
       const b = createElement('span', 'skills-badge scripts', 'scripts');
-      b.title = 'Bundles scripts that can be run through the normal tools';
+      b.title = t('Bundles scripts that can be run through the normal tools');
       head.appendChild(b);
     }
     if (loaded) {
       const b = createElement('span', 'skills-badge loaded', 'loaded');
-      b.title = 'Already loaded into this conversation';
+      b.title = t('Already loaded into this conversation');
       head.appendChild(b);
     }
     main.appendChild(head);
@@ -576,7 +577,7 @@ class SkillContextItem extends ContextItem {
       const actions = createElement('div', 'skills-manage-actions');
       const btn = /** @type {HTMLButtonElement} */ (createElement('button', 'skills-btn', 'Details'));
       btn.type = 'button';
-      btn.title = "View this skill's SKILL.md and files";
+      btn.title = t("View this skill's SKILL.md and files");
       btn.addEventListener('click', () => {
         import('../../../js/components/settings/skill-preview.js')
           .then((m) => m.openInstalledSkillPreview(/** @type {any} */ (skill)))
@@ -711,10 +712,10 @@ class SkillContextItem extends ContextItem {
    */
   getStatusUI(actionStatus) {
     if (!actionStatus) {
-      return { typeName: 'Skills', summary: 'Loadable instruction sets — listed for the assistant' };
+      return { typeName: 'Skills', summary: t('Loadable instruction sets — listed for the assistant') };
     }
     if (actionStatus.pending) {
-      return { typeName: 'Skill', summary: 'Loading…', status: /** @type {const} */ ('running') };
+      return { typeName: 'Skill', summary: t('Loading…'), status: /** @type {const} */ ('running') };
     }
     if (actionStatus.success) {
       const r = /** @type {{name?: string, alreadyLoaded?: boolean}} */ (actionStatus.result || {});

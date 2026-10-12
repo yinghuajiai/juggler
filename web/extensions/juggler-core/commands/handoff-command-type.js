@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import CommandType from 'juggler/command-type';
 import { extractErrorMessage } from 'juggler/ui';
 import { compactConversation, isCompactionPending } from 'juggler/model';
@@ -42,7 +43,7 @@ class HandoffCommandType extends CommandType {
     id: 'handoff',
     name: 'Summarise this conversation into a new one',
     version: '1.0.0',
-    description: 'Summarise this conversation into a new one to continue work',
+    description: t('Summarise this conversation into a new one to continue work'),
     icon: 'icon-compact'
   };
 
@@ -55,13 +56,13 @@ class HandoffCommandType extends CommandType {
     const source = this.messageThread?.conversation;
     const session = source?.session;
     if (!session) {
-      return { handled: true, message: 'No session available', error: true };
+      return { handled: true, message: t('No session available'), error: true };
     }
 
     // The summary is an LLM turn, so the clone needs a model. Fail early with the
     // same guidance /compact gives rather than minting an un-runnable conversation.
     if (!this.messageThread?.modelConfig) {
-      return { handled: true, message: 'Please select a model before handing off', error: true };
+      return { handled: true, message: t('Please select a model before handing off'), error: true };
     }
 
     let newId;
@@ -94,13 +95,13 @@ class HandoffCommandType extends CommandType {
     const clone = session.getConversation(newId);
     const cloneMt = clone?.rootMessageThread;
     if (!cloneMt) {
-      return { handled: true, message: 'Handoff failed: continued conversation unavailable', error: true };
+      return { handled: true, message: t('Handoff failed: continued conversation unavailable'), error: true };
     }
 
     // Defensive: a fresh clone should never be mid-compaction, but honour the
     // same single-flight guard the compaction path uses.
     if (isCompactionPending(cloneMt.conversationId)) {
-      return { handled: true, message: 'Handoff already in progress', error: true };
+      return { handled: true, message: t('Handoff already in progress'), error: true };
     }
 
     try {
@@ -114,7 +115,7 @@ class HandoffCommandType extends CommandType {
       if (!folded) {
         // Empty source — nothing to summarise. Leave the (empty) continued conversation
         // in place for the user to start typing in.
-        return { handled: true, message: 'Nothing to hand off — continuing in a fresh conversation', error: true };
+        return { handled: true, message: t('Nothing to hand off — continuing in a fresh conversation'), error: true };
       }
     } catch (error) {
       return { handled: true, message: `Handoff failed: ${extractErrorMessage(error)}`, error: true };

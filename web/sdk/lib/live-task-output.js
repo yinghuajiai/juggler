@@ -28,6 +28,7 @@
  * @module sdk/lib/live-task-output
  */
 
+import { t } from '../../js/i18n/index.js';
 import { shellOutput } from 'juggler/ops';
 import { ansiToFragment, applyAnsi, stripAnsi } from './ansi.js';
 import { createCopyButton } from './copy-button.js';
@@ -148,7 +149,7 @@ export function renderLiveTaskOutput(wrapper, {
   // Same class the finished-result box uses, so live terminal output is laid out
   // monospaced and column-aligned rather than as prose.
   pre.className = 'properties-panel-result';
-  pre.textContent = '(no output yet)';
+  pre.textContent = t('(no output yet)');
   copyable.appendChild(pre);
   section.appendChild(copyable);
 
@@ -184,7 +185,7 @@ export function renderLiveTaskOutput(wrapper, {
   /** @param {TaskOutputState} state */
   const paintState = (state) => {
     applyOutput(typeof state.output === 'string' ? state.output : '');
-    if (placeholderShown && state.status === 'not_found') pre.textContent = '(no output available)';
+    if (placeholderShown && state.status === 'not_found') pre.textContent = t('(no output available)');
     if (statusEl && describeStatus) statusEl.textContent = describeStatus(state);
     if (state.truncated && state.outputFile) {
       spillNote.hidden = false;

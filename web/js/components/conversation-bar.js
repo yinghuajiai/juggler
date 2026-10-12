@@ -1003,7 +1003,7 @@ class ConversationBar extends JugglerElement {
       undoToast = document.createElement('button');
       undoToast.className = 'conversation-bin-undo';
       undoToast.type = 'button';
-      undoToast.title = 'Put the conversation you just binned back';
+      undoToast.title = t('Put the conversation you just binned back');
       undoToast.setAttribute('aria-label', 'Restore the conversation from the bin');
       undoToast.hidden = true;
       undoToast.innerHTML = `${UNDO_SVG}<span>Restore from Bin</span>`;
@@ -1017,7 +1017,7 @@ class ConversationBar extends JugglerElement {
     if (!binBtn) {
       binBtn = document.createElement('button');
       binBtn.className = 'btn-ghost conversation-bin-button';
-      binBtn.title = 'View binned conversations';
+      binBtn.title = t('View binned conversations');
       binBtn.setAttribute('aria-label', 'Open bin');
       binBtn.innerHTML = `${BIN_ICON_SVG}<span class="conversation-bin-label">Bin</span><span class="conversation-bin-size" hidden></span><span class="conversation-bin-count" hidden></span>`;
       binBtn.addEventListener('click', () => this._openBinModal());
@@ -1711,7 +1711,7 @@ class ConversationBar extends JugglerElement {
     if (!binButton) {
       binButton = document.createElement('button');
       binButton.className = 'conversation-tab-bin';
-      binButton.title = 'Move conversation to bin';
+      binButton.title = t('Move conversation to bin');
       // The tooltip-manager appends the platform-correct combo (e.g. " (⌘⌫)")
       // from this shortcut id — no hard-coded key text in the markup.
       binButton.setAttribute('data-shortcut-id', 'bin-conversation');
@@ -2341,8 +2341,8 @@ class ConversationBar extends JugglerElement {
         const autoNameBtn = document.createElement('button');
         autoNameBtn.type = 'button';
         autoNameBtn.className = 'conversation-tab-auto-name';
-        autoNameBtn.textContent = 'Auto-name';
-        autoNameBtn.title = 'Let the model name this conversation from your first message';
+        autoNameBtn.textContent = t('Auto-name');
+        autoNameBtn.title = t('Let the model name this conversation from your first message');
         autoNameBtn.addEventListener('pointerdown', (e) => { e.preventDefault(); });
         autoNameBtn.addEventListener('click', (e) => {
           e.preventDefault();
@@ -2839,7 +2839,7 @@ registerContextMenuProvider({
     if (!bar._isConversationBusy(convId)) {
       items.push(
         { separator: true },
-        { label: 'Move to Bin', danger: true, onClick: () => { void bar._binConversation(convId); } }
+        { label: t('Move to Bin'), danger: true, onClick: () => { void bar._binConversation(convId); } }
       );
     }
     return items;

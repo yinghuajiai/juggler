@@ -16,6 +16,7 @@
  * and only this function can tell them apart.
  */
 
+import { t as _t } from '../i18n/index.js';
 import { generateToolDefinitions } from './tool-generator.js';
 import { estimateValueTokens } from '../utils/token-estimate.js';
 
@@ -165,7 +166,7 @@ export function groupToolsByOrigin(tools) {
     const group = (buckets.get(key) || []).slice()
       .sort((a, b) => estimateValueTokens(b) - estimateValueTokens(a));
     return {
-      title: key === null ? 'Juggler tools' : `MCP · ${key}`,
+      title: key === null ? _t('Juggler tools') : `MCP · ${key}`,
       server: key,
       tools: group,
       tokens: group.reduce((sum, t) => sum + estimateValueTokens(t), 0)

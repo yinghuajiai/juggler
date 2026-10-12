@@ -23,6 +23,7 @@
  * @module components/pinboard-tabbar
  */
 
+import { t as _t } from '../i18n/index.js';
 import JugglerElement from './juggler-element.js';
 import { startReorderDrag } from '../utils/reorder-drag.js';
 import { createDragGrip, pointerMayGrab } from '../utils/drag-grip.js';
@@ -91,7 +92,7 @@ class PinboardTabbar extends JugglerElement {
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'pinboard-tabbar__add';
-    add.title = 'Add pin';
+    add.title = _t('Add pin');
     add.setAttribute('aria-label', 'Add pin');
     add.setAttribute('aria-haspopup', 'menu');
     add.setAttribute('aria-expanded', 'false');

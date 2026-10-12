@@ -42,6 +42,7 @@
  * @module components/workspace-finish-dialog
  */
 
+import { t } from '../i18n/index.js';
 import { presentModal } from '../utils/modal-surface.js';
 import { setupButton } from './workspace-setup-form.js';
 
@@ -91,7 +92,7 @@ function workList(status) {
 
   const count = document.createElement('div');
   count.className = 'workspace-finish-work-count';
-  count.textContent = total === 1 ? '1 file will be committed' : `${total} files will be committed`;
+  count.textContent = total === 1 ? t('1 file will be committed') : `${total} files will be committed`;
   box.appendChild(count);
 
   const list = document.createElement('div');
@@ -246,7 +247,7 @@ export function openWorkspaceFinish(option, context = {}) {
     const note = document.createElement('div');
     note.className = 'setup-field-note';
     note.textContent = idle
-      ? 'Nothing has changed here, so there is nothing to put a message on.'
+      ? t('Nothing has changed here, so there is nothing to put a message on.')
       : text(prompt.hint);
     if (idle) note.classList.add('setup-field-note-error');
     row.appendChild(note);

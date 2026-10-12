@@ -19,6 +19,7 @@
  * @module workspaces/scratch-copy-workspace-provider
  */
 
+import { t } from '../../../js/i18n/index.js';
 import WorkspaceProvider from 'juggler/workspace-provider';
 import { baseName, join } from '../lib/workspace-paths.js';
 import { field, nextFormSequence, showNote } from '../lib/setup-fields.js';
@@ -123,7 +124,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     id: 'scratch-copy',
     name: 'Scratch Copy',
     version: '1.0.0',
-    description: 'A copy of this tree to try something risky in, and throw away',
+    description: t('A copy of this tree to try something risky in, and throw away'),
     setupLabel: 'New scratch copy',
     recommendations: {
       bestFor: 'a change that may well be a mistake, in a project with or without git',
@@ -424,25 +425,25 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     return [
       {
         id: 'apply',
-        label: 'Apply the changes',
+        label: t('Apply the changes'),
         description: `Copies what changed here back into ${tree}, then removes the copy. Anything ${tree} has changed since is refused by name, and nothing is applied.`
       },
       {
         id: 'keep',
-        label: 'Close the workspace, keep the copy',
-        description: 'The copy and everything in it stays on disk, ready to be adopted again. Conversations here go to the bin, which they can be restored from.'
+        label: t('Close the workspace, keep the copy'),
+        description: t('The copy and everything in it stays on disk, ready to be adopted again. Conversations here go to the bin, which they can be restored from.')
       },
       {
         id: 'apply-anyway',
-        label: 'Apply, overwriting',
+        label: t('Apply, overwriting'),
         danger: true,
         description: `Copies the changes back even over files ${tree} has changed since. What is in ${tree} is lost.`
       },
       {
         id: 'discard',
-        label: 'Close the workspace and delete the copy',
+        label: t('Close the workspace and delete the copy'),
         danger: true,
-        description: 'Deletes the copy and everything done in it. Conversations here go to the bin, which they can be restored from.'
+        description: t('Deletes the copy and everything done in it. Conversations here go to the bin, which they can be restored from.')
       }
     ];
   }
@@ -464,7 +465,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     const named = slug(String(meta?.name ?? ''));
     const baseDir = String(meta?.baseDir ?? '');
     if (!named || !baseDir) {
-      return { done: false, message: 'There is no record of what this is a copy of, so it is not ours to finish with.' };
+      return { done: false, message: t('There is no record of what this is a copy of, so it is not ours to finish with.') };
     }
 
     const places = sandboxPlaces(baseDir, named);
@@ -509,7 +510,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     const written = [...(mine?.changed ?? []), ...(mine?.added ?? [])];
     const removed = [...(mine?.removed ?? [])];
     if (!written.length && !removed.length) {
-      return { done: false, message: 'Nothing has changed in the copy, so there is nothing to apply.' };
+      return { done: false, message: t('Nothing has changed in the copy, so there is nothing to apply.') };
     }
 
     if (!overwrite) {
@@ -677,7 +678,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     const named = slug(String(meta?.name ?? ''));
     const baseDir = String(meta?.baseDir ?? '');
     if (!named || !baseDir) {
-      return { removed: false, message: 'Nothing was checkpointed, so there is nothing to undo.' };
+      return { removed: false, message: t('Nothing was checkpointed, so there is nothing to undo.') };
     }
 
     // The base workspace's operations where the host has them, because that is

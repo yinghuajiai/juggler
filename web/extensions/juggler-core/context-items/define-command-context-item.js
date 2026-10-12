@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { writeUserCommand, USER_COMMAND_NAME_RE } from '../../../js/services/user-commands.js';
 
@@ -30,7 +31,7 @@ class DefineCommandContextItem extends ContextItem {
     id: 'define-command',
     name: 'Define Command',
     version: '1.0.0',
-    description: 'Create a user-defined slash command',
+    description: t('Create a user-defined slash command'),
     author: 'Juggler Team',
     // Always gated behind approval: the user must see the full template before
     // a command that will send arbitrary prompts is installed.
@@ -70,41 +71,41 @@ class DefineCommandContextItem extends ContextItem {
         name: 'define_command',
         category: 'meta',
         description:
-          'Create a user-defined slash command, invoked with /name — for when the user asks to save, ' +
+          t('Create a user-defined slash command, invoked with /name — for when the user asks to save, ' +
           'name, or repeat a prompt or workflow. The command is a prompt template: $1..$9 for ' +
           'positional arguments, $ARGUMENTS for everything after the command name. The user approves ' +
-          'the full definition before it is written.',
+          'the full definition before it is written.'),
         input_schema: {
           type: 'object',
           properties: {
             name: {
               type: 'string',
-              description: 'Command name (the /name), lowercase letters, digits and hyphens, starting with a letter',
+              description: t('Command name (the /name), lowercase letters, digits and hyphens, starting with a letter'),
             },
             description: {
               type: 'string',
-              description: 'One-line description shown in the slash menu',
+              description: t('One-line description shown in the slash menu'),
             },
             template: {
               type: 'string',
-              description: 'The prompt template ($1..$9 positional args, $ARGUMENTS for the full argument string).',
+              description: t('The prompt template ($1..$9 positional args, $ARGUMENTS for the full argument string).'),
             },
             run: {
               type: 'string',
               enum: DefineCommandContextItem.RUN_MODES,
-              description: 'How invoking the command behaves: send immediately (default), insert as a draft, or run in a sub-thread',
+              description: t('How invoking the command behaves: send immediately (default), insert as a draft, or run in a sub-thread'),
             },
             argsHint: {
               type: 'string',
-              description: 'Optional hint text describing the expected arguments (e.g. "<pr-number>")',
+              description: t('Optional hint text describing the expected arguments (e.g. "<pr-number>")'),
             },
             strategy: {
               type: 'string',
-              description: 'Optional strategy id override (subthread run mode only), e.g. "read-only"',
+              description: t('Optional strategy id override (subthread run mode only), e.g. "read-only"'),
             },
             model: {
               type: 'string',
-              description: 'Optional model id override (subthread run mode only)',
+              description: t('Optional model id override (subthread run mode only)'),
             },
             goal: {
               type: 'string',

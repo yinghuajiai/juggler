@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { createUserMessage } from '../../../sdk/lib/message.js';
 import { decodeHtmlEntities } from '../../../sdk/lib/html.js';
@@ -45,7 +46,7 @@ class NewConversationContextItem extends ContextItem {
     id: 'new-conversation',
     name: 'New Conversation',
     version: '1.0.0',
-    description: 'Create a new independent conversation seeded with an initial message',
+    description: t('Create a new independent conversation seeded with an initial message'),
     author: 'Juggler',
     requiresApproval: false
   };
@@ -86,15 +87,15 @@ class NewConversationContextItem extends ContextItem {
           properties: {
             message: {
               type: 'string',
-              description: 'The new conversation\'s first user message. Must be self-contained — it cannot see this conversation.'
+              description: t('The new conversation\'s first user message. Must be self-contained — it cannot see this conversation.')
             },
             name: {
               type: 'string',
-              description: 'Optional title. When omitted, it is left untitled for the user to name.'
+              description: t('Optional title. When omitted, it is left untitled for the user to name.')
             },
             autostart: {
               type: 'boolean',
-              description: 'Start work on the message immediately (default true). When false, the message is left ready to send so the user can review or edit it first.'
+              description: t('Start work on the message immediately (default true). When false, the message is left ready to send so the user can review or edit it first.')
             }
           },
           required: ['message']

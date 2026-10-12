@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { formatTokens as fmtTokens } from '../utils/format.js';
 
 /** Uncached delta above this earns the `cache-warn` treatment (tokens). */
@@ -184,7 +185,7 @@ class TokenDisplay extends HTMLElement {
     } else if (hasBudget && totalPct >= NEARLY_FULL_PCT) {
       this.title = `${Math.round(totalPct)}% full. Something’s got to give.`;
     } else if (!this.processing && this.cached === null) {
-      this.title = 'Cache use not reported for this turn.';
+      this.title = t('Cache use not reported for this turn.');
     } else {
       this.removeAttribute('title');
     }

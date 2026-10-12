@@ -27,6 +27,7 @@
  * @module extensions/juggler-core/cards/git-status-card
  */
 
+import { t } from '../../../js/i18n/index.js';
 import InfoCardType from 'juggler/info-card-type';
 import gitStatusCache from '../../../js/services/git-status-cache.js';
 import pinboardView from '../../../js/services/pinboard-view.js';
@@ -118,12 +119,12 @@ function withLauncher(nodes, review = false) {
   button.type = 'button';
   button.className = 'info-card__git-launch';
   button.setAttribute('aria-label', review ? 'Review changes in the Pinboard' : 'Open Git status in the Pinboard');
-  button.title = review ? 'Review changes' : 'Open in the Pinboard';
+  button.title = review ? t('Review changes') : t('Open in the Pinboard');
   button.append(...nodes);
   if (review) {
     const cue = document.createElement('div');
     cue.className = 'info-card__git-review';
-    cue.textContent = 'Review changes →';
+    cue.textContent = t('Review changes →');
     button.appendChild(cue);
   }
   // addSource dedupes: the Git pin is a singleton, so a second click reveals the
@@ -176,7 +177,7 @@ export default class GitStatusCard extends InfoCardType {
     id: 'git-status',
     name: 'Git status',
     version: '1.0.0',
-    description: "Show a summary of the git working tree in the sidebar — the project's, or the visible conversation's workspace.",
+    description: t("Show a summary of the git working tree in the sidebar — the project's, or the visible conversation's workspace."),
     eyebrow: 'Git status',
     priority: 10,
   };

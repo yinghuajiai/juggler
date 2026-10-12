@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { mcpSnapshot, mcpCallTool } from 'juggler/ops';
 // First-party builtin reaching a core singleton, the same way @juggler/core
@@ -219,7 +220,7 @@ class McpToolContextItem extends ContextItem {
     id: ITEM_TYPE,
     name: 'MCP Tools',
     version: '1.0.0',
-    description: 'Tools provided by connected MCP (Model Context Protocol) servers',
+    description: _t('Tools provided by connected MCP (Model Context Protocol) servers'),
     author: 'Juggler Team',
     requiresApproval: true
   };
