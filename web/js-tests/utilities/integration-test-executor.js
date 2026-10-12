@@ -58,6 +58,7 @@ import { tests as binGuardTests } from '../integration-tests/bin-guard-tests.js'
 import { tests as modelAvailabilityTests } from '../integration-tests/model-availability-tests.js';
 import { runTests as runContextCacheImpactTests } from '../unit-tests/context-cache-impact-test.js';
 import { runTests as runCacheBaselineAnchorTests } from '../unit-tests/cache-baseline-anchor-test.js';
+import { runTests as runI18nTests } from '../unit-tests/i18n-test.js';
 import { runTests as runCodeLinesTests } from '../unit-tests/code-lines-test.js';
 import { runTests as runCacheMissWarningTests } from '../unit-tests/cache-miss-warning-test.js';
 import { runTests as runFileContentFreezeTests } from '../unit-tests/file-content-freeze-test.js';
@@ -464,6 +465,7 @@ const ALL_TESTS = [
 const UNIT_TEST_SUITES = [
   { name: 'unit:context-cache-impact', run: runContextCacheImpactTests },
   { name: 'unit:cache-baseline-anchor', run: runCacheBaselineAnchorTests },
+  { name: 'unit:i18n', run: runI18nTests },
   { name: 'unit:code-lines', run: runCodeLinesTests },
   { name: 'unit:cache-miss-warning', run: runCacheMissWarningTests },
   { name: 'unit:file-content-freeze', run: runFileContentFreezeTests },

@@ -20,6 +20,7 @@ import { fetchJson } from './services/http.js';
 import { openSettings } from './services/settings-launcher.js';
 import { startSetupWizard, ONBOARDING_DISMISSED_PREF } from './components/onboarding/setup-wizard.js';
 import { getUserPref, setUserPref } from './services/prefs.js';
+import { initLanguage } from './i18n/index.js';
 import {
   reloadRegistries,
   initAllRegistries,
@@ -260,6 +261,11 @@ class JugglerApp {
       setAppPhase('ready');
       return;
     }
+
+    // Resolve the UI language before anything renders: the mirrored preference
+    // is read synchronously so the first frame is already in the right language,
+    // and the server's copy (authoritative) is reconciled behind it.
+    initLanguage();
 
     // Boot all capability registries in dependency order and signal
     // registries-ready once the attempt settles — even on failure, so the
