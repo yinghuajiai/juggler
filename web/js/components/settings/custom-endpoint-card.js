@@ -433,7 +433,7 @@ function buildHeadersField(endpoint, saveFields) {
       value: key, placeholder: t('X-Tenant'), ariaLabel: t('Header name'), className: 'custom-endpoint-header-name',
     });
     const val = wrappedInput({
-      value, placeholder: 'value', ariaLabel: `Value for header ${key || 'being added'}`, className: 'custom-endpoint-header-value',
+      value, placeholder: t('value'), ariaLabel: `Value for header ${key || 'being added'}`, className: 'custom-endpoint-header-value',
     });
 
     const drop = document.createElement('button');
@@ -517,13 +517,13 @@ function buildKeyField(endpoint, ctx) {
   const saveButton = document.createElement('button');
   saveButton.type = 'button';
   saveButton.className = 'settings-btn primary small custom-endpoint-key-save';
-  saveButton.textContent = 'Save';
+  saveButton.textContent = t('Save');
   saveButton.style.display = 'none';
 
   const deleteButton = document.createElement('button');
   deleteButton.type = 'button';
   deleteButton.className = 'settings-btn danger small custom-endpoint-key-delete';
-  deleteButton.textContent = 'Delete';
+  deleteButton.textContent = t('Delete');
   deleteButton.style.display = endpoint.keySource === 'credentials' ? 'block' : 'none';
 
   /**
@@ -599,13 +599,13 @@ function buildRemoveRow(endpoint, ctx) {
   const remove = document.createElement('button');
   remove.type = 'button';
   remove.className = 'settings-btn danger small custom-endpoint-remove';
-  remove.textContent = 'Remove';
+  remove.textContent = t('Remove');
   remove.addEventListener('click', async () => {
     const label = endpoint.displayName || endpoint.id;
     const confirmed = await showConfirm(
       `Remove “${label}”? Its models leave the picker, and the limits and hidden models set for them are forgotten. Its API key stays in the credentials store.`,
       t('Remove endpoint'),
-      { confirmText: 'Remove', danger: true },
+      { confirmText: t('Remove'), danger: true },
     );
     if (!confirmed) return;
     remove.disabled = true;
@@ -679,12 +679,12 @@ export function buildAddEndpointForm(ctx) {
   const add = document.createElement('button');
   add.type = 'button';
   add.className = 'settings-btn primary small custom-endpoint-add-save';
-  add.textContent = 'Add';
+  add.textContent = t('Add');
 
   const cancel = document.createElement('button');
   cancel.type = 'button';
   cancel.className = 'settings-btn small custom-endpoint-add-cancel';
-  cancel.textContent = 'Cancel';
+  cancel.textContent = t('Cancel');
   cancel.addEventListener('click', () => ctx.onCancel());
 
   add.addEventListener('click', async () => {

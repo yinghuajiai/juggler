@@ -22,7 +22,7 @@ import { apiUrl } from '../../utils/api-url.js';
 const MODES = [
   {
     value: 'automatic',
-    label: 'Automatic',
+    label: t('Automatic'),
     description: t('Check periodically and download updates in the background.'),
   },
   {
@@ -32,7 +32,7 @@ const MODES = [
   },
   {
     value: 'off',
-    label: 'Off',
+    label: t('Off'),
     description: t('Never check automatically. You can still check manually below.'),
   },
 ];
@@ -70,7 +70,7 @@ export class UpdatesTab {
     versionInfo.className = 'provider-info';
     const versionName = document.createElement('div');
     versionName.className = 'provider-name';
-    versionName.textContent = 'Version';
+    versionName.textContent = t('Version');
     const versionDesc = document.createElement('div');
     versionDesc.className = 'provider-description';
     versionDesc.id = 'updates-version-info';

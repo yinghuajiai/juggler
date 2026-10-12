@@ -16,9 +16,9 @@ import {
 
 /** The three modes in menu order, with their labels. */
 const THEME_OPTIONS = [
-  { value: MODES.SYSTEM, label: 'System' },
-  { value: MODES.LIGHT, label: 'Light' },
-  { value: MODES.DARK, label: 'Dark' },
+  { value: MODES.SYSTEM, label: t('System') },
+  { value: MODES.LIGHT, label: t('Light') },
+  { value: MODES.DARK, label: t('Dark') },
 ];
 
 /**
@@ -131,7 +131,7 @@ export class AppearanceTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Theme';
+    name.textContent = t('Theme');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
     desc.textContent = t('Follow the system setting, or hold this app to light or dark. '

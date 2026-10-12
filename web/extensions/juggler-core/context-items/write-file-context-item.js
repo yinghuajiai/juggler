@@ -414,7 +414,7 @@ class WriteFileContextItem extends EditBase {
     const section = labeledSubsection('Result');
     const div = document.createElement('div');
     div.className = result.cancelled ? 'properties-panel-result cancelled' : 'properties-panel-result error';
-    div.textContent = result.cancelled ? 'Cancelled' : (result.fullResult?.error || result.content || 'Error');
+    div.textContent = result.cancelled ? t('Cancelled') : (result.fullResult?.error || result.content || t('Error'));
     section.appendChild(div);
     wrapper.appendChild(section);
   }

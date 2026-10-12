@@ -17,7 +17,7 @@
  * first time it is opened, so a hundred-message history costs nothing to show.
  */
 
-import { t as _t } from '../i18n/index.js';
+import { t as i18nT } from '../i18n/index.js';
 import { formatNumber, formatTokens } from '../utils/format.js';
 import { escapeJsonContent } from '../../sdk/lib/html.js';
 import { createCopyButton } from '../utils/properties-panel-helpers.js';
@@ -78,7 +78,7 @@ const LABEL_CHARS = 200;
  *   is the thread this transaction belongs to; given it, the tool list can say
  *   how the thread's live tools differ from the ones this turn sent.
  */
-export function renderTransactionDetail(parent, blob, emptyMessage = _t('No transaction data.'), options = {}) {
+export function renderTransactionDetail(parent, blob, emptyMessage = i18nT('No transaction data.'), options = {}) {
   parent.innerHTML = '';
   if (!blob) {
     const empty = document.createElement('div');
@@ -162,10 +162,10 @@ function _buildOutputSection(blob) {
     cachedTokens: blob.cachedTokens
   };
 
-  const section = _section(_t('LLM Output'), {
+  const section = _section(i18nT('LLM Output'), {
     summary: blob.outputTokens ? `${blob.outputTokens.toLocaleString()} tokens` : '',
     copyText: JSON.stringify(reconstructed, null, 2),
-    copyLabel: _t('Copy the output as JSON')
+    copyLabel: i18nT('Copy the output as JSON')
   });
 
   if (error) {
@@ -178,7 +178,7 @@ function _buildOutputSection(blob) {
   if (blocks.length) {
     for (const block of blocks) section.appendChild(_buildOutputBlock(block));
   } else if (!error) {
-    const msg = blob.stopReason === 'cancelled' ? _t('Cancelled before any output.') : _t('The model returned nothing.');
+    const msg = blob.stopReason === 'cancelled' ? i18nT('Cancelled before any output.') : i18nT('The model returned nothing.');
     section.appendChild(_textBlock(msg));
   }
 
@@ -197,7 +197,7 @@ function _buildOutputBlock(block) {
   kind.className = 'tx-out-kind';
   kind.textContent = block.type === 'tool_use' && block.toolName
     ? `tool_use · ${block.toolName}`
-    : (block.type || 'block');
+    : (block.type || i18nT('block'));
   el.appendChild(kind);
 
   if (block.type === 'text' || block.type === 'thinking') {
@@ -232,14 +232,14 @@ function _buildInputSection(blob, messageThread = null) {
     tools
   }, null, 2);
 
-  const section = _section(_t('LLM Input'), {
+  const section = _section(i18nT('LLM Input'), {
     summary: _inputSummary(blob, { systemPrompt, messages, tools }),
     copyText: fullJson,
-    copyLabel: _t('Copy the whole input as JSON')
+    copyLabel: i18nT('Copy the whole input as JSON')
   });
 
   if (!input || (!systemPrompt && !messages.length && !tools.length)) {
-    section.appendChild(_textBlock(_t('No input recorded.')));
+    section.appendChild(_textBlock(i18nT('No input recorded.')));
     return section;
   }
 
@@ -319,13 +319,13 @@ function _row(kind, label, value, { open = false, body = undefined } = {}) {
   const sizeEl = document.createElement('span');
   sizeEl.className = 'tx-row-size';
   sizeEl.textContent = `~${formatTokens(estimateValueTokens(value))}`;
-  sizeEl.title = _t('Estimated tokens (~4 characters per token)');
+  sizeEl.title = i18nT('Estimated tokens (~4 characters per token)');
   summary.appendChild(sizeEl);
 
   summary.appendChild(createCopyButton(
     () => (typeof value === 'string' ? value : JSON.stringify(value, null, 2)),
     'properties-panel-header-icon-btn tx-row-copy',
-    _t('Copy this entry')
+    i18nT('Copy this entry')
   ));
 
   row.appendChild(summary);
@@ -402,7 +402,7 @@ function _buildToolList(groups, tools, blob, messageThread) {
     const count = document.createElement('span');
     count.className = 'tx-tool-group-count';
     count.textContent = `${group.tools.length} · ~${formatTokens(group.tokens)}`;
-    count.title = _t('Tools in this group, and their estimated share of the request');
+    count.title = i18nT('Tools in this group, and their estimated share of the request');
     heading.appendChild(count);
 
     body.appendChild(heading);
@@ -511,7 +511,7 @@ function _buildToolEntry(tool, server) {
   const size = document.createElement('span');
   size.className = 'tx-row-size';
   size.textContent = `~${formatTokens(estimateValueTokens(tool))}`;
-  size.title = _t('Estimated tokens (~4 characters per token)');
+  size.title = i18nT('Estimated tokens (~4 characters per token)');
   summary.appendChild(size);
 
   entry.appendChild(summary);
@@ -648,7 +648,7 @@ function _holdsLongText(value) {
  * @param {{summary?: string, copyText?: string, copyLabel?: string}} [options] - Right-hand size line and copy-all button.
  * @returns {HTMLElement} Subsection wrapper with a header row.
  */
-function _section(title, { summary = '', copyText = '', copyLabel = _t('Copy to clipboard') } = {}) {
+function _section(title, { summary = '', copyText = '', copyLabel = i18nT('Copy to clipboard') } = {}) {
   const el = document.createElement('properties-panel-subsection');
 
   const head = document.createElement('div');

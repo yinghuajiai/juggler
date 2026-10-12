@@ -300,7 +300,7 @@ class GitPin extends PinboardItemType {
       getActions: () => [
         {
           id: 'refresh',
-          label: 'Refresh',
+          label: t('Refresh'),
           icon: 'refresh',
           primary: true,
           run: () => refresh(),

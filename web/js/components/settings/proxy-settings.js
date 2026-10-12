@@ -32,7 +32,7 @@ const MODES = [
   },
   {
     value: 'manual',
-    label: 'Manual',
+    label: t('Manual'),
     hint: t('Routes through the proxy URL below.'),
   },
 ];

@@ -658,7 +658,7 @@ class ModelSelector extends HTMLElement {
   async _offerProviderSettings(message) {
     const goToSettings = await showConfirm(message, t('Problem selecting model'), {
       confirmText: t('Go to provider settings'),
-      cancelText: 'Cancel',
+      cancelText: t('Cancel'),
     });
     if (goToSettings) {
       this.closeDropdown();

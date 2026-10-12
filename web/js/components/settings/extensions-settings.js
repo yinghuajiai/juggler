@@ -113,7 +113,7 @@ export class ExtensionSettingsEditor {
     header.className = 'plugin-section-header';
     const title = document.createElement('h5');
     title.className = 'plugin-section-title';
-    title.textContent = 'Settings';
+    title.textContent = t('Settings');
     const explanation = document.createElement('div');
     explanation.className = 'plugin-section-explanation';
     explanation.textContent = this.capability
@@ -172,7 +172,7 @@ export class ExtensionSettingsEditor {
     if (setting.required) {
       const required = document.createElement('span');
       required.className = 'extension-setting-required';
-      required.textContent = 'required';
+      required.textContent = t('required');
       label.appendChild(required);
     }
     info.appendChild(label);
@@ -283,12 +283,12 @@ export class ExtensionSettingsEditor {
     const save = document.createElement('button');
     save.type = 'button';
     save.className = 'settings-btn primary small';
-    save.textContent = 'Save';
+    save.textContent = t('Save');
     save.addEventListener('click', () => this._saveSecret(setting, String(control.value)));
     const clear = document.createElement('button');
     clear.type = 'button';
     clear.className = 'settings-btn danger small extension-secret-clear';
-    clear.textContent = 'Clear';
+    clear.textContent = t('Clear');
     clear.disabled = !!setting.required;
     if (setting.required) clear.title = t('Required settings cannot be cleared');
     clear.addEventListener('click', () => this._saveSecret(setting, ''));
@@ -323,7 +323,7 @@ export class ExtensionSettingsEditor {
         control.value = '';
         const row = control.closest('.extension-setting-field');
         const status = row?.querySelector('.extension-secret-status');
-        if (status) status.textContent = present ? 'Set' : t('Not set');
+        if (status) status.textContent = present ? t('Set') : t('Not set');
         const clear = /** @type {HTMLButtonElement|null} */ (row?.querySelector('.extension-secret-clear'));
         if (clear && !setting.required) clear.disabled = !present;
       } else if (setting.type === 'boolean') {

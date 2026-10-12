@@ -223,12 +223,12 @@ export function buildTextEditMenu(start) {
     const sel = fieldSelection(field);
     const hasSel = sel.text.length > 0;
     return [
-      { label: 'Cut', disabled: !hasSel, onClick: () => {
+      { label: _t('Cut'), disabled: !hasSel, onClick: () => {
         writeClipboard(sel.text);
         spliceField(field, sel.start, sel.end, '');
       } },
-      { label: 'Copy', disabled: !hasSel, onClick: () => writeClipboard(sel.text) },
-      { label: 'Paste', onClick: async () => {
+      { label: _t('Copy'), disabled: !hasSel, onClick: () => writeClipboard(sel.text) },
+      { label: _t('Paste'), onClick: async () => {
         const text = await readClipboard();
         if (text) spliceField(field, sel.start, sel.end, text);
       } },
@@ -240,13 +240,13 @@ export function buildTextEditMenu(start) {
   if (editableHost) {
     const hasSel = selectionText.length > 0;
     return [
-      { label: 'Cut', disabled: !hasSel, onClick: () => {
+      { label: _t('Cut'), disabled: !hasSel, onClick: () => {
         writeClipboard(selectionText);
         editableHost.focus();
         try { document.execCommand('delete'); } catch (e) { /* best effort */ }
       } },
-      { label: 'Copy', disabled: !hasSel, onClick: () => writeClipboard(selectionText) },
-      { label: 'Paste', onClick: async () => {
+      { label: _t('Copy'), disabled: !hasSel, onClick: () => writeClipboard(selectionText) },
+      { label: _t('Paste'), onClick: async () => {
         const text = await readClipboard();
         if (!text) return;
         editableHost.focus();
@@ -261,7 +261,7 @@ export function buildTextEditMenu(start) {
   // give, so the reference names the file alone.
   if (selectionText) {
     /** @type {ContextMenuItem[]} */
-    const items = [{ label: 'Copy', onClick: () => writeClipboard(selectionText) }];
+    const items = [{ label: _t('Copy'), onClick: () => writeClipboard(selectionText) }];
     const reference = resolveCodeSelection(window.getSelection?.());
     // Offered only where there is a composer to put it in: a detached Pinboard
     // window has code to select and nothing to ask.

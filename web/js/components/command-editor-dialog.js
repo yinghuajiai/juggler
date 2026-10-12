@@ -290,7 +290,7 @@ export function openCommandEditor(options = {}) {
       del.classList.remove('hidden');
       del.addEventListener('click', async () => {
         const ok = await showConfirm(
-          `Delete the /${def?.name} command?`, t('Delete command'), { danger: true, confirmText: 'Delete' });
+          `Delete the /${def?.name} command?`, t('Delete command'), { danger: true, confirmText: t('Delete') });
         if (!ok) return;
         await deleteUserCommand(/** @type {any} */ (def?.scope), /** @type {any} */ (def?.name));
         refreshRegistries();
@@ -458,18 +458,18 @@ function userGroup(title, defs, refresh) {
     actions.className = 'command-manager-actions';
     const edit = document.createElement('button');
     edit.className = 'modal-button secondary';
-    edit.textContent = 'Edit';
+    edit.textContent = t('Edit');
     edit.addEventListener('click', async () => { await openCommandEditor({ def }); refresh(); });
     // Delete is the app's standard trashcan: an icon-only button, muted until
     // hovered, as every other per-row delete in the UI.
     const del = document.createElement('button');
     del.className = 'command-manager-delete';
-    del.title = 'Delete';
+    del.title = t('Delete');
     del.setAttribute('aria-label', `Delete /${def.name}`);
     del.appendChild(Object.assign(document.createElement('span'), { className: 'icon-trashcan' }));
     del.addEventListener('click', async () => {
       const ok = await showConfirm(
-        `Delete the /${def.name} command?`, t('Delete command'), { danger: true, confirmText: 'Delete' });
+        `Delete the /${def.name} command?`, t('Delete command'), { danger: true, confirmText: t('Delete') });
       if (!ok) return;
       await deleteUserCommand(/** @type {any} */ (def.scope), def.name);
       refreshRegistries();

@@ -262,7 +262,7 @@ class WorkspacePanel extends HTMLElement {
     const kind = this._kind();
     const what = document.createElement('p');
     what.className = 'workspace-panel-eyebrow';
-    what.textContent = kind ? `Workspace · ${kind}` : 'Workspace';
+    what.textContent = kind ? `Workspace · ${kind}` : t('Workspace');
     head.appendChild(what);
 
     // The kind's own description, which the provider already wrote: "Git
@@ -372,7 +372,7 @@ class WorkspacePanel extends HTMLElement {
 
     const heading = document.createElement('h3');
     heading.className = 'workspace-panel-heading';
-    heading.textContent = 'Status';
+    heading.textContent = t('Status');
     section.appendChild(heading);
 
     const lines = document.createElement('div');

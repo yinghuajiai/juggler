@@ -213,7 +213,7 @@ export function buildPlaceRows(request) {
     if (row.kind === 'adopt') {
       const verb = document.createElement('span');
       verb.className = 'setup-row-verb';
-      verb.textContent = adoptVerb || 'Adopt';
+      verb.textContent = adoptVerb || t('Adopt');
       head.appendChild(verb);
     }
 

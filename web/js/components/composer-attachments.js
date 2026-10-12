@@ -430,7 +430,7 @@ export function renderAttachmentChips(composer) {
 
     const name = document.createElement('span');
     name.className = 'attachment-name';
-    name.textContent = ref.filename || 'image';
+    name.textContent = ref.filename || _t('image');
     chip.appendChild(name);
 
     const remove = document.createElement('button');

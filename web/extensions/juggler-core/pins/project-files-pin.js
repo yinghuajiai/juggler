@@ -270,7 +270,7 @@ function visibleRows(root, expanded, entries) {
       return;
     }
     if (state.items.length === 0) {
-      rows.push({ kind: 'note', key: `${dir}\u0000empty`, depth, text: 'Empty' });
+      rows.push({ kind: 'note', key: `${dir}\u0000empty`, depth, text: t('Empty') });
       return;
     }
     for (const item of state.items) {
@@ -834,7 +834,7 @@ class ProjectFilesPin extends PinboardItemType {
       // The watcher is rooted at the project and skips dot-files, so a change to
       // one is a change this pin will never hear about. That is what this is for.
       getActions: () => [
-        { id: 'refresh', label: 'Refresh', icon: 'refresh', primary: true, run: () => refreshAll() },
+        { id: 'refresh', label: t('Refresh'), icon: 'refresh', primary: true, run: () => refreshAll() },
       ],
     };
   }

@@ -765,7 +765,7 @@ class FileContentContextItem extends ContextItem {
 
       const update = document.createElement('button');
       update.className = 'file-content-seeded-update';
-      update.textContent = 'Update';
+      update.textContent = t('Update');
       update.setAttribute('aria-label', t('Update the frozen copy of this file'));
       update.addEventListener('click', async (ev) => {
         ev.stopPropagation();

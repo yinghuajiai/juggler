@@ -169,7 +169,7 @@ function buildTaskRow(task, reveal, stop) {
   const stopBtn = document.createElement('button');
   stopBtn.type = 'button';
   stopBtn.className = 'tasks-pin__stop';
-  stopBtn.textContent = 'Stop';
+  stopBtn.textContent = t('Stop');
   stopBtn.addEventListener('click', () => stop(taskId, stopBtn));
 
   const actions = createElement('div', 'tasks-pin__actions');

@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../../i18n/index.js';
 import { formatBytes } from '../../utils/format.js';
 import { addFilePath } from '../../utils/properties-panel-helpers.js';
 import { fetchJson } from '../../services/http.js';
@@ -188,9 +189,9 @@ export class LogsTab {
     picker.textContent = '';
 
     for (const group of [
-      { key: 'server', label: 'Server' },
-      { key: 'conversations', label: 'Conversations' },
-      { key: 'app', label: 'App' },
+      { key: 'server', label: t('Server') },
+      { key: 'conversations', label: t('Conversations') },
+      { key: 'app', label: t('App') },
     ]) {
       const inGroup = this._logFiles.filter((f) => f.group === group.key);
       if (inGroup.length === 0) continue;

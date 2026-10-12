@@ -1063,7 +1063,7 @@ class ExecuteContextItem extends ContextItem {
     mainEl.className = 'summary-with-subtitle-main';
     const tag = document.createElement('span');
     tag.className = 'context-item-type-badge action-summary-background-tag';
-    tag.textContent = 'Background';
+    tag.textContent = t('Background');
     mainEl.appendChild(tag);
     mainEl.appendChild(createHighlightedCode(command, 'bash'));
     wrapper.appendChild(mainEl);

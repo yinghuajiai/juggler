@@ -175,7 +175,7 @@ export function openWorkspaceMove(conversation, workspaceId) {
       header.appendChild(title);
       const close = setupButton('close-button workspace-move-close', '', () => modal.close(undefined));
       close.setAttribute('aria-label', 'Close');
-      close.title = 'Close';
+      close.title = t('Close');
       const cross = document.createElement('span');
       cross.className = 'icon-close';
       close.appendChild(cross);

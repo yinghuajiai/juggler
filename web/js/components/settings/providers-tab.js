@@ -1070,14 +1070,14 @@ export class ProvidersTab {
     saveButton.type = 'button';
     saveButton.id = saveButtonId;
     saveButton.className = 'settings-btn primary small';
-    saveButton.textContent = 'Save';
+    saveButton.textContent = _t('Save');
     saveButton.style.display = 'none';
 
     const deleteButton = document.createElement('button');
     deleteButton.type = 'button';
     deleteButton.id = deleteButtonId;
     deleteButton.className = 'settings-btn danger small';
-    deleteButton.textContent = 'Delete';
+    deleteButton.textContent = _t('Delete');
     deleteButton.style.display = 'none';
 
     // Add input event listener to update buttons
@@ -1217,7 +1217,7 @@ export class ProvidersTab {
     const header = document.createElement('div');
     header.className = 'model-visibility-header';
     const nameHeading = document.createElement('span');
-    nameHeading.textContent = 'Model';
+    nameHeading.textContent = _t('Model');
     const windowHeading = document.createElement('span');
     windowHeading.className = 'model-visibility-header-limit';
     windowHeading.textContent = _t('Context window');
@@ -1286,7 +1286,7 @@ export class ProvidersTab {
       input.min = '0';
       input.className = 'model-limit-input';
       input.dataset.limit = field;
-      input.placeholder = reported > 0 ? String(reported) : 'auto';
+      input.placeholder = reported > 0 ? String(reported) : _t('auto');
       input.value = stored() ? String(stored()) : '';
       input.autocomplete = 'off';
       input.spellcheck = false;
@@ -1420,7 +1420,7 @@ export class ProvidersTab {
         marker = document.createElement('button');
         marker.type = 'button';
         marker.className = 'model-window-assumed';
-        marker.textContent = 'assumed';
+        marker.textContent = _t('assumed');
         const guess = published.providerContextWindow ?? published.contextWindow ?? 0;
         marker.title = `The server didn't report this model's context window, so Juggler assumed ${formatTokens(guess)}. Enter the real size in the Context window field.`;
         marker.hidden = !assumed.has(model.id);
@@ -1677,7 +1677,7 @@ export class ProvidersTab {
       if (toggle) {
         toggle.checked = !enabled;
       }
-      await showAlert(error instanceof Error ? error.message : _t("Couldn't update provider"), 'Error');
+      await showAlert(error instanceof Error ? error.message : _t("Couldn't update provider"), _t('Error'));
     }
   }
 
@@ -1770,7 +1770,7 @@ export class ProvidersTab {
       // providers-update is what refreshes every model selector.
     } catch (error) {
       console.error('Failed to save API key:', error);
-      await showAlert(error instanceof Error ? error.message : _t('Failed to save API key'), 'Error');
+      await showAlert(error instanceof Error ? error.message : _t('Failed to save API key'), _t('Error'));
     }
   }
 
@@ -1794,7 +1794,7 @@ export class ProvidersTab {
       // providers-update is what drops the key from every model selector.
     } catch (error) {
       console.error('Failed to delete API key:', error);
-      await showAlert(error instanceof Error ? error.message : _t('Failed to delete API key'), 'Error');
+      await showAlert(error instanceof Error ? error.message : _t('Failed to delete API key'), _t('Error'));
     }
   }
 }

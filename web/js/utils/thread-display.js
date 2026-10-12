@@ -213,7 +213,7 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
   if (record?.status && !(isLive && isTrailingViewOf(threadYMap, thread, siblingArray))) {
     return record.result
       ? { kind: 'idle', goal, message: '', spinner: false, showSummary: true }
-      : { kind: 'idle', goal, message: 'Idle', spinner: false };
+      : { kind: 'idle', goal, message: t('Idle'), spinner: false };
   }
 
   if (isLive) {
@@ -279,13 +279,13 @@ export function getThreadStatus(threadYMap, live, siblingArray) {
   // carries the Stop that settles it — the only affordance the parent column
   // has in this state (see thread-message).
   if (record && !record.status) {
-    return { kind: 'unfinished', goal, message: 'Unfinished', spinner: false, openRun: true };
+    return { kind: 'unfinished', goal, message: t('Unfinished'), spinner: false, openRun: true };
   }
 
   // "Idle", not "Stopped": with the conversation idle and no result, nothing is
   // driving this thread — but nothing necessarily stopped it either (it may
   // simply never have been started). "Stopped" wrongly implies an interruption.
-  return { kind: 'idle', goal, message: 'Idle', spinner: false };
+  return { kind: 'idle', goal, message: t('Idle'), spinner: false };
 }
 
 /**

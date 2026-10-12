@@ -170,7 +170,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
   toolsField.className = 'mcp-form-field';
   const toolsLabel = document.createElement('label');
   toolsLabel.className = 'mcp-field-label';
-  toolsLabel.textContent = 'Tools';
+  toolsLabel.textContent = _t('Tools');
   toolsField.appendChild(toolsLabel);
 
   if (f.mode === 'add' || !f.name) {

@@ -725,7 +725,7 @@ class SkillContextItem extends ContextItem {
     if (actionStatus.error) {
       return { typeName: 'Skill', summary: actionStatus.error, status: /** @type {const} */ ('error') };
     }
-    return { typeName: 'Skill', summary: 'Skill' };
+    return { typeName: 'Skill', summary: t('Skill') };
   }
 }
 

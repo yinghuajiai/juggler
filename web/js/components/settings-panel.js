@@ -659,7 +659,7 @@ class SettingsPanel extends HTMLElement {
       return true;
     } catch (error) {
       console.error('Failed to load config:', error);
-      await showAlert(t("Couldn't load configuration"), 'Error');
+      await showAlert(t("Couldn't load configuration"), t('Error'));
       return false;
     }
   }

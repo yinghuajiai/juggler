@@ -147,7 +147,7 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
     return [
       {
         id: 'ungroup',
-        label: 'Ungroup',
+        label: t('Ungroup'),
         description: t('Its conversations go back into the project, and the group is removed.')
       },
       {

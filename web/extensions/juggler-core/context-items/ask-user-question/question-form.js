@@ -111,14 +111,14 @@ function buildActionsRow(onSubmit, onCancel) {
   const submitBtn = document.createElement('button');
   submitBtn.className = 'action-confirmation-button secondary multi-question-submit';
   submitBtn.type = 'button';
-  submitBtn.textContent = 'Submit';
+  submitBtn.textContent = t('Submit');
   submitBtn.disabled = true;
   submitBtn.addEventListener('click', onSubmit);
 
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'action-confirmation-button secondary';
   cancelBtn.type = 'button';
-  cancelBtn.textContent = 'Cancel';
+  cancelBtn.textContent = t('Cancel');
   cancelBtn.addEventListener('click', onCancel);
 
   actions.appendChild(submitBtn);

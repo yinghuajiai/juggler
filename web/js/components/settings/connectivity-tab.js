@@ -432,7 +432,7 @@ export class ConnectivityTab {
       const stopBtn = document.createElement('button');
       stopBtn.type = 'button';
       stopBtn.className = 'settings-btn danger small';
-      stopBtn.textContent = 'Stop';
+      stopBtn.textContent = t('Stop');
       stopBtn.addEventListener('click', () => {
         stopBtn.disabled = true;
         stopBtn.textContent = t('Stopping…');
@@ -663,7 +663,7 @@ export class ConnectivityTab {
       const stopBtn = document.createElement('button');
       stopBtn.type = 'button';
       stopBtn.className = 'settings-btn danger small';
-      stopBtn.textContent = 'Stop';
+      stopBtn.textContent = t('Stop');
       stopBtn.addEventListener('click', () => {
         stopBtn.disabled = true;
         stopBtn.textContent = t('Stopping…');

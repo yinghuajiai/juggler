@@ -545,7 +545,7 @@ class PinboardPanel extends JugglerElement {
 
     const identity = document.createElement('span');
     identity.className = 'pinboard-toolbar__identity';
-    identity.textContent = 'Pinboard';
+    identity.textContent = t('Pinboard');
 
     const controls = document.createElement('div');
     controls.className = 'pinboard-toolbar__controls';
@@ -654,7 +654,7 @@ class PinboardPanel extends JugglerElement {
     }
     const kind = document.createElement('span');
     kind.className = 'app-header__board-kind';
-    kind.textContent = 'Pinboard';
+    kind.textContent = t('Pinboard');
     parts.push(kind);
     slot.replaceChildren(...parts);
   }

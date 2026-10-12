@@ -432,7 +432,7 @@ class TodoContextItem extends ContextItem {
       };
     }
 
-    return { typeName: 'Todos', summary: 'Todos' };
+    return { typeName: 'Todos', summary: _t('Todos') };
   }
 
   /**

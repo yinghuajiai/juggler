@@ -32,7 +32,7 @@ export function buildApprovalButtons(action, params = {}) {
   const suggestions = action.getApprovalSuggestions?.(params) || [];
 
   /** @type {import('../components/action-confirmation.js').ApprovalOption[]} */
-  const options = [{ label: 'Yes', value: 'yes', style: 'primary' }];
+  const options = [{ label: t('Yes'), value: 'yes', style: 'primary' }];
 
   suggestions.forEach((s, i) => {
     options.push({
@@ -47,6 +47,6 @@ export function buildApprovalButtons(action, params = {}) {
     });
   });
 
-  options.push({ label: 'No', value: 'no', style: 'secondary' });
+  options.push({ label: t('No'), value: 'no', style: 'secondary' });
   return options;
 }

@@ -43,13 +43,13 @@ import { presentPopup } from '../utils/popup-surface.js';
  * @type {Array<{label: string, minutes: number}>}
  */
 const SCHEDULE_PRESETS = [
-  { label: '15m', minutes: 15 },
-  { label: '30m', minutes: 30 },
-  { label: '1h', minutes: 60 },
-  { label: '2h', minutes: 120 },
-  { label: '3h', minutes: 180 },
-  { label: '4h', minutes: 240 },
-  { label: '5h', minutes: 300 },
+  { label: t('15m'), minutes: 15 },
+  { label: t('30m'), minutes: 30 },
+  { label: t('1h'), minutes: 60 },
+  { label: t('2h'), minutes: 120 },
+  { label: t('3h'), minutes: 180 },
+  { label: t('4h'), minutes: 240 },
+  { label: t('5h'), minutes: 300 },
 ];
 
 /** Granularity (minutes) of the scheduled-send picker — no finer than this. */
@@ -265,7 +265,7 @@ export function updateScheduleButton(composer) {
     // A turn-end wait has no countdown — it ends when the turn does — so the
     // badge names the wait instead.
     label.textContent = turnEnd
-      ? 'turn'
+      ? t('turn')
       : formatDelayShort(Math.max(0, composer._scheduledSendAt - Date.now()));
   }
 }

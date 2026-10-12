@@ -301,7 +301,7 @@ class NoProjectOverlay extends HTMLElement {
     host.innerHTML = '';
     const label = document.createElement('div');
     label.className = 'np-recents-label';
-    label.textContent = 'Recent';
+    label.textContent = t('Recent');
     host.appendChild(label);
 
     for (const path of shown) {

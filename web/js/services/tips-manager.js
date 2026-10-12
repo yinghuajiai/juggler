@@ -65,7 +65,7 @@ const TIPS = [
   {
     id: 'workspaces',
     kind: 'feature',
-    title: 'Workspaces',
+    title: t('Workspaces'),
     body: t('A workspace is a custom environment for the LLM to work in — e.g. a git worktree, or a copy to try '
       + 'something risky in. Make one at the foot of the conversation list, then start '
       + 'conversations in it or drag them across.'),

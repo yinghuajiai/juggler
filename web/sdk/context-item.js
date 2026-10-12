@@ -1048,7 +1048,7 @@ class ContextItem {
    */
   resolveTerminalStatus(actionStatus, failurePrefix, cancelledMessage) {
     if (actionStatus.cancelled) {
-      return { summary: cancelledMessage || 'Cancelled', status: /** @type {ResultStatus} */ ('cancelled') };
+      return { summary: cancelledMessage || t('Cancelled'), status: /** @type {ResultStatus} */ ('cancelled') };
     }
     const error = actionStatus.error || 'unknown error';
     const summary = failurePrefix ? `${failurePrefix}: ${error}` : error;

@@ -543,7 +543,7 @@ class PlanContextItem extends ContextItem {
       title: `Plan: ${planParams.title}`,
       message: `${planParams.items.length} step${planParams.items.length !== 1 ? 's' : ''} - Review and approve to begin execution`,
       options: [
-        { label: 'Approve', value: 'yes', style: 'primary' },
+        { label: t('Approve'), value: 'yes', style: 'primary' },
         { label: t('Discuss further'), value: 'no', style: 'secondary' }
       ],
       display: { planData }

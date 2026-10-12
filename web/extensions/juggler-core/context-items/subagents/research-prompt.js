@@ -14,7 +14,7 @@ import { subagentBrief } from './subagent-brief.js';
  * @type {string}
  */
 export const RESEARCH_GUIDANCE = subagentBrief({
-  label: 'RESEARCH',
+  label: t('RESEARCH'),
   scope: 'from the open web',
   rules: [
     'Read more than one source. A single page is a claim; agreement across '

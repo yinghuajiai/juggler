@@ -77,7 +77,7 @@ const DEFAULT_POLL_MS = 1000;
 export function renderLiveTaskOutput(wrapper, {
   taskId,
   helpers,
-  label = 'Output',
+  label = t('Output'),
   pollMs = DEFAULT_POLL_MS,
   isRunning = (state) => state.status === 'running',
   describeStatus,

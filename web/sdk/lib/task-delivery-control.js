@@ -43,7 +43,7 @@ export function renderTaskDeliveryControl(wrapper, { messageThread, taskId, labe
 
   const labelEl = document.createElement('h4');
   labelEl.className = 'properties-panel-subtitle';
-  labelEl.textContent = 'Monitor';
+  labelEl.textContent = t('Monitor');
   section.appendChild(labelEl);
 
   // Self-describing when a label rides along (the chunk has no command shown).
@@ -79,7 +79,7 @@ export function renderTaskDeliveryControl(wrapper, { messageThread, taskId, labe
   // Pure read of the binding status → DOM; performs NO state changes.
   const paint = () => {
     const status = messageThread.getTaskDeliveryStatus(taskId);
-    statusEl.textContent = (status && STATUS_LABELS[status]) || 'Ended';
+    statusEl.textContent = (status && STATUS_LABELS[status]) || t('Ended');
     // Toggle inline `display` rather than the `hidden` attribute: `[hidden]` is
     // defeated by the more specific `.properties-panel-btn { display:flex }`
     // rule, so the button would never actually disappear. An inline value wins.

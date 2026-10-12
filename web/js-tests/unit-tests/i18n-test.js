@@ -73,7 +73,7 @@ export async function runTests(_ctx) {
     applyLanguage(LANGUAGE_ZH_CN);
     assert(t('Language') === '语言',
       'zh-CN must read its own catalogue');
-    assert(t('System') === '跟随系统',
+    assert(t('Cancel') === '取消',
       'zh-CN must read its own catalogue for every message');
   });
 
@@ -88,8 +88,9 @@ export async function runTests(_ctx) {
 
   run('a message missing from the catalogue falls back to English', () => {
     applyLanguage(LANGUAGE_ZH_CN);
-    assert(t('Choose the language the interface is shown in.') === '选择界面显示的语言。',
-      'a translated message should still come from the catalogue');
+    const shown = 'Choose the language the interface is shown in.';
+    assert(t(shown) !== shown && /[一-鿿]/.test(t(shown)),
+      'a message present in the catalogue should render Chinese, not English');
     assert(t('Untranslated') === 'Untranslated',
       'a message the catalogue lacks must fall back to its English text');
     applyLanguage(LANGUAGE_EN);

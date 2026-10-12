@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
+
 /**
  * The controller shared by the pins that show one path read from disk — the
  * File and Memory pins. What each reads, how it watches for changes and how it
@@ -47,7 +49,7 @@ export function pathPinController({ getContext, setContext, targetOf, render, te
     },
     teardown,
     getActions: () => [
-      { id: 'refresh', label: 'Refresh', icon: 'refresh', primary: true, run: () => render() },
+      { id: 'refresh', label: t('Refresh'), icon: 'refresh', primary: true, run: () => render() },
     ],
   };
 }

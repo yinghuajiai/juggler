@@ -224,7 +224,7 @@ export class NotificationsTab {
     info.className = 'provider-info';
     const name = document.createElement('div');
     name.className = 'provider-name';
-    name.textContent = 'Chime';
+    name.textContent = t('Chime');
     const desc = document.createElement('div');
     desc.className = 'provider-description';
     desc.textContent = t('Pick a pattern and sound, set the volume, and preview it.');
@@ -258,7 +258,7 @@ export class NotificationsTab {
     const previewBtn = document.createElement('button');
     previewBtn.type = 'button';
     previewBtn.className = 'settings-btn primary small chime-preview-btn';
-    previewBtn.textContent = 'Preview';
+    previewBtn.textContent = t('Preview');
     previewBtn.addEventListener('click', () => previewChime());
     actions.appendChild(previewBtn);
 
@@ -267,7 +267,7 @@ export class NotificationsTab {
     const randomBtn = document.createElement('button');
     randomBtn.type = 'button';
     randomBtn.className = 'settings-btn small chime-random-btn';
-    randomBtn.textContent = 'Random';
+    randomBtn.textContent = t('Random');
     randomBtn.addEventListener('click', () => {
       randomizeChimeParams();
       previewChime();
@@ -279,7 +279,7 @@ export class NotificationsTab {
     const resetBtn = document.createElement('button');
     resetBtn.type = 'button';
     resetBtn.className = 'settings-btn small chime-reset-btn';
-    resetBtn.textContent = 'Reset';
+    resetBtn.textContent = t('Reset');
     resetBtn.addEventListener('click', () => {
       resetChimeParams();
       previewChime();

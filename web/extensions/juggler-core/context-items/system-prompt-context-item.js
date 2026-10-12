@@ -550,7 +550,7 @@ class SystemPromptContextItem extends ContextItem {
     section.dataset.sectionId = 'identity';
 
     const header = createElement('div', 'system-prompt-section-header');
-    header.textContent = 'Identity';
+    header.textContent = t('Identity');
     section.appendChild(header);
 
     const body = createElement('div', 'system-prompt-section-body');

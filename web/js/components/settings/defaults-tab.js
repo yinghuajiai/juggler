@@ -384,7 +384,7 @@ export class DefaultsTab {
 
     const heading = document.createElement('div');
     heading.className = 'settings-section-heading';
-    heading.textContent = 'Context';
+    heading.textContent = t('Context');
     container.appendChild(heading);
 
     // Automatic compaction on/off. Checked = enabled; we persist the *disabled*
@@ -479,7 +479,7 @@ export class DefaultsTab {
   _appendDiffSettings(container) {
     const heading = document.createElement('div');
     heading.className = 'settings-section-heading';
-    heading.textContent = 'Diffs';
+    heading.textContent = t('Diffs');
     container.appendChild(heading);
 
     const { row: splitRow } = buildToggleRow(
@@ -734,7 +734,7 @@ export class DefaultsTab {
       providers: this.providers,
       // Off has no config either, so without its own word on the chip it would
       // be indistinguishable from Automatic without opening the picker.
-      placeholder: isOff ? 'Off' : 'Automatic',
+      placeholder: isOff ? t('Off') : t('Automatic'),
       buttonTitle: nameLabel,
       config,
     });
@@ -866,7 +866,7 @@ export class DefaultsTab {
       console.error('[SettingsPanel] Failed to save cheap model:', err);
       this.cheapModel = previous;
       this.renderCheapModelField();
-      await showAlert(`Couldn't save the cheap model.\n\n${extractErrorMessage(err)}`, 'Error');
+      await showAlert(`Couldn't save the cheap model.\n\n${extractErrorMessage(err)}`, t('Error'));
     }
   }
 
@@ -955,7 +955,7 @@ export class DefaultsTab {
       console.error('[SettingsPanel] Failed to save default model:', err);
       this.defaultModel = previous;
       this.renderDefaultModelField();
-      await showAlert(`Couldn't save the default model.\n\n${extractErrorMessage(err)}`, 'Error');
+      await showAlert(`Couldn't save the default model.\n\n${extractErrorMessage(err)}`, t('Error'));
     }
   }
 }

@@ -14,7 +14,7 @@ import { subagentBrief } from './subagent-brief.js';
  * @type {string}
  */
 export const EXPLORE_GUIDANCE = subagentBrief({
-  label: 'EXPLORE',
+  label: t('EXPLORE'),
   scope: 'about this codebase',
   rules: [
     t('Search the code, do not guess. Ground every claim in a file and line you '

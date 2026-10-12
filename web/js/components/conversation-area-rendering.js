@@ -130,7 +130,7 @@ export function ensurePendingMessages(area, messageList) {
     zone.className = PENDING_ZONE_CLASS;
     const label = document.createElement('div');
     label.className = 'pending-messages-label';
-    label.textContent = 'Queued';
+    label.textContent = t('Queued');
     zone.appendChild(label);
   }
   // Keep the zone pinned at the very end (after the footer).
@@ -315,7 +315,7 @@ export function ensureWorkspaceBanner(area, messageList) {
     // The noun, not a preposition: the menu, the create dialog and the move dialog
     // all call this thing a workspace, and the banner is where a reader meets it
     // first.
-    lead.textContent = 'Workspace';
+    lead.textContent = t('Workspace');
     open.appendChild(lead);
     if (label) {
       const name = document.createElement('span');

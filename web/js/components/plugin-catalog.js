@@ -575,7 +575,7 @@ class PluginCatalog extends JugglerElement {
       `${count} conversation${count === 1 ? '' : 's'} ${count === 1 ? 'is' : 'are'} running. ` +
       'Changing extensions will stop them so the capability set can be safely rebuilt.',
       t('Stop conversations and apply extension change?'),
-      { confirmText: t('Stop & apply'), cancelText: 'Cancel', danger: true }
+      { confirmText: t('Stop & apply'), cancelText: t('Cancel'), danger: true }
     );
     if (!confirmed) return false;
 
@@ -773,7 +773,7 @@ class PluginCatalog extends JugglerElement {
         kind: 'extension',
         extKey,
         section: 'Extensions',
-        label: card.manifest?.name || card.extId || 'Extension',
+        label: card.manifest?.name || card.extId || t('Extension'),
         card,
         disabled: card.extDisabled,
         failed: !!card.error,
@@ -976,14 +976,14 @@ class PluginCatalog extends JugglerElement {
 
     if (!id) {
       badge.className = 'plugin-tree-toggle plugin-tree-toggle-unknown';
-      badge.textContent = 'unknown';
+      badge.textContent = t('unknown');
       badge.disabled = true;
       badge.title = t("This extension declares no id, so it can't be switched on or off.");
       return badge;
     }
 
     badge.className = `plugin-tree-toggle plugin-tree-toggle-${enabled ? 'on' : 'off'}`;
-    badge.textContent = enabled ? 'on' : 'off';
+    badge.textContent = enabled ? t('on') : t('off');
 
     if (!canToggle) {
       badge.disabled = true;

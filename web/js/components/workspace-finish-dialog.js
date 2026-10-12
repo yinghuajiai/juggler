@@ -187,7 +187,7 @@ export function openWorkspaceFinish(option, context = {}) {
     const dismiss = setupButton('close-button workspace-move-close', '',
       () => modal.close(undefined));
     dismiss.setAttribute('aria-label', 'Close');
-    dismiss.title = 'Close';
+    dismiss.title = t('Close');
     const cross = document.createElement('span');
     cross.className = 'icon-close';
     dismiss.appendChild(cross);

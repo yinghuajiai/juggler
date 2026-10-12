@@ -143,11 +143,11 @@ export function setupHeaderControls(session) {
     const canRedo = !busy && !!currentConversation?.canRedo();
     if (undoBtn) {
       undoBtn.disabled = !canUndo;
-      undoBtn.title = busy ? BUSY_TITLE : 'Undo';
+      undoBtn.title = busy ? BUSY_TITLE : t('Undo');
     }
     if (redoBtn) {
       redoBtn.disabled = !canRedo;
-      redoBtn.title = busy ? BUSY_TITLE : 'Redo';
+      redoBtn.title = busy ? BUSY_TITLE : t('Redo');
     }
   };
 

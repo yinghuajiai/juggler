@@ -2830,8 +2830,8 @@ registerContextMenuProvider({
     if (!bar || !convId) return null;
     /** @type {import('../services/context-menu-service.js').ContextMenuItem[]} */
     const items = [
-      { label: 'Rename', onClick: () => bar._enterRenameMode(convId) },
-      { label: 'Duplicate', onClick: () => { void bar._duplicateConversation(convId); } },
+      { label: t('Rename'), onClick: () => bar._enterRenameMode(convId) },
+      { label: t('Duplicate'), onClick: () => { void bar._duplicateConversation(convId); } },
     ];
     // Omit "Move to Bin" mid-loop — same intent as the CSS that hides the
     // per-tab bin button while running. _binConversation enforces this too;
@@ -2864,7 +2864,7 @@ registerContextMenuProvider({
     const workspaceId = /** @type {HTMLElement} */ (subject).dataset.workspaceId || '';
     if (!bar || !workspaceId) return null;
     /** @type {import('../services/context-menu-service.js').ContextMenuItem[]} */
-    const items = [{ label: 'Rename', onClick: () => bar._enterWorkspaceRenameMode(workspaceId) }];
+    const items = [{ label: t('Rename'), onClick: () => bar._enterWorkspaceRenameMode(workspaceId) }];
     const endings = bar._groupEndingItems(workspaceId);
     if (endings.length) items.push({ separator: true }, ...endings);
     return items;

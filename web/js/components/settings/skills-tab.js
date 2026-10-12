@@ -998,7 +998,7 @@ export class SkillsTab {
    * @private
    */
   async _confirm(msg) {
-    return !!(await showConfirm(msg, 'Skills'));
+    return !!(await showConfirm(msg, _t('Skills')));
   }
 
   /**
@@ -1007,7 +1007,7 @@ export class SkillsTab {
    * @private
    */
   async _alert(msg) {
-    await showAlert(msg, 'Skills');
+    await showAlert(msg, _t('Skills'));
   }
 }
 

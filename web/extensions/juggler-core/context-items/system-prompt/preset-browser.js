@@ -374,7 +374,7 @@ function buildManageRow(item, preset, container, rerender) {
 
   const editBtn = document.createElement('button');
   editBtn.className = 'sp-preset-edit-btn';
-  editBtn.textContent = 'Edit';
+  editBtn.textContent = t('Edit');
   editBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     // Load the preset content into the editor so the user can tweak it,
@@ -388,12 +388,12 @@ function buildManageRow(item, preset, container, rerender) {
 
   const delBtn = document.createElement('button');
   delBtn.className = 'sp-preset-delete-btn';
-  delBtn.textContent = 'Delete';
+  delBtn.textContent = t('Delete');
   delBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
     const showConfirm = /** @type {any} */ (window).showConfirm;
     const ok = showConfirm
-      ? await showConfirm(`Delete preset "${preset.name}"? This cannot be undone.`, t('Delete preset'), { confirmText: 'Delete', cancelText: 'Cancel', danger: true })
+      ? await showConfirm(`Delete preset "${preset.name}"? This cannot be undone.`, t('Delete preset'), { confirmText: t('Delete'), cancelText: t('Cancel'), danger: true })
       : true;
     if (!ok) return;
     try {

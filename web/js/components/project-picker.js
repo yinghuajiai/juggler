@@ -455,7 +455,7 @@ export async function openProjectPicker(currentPath, session) {
     const ok = await showConfirm(
       `${busy.length} ${noun} still working:\n\n${list}\n\nSwitching projects will stop and discard this work. Continue?`,
       t('Switch project?'),
-      { confirmText: t('Switch project'), cancelText: 'Stay', danger: true },
+      { confirmText: t('Switch project'), cancelText: t('Stay'), danger: true },
     );
     if (!ok) return;
   }

@@ -206,11 +206,11 @@ class HtmlFileViewer extends FileViewer {
         const toggle = document.createElement('button');
         toggle.type = 'button';
         toggle.className = 'html-view-toggle';
-        toggle.textContent = 'Source';
+        toggle.textContent = t('Source');
         toggle.setAttribute('aria-label', t('Show HTML source'));
         toggle.addEventListener('click', () => {
           previewing = !previewing;
-          toggle.textContent = previewing ? 'Source' : 'Preview';
+          toggle.textContent = previewing ? t('Source') : t('Preview');
           toggle.setAttribute('aria-label', previewing ? t('Show HTML source') : t('Show rendered page'));
           if (previewing) showPreview(url);
           else void showSource();

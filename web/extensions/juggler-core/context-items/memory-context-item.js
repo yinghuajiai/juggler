@@ -490,7 +490,7 @@ class MemoryContextItem extends ContextItem {
     if (actionStatus.error) {
       return { typeName: 'Memory', summary: actionStatus.error, status: /** @type {const} */ ('error') };
     }
-    return { typeName: 'Memory', summary: 'Memory' };
+    return { typeName: 'Memory', summary: t('Memory') };
   }
 
   /**

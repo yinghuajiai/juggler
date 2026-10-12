@@ -160,11 +160,11 @@ class ModalDialog extends HTMLElement {
    */
   show(options = {}) {
     const {
-      title = 'Dialog',
+      title = t('Dialog'),
       message = '',
       type = 'alert',
-      confirmText = 'OK',
-      cancelText = 'Cancel',
+      confirmText = t('OK'),
+      cancelText = t('Cancel'),
       danger = false,
       defaultValue = '',
       choices = [],
@@ -529,8 +529,8 @@ export async function showConfirm(message, title = 'Confirm', options = {}) {
     title,
     message,
     type: 'confirm',
-    confirmText: options.confirmText || 'OK',
-    cancelText: options.cancelText || 'Cancel',
+    confirmText: options.confirmText || t('OK'),
+    cancelText: options.cancelText || t('Cancel'),
     danger: options.danger || false
   });
 }

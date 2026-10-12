@@ -414,7 +414,7 @@ const SHORTCUT_DEFS = [
     // The id is the persistence key for a rebinding, so it stays as it is even
     // though Find long ago stopped being about conversations alone.
     id: 'find-in-conversation',
-    label: 'Find',
+    label: t('Find'),
     description: t('Open the find bar to search for text in the panel you are in.'),
     category: 'Search',
     // Works while typing in the composer — the find bar is a search overlay, so
@@ -424,7 +424,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'undo',
-    label: 'Undo',
+    label: t('Undo'),
     description: t('Undo the last change in the current conversation.'),
     category: 'Editing',
     // Not in text fields — the composer has its own native undo.
@@ -433,7 +433,7 @@ const SHORTCUT_DEFS = [
   },
   {
     id: 'redo',
-    label: 'Redo',
+    label: t('Redo'),
     description: t('Redo the last undone change in the current conversation.'),
     category: 'Editing',
     defaultBinding: { mod: true, shift: true, key: 'z' },

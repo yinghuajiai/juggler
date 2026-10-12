@@ -1132,7 +1132,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         keepsWorkspace: true,
         description: `Commits everything here onto ${branch || 'its branch'}. You carry on working in this workspace.`,
         prompt: {
-          label: 'Message',
+          label: t('Message'),
           placeholder: t('What this work does'),
           confirmLabel: 'Commit',
           multiline: true,

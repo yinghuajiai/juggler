@@ -89,8 +89,8 @@ function updateToolActionApprovalOptions(conv, toolUseId, approvalOptions) {
  */
 function allowDenyOptions() {
   return [
-    { label: 'Allow', value: 'yes', style: 'primary' },
-    { label: 'Deny', value: 'no', style: 'secondary' }
+    { label: _t('Allow'), value: 'yes', style: 'primary' },
+    { label: _t('Deny'), value: 'no', style: 'secondary' }
   ];
 }
 
@@ -151,7 +151,7 @@ export async function handleApprovalRequest(session, request, conversationId) {
       updateToolActionApprovalOptions(conv, req.toolUseId, {
         title: `Invalid: ${action.getTitle()}`,
         message: validation.error || _t('Invalid parameters'),
-        options: [{ label: 'Cancel', value: 'cancel', style: 'secondary' }]
+        options: [{ label: _t('Cancel'), value: 'cancel', style: 'secondary' }]
       });
       return;
     }

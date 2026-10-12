@@ -109,10 +109,10 @@ function badgeCtx(host) {
  * @type {Record<string, {label: string, icon: string, title: string}>}
  */
 const APPROVAL_SOURCE_META = {
-  user: { label: 'User', icon: 'icon-check', title: t('Approved by the user') },
-  rule: { label: 'Permitted', icon: 'icon-checklist', title: t('Allowed by a permission rule') },
-  strategy: { label: 'Strategy', icon: 'icon-auto-awesome', title: t('Approved by the active strategy') },
-  hook: { label: 'Hook', icon: 'icon-checklist', title: t('Approved by a tool hook') }
+  user: { label: t('User'), icon: 'icon-check', title: t('Approved by the user') },
+  rule: { label: t('Permitted'), icon: 'icon-checklist', title: t('Allowed by a permission rule') },
+  strategy: { label: t('Strategy'), icon: 'icon-auto-awesome', title: t('Approved by the active strategy') },
+  hook: { label: t('Hook'), icon: 'icon-checklist', title: t('Approved by a tool hook') }
 };
 
 /**
@@ -341,7 +341,7 @@ function renderMessageAttachments(host, wrapper, message) {
 
     const name = document.createElement('span');
     name.className = 'properties-panel-attachment-name';
-    name.textContent = ref.filename || ref.id || 'attachment';
+    name.textContent = ref.filename || ref.id || t('attachment');
     name.title = name.textContent;
     caption.appendChild(name);
 
@@ -546,7 +546,7 @@ export function renderToolAction(host, container, toolAction) {
       } else if (res.cancelled) {
         const div = document.createElement('div');
         div.className = 'properties-panel-result cancelled';
-        div.textContent = 'Cancelled';
+        div.textContent = t('Cancelled');
         resultSection.appendChild(div);
       } else {
         // A successful result whose `content`/`output` is an empty string is a

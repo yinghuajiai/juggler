@@ -246,7 +246,7 @@ class BinModal extends JugglerElement {
     const confirmed = await showConfirm(
       `Permanently delete "${row.name || UNTITLED_BASE}"?\n\nThis cannot be undone.`,
       _t('Delete Conversation'),
-      { confirmText: 'Delete', cancelText: 'Cancel', danger: true }
+      { confirmText: _t('Delete'), cancelText: _t('Cancel'), danger: true }
     );
     if (!confirmed) return;
     try {
@@ -359,7 +359,7 @@ class BinModal extends JugglerElement {
     const everything = document.createElement('li');
     everything.className = 'menu-item danger';
     everything.setAttribute('role', 'menuitem');
-    everything.textContent = 'Everything';
+    everything.textContent = _t('Everything');
     everything.addEventListener('click', (e) => {
       e.stopPropagation();
       this._closeEmptyMenu();
@@ -386,7 +386,7 @@ class BinModal extends JugglerElement {
         ? `Permanently delete ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
         : _t('Permanently delete every conversation in the bin?\n\nThis cannot be undone.'),
       _t('Empty Bin'),
-      { confirmText: doomed ? 'Delete' : _t('Empty Bin'), cancelText: 'Cancel', danger: true }
+      { confirmText: doomed ? _t('Delete') : _t('Empty Bin'), cancelText: _t('Cancel'), danger: true }
     );
     if (!confirmed) return;
 

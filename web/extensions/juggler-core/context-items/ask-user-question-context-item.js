@@ -256,7 +256,7 @@ class AskUserQuestionContextItem extends ContextItem {
     return {
       title,
       message: '',
-      options: [{ label: 'Cancel', value: 'cancel', style: 'secondary' }],
+      options: [{ label: t('Cancel'), value: 'cancel', style: 'secondary' }],
       display: { questions }
     };
   }

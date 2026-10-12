@@ -118,7 +118,7 @@ class ThreadMessage extends HTMLElement {
     btn.className = 'thread-action-btn thread-stop-btn';
     btn.title = label;
     btn.setAttribute('aria-label', label);
-    btn.textContent = 'Stop';
+    btn.textContent = t('Stop');
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       // The run is the canonical thread's; an alias id names no transcript to

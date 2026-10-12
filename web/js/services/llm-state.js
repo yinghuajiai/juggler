@@ -851,7 +851,7 @@ class LLMState {
 
       case 'retrying':
         this.start(conversationId, frame.startedAt, threadItemId);
-        this.updateStatus(conversationId, 'custom', { ...tokenData, message: message || 'Retrying' }, threadItemId);
+        this.updateStatus(conversationId, 'custom', { ...tokenData, message: message || t('Retrying') }, threadItemId);
         break;
 
       // A summarizer run (/compact, /handoff, or context recovery). Its LLM

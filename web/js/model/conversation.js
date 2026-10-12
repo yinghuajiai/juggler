@@ -2748,7 +2748,7 @@ class Conversation {
     }
     const goToSettings = await showConfirm(message, title, {
       confirmText: _t('Go to provider settings'),
-      cancelText: 'Cancel',
+      cancelText: _t('Cancel'),
     });
     if (goToSettings && typeof (/** @type {any} */ (window).openSettings) === 'function') {
       /** @type {any} */ (window).openSettings('providers');
