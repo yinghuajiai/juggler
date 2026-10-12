@@ -7,6 +7,7 @@
  * @module services/slash-command-handler
  */
 
+import { t } from '../i18n/index.js';
 import commandRegistry from '../registries/command-registry.js';
 
 /**
@@ -73,7 +74,7 @@ async function confirmStoppingTurn(commandName) {
   }
   const answer = await showConfirm(
     `/${commandName} can't run while a turn is in flight. Running it now stops the turn.`,
-    'Stop the current turn?',
+    t('Stop the current turn?'),
     { confirmText: 'Stop turn', cancelText: 'Leave it running', danger: true }
   );
   return !!answer;

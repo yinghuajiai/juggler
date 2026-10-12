@@ -10,6 +10,7 @@
  * @module utils/header-controls
  */
 
+import { t } from '../i18n/index.js';
 import keyShortcutManager from '../services/key-shortcut-manager.js';
 import wsService from '../services/websocket.js';
 import { hasNativeHost } from '../../sdk/lib/window-control.js';
@@ -237,7 +238,7 @@ export function setupHeaderControls(session) {
       await apiService.newWindow();
     } catch (err) {
       const { extractUserMessage } = await import('../../sdk/lib/error-utils.js');
-      await showAlert(extractUserMessage(err), 'New window');
+      await showAlert(extractUserMessage(err), t('New window'));
     }
   };
   if (newWindowBtn) {

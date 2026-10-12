@@ -16,6 +16,7 @@
  * closed a project and gets their list, not a lecture.
  */
 
+import { t } from '../i18n/index.js';
 import apiService from '../services/api.js';
 import wsService from '../services/websocket.js';
 import providersCache from '../services/providers-cache.js';
@@ -407,7 +408,7 @@ class NoProjectOverlay extends HTMLElement {
       await openProjectInWindow(path, () => apiService.openProject(path));
       // The server broadcasts `project-changed`; the session listener reloads.
     } catch (err) {
-      await showAlert(extractUserMessage(err), 'Open project');
+      await showAlert(extractUserMessage(err), t('Open project'));
     }
   }
 }

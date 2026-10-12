@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import strategyRegistry from '../registries/strategy-registry.js';
 import commandRegistry from '../registries/command-registry.js';
@@ -573,7 +574,7 @@ class PluginCatalog extends JugglerElement {
     const confirmed = await showConfirm(
       `${count} conversation${count === 1 ? '' : 's'} ${count === 1 ? 'is' : 'are'} running. ` +
       'Changing extensions will stop them so the capability set can be safely rebuilt.',
-      'Stop conversations and apply extension change?',
+      t('Stop conversations and apply extension change?'),
       { confirmText: 'Stop & apply', cancelText: 'Cancel', danger: true }
     );
     if (!confirmed) return false;

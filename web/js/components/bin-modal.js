@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import { formatRelativeDateTime, formatBytes } from '../utils/format.js';
 import { BIN_LARGE_BYTES } from '../utils/constants.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
@@ -230,7 +231,7 @@ class BinModal extends JugglerElement {
       console.error('[BinModal] restore failed:', e);
       await showAlert(
         `Couldn’t restore: ${/** @type {any} */ (e)?.message || e}`,
-        'Restore failed'
+        _t('Restore failed')
       );
     }
     await this._refreshList();
@@ -244,7 +245,7 @@ class BinModal extends JugglerElement {
     if (!this._session) return;
     const confirmed = await showConfirm(
       `Permanently delete "${row.name || UNTITLED_BASE}"?\n\nThis cannot be undone.`,
-      'Delete Conversation',
+      _t('Delete Conversation'),
       { confirmText: 'Delete', cancelText: 'Cancel', danger: true }
     );
     if (!confirmed) return;
@@ -254,7 +255,7 @@ class BinModal extends JugglerElement {
       console.error('[BinModal] delete failed:', e);
       await showAlert(
         `Couldn’t delete: ${/** @type {any} */ (e)?.message || e}`,
-        'Delete failed'
+        _t('Delete failed')
       );
     }
     await this._refreshList();
@@ -384,7 +385,7 @@ class BinModal extends JugglerElement {
       doomed
         ? `Permanently delete ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
         : 'Permanently delete every conversation in the bin?\n\nThis cannot be undone.',
-      'Empty Bin',
+      _t('Empty Bin'),
       { confirmText: doomed ? 'Delete' : 'Empty Bin', cancelText: 'Cancel', danger: true }
     );
     if (!confirmed) return;
@@ -419,7 +420,7 @@ class BinModal extends JugglerElement {
       console.error('[BinModal] empty bin failed:', e);
       await showAlert(
         `Couldn’t empty the bin: ${/** @type {any} */ (e)?.message || e}`,
-        'Empty Bin failed'
+        _t('Empty Bin failed')
       );
     }
     await this._refreshList();

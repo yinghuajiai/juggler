@@ -20,6 +20,7 @@
  * @module components/model-selector
  */
 
+import { t } from '../i18n/index.js';
 import { presentPopup } from '../utils/popup-surface.js';
 import wsService from '../services/websocket.js';
 import providersCache from '../services/providers-cache.js';
@@ -655,7 +656,7 @@ class ModelSelector extends HTMLElement {
    * @private
    */
   async _offerProviderSettings(message) {
-    const goToSettings = await showConfirm(message, 'Problem selecting model', {
+    const goToSettings = await showConfirm(message, t('Problem selecting model'), {
       confirmText: 'Go to provider settings',
       cancelText: 'Cancel',
     });

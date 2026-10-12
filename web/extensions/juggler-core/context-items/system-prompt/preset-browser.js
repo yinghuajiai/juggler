@@ -20,6 +20,7 @@
  * Only showPresetBrowser is exported; the rest is reachable from it.
  */
 
+import { t } from '../../../../js/i18n/index.js';
 import { createElement, presentPopup } from 'juggler/ui';
 import { systemPromptRegistry } from '../../../../sdk/lib/system-prompt-registry.js';
 import { extractErrorMessage } from '../../../../sdk/lib/error-utils.js';
@@ -279,7 +280,7 @@ async function saveCurrentAsPreset(item, dropdown, container) {
 
   const showPrompt = /** @type {any} */ (window).showPrompt;
   const name = showPrompt
-    ? await showPrompt('Name this preset:', '', 'Save system prompt preset')
+    ? await showPrompt(t('Name this preset:'), '', t('Save system prompt preset'))
     : null;
   if (!name || !name.trim()) return;
   try {
@@ -392,7 +393,7 @@ function buildManageRow(item, preset, container, rerender) {
     e.stopPropagation();
     const showConfirm = /** @type {any} */ (window).showConfirm;
     const ok = showConfirm
-      ? await showConfirm(`Delete preset "${preset.name}"? This cannot be undone.`, 'Delete preset', { confirmText: 'Delete', cancelText: 'Cancel', danger: true })
+      ? await showConfirm(`Delete preset "${preset.name}"? This cannot be undone.`, t('Delete preset'), { confirmText: 'Delete', cancelText: 'Cancel', danger: true })
       : true;
     if (!ok) return;
     try {

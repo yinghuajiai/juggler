@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../../i18n/index.js';
 import { extensionConfigGet, extensionConfigSet } from '../../services/ops-api.js';
 import { showConfirm } from '../modal-dialog.js';
 
@@ -441,7 +442,7 @@ export class ExtensionSettingsEditor {
       return;
     }
     if (value === '') {
-      const confirmed = await showConfirm(`Clear ${setting.label}?`, 'Clear extension secret', { danger: true });
+      const confirmed = await showConfirm(`Clear ${setting.label}?`, t('Clear extension secret'), { danger: true });
       if (!confirmed) return;
     }
     await this._save({ [setting.key]: value }, value ? `${setting.label} saved.` : `${setting.label} cleared.`);

@@ -7,6 +7,7 @@
  * @typedef {import('./services/response-handler.js').default} ResponseHandler
  */
 
+import { t } from './i18n/index.js';
 import LLMState from './services/llm-state.js';
 import ConnectionManager from './services/connection-manager.js';
 import DisconnectionOverlay from './components/disconnection-overlay.js';
@@ -919,7 +920,7 @@ class JugglerApp {
    */
   async _duplicateConversationGuarded(session, conversationId) {
     if (session.conversations.size >= MAX_CONVERSATIONS) {
-      await showAlert(CONVERSATION_LIMIT_MESSAGE, 'Too many conversations');
+      await showAlert(CONVERSATION_LIMIT_MESSAGE, t('Too many conversations'));
       return null;
     }
     return await session.duplicateConversation(conversationId);

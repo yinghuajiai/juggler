@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t as _t } from '../../i18n/index.js';
 import { openExternalURL } from '../../../sdk/lib/window-control.js';
 import wsService from '../../services/websocket.js';
 import providersCache from '../../services/providers-cache.js';
@@ -279,7 +280,7 @@ export class ProvidersTab {
       applyEndpoints: (endpoints) => { this.endpoints = Array.isArray(endpoints) ? endpoints : []; },
       refreshProviders: () => this.host.loadConfig(false),
       onRemoved: (endpoints) => this._onEndpointRemoved(endpoints),
-      reportError: (message) => { showAlert(message, 'Custom endpoints'); },
+      reportError: (message) => { showAlert(message, _t('Custom endpoints')); },
     });
     this.endpointCards.set(endpoint.id, { ...card, endpoint });
     return card.element;
@@ -695,7 +696,7 @@ export class ProvidersTab {
       // Re-check against the new host (rebuilds this field with the saved value).
       await this._refreshOAuthProvider(provider, this._buildOAuthRefreshButton(provider));
     } catch (err) {
-      await showAlert(httpErrorText(err, 'Failed to set host'), 'GitHub Copilot');
+      await showAlert(httpErrorText(err, 'Failed to set host'), _t('GitHub Copilot'));
     }
   }
 
@@ -732,7 +733,7 @@ export class ProvidersTab {
       setStatus(provider.authHint || 'Sign in to continue');
       button.disabled = false;
       button.textContent = originalText;
-      await showAlert(httpErrorText(err, 'Sign-in failed'), 'GitHub Copilot');
+      await showAlert(httpErrorText(err, 'Sign-in failed'), _t('GitHub Copilot'));
     }
   }
 
@@ -774,8 +775,8 @@ export class ProvidersTab {
    */
   async _copilotSignOut(provider, button) {
     const ok = await showConfirm(
-      'Sign out of the GitHub login stored by Juggler? Copilot becomes unavailable until you sign in again (any editor Copilot login on this machine will still be used).',
-      'Sign out'
+      _t('Sign out of the GitHub login stored by Juggler? Copilot becomes unavailable until you sign in again (any editor Copilot login on this machine will still be used).'),
+      _t('Sign out')
     );
     if (!ok) return;
     button.disabled = true;
@@ -785,7 +786,7 @@ export class ProvidersTab {
       await this._refreshAfterAuthChange(provider, false);
     } catch (err) {
       button.disabled = false;
-      await showAlert(httpErrorText(err, 'Sign out failed'), 'GitHub Copilot');
+      await showAlert(httpErrorText(err, 'Sign out failed'), _t('GitHub Copilot'));
     }
   }
 

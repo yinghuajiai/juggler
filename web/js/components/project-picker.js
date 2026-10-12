@@ -11,6 +11,7 @@
  * (no validation, files allowed).
  */
 
+import { t } from '../i18n/index.js';
 import './path-input.js';
 import apiService from '../services/api.js';
 import { extractUserMessage } from '../../sdk/lib/error-utils.js';
@@ -347,7 +348,7 @@ async function openInNewWindow(path) {
     await apiService.newWindow(path);
   } catch (err) {
     const msg = extractUserMessage(err);
-    await showAlert(msg, 'Open in new window');
+    await showAlert(msg, t('Open in new window'));
   }
 }
 
@@ -453,7 +454,7 @@ export async function openProjectPicker(currentPath, session) {
     const noun = busy.length === 1 ? 'conversation is' : 'conversations are';
     const ok = await showConfirm(
       `${busy.length} ${noun} still working:\n\n${list}\n\nSwitching projects will stop and discard this work. Continue?`,
-      'Switch project?',
+      t('Switch project?'),
       { confirmText: 'Switch project', cancelText: 'Stay', danger: true },
     );
     if (!ok) return;
@@ -464,7 +465,7 @@ export async function openProjectPicker(currentPath, session) {
     // Server broadcasts `project-changed`; session listener triggers full reload.
   } catch (err) {
     const msg = extractUserMessage(err);
-    await showAlert(msg, 'Open project');
+    await showAlert(msg, t('Open project'));
   }
 }
 
@@ -642,7 +643,7 @@ export function openNewProjectPanel(recents = []) {
       // request was to create something, and opening someone else's work
       // instead is a different decision.
       createBtn.disabled = false;
-      await showAlert(extractUserMessage(err), 'New project folder');
+      await showAlert(extractUserMessage(err), t('New project folder'));
     }
   }
 

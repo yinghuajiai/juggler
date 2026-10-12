@@ -12,6 +12,7 @@
  * @module components/command-editor-dialog
  */
 
+import { t } from '../i18n/index.js';
 import { writeUserCommand, deleteUserCommand, fetchUserCommands, resetUserCommandsCache, USER_COMMAND_NAME_RE } from '../services/user-commands.js';
 import { expandTemplate, resolveModelConfig } from '../plugins/user-command-factory.js';
 import { reloadRegistries, REGISTRIES_RELOADED } from '../registries/reload-registries.js';
@@ -289,7 +290,7 @@ export function openCommandEditor(options = {}) {
       del.classList.remove('hidden');
       del.addEventListener('click', async () => {
         const ok = await showConfirm(
-          `Delete the /${def?.name} command?`, 'Delete command', { danger: true, confirmText: 'Delete' });
+          `Delete the /${def?.name} command?`, t('Delete command'), { danger: true, confirmText: 'Delete' });
         if (!ok) return;
         await deleteUserCommand(/** @type {any} */ (def?.scope), /** @type {any} */ (def?.name));
         refreshRegistries();
@@ -468,7 +469,7 @@ function userGroup(title, defs, refresh) {
     del.appendChild(Object.assign(document.createElement('span'), { className: 'icon-trashcan' }));
     del.addEventListener('click', async () => {
       const ok = await showConfirm(
-        `Delete the /${def.name} command?`, 'Delete command', { danger: true, confirmText: 'Delete' });
+        `Delete the /${def.name} command?`, t('Delete command'), { danger: true, confirmText: 'Delete' });
       if (!ok) return;
       await deleteUserCommand(/** @type {any} */ (def.scope), def.name);
       refreshRegistries();

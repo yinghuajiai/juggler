@@ -20,6 +20,7 @@
  * @property {typeof ConversationBar} ConversationBar - ConversationBar class
  */
 
+import { t } from '../i18n/index.js';
 import { MAX_CONVERSATIONS, CONVERSATION_LIMIT_MESSAGE } from '../model/session.js';
 import { UNTITLED_BASE } from '../model/conversation-naming.js';
 import { BIN_LARGE_BYTES, MAX_CONVERSATION_NAME_LENGTH, MAX_WORKSPACE_LABEL_LENGTH } from '../utils/constants.js';
@@ -2058,7 +2059,7 @@ class ConversationBar extends JugglerElement {
       console.error('[ConversationBar] restore from bin failed:', e);
       await showAlert(
         `Couldn’t restore it from the bin: ${/** @type {any} */ (e)?.message || e}`,
-        'Restore failed'
+        t('Restore failed')
       );
     }
   }
@@ -2091,7 +2092,7 @@ class ConversationBar extends JugglerElement {
     if (this._session.conversations.size >= MAX_CONVERSATIONS) {
       await showAlert(
         CONVERSATION_LIMIT_MESSAGE,
-        'Too many conversations'
+        t('Too many conversations')
       );
       return;
     }
@@ -2228,7 +2229,7 @@ class ConversationBar extends JugglerElement {
     if (this._session.conversations.size >= MAX_CONVERSATIONS) {
       await showAlert(
         CONVERSATION_LIMIT_MESSAGE,
-        'Too many conversations'
+        t('Too many conversations')
       );
       return;
     }
@@ -2320,7 +2321,7 @@ class ConversationBar extends JugglerElement {
           if (code !== 'INVALID') {
             await showAlert(
               `Couldn't rename the conversation: ${/** @type {any} */ (e)?.message || e}`,
-              'Rename failed'
+              t('Rename failed')
             );
           }
           return '';

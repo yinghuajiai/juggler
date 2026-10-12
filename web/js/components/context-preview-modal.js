@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { ContextBuilder } from '../services/context-builder.js';
 import { escapeHtml } from '../../sdk/lib/html.js';
 import { copyToClipboard } from '../../sdk/lib/clipboard.js';
@@ -442,7 +443,7 @@ class ContextPreviewModal extends HTMLElement {
       }
     } catch (err) {
       console.error('[ContextPreviewModal] Failed to copy to clipboard:', err);
-      await showAlert(/** @type {Error} */ (err).message, 'Copy Failed');
+      await showAlert(/** @type {Error} */ (err).message, t('Copy Failed'));
     }
   }
 

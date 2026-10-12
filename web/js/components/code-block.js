@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { registerContextMenuProvider, codeReferenceMenuItem } from '../services/context-menu-service.js';
 import { isAbsolutePath } from '../utils/code-selection.js';
 import { copyToClipboard } from '../../sdk/lib/clipboard.js';
@@ -45,7 +46,7 @@ class CodeBlock extends HTMLElement {
       this.showCopiedFeedback();
     } catch (error) {
       console.error('[CodeBlock] Failed to copy:', error);
-      await showAlert(/** @type {Error} */ (error).message, 'Copy Failed');
+      await showAlert(/** @type {Error} */ (error).message, t('Copy Failed'));
     }
   }
 

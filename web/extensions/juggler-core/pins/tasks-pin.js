@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
 import PinboardItemType from 'juggler/pinboard-item-type';
 import { createElement, extractErrorMessage, injectStylesOnce } from 'juggler/ui';
 import { reconcileParts, reconcileRows, setText } from '../lib/reconcile.js';
@@ -404,7 +405,7 @@ class TasksPin extends PinboardItemType {
       parts.push({
         key: 'note',
         build: () => createElement('div', 'tasks-pin__note'),
-        fill: (el) => setText(el, 'Only what this conversation started, and only while it runs.'),
+        fill: (el) => setText(el, t('Only what this conversation started, and only while it runs.')),
       });
       reconcileParts(body, parts);
 

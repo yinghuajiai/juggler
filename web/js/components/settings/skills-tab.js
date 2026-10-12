@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t as _t } from '../../i18n/index.js';
 import { escapeHtml } from '../../../sdk/lib/html.js';
 import { renderMarkdown } from '../../../sdk/lib/markdown.js';
 import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
@@ -959,7 +960,7 @@ export class SkillsTab {
    * @private
    */
   async _promptAddSource() {
-    const url = await showPrompt('Paste a github.com/owner/repo URL or owner/repo:', '', 'Add skills source');
+    const url = await showPrompt(_t('Paste a github.com/owner/repo URL or owner/repo:'), '', _t('Add skills source'));
     if (!url || !url.trim()) return;
     try {
       await addSource(url.trim());

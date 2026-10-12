@@ -9,6 +9,7 @@
 //   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file or
 //   <https://www.gnu.org/licenses/agpl-3.0.html> for full terms.
 
+import { t } from '../i18n/index.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
 import { fadeOutScrims } from '../utils/modal-scrim.js';
 import { fetchJson } from '../services/http.js';
@@ -658,7 +659,7 @@ class SettingsPanel extends HTMLElement {
       return true;
     } catch (error) {
       console.error('Failed to load config:', error);
-      await showAlert("Couldn't load configuration", 'Error');
+      await showAlert(t("Couldn't load configuration"), 'Error');
       return false;
     }
   }

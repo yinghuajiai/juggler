@@ -27,6 +27,7 @@
  * @module components/settings/custom-endpoint-card
  */
 
+import { t } from '../../i18n/index.js';
 import {
   customProvidersSave,
   customProvidersRemove,
@@ -603,7 +604,7 @@ function buildRemoveRow(endpoint, ctx) {
     const label = endpoint.displayName || endpoint.id;
     const confirmed = await showConfirm(
       `Remove “${label}”? Its models leave the picker, and the limits and hidden models set for them are forgotten. Its API key stays in the credentials store.`,
-      'Remove endpoint',
+      t('Remove endpoint'),
       { confirmText: 'Remove', danger: true },
     );
     if (!confirmed) return;

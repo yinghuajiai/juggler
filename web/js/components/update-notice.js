@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { openExternalURL } from '../../sdk/lib/window-control.js';
 import { createButton } from '../../sdk/lib/html.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
@@ -575,7 +576,7 @@ class UpdateNotice extends HTMLElement {
       if (res.status === 'busy') {
         const proceed = await showConfirm(
           res.message || 'A conversation is still working. Restarting will stop and discard it.',
-          'Restart to update?',
+          t('Restart to update?'),
           { confirmText: 'Restart anyway', cancelText: 'Keep working', danger: true },
         );
         if (!proceed) return;
