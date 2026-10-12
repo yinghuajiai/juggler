@@ -74,10 +74,16 @@ const CATALOGUES = {
 };
 
 /** @type {string} The stored preference ('system', 'en' or 'zh-CN'). */
-let _preference = LANGUAGE_SYSTEM;
+let _preference = initialPreference();
 
-/** @type {string} The locale translations are actually read from. */
-let _locale = LANGUAGE_EN;
+/**
+ * The locale translations are actually read from. Seeded from the language the
+ * page was served with (see {@link initialLocale}) so that a module-level `t()`
+ * is already correct — the app's later `initLanguage()` only has to reconcile
+ * the server's stored copy, not establish the language for the first time.
+ * @type {string}
+ */
+let _locale = initialLocale();
 
 /**
  * The locale a `system` preference resolves to, from the browser/OS language.
@@ -88,6 +94,46 @@ let _locale = LANGUAGE_EN;
 function detectSystemLocale() {
   if (typeof navigator === 'undefined' || !navigator.language) return LANGUAGE_EN;
   return /^zh\b/i.test(navigator.language) ? LANGUAGE_ZH_CN : LANGUAGE_EN;
+}
+
+/**
+ * The language the server baked into the page before it painted, or '' when
+ * there is none. `index.html` resolves the stored preference and the OS into
+ * this global, and both pages carry it — reading it here is what lets the very
+ * first `t()` call be correct.
+ * @returns {string} A preference value, or ''.
+ * @private
+ */
+function injectedLanguage() {
+  if (typeof window === 'undefined') return '';
+  const value = /** @type {any} */ (window).__jugglerLanguage;
+  return typeof value === 'string' ? value : '';
+}
+
+/**
+ * The locale in effect before any JavaScript runs: the server-injected
+ * preference when there is one, otherwise the browser's own language.
+ *
+ * This is the module's starting value, not a placeholder. A `t()` call in a
+ * module's top-level code — `const THEME_OPTIONS = [{ label: t('System') }]` —
+ * runs at import, which is before the app's `initLanguage()` ever gets a turn;
+ * seeding `en` here would leave every such constant frozen in English. Resolving
+ * it at load is what makes "the very first call is already right" true.
+ * @returns {string} The starting locale.
+ * @private
+ */
+function initialLocale() {
+  const injected = injectedLanguage();
+  return injected ? resolveLocale(injected) : detectSystemLocale();
+}
+
+/**
+ * The starting preference: whatever the server baked in, or `system`.
+ * @returns {string} The starting preference value.
+ * @private
+ */
+function initialPreference() {
+  return injectedLanguage() || LANGUAGE_SYSTEM;
 }
 
 /**

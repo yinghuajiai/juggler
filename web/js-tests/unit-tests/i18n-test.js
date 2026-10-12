@@ -63,6 +63,22 @@ export async function runTests(_ctx) {
       'a message with no translation must render its English text verbatim');
   });
 
+  // The layer's starting locale comes from the language the page was served
+  // with, not from `en`: a module's top-level `t()` runs at import, before any
+  // boot call, so a constant built from one would otherwise freeze in English.
+  // The global is absent here, which must read as English.
+  run('no injected language reads as English', () => {
+    const w = /** @type {any} */ (window);
+    const saved = w.__jugglerLanguage;
+    delete w.__jugglerLanguage;
+    try {
+      assert(t('Language') === 'Language',
+        'with no injected language the layer must start in English');
+    } finally {
+      if (saved !== undefined) w.__jugglerLanguage = saved;
+    }
+  });
+
   run('English is used even when a catalogue would override it', () => {
     applyLanguage(LANGUAGE_EN);
     assert(t('Language') === 'Language',
