@@ -60,6 +60,7 @@ import { runTests as runContextCacheImpactTests } from '../unit-tests/context-ca
 import { runTests as runCacheBaselineAnchorTests } from '../unit-tests/cache-baseline-anchor-test.js';
 import { runTests as runI18nTests } from '../unit-tests/i18n-test.js';
 import { runTests as runLocaleCoverageTests } from '../unit-tests/locale-coverage-test.js';
+import { runTests as runLanguageRowTests } from '../unit-tests/language-row-test.js';
 import { runTests as runCodeLinesTests } from '../unit-tests/code-lines-test.js';
 import { runTests as runCacheMissWarningTests } from '../unit-tests/cache-miss-warning-test.js';
 import { runTests as runFileContentFreezeTests } from '../unit-tests/file-content-freeze-test.js';
@@ -468,6 +469,7 @@ const UNIT_TEST_SUITES = [
   { name: 'unit:cache-baseline-anchor', run: runCacheBaselineAnchorTests },
   { name: 'unit:i18n', run: runI18nTests },
   { name: 'unit:locale-coverage', run: runLocaleCoverageTests },
+  { name: 'unit:language-row', run: runLanguageRowTests },
   { name: 'unit:code-lines', run: runCodeLinesTests },
   { name: 'unit:cache-miss-warning', run: runCacheMissWarningTests },
   { name: 'unit:file-content-freeze', run: runFileContentFreezeTests },
