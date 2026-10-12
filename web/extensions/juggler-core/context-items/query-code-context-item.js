@@ -32,10 +32,10 @@ class QueryCodeContextItem extends ContextItem {
     // Changing it flips the plugin's enabled state for anyone whose plugin set
     // is not the default, and silently drops the tool's system-prompt section.
     id: 'explore-code',
-    name: 'Query Code',
+    name: t('Query Code'),
     version: '1.0.0',
     description: t('Run JavaScript against a read-only filesystem SDK to compute an answer in one call'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -77,15 +77,15 @@ class QueryCodeContextItem extends ContextItem {
    */
   async validate(toolInput) {
     if (!toolInput.code) {
-      return { valid: false, error: 'Missing required parameter: code' };
+      return { valid: false, error: t('Missing required parameter: code') };
     }
     if (typeof toolInput.code !== 'string') {
-      return { valid: false, error: 'Parameter "code" must be a string' };
+      return { valid: false, error: t('Parameter "code" must be a string') };
     }
     if (toolInput.timeout !== undefined) {
       const timeout = Number(toolInput.timeout);
       if (isNaN(timeout) || timeout < 1000 || timeout > 600000) {
-        return { valid: false, error: 'timeout must be between 1000 and 600000 ms' };
+        return { valid: false, error: t('timeout must be between 1000 and 600000 ms') };
       }
     }
     return { valid: true, params: toolInput };
@@ -122,8 +122,8 @@ class QueryCodeContextItem extends ContextItem {
     const workspaceRoot = this.getWorkspaceRoot();
     if (workspaceRoot === null) {
       throw new Error(
-        'Couldn\'t run: this conversation\'s workspace is unavailable — it is still being '
-        + 'created, was closed, or its directory has gone.');
+        t('Couldn\'t run: this conversation\'s workspace is unavailable — it is still being '
+        + 'created, was closed, or its directory has gone.'));
     }
 
     const fs = this.ops.readOnlyFileSystem();
@@ -233,7 +233,7 @@ class QueryCodeContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'query_code execution failed');
+      return this.failureSummary(outcome.error || t('query_code execution failed'));
     }
 
     const result = /** @type {Record<string, unknown>} */ (outcome.result);

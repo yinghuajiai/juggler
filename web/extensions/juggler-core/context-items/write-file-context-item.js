@@ -56,10 +56,10 @@ const LANG_MAP = {
 class WriteFileContextItem extends EditBase {
   static MANIFEST = {
     id: 'write-file',
-    name: 'Write File',
+    name: t('Write File'),
     version: '1.0.0',
     description: t('Create or overwrite files with new content'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: true
   };
 
@@ -89,7 +89,7 @@ class WriteFileContextItem extends EditBase {
       required: ['file_path', 'content']
     };
 
-    const description = 'Writes a file to the local filesystem. This will overwrite the existing file if there is one.';
+    const description = t('Writes a file to the local filesystem. This will overwrite the existing file if there is one.');
 
     return [
       {
@@ -124,16 +124,16 @@ class WriteFileContextItem extends EditBase {
     // Validation - accept both file_path and path
     const path = params.path;
     if (!path) {
-      return { valid: false, error: 'Missing required parameter: file_path' };
+      return { valid: false, error: t('Missing required parameter: file_path') };
     }
     if (params.content === undefined || params.content === null) {
-      return { valid: false, error: 'Missing required parameter: content' };
+      return { valid: false, error: t('Missing required parameter: content') };
     }
     if (typeof path !== 'string') {
-      return { valid: false, error: 'Parameter "file_path" must be a string' };
+      return { valid: false, error: t('Parameter "file_path" must be a string') };
     }
     if (typeof params.content !== 'string') {
-      return { valid: false, error: 'Parameter "content" must be a string' };
+      return { valid: false, error: t('Parameter "content" must be a string') };
     }
 
     // Load existing content (if any) so the approval UI can show a diff, and
@@ -356,12 +356,12 @@ class WriteFileContextItem extends EditBase {
 
     // Suggest testing for source files
     if (/\.(js|ts|py|go|java|rb|php|cs|rs)$/.test(path)) {
-      hints.push('Consider running tests to verify your changes');
+      hints.push(t('Consider running tests to verify your changes'));
     }
 
     // Warn about missing build for compiled languages
     if (/\.(go|java|cs|cpp|c|rs)$/.test(path)) {
-      hints.push('Remember to rebuild before testing');
+      hints.push(t('Remember to rebuild before testing'));
     }
 
     return hints.length > 0 ? hints.join('. ') : undefined;

@@ -44,7 +44,7 @@ import { decodeHtmlEntities } from '../../../sdk/lib/html.js';
 class NewConversationContextItem extends ContextItem {
   static MANIFEST = {
     id: 'new-conversation',
-    name: 'New Conversation',
+    name: t('New Conversation'),
     version: '1.0.0',
     description: t('Create a new independent conversation seeded with an initial message'),
     author: 'Juggler',
@@ -69,7 +69,7 @@ class NewConversationContextItem extends ContextItem {
 
   /** @returns {string} Short type label shown on the item badge and panel header */
   static getTypeName() {
-    return 'New Conversation';
+    return t('New Conversation');
   }
 
   /**
@@ -113,7 +113,7 @@ class NewConversationContextItem extends ContextItem {
   async validate(toolInput) {
     const message = toolInput?.message;
     if (typeof message !== 'string' || !message.trim()) {
-      return { valid: false, error: 'Missing required parameter: message' };
+      return { valid: false, error: t('Missing required parameter: message') };
     }
     return { valid: true, params: toolInput };
   }
@@ -187,7 +187,7 @@ class NewConversationContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to create conversation');
+      return this.failureSummary(outcome.error || t('Failed to create conversation'));
     }
 
     const result = /** @type {{name?: string, autostart?: boolean}} */ (outcome.result) || {};
@@ -211,7 +211,7 @@ class NewConversationContextItem extends ContextItem {
     if (name && name !== result.conversationId) {
       return name;
     }
-    return 'Untitled conversation';
+    return t('Untitled conversation');
   }
 
   /**
@@ -224,14 +224,14 @@ class NewConversationContextItem extends ContextItem {
   getStatusUI(actionStatus) {
     const typeName = 'created conversation';
     if (!actionStatus || actionStatus.pending) {
-      const summary = actionStatus ? 'Creating…' : 'New conversation';
+      const summary = actionStatus ? 'Creating…' : t('New conversation');
       return { typeName, summary, status: actionStatus ? /** @type {const} */ ('running') : undefined };
     }
     if (actionStatus.success) {
       const result = /** @type {{name?: string, conversationId?: string}} */ (actionStatus.result || {});
       return { typeName, summary: NewConversationContextItem._nameLabel(result), status: /** @type {const} */ ('success') };
     }
-    const { summary, status } = this.resolveTerminalStatus(actionStatus, 'Failed to create conversation');
+    const { summary, status } = this.resolveTerminalStatus(actionStatus, t('Failed to create conversation'));
     return { typeName, summary, status };
   }
 
@@ -255,7 +255,7 @@ class NewConversationContextItem extends ContextItem {
     const resolvedName = typeof data.name === 'string' ? data.name.trim() : '';
     const requestedName = typeof input.name === 'string' ? input.name.trim() : '';
     const name = (resolvedName && resolvedName !== data.conversationId ? resolvedName : '') || requestedName;
-    helpers.addSubsection(wrapper, 'Name', name || 'Untitled conversation', 'properties-panel-code');
+    helpers.addSubsection(wrapper, 'Name', name || t('Untitled conversation'), 'properties-panel-code');
 
     const message = input.message !== null && input.message !== undefined ? String(input.message) : '';
     helpers.addSubsection(wrapper, 'Prompt', message, 'properties-panel-code');
@@ -263,8 +263,8 @@ class NewConversationContextItem extends ContextItem {
     // autostart defaults to true when omitted (see the tool schema).
     const autostart = input.autostart !== false;
     const autostartText = autostart
-      ? 'On — the new conversation started working on the prompt immediately.'
-      : 'Off — the prompt is parked in the new conversation, waiting for the user to press Send.';
+      ? t('On — the new conversation started working on the prompt immediately.')
+      : t('Off — the prompt is parked in the new conversation, waiting for the user to press Send.');
     helpers.addSubsection(wrapper, 'Autostart', autostartText, 'properties-panel-text');
 
     return { skipResultSection: true };

@@ -54,12 +54,12 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
     name: 'Group',
     version: '1.0.0',
     description: t('A container for you to group related conversations together.'),
-    setupLabel: 'New group',
+    setupLabel: t('New group'),
     recommendations: {
       bestFor: 'keeping related conversations together in the strip',
-      avoidFor: 'isolating work from the project — a worktree or a copy does that',
+      avoidFor: t('isolating work from the project — a worktree or a copy does that'),
       notes: [
-        'Nothing is created on disk: conversations in a group work in the project exactly as they would outside it.',
+        t('Nothing is created on disk: conversations in a group work in the project exactly as they would outside it.'),
         'Ungrouping puts its conversations back in the project; deleting it sends them to the bin.'
       ]
     }
@@ -73,9 +73,9 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
   renderSetup(container, ctx) {
     const id = `group-name-${nextFormSequence()}`;
     container.replaceChildren();
-    const { input, note } = field(container, id, 'name', 'Name', 'Enter group name');
+    const { input, note } = field(container, id, 'name', 'Name', t('Enter group name'));
     input.value = String(ctx?.values?.name ?? '');
-    showNote(note, 'Conversations in a group work in the project, exactly as they would outside it.');
+    showNote(note, t('Conversations in a group work in the project, exactly as they would outside it.'));
     this._form = { input };
   }
 

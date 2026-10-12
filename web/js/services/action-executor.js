@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { extractErrorInfo, extractErrorMessage } from '../../sdk/lib/error-utils.js';
 import ContextItem from 'juggler/context-item';
 import { OpsError } from './ops-api.js';
@@ -172,7 +173,7 @@ const __ACTION_PROGRESS_CHANNEL = 'juggler-action-progress';
 export function toolResultContent(formatted) {
   let content = typeof formatted?.summary === 'string'
     ? formatted.summary
-    : extractErrorMessage(formatted?.summary) || 'Action completed.';
+    : extractErrorMessage(formatted?.summary) || t('Action completed.');
   if (formatted?.feedbackForLLM) {
     const feedback = typeof formatted.feedbackForLLM === 'string'
       ? formatted.feedbackForLLM
@@ -396,14 +397,14 @@ class ActionExecutor {
     // Validation failed - format and return error
     const formatted = ContextItem.validateSummary(action.getSummary({
       success: false,
-      error: prepared.error || 'Validation failed',
+      error: prepared.error || t('Validation failed'),
       prepared
     }));
     /** @type {ActionStatus} */
     const errorResult = {
       actionId,
       success: false,
-      error: prepared.error || 'Validation failed',
+      error: prepared.error || t('Validation failed'),
       formatted,
       displayData: prepared.displayData
     };
@@ -425,11 +426,11 @@ class ActionExecutor {
     try {
       // Check if already aborted before starting
       if (controller.signal.aborted) {
-        const formatted = ContextItem.validateSummary(action.getSummary({ success: false, error: 'Action cancelled', cancelled: true, prepared }));
+        const formatted = ContextItem.validateSummary(action.getSummary({ success: false, error: t('Action cancelled'), cancelled: true, prepared }));
         return /** @type {ActionStatus} */ ({
           actionId,
           success: false,
-          error: 'Action cancelled',
+          error: t('Action cancelled'),
           cancelled: true,
           formatted,
           displayData: prepared.displayData
@@ -501,11 +502,11 @@ class ActionExecutor {
   _formatExecutionResult(actionId, action, prepared, result) {
     // Check if action was cancelled during execution (streaming actions)
     if (result && result.cancelled) {
-      const formatted = ContextItem.validateSummary(action.getSummary({ success: false, error: 'Action cancelled', cancelled: true, result, prepared }));
+      const formatted = ContextItem.validateSummary(action.getSummary({ success: false, error: t('Action cancelled'), cancelled: true, result, prepared }));
       return /** @type {ActionStatus} */ ({
         actionId,
         success: false,
-        error: 'Action cancelled',
+        error: t('Action cancelled'),
         cancelled: true,
         result,
         formatted,
@@ -515,7 +516,7 @@ class ActionExecutor {
       // Check if backend returned structured error (success: false with errorCode)
       // This allows backends to return detailed error data instead of throwing
       // Get dual messages from action if formatError() is implemented
-      let userMessage = /** @type {string} */ (result.error) || 'Operation failed';
+      let userMessage = /** @type {string} */ (result.error) || t('Operation failed');
       /** @type {string|null} */
       let llmFeedback = null;
 
@@ -576,7 +577,7 @@ class ActionExecutor {
 
       const formatted = ContextItem.validateSummary(action.getSummary({
         success: false,
-        error: 'Action cancelled',
+        error: t('Action cancelled'),
         cancelled: true,
         result: partialResult,
         prepared
@@ -585,7 +586,7 @@ class ActionExecutor {
       return /** @type {ActionStatus} */ ({
         actionId,
         success: false,
-        error: 'Action cancelled',
+        error: t('Action cancelled'),
         cancelled: true,
         result: partialResult,
         formatted,

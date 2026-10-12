@@ -92,7 +92,7 @@ export function setupRows(session) {
     // after the place rather than after its place in the list — "Default" told
     // somebody choosing where their work would happen only that we had chosen
     // for them.
-    meaning: 'No separate workspace: this conversation works in the project folder itself.',
+    meaning: t('No separate workspace: this conversation works in the project folder itself.'),
     detail: session?.projectPath ?? ''
   }];
 
@@ -131,7 +131,7 @@ export function setupRows(session) {
       // from usable and read identically otherwise, and only one of them is
       // somewhere the reader has already been.
       meaning: parked
-        ? 'You stopped using this workspace. Adopting it picks up where you left off.'
+        ? t('You stopped using this workspace. Adopting it picks up where you left off.')
         : undefined,
       providerId: offer.providerId
     });

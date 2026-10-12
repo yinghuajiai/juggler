@@ -173,7 +173,7 @@ function ensureQueuedDeleteButton(area, el, itemId) {
     button.type = 'button';
     button.className = 'queued-message-delete-btn icon-btn';
     button.title = t('Remove from queue');
-    button.setAttribute('aria-label', 'Remove queued message');
+    button.setAttribute('aria-label', t('Remove queued message'));
     button.innerHTML = '<span class="icon-trashcan"></span>';
     button.addEventListener('click', (event) => {
       event.preventDefault();
@@ -360,7 +360,7 @@ export function ensureWorkspaceBanner(area, messageList) {
  * @returns {string} The line, or '' for a binding that is nobody's problem yet.
  */
 function strandedLead(workspace) {
-  if (!workspace) return 'There is no record of the workspace this conversation works in.';
+  if (!workspace) return t('There is no record of the workspace this conversation works in.');
   if (workspace.state === 'provisioning') return '';
 
   const label = workspace.label || workspace.root;
@@ -475,7 +475,7 @@ export function removeAllElements(messageList) {
  * @returns {string} The label to show above the block.
  */
 function threadResultLabel(text) {
-  return text ? 'Summary' : 'Not summarised';
+  return text ? 'Summary' : t('Not summarised');
 }
 
 /**
@@ -608,7 +608,7 @@ export function ensureThreadResult(area, messageList, footer) {
   resummariseBtn.type = 'button';
   resummariseBtn.className = 'thread-result-resummarise-btn';
   resummariseBtn.title = t('Summarise this fold again');
-  resummariseBtn.setAttribute('aria-label', 'Summarise this fold again');
+  resummariseBtn.setAttribute('aria-label', t('Summarise this fold again'));
   resummariseBtn.textContent = t('Re-summarise');
   resummariseBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -919,7 +919,7 @@ function createToolActionElement(message, itemIndex) {
 function createErrorBubble(message, itemIndex) {
   /** @type {Record<string, string>} */
   const attributes = {
-    content: message.get('summary') || message.get('message') || message.get('content') || 'An error occurred'
+    content: message.get('summary') || message.get('message') || message.get('content') || t('An error occurred')
   };
   // The worker classifies the failure; the row only reads the verdict. Matching
   // on the error text here instead would put the taxonomy in two places and let

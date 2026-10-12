@@ -78,7 +78,7 @@ class InfoCardsButton extends JugglerElement {
     btn.type = 'button';
     btn.className = 'info-cards-button';
     btn.title = t('Show info cards');
-    btn.setAttribute('aria-label', 'Show info cards');
+    btn.setAttribute('aria-label', t('Show info cards'));
     btn.setAttribute('aria-haspopup', 'menu');
     btn.setAttribute('aria-expanded', 'false');
     btn.innerHTML = INFO_ICON_SVG;

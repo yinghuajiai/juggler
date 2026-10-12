@@ -26,6 +26,7 @@
  * @module components/model-picker/model-chip
  */
 
+import { t as _t } from '../../i18n/index.js';
 import { presentPopup } from '../../utils/popup-surface.js';
 import { modelLabelFromList } from '../../model/model-display.js';
 import { buildModelConfig } from '../../model/model-config.js';
@@ -48,13 +49,13 @@ class ModelChip extends HTMLElement {
     /** @type {ModelConfigShape|undefined} @private - What the mini popover edits; undefined ⇒ follow `config`. */
     this._liveConfig = undefined;
     /** @type {string} @private - Label shown when no model is in effect. */
-    this._placeholder = 'Select Model';
+    this._placeholder = _t('Select Model');
     /** @type {import('../../services/connection-status.js').ConnectionStatus} @private */
     this._connectionState = null;
     /** @type {boolean} @private - Whether an empty selection should pulse for attention. */
     this._pulseWhenEmpty = false;
     /** @type {string} @private - The button's tooltip. */
-    this._buttonTitle = 'LLM Model';
+    this._buttonTitle = _t('LLM Model');
     /** @type {(() => void)|null} @private - presentPopup release for the mini popover. */
     this._miniRelease = null;
     /** @type {HTMLElement|null} @private - The mini popover's surface while open. */
@@ -208,7 +209,7 @@ class ModelChip extends HTMLElement {
     let modelUnavailable = false;
 
     if (this._connectionState === 'error') {
-      modelDisplay = 'Connection Error';
+      modelDisplay = _t('Connection Error');
     } else if (this._connectionState === 'disconnected') {
       modelDisplay = 'Disconnected';
     } else if (this._connectionState === 'connecting') {

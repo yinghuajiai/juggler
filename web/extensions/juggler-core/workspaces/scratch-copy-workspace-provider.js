@@ -122,16 +122,16 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
 
   static MANIFEST = {
     id: 'scratch-copy',
-    name: 'Scratch Copy',
+    name: t('Scratch Copy'),
     version: '1.0.0',
     description: t('A copy of this tree to try something risky in, and throw away'),
-    setupLabel: 'New scratch copy',
+    setupLabel: t('New scratch copy'),
     recommendations: {
-      bestFor: 'a change that may well be a mistake, in a project with or without git',
+      bestFor: t('a change that may well be a mistake, in a project with or without git'),
       avoidFor: 'work you already know you are keeping',
       notes: [
-        'Anything your .gitignore leaves out is left out of the copy, so a build there starts from nothing.',
-        'Applying the change back copies whole files, and refuses the ones the project has changed since.'
+        t('Anything your .gitignore leaves out is left out of the copy, so a build there starts from nothing.'),
+        t('Applying the change back copies whole files, and refuses the ones the project has changed since.')
       ]
     }
   };
@@ -176,14 +176,14 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     const named = slug(form.input.value);
     if (!named) {
       showNote(form.note, form.input.value.trim()
-        ? 'That leaves nothing that can be a directory name.'
+        ? t('That leaves nothing that can be a directory name.')
         : '', { error: true });
       return;
     }
     const baseRoot = form.ctx?.session?.workspaceRoot?.(form.ctx?.baseWorkspaceId ?? '') ?? '';
     showNote(
       form.note,
-      baseRoot ? 'Work in a copy of the project, not your own files. Files git ignores are not copied.' : '',
+      baseRoot ? t('Work in a copy of the project, not your own files. Files git ignores are not copied.') : '',
       { path: baseRoot ? sandboxPlaces(baseRoot, named).work : '' }
     );
   }
@@ -282,7 +282,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       pristine: places.pristine
     };
 
-    ctx.progress('Copying the tree', places.work);
+    ctx.progress(t('Copying the tree'), places.work);
     // Both records of how to undo this go in before the step, so there is no
     // instant in which a copy exists that nothing knows how to remove. The cost
     // is that this compensation routinely runs for a copy that was never made,
@@ -296,7 +296,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       { path: `${SANDBOXES_REL}/.gitignore`, content: IGNORE_MARKER }, ctx.signal);
     await ctx.ops.copyTree({ from: '.', to: places.workRel }, ctx.signal);
 
-    ctx.progress('Taking a snapshot of it', places.pristine);
+    ctx.progress(t('Taking a snapshot of it'), places.pristine);
     await ctx.ops.copyTree({ from: places.workRel, to: places.pristineRel }, ctx.signal);
 
     return {
@@ -324,10 +324,10 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
   async status(workspace, ctx) {
     const meta = workspace?.meta ?? {};
     if (workspace.available === false) {
-      return { detail: 'The copy is missing.', available: false };
+      return { detail: t('The copy is missing.'), available: false };
     }
     if (!meta?.baseDir) {
-      return { detail: 'There is no record of what this is a copy of.', available: true };
+      return { detail: t('There is no record of what this is a copy of.'), available: true };
     }
 
     const changes = await this._changes(workspace, ctx);
@@ -340,7 +340,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       // not give: it is the copy compared with the snapshot taken of it.
       detail: count
         ? `${countOf(count)} changed since the copy was made`
-        : 'Nothing changed since the copy was made',
+        : t('Nothing changed since the copy was made'),
       badge: count ? 'changed' : '',
       dirty: count > 0,
       available: true

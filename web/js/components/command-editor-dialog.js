@@ -39,9 +39,9 @@ const MODEL_PICKER_POPUP_ID = 'command-editor-model-picker';
  * @type {Record<string, string>}
  */
 const RUN_MODES = {
-  send: 'Send immediately',
-  draft: 'Insert as draft',
-  subthread: 'Run in a thread',
+  send: t('Send immediately'),
+  draft: t('Insert as draft'),
+  subthread: t('Run in a thread'),
 };
 
 /**
@@ -51,15 +51,15 @@ const RUN_MODES = {
  * @type {Record<string, string>}
  */
 const RUN_MODE_HINTS = {
-  send: 'Expands the template and sends it as your next message.',
-  draft: 'Puts the expanded template in the composer so you can edit it first.',
+  send: t('Expands the template and sends it as your next message.'),
+  draft: t('Puts the expanded template in the composer so you can edit it first.'),
   subthread: 'Runs the prompt in a separate thread; the result lands back here.',
 };
 
 /** Save destinations, in the order the segmented control offers them. */
 const SCOPES = {
-  project: 'This project',
-  user: 'All my projects',
+  project: t('This project'),
+  user: t('All my projects'),
 };
 
 /**
@@ -186,7 +186,7 @@ export function openCommandEditor(options = {}) {
         providers: providersCache.get(),
         config: modelConfig,
         placeholder: t('Inherit from parent'),
-        buttonTitle: 'Model for the thread',
+        buttonTitle: t('Model for the thread'),
       });
     };
 
@@ -203,7 +203,7 @@ export function openCommandEditor(options = {}) {
       const picker = /** @type {any} */ (document.createElement('model-picker'));
       picker.providers = providersCache.get();
       picker.value = modelConfig;
-      picker.noneLabel = 'Inherit from parent';
+      picker.noneLabel = t('Inherit from parent');
       picker.loading = !providersCache.hasReceived();
 
       /** @type {(() => void)|null} */
@@ -334,7 +334,7 @@ export function openCommandEditor(options = {}) {
       if (res.status === 400 && res.data?.errors) {
         showFieldErrors(overlay, res.data.errors);
       } else {
-        showFieldErrors(overlay, { template: res.data?.error || 'Could not save command.' });
+        showFieldErrors(overlay, { template: res.data?.error || t('Could not save command.') });
       }
     });
 
@@ -395,8 +395,8 @@ export function openCommandManager() {
       const userCommands = await fetchUserCommands();
       if (seq !== renderSeq) return; // superseded by a newer render
       body.innerHTML = '';
-      body.appendChild(userGroup('This project', userCommands.filter((d) => d.scope === 'project'), render));
-      body.appendChild(userGroup('All projects', userCommands.filter((d) => d.scope === 'user'), render));
+      body.appendChild(userGroup(t('This project'), userCommands.filter((d) => d.scope === 'project'), render));
+      body.appendChild(userGroup(t('All projects'), userCommands.filter((d) => d.scope === 'user'), render));
     };
 
     // Live-refresh across clients: any command file changing on disk — from this

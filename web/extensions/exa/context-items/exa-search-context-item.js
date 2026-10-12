@@ -76,10 +76,10 @@ class ExaSearchContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'exa-search',
-    name: 'Exa Search',
+    name: t('Exa Search'),
     version: '0.1.0',
     description: t('Search the web with Exa'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -145,14 +145,14 @@ class ExaSearchContextItem extends ContextItem {
   async validate(toolInput) {
     const params = /** @type {ExaSearchParams} */ (toolInput);
     if (typeof params.query !== 'string' || params.query.trim() === '') {
-      return { valid: false, error: 'Parameter "query" must be a non-empty string' };
+      return { valid: false, error: t('Parameter "query" must be a non-empty string') };
     }
     if (params.numResults !== undefined &&
         (!Number.isInteger(params.numResults) || params.numResults < 1 || params.numResults > 100)) {
-      return { valid: false, error: 'Parameter "numResults" must be an integer from 1 to 100' };
+      return { valid: false, error: t('Parameter "numResults" must be an integer from 1 to 100') };
     }
     if (params.type !== undefined && !SEARCH_TYPES.has(params.type)) {
-      return { valid: false, error: 'Parameter "type" must be one of: instant, fast, auto, deep-lite, deep, deep-reasoning' };
+      return { valid: false, error: t('Parameter "type" must be one of: instant, fast, auto, deep-lite, deep, deep-reasoning') };
     }
     for (const key of /** @type {const} */ (['include_domains', 'exclude_domains'])) {
       const domains = params[key];
@@ -162,7 +162,7 @@ class ExaSearchContextItem extends ContextItem {
       }
     }
     if (params.contents !== undefined && !CONTENTS_MODES.has(params.contents)) {
-      return { valid: false, error: 'Parameter "contents" must be one of: highlights, text, none' };
+      return { valid: false, error: t('Parameter "contents" must be one of: highlights, text, none') };
     }
     if (params.maxCharacters !== undefined &&
         (!Number.isInteger(params.maxCharacters) || params.maxCharacters < 1 || params.maxCharacters > MAX_RESULT_CHARS)) {
@@ -216,7 +216,7 @@ class ExaSearchContextItem extends ContextItem {
       payload = JSON.parse(response.body);
     } catch {
       if (response.status < 200 || response.status >= 300) {
-        const message = response.body.trim() || response.statusText || 'Unknown error';
+        const message = response.body.trim() || response.statusText || t('Unknown error');
         throw new Error(`Exa request failed (HTTP ${response.status}): ${message}`);
       }
       throw new Error(`Exa returned invalid JSON (HTTP ${response.status})`);
@@ -275,7 +275,7 @@ class ExaSearchContextItem extends ContextItem {
     const displayQuery = query.length > 40 ? query.substring(0, 40) + '...' : query;
 
     return this.buildStatusUI(actionStatus, {
-      typeName: 'Exa Search',
+      typeName: t('Exa Search'),
       pending: `Searching Exa for "${displayQuery}"...`,
       success: () => {
         const result = /** @type {ExaSearchResult} */ (actionStatus?.result);

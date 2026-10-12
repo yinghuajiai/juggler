@@ -100,7 +100,7 @@ export function openWorkspaceReconnect(conversation) {
         const restored = await adoptSetupRow(session, row.id, { id: strandedId });
         if (modal.closed) return;
         if (!restored) {
-          error = 'That place is no longer on offer.';
+          error = t('That place is no longer on offer.');
           render();
           return;
         }
@@ -128,7 +128,7 @@ export function openWorkspaceReconnect(conversation) {
       dialog.className = 'workspace-move-dialog';
       dialog.setAttribute('role', 'dialog');
       dialog.setAttribute('aria-modal', 'true');
-      dialog.setAttribute('aria-label', 'Where was this conversation working?');
+      dialog.setAttribute('aria-label', t('Where was this conversation working?'));
       root.appendChild(dialog);
 
       const header = document.createElement('div');
@@ -171,7 +171,7 @@ export function openWorkspaceReconnect(conversation) {
           rows,
           selection: null,
           label: t('Where this conversation was working'),
-          adoptVerb: 'It was here',
+          adoptVerb: t('It was here'),
           onSelect: () => {},
           onAdopt: (row) => { void reconnect(row); }
         });

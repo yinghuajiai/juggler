@@ -78,7 +78,7 @@ const LABEL_CHARS = 200;
  *   is the thread this transaction belongs to; given it, the tool list can say
  *   how the thread's live tools differ from the ones this turn sent.
  */
-export function renderTransactionDetail(parent, blob, emptyMessage = 'No transaction data.', options = {}) {
+export function renderTransactionDetail(parent, blob, emptyMessage = _t('No transaction data.'), options = {}) {
   parent.innerHTML = '';
   if (!blob) {
     const empty = document.createElement('div');
@@ -162,10 +162,10 @@ function _buildOutputSection(blob) {
     cachedTokens: blob.cachedTokens
   };
 
-  const section = _section('LLM Output', {
+  const section = _section(_t('LLM Output'), {
     summary: blob.outputTokens ? `${blob.outputTokens.toLocaleString()} tokens` : '',
     copyText: JSON.stringify(reconstructed, null, 2),
-    copyLabel: 'Copy the output as JSON'
+    copyLabel: _t('Copy the output as JSON')
   });
 
   if (error) {
@@ -178,7 +178,7 @@ function _buildOutputSection(blob) {
   if (blocks.length) {
     for (const block of blocks) section.appendChild(_buildOutputBlock(block));
   } else if (!error) {
-    const msg = blob.stopReason === 'cancelled' ? 'Cancelled before any output.' : 'The model returned nothing.';
+    const msg = blob.stopReason === 'cancelled' ? _t('Cancelled before any output.') : _t('The model returned nothing.');
     section.appendChild(_textBlock(msg));
   }
 
@@ -232,14 +232,14 @@ function _buildInputSection(blob, messageThread = null) {
     tools
   }, null, 2);
 
-  const section = _section('LLM Input', {
+  const section = _section(_t('LLM Input'), {
     summary: _inputSummary(blob, { systemPrompt, messages, tools }),
     copyText: fullJson,
-    copyLabel: 'Copy the whole input as JSON'
+    copyLabel: _t('Copy the whole input as JSON')
   });
 
   if (!input || (!systemPrompt && !messages.length && !tools.length)) {
-    section.appendChild(_textBlock('No input recorded.'));
+    section.appendChild(_textBlock(_t('No input recorded.')));
     return section;
   }
 
@@ -325,7 +325,7 @@ function _row(kind, label, value, { open = false, body = undefined } = {}) {
   summary.appendChild(createCopyButton(
     () => (typeof value === 'string' ? value : JSON.stringify(value, null, 2)),
     'properties-panel-header-icon-btn tx-row-copy',
-    'Copy this entry'
+    _t('Copy this entry')
   ));
 
   row.appendChild(summary);
@@ -648,7 +648,7 @@ function _holdsLongText(value) {
  * @param {{summary?: string, copyText?: string, copyLabel?: string}} [options] - Right-hand size line and copy-all button.
  * @returns {HTMLElement} Subsection wrapper with a header row.
  */
-function _section(title, { summary = '', copyText = '', copyLabel = 'Copy to clipboard' } = {}) {
+function _section(title, { summary = '', copyText = '', copyLabel = _t('Copy to clipboard') } = {}) {
   const el = document.createElement('properties-panel-subsection');
 
   const head = document.createElement('div');

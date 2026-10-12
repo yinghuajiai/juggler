@@ -22,6 +22,7 @@
  * @module services/skills-registry
  */
 
+import { t } from '../i18n/index.js';
 import { fetchJson, HttpError } from './http.js';
 import { apiUrl } from '../utils/api-url.js';
 
@@ -89,7 +90,7 @@ export async function fetchCatalog({ force = false, refresh = false } = {}) {
     return cachedCatalog;
   }
   const url = refresh ? apiUrl('/skills/catalog?refresh=1') : apiUrl('/skills/catalog');
-  const data = await fetchJson(url, { errorPrefix: 'Failed to load skill catalog' });
+  const data = await fetchJson(url, { errorPrefix: t('Failed to load skill catalog') });
   cachedCatalog = {
     entries: Array.isArray(data?.entries) ? data.entries : [],
     sources: Array.isArray(data?.sources) ? data.sources : [],
@@ -110,7 +111,7 @@ export function resetCatalogCache() {
  */
 export async function fetchCatalogEntry(source, path) {
   const url = apiUrl(`/skills/catalog/entry?source=${encodeURIComponent(source)}&path=${encodeURIComponent(path)}`);
-  return await fetchJson(url, { errorPrefix: 'Failed to load skill preview' });
+  return await fetchJson(url, { errorPrefix: t('Failed to load skill preview') });
 }
 
 /**
@@ -132,14 +133,14 @@ export async function installSkill(req) {
     result = await fetchJson(apiUrl('/skills/install'), {
       method: 'POST',
       body: { mode: 'install', ...req },
-      errorPrefix: 'Install failed',
+      errorPrefix: t('Install failed'),
     });
   } catch (err) {
     // 409 is the name-collision answer, not a transport failure: re-shape it
     // into the typed error the install flow branches on.
     if (err instanceof HttpError && err.status === 409) {
       const body = err.body && typeof err.body === 'object' ? err.body : {};
-      const collision = new Error(body.error || 'A skill with that name already exists');
+      const collision = new Error(body.error || t('A skill with that name already exists'));
       /** @type {any} */ (collision).collision = true;
       /** @type {any} */ (collision).existing = body.existing;
       throw collision;
@@ -160,7 +161,7 @@ export async function installSkill(req) {
  */
 export async function uninstallSkill(scope, source, name) {
   const url = apiUrl(`/skills/${encodeURIComponent(scope)}/${encodeURIComponent(source)}/${encodeURIComponent(name)}`);
-  await fetchJson(url, { method: 'DELETE', errorPrefix: 'Uninstall failed' });
+  await fetchJson(url, { method: 'DELETE', errorPrefix: t('Uninstall failed') });
   resetCatalogCache();
 }
 
@@ -174,7 +175,7 @@ export async function addSource(url, label) {
   const source = await fetchJson(apiUrl('/skills/registries'), {
     method: 'POST',
     body: { url, label },
-    errorPrefix: 'Could not add source',
+    errorPrefix: t('Could not add source'),
   });
   resetCatalogCache();
   return source;
@@ -187,7 +188,7 @@ export async function addSource(url, label) {
  */
 export async function fetchDefaultSources() {
   return await fetchJson(apiUrl('/skills/registries/defaults'), {
-    errorPrefix: 'Could not load default sources',
+    errorPrefix: t('Could not load default sources'),
   });
 }
 
@@ -200,7 +201,7 @@ export async function fetchDefaultSources() {
 export async function restoreDefaultSource(id) {
   const source = await fetchJson(apiUrl(`/skills/registries/defaults/${encodeURIComponent(id)}`), {
     method: 'POST',
-    errorPrefix: 'Could not add source',
+    errorPrefix: t('Could not add source'),
   });
   resetCatalogCache();
   return source;
@@ -215,7 +216,7 @@ export async function restoreDefaultSource(id) {
 export async function removeSource(id) {
   await fetchJson(apiUrl(`/skills/registries/${encodeURIComponent(id)}`), {
     method: 'DELETE',
-    errorPrefix: 'Could not remove source',
+    errorPrefix: t('Could not remove source'),
   });
   resetCatalogCache();
 }

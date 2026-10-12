@@ -21,7 +21,7 @@ import { extractErrorMessage } from 'juggler/ui';
 class NewConversationCommandType extends CommandType {
   static MANIFEST = {
     id: 'new',
-    name: 'New Conversation',
+    name: t('New Conversation'),
     version: '1.0.0',
     description: t('Open a new, empty conversation'),
     icon: 'icon-document'

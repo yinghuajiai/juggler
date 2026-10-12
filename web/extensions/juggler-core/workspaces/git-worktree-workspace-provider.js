@@ -227,17 +227,17 @@ export function defaultLocation(repoRoot, branch, beside = repoRoot) {
 class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
   static MANIFEST = {
     id: 'git-worktree',
-    name: 'Git Worktree',
+    name: t('Git Worktree'),
     version: '1.0.0',
     description: t('Another branch of this repository, checked out in a worktree of its own'),
-    setupLabel: 'New git worktree',
+    setupLabel: t('New git worktree'),
     icon: 'icon-git-branch',
     recommendations: {
       bestFor: 'work on a branch that should not disturb the checkout you are looking at',
       avoidFor: 'a quick edit to the branch you are already on',
       notes: [
         'The files are separate; ports, databases and anything else on this machine are not.',
-        'A fresh tree is empty of build output, so the first build is a full one.'
+        t('A fresh tree is empty of build output, so the first build is a full one.')
       ]
     }
   };
@@ -609,11 +609,11 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // The repository the tree will be OF, which is the project rather than the
     // chosen submodule when the whole project was asked for.
     const asked = form.subjectRel;
-    const head = await this._inRepo(form.ctx, asked, 'git rev-parse --abbrev-ref HEAD');
+    const head = await this._inRepo(form.ctx, asked, t('git rev-parse --abbrev-ref HEAD'));
     if (!head?.success) return;
     let named = String(head?.stdout ?? '').trim();
     if (named === 'HEAD') {
-      const detached = await this._inRepo(form.ctx, asked, 'git rev-parse --short HEAD');
+      const detached = await this._inRepo(form.ctx, asked, t('git rev-parse --short HEAD'));
       named = String(detached?.stdout ?? '').trim();
     }
     // Asked again on the way back: the user may have typed a base of their own
@@ -668,7 +668,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     const named = form.branch.value.trim();
     showNote(
       form.branchNote,
-      named && form.verdicts.get(named) === false ? 'git will not take that as a branch name.' : '',
+      named && form.verdicts.get(named) === false ? t('git will not take that as a branch name.') : '',
       { error: true }
     );
   }
@@ -722,7 +722,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
   async _submodulePaths(ctx) {
     /** @type {Set<string>} */
     const paths = new Set();
-    const listed = await this._inRepo(ctx, '', 'git config -f .gitmodules --list');
+    const listed = await this._inRepo(ctx, '', t('git config -f .gitmodules --list'));
     if (!listed?.success) return paths;
     for (const line of String(listed?.stdout ?? '').split(/\r?\n/)) {
       const said = /^submodule\..+\.path=(.+)$/.exec(line.trim())?.[1];
@@ -917,7 +917,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
   async provision(values, ctx) {
     const { repoRoot, repoRel, location, treeRel, branch, base } = this._places(values, ctx);
 
-    const isRepo = await this._inRepo(ctx, repoRel, 'git rev-parse --git-dir');
+    const isRepo = await this._inRepo(ctx, repoRel, t('git rev-parse --git-dir'));
     if (!isRepo?.success) {
       throw new Error(`Couldn't make a worktree: ${repoRoot} is not a git repository.`);
     }
@@ -945,7 +945,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
       branchCreatedByUs
     };
 
-    ctx.progress('Creating the worktree', location);
+    ctx.progress(t('Creating the worktree'), location);
     // Both records of how to undo this go in before the step, so there is no
     // instant in which a tree exists that nothing knows how to remove. The cost
     // is that this compensation routinely runs for a tree that was never made,
@@ -972,7 +972,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
       // wait — so it is one step that keeps talking, saying what the hook itself
       // is saying. The step names the work; the hook's own output, which is the
       // only thing that knows how far along it is, is the detail under it.
-      const step = 'Setting the worktree up';
+      const step = t('Setting the worktree up');
       ctx.progress(step, SETUP_HOOK);
       await this._mustStream(
         ctx,
@@ -1008,7 +1008,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
   async status(workspace, ctx) {
     const repoDir = String(workspace?.meta?.repoDir ?? '');
     if (workspace.available === false) {
-      return { detail: 'The worktree directory is missing.', available: false };
+      return { detail: t('The worktree directory is missing.'), available: false };
     }
 
     const answer = await api.getGitStatus(workspace.id, { signal: ctx.signal });
@@ -1016,7 +1016,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     if (!repo) {
       // A registered root that is no longer a repository: removed by hand, or
       // never one. Worth saying rather than reporting a clean tree.
-      return { detail: 'No git repository there.', available: true };
+      return { detail: t('No git repository there.'), available: true };
     }
 
     let changed = repo.changed;
@@ -1229,7 +1229,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // repository, and git's own complaint about an unconfigured one is a better
     // thing to read than a commit authored by a tool they did not choose.
     const staged = await ctx.ops.shell(
-      { command: 'git add -A', timeout: COMMIT_TIMEOUT_MS }, ctx.signal);
+      { command: t('git add -A'), timeout: COMMIT_TIMEOUT_MS }, ctx.signal);
     if (!staged?.success) {
       return { done: false, message: gitSaid(t('Couldn’t stage the changes.'), staged) };
     }
@@ -1320,7 +1320,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // said up front rather than discovered afterwards by a reader wondering
     // where their changes went. Ours is not theirs, the same distinction the
     // status makes.
-    const held = await ctx.ops.shell({ command: 'git status --porcelain' }, ctx.signal);
+    const held = await ctx.ops.shell({ command: t('git status --porcelain') }, ctx.signal);
     const uncommitted = String(held?.stdout ?? '')
       .split(/\r?\n/)
       .map(line => line.slice(3).trim())
@@ -1332,7 +1332,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
       };
     }
 
-    const head = await this._inRepoFromBase(ctx, where.repoRel, 'git rev-parse --abbrev-ref HEAD');
+    const head = await this._inRepoFromBase(ctx, where.repoRel, t('git rev-parse --abbrev-ref HEAD'));
     if (!head?.success) {
       return { done: false, message: gitSaid(t('Couldn’t ask the repository which branch it has out.'), head) };
     }
@@ -1463,7 +1463,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     const orphanedArtifacts = [];
 
     for (const [repoRel, repoDir] of repos) {
-      const listed = await this._inRepo(ctx, repoRel, 'git worktree list --porcelain');
+      const listed = await this._inRepo(ctx, repoRel, t('git worktree list --porcelain'));
       if (!listed?.success) continue;
       const trees = parseWorktrees(listed.stdout);
       const main = trees[0];

@@ -73,7 +73,7 @@ export function bindNetworkClients(button, { events = wsService, seed = fetchCli
   const show = (/** @type {number|null|undefined} */ total) => {
     const others = Math.max(0, (total || 1) - 1);
     const label = others === 0
-      ? 'Network settings'
+      ? t('Network settings')
       : `Network settings — ${others} other client${others === 1 ? '' : 's'} connected`;
     button.title = label;
     button.setAttribute('aria-label', label);
@@ -136,7 +136,7 @@ export function setupHeaderControls(session) {
 
   // A button disabled by a running turn says so; one disabled because there is
   // nothing to step through needs no explanation and keeps its plain name.
-  const BUSY_TITLE = 'Unavailable while the agent is running';
+  const BUSY_TITLE = t('Unavailable while the agent is running');
   const updateButtons = () => {
     const busy = isBusy();
     const canUndo = !busy && !!currentConversation?.canUndo();

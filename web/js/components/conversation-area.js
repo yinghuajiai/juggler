@@ -2179,7 +2179,7 @@ class ConversationArea extends HTMLElement {
       ? (this._conversation?.llmState?.getThroughput?.(this._conversation.id, myThreadId) ?? 0)
       : 0;
     const statusMessage = hasPendingApprovals
-      ? StatusMessageBuilder.withBusyMarker('Waiting for user approval')
+      ? StatusMessageBuilder.withBusyMarker(_t('Waiting for user approval'))
       : (busyState?.message || '');
     const showSpinner = hasPendingApprovals ? false : (busyState?.spinner ?? true);
 
@@ -2205,7 +2205,7 @@ class ConversationArea extends HTMLElement {
     const offered = started ? this._replySuggestions : [...STARTER_PROMPTS];
     this.suggestionsRow?.update(
       canSuggest ? offered : [],
-      started ? 'Suggested replies' : 'Things to ask',
+      started ? _t('Suggested replies') : _t('Things to ask'),
     );
 
     if (this._isGroupColumn) {

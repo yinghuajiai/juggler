@@ -93,7 +93,7 @@ function describeParameters(schema) {
   const properties = schema?.properties || {};
   const required = new Set(Array.isArray(schema?.required) ? schema.required : []);
   const names = Object.keys(properties);
-  if (!names.length) return 'No parameters.';
+  if (!names.length) return t('No parameters.');
   const parts = names.map((name) => {
     const property = properties[name] || {};
     const kind = [property.type, required.has(name) ? 'required' : null].filter(Boolean).join(', ');
@@ -146,7 +146,7 @@ async function pinIdFor(type, identity) {
 class PinToPinboardContextItem extends ContextItem {
   static MANIFEST = {
     id: 'pin-to-pinboard',
-    name: 'Pin to Pinboard',
+    name: t('Pin to Pinboard'),
     version: '1.0.0',
     description: t('Show something on the user’s pinboard'),
     author: 'Juggler',
@@ -158,7 +158,7 @@ class PinToPinboardContextItem extends ContextItem {
   }
 
   static getTypeName() {
-    return 'Pin to Pinboard';
+    return t('Pin to Pinboard');
   }
 
   /**
@@ -195,11 +195,11 @@ class PinToPinboardContextItem extends ContextItem {
       .map((d) => `- \`${d.id}\` — ${d.description} ${describeParameters(d.parameters)}`)
       .join('\n');
     const description = [
-      'Attach something to the user’s Pinboard and bring it into view. This is a one-way display action: you cannot list or read the user’s existing pins, and repeating a request reveals the existing pin instead of adding another.',
-      'Choose the type that is *for* the thing you are showing, not the one that will accept it — several types accept a path, and the specific one knows how to run, render or summarize what is at the end of it.',
-      'It is also how to show the user something you have made rather than describe it: write it to a file in the project and pin that file. An HTML file is shown as the rendered page, scripts running, with its source a click away — so a report, chart or mock-up can be looked at, not just read.',
+      t('Attach something to the user’s Pinboard and bring it into view. This is a one-way display action: you cannot list or read the user’s existing pins, and repeating a request reveals the existing pin instead of adding another.'),
+      t('Choose the type that is *for* the thing you are showing, not the one that will accept it — several types accept a path, and the specific one knows how to run, render or summarize what is at the end of it.'),
+      t('It is also how to show the user something you have made rather than describe it: write it to a file in the project and pin that file. An HTML file is shown as the rendered page, scripts running, with its source a click away — so a report, chart or mock-up can be looked at, not just read.'),
       listed ? `Installed types:\n${listed}` : '',
-      'A type installed after this list was built is accepted too: use its id and give it whatever parameters it expects, and it will validate its own config.',
+      t('A type installed after this list was built is accepted too: use its id and give it whatever parameters it expects, and it will validate its own config.'),
     ].filter(Boolean).join('\n\n');
 
     return [{
@@ -231,7 +231,7 @@ class PinToPinboardContextItem extends ContextItem {
   async validate(toolInput) {
     const type = typeof toolInput?.type === 'string' ? toolInput.type.trim() : '';
     if (!type) {
-      return { valid: false, error: 'Which pin type? Name one of the installed types.' };
+      return { valid: false, error: t('Which pin type? Name one of the installed types.') };
     }
     const parameters = normalizeParameters(catalog.get(type) || null, toolInput.parameters);
     if (!parameters) {
@@ -276,7 +276,7 @@ class PinToPinboardContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Could not pin that');
+      return this.failureSummary(outcome.error || t('Could not pin that'));
     }
     const result = /** @type {{type?: string, parameters?: Record<string, any>}} */ (outcome.result) || {};
     const label = result.type ? pinLabel(result.type, result.parameters) : '';
@@ -301,7 +301,7 @@ class PinToPinboardContextItem extends ContextItem {
       if (!catalog.has(ref.type)) relabelOnceCatalogIsRead(link, ref.type, result.parameters);
       return { typeName, summary: link, status: 'success' };
     }
-    const terminal = this.resolveTerminalStatus(actionStatus, 'Could not pin that');
+    const terminal = this.resolveTerminalStatus(actionStatus, t('Could not pin that'));
     return { typeName, summary: terminal.summary, status: terminal.status };
   }
 

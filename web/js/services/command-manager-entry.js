@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * The two pinned buttons above a command list — "Edit custom slash commands…"
  * and "Browse built-in commands…" — shared by every surface that lists slash
@@ -23,10 +25,10 @@
 export const MANAGER_COMMAND_ID = 'commands';
 
 /** Label of the button opening the custom-command manager. */
-export const MANAGE_COMMANDS_LABEL = 'Edit custom slash commands…';
+export const MANAGE_COMMANDS_LABEL = t('Edit custom slash commands…');
 
 /** Label of the button opening the built-ins in the Extensions settings. */
-export const BROWSE_COMMANDS_LABEL = 'Browse built-in commands…';
+export const BROWSE_COMMANDS_LABEL = t('Browse built-in commands…');
 
 /**
  * The fixed lead of the button-opened command lists: tab operations first (new,

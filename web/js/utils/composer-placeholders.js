@@ -16,6 +16,7 @@
  * @module utils/composer-placeholders
  */
 
+import { t } from '../i18n/index.js';
 import { MESSAGE_TYPES, TOOL_STATES } from '../../sdk/lib/message.js';
 
 /**
@@ -52,40 +53,40 @@ export const COMPOSER_LONG_THREAD_ITEMS = 250;
 export const COMPOSER_PLACEHOLDERS = Object.freeze({
   /** A conversation with no history yet — seeded context items don't count. */
   fresh: Object.freeze([
-    'Type your message…',
-    'What would you like to build?',
-    'Describe your task…',
+    t('Type your message…'),
+    t('What would you like to build?'),
+    t('Describe your task…'),
   ]),
 
   /** Mid-flow, with nothing in particular to report. The common case. */
   ready: Object.freeze([
-    'Type your message…',
-    'Enter your command…',
-    'Your turn…',
+    t('Type your message…'),
+    t('Enter your command…'),
+    t('Your turn…'),
   ]),
 
   /** The last turn was cancelled — by the user, or by an action that preempted it. */
   cancelled: Object.freeze([
-    'Stopped. What would you like instead?',
-    'Stopped. Your move…',
+    t('Stopped. What would you like instead?'),
+    t('Stopped. Your move…'),
   ]),
 
   /** The last turn ended in an error. */
   error: Object.freeze([
-    'That failed. What would you like to try?',
-    'Not that way, then. Your call…',
+    t('That failed. What would you like to try?'),
+    t('Not that way, then. Your call…'),
   ]),
 
   /** Coming back to a conversation that has been quiet for a long time. */
   idle: Object.freeze([
-    'Welcome back. Type your message…',
-    'Welcome back. Where would you like to pick up?',
+    t('Welcome back. Type your message…'),
+    t('Welcome back. Where would you like to pick up?'),
   ]),
 
   /** A thread long past the point of comfort. */
   long: Object.freeze([
-    "This one's getting long. What next?",
-    "Quite an epic, this. What's your next move?",
+    t("This one's getting long. What next?"),
+    t("Quite an epic, this. What's your next move?"),
   ]),
 });
 

@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
 import { extractErrorMessage } from './error-utils.js';
 import { serverPath } from '../../js/utils/api-url.js';
 
@@ -164,10 +165,10 @@ export async function runInSandbox(code, { capabilities = {}, timeoutMs = 30000,
   // when the run it is waiting on cannot be reached to be stopped.
   const cancelled = signal
     ? new Promise((_r, reject) => {
-      if (signal.aborted) { reject(new DOMException('The operation was aborted.', 'AbortError')); return; }
+      if (signal.aborted) { reject(new DOMException(t('The operation was aborted.'), 'AbortError')); return; }
       signal.addEventListener(
         'abort',
-        () => reject(new DOMException('The operation was aborted.', 'AbortError')),
+        () => reject(new DOMException(t('The operation was aborted.'), 'AbortError')),
         { once: true }
       );
     })

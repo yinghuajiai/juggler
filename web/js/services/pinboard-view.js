@@ -24,6 +24,7 @@
  * @module services/pinboard-view
  */
 
+import { t } from '../i18n/index.js';
 import pinboardStore from './pinboard-store.js';
 import pinboardItemRegistry from '../registries/pinboard-item-registry.js';
 import { initialPinId, isPinboardView } from '../utils/view-mode.js';
@@ -487,7 +488,7 @@ const pinboardView = {
         this.reveal(existing.id);
         return true;
       }
-      const pins = await attempt("Couldn't put that pin back.",
+      const pins = await attempt(t("Couldn't put that pin back."),
         () => pinboardStore.applyOperations([{ op: 'add', id: pinId, type: typeId, config }]));
       if (!pins?.some((/** @type {Pin} */ pin) => pin.id === pinId)) return false;
     }
@@ -533,7 +534,7 @@ const pinboardView = {
       this.reveal(existing.id);
       return existing;
     }
-    const pin = await attempt("Couldn't add that pin.", () => pinboardStore.add(typeId, normalized));
+    const pin = await attempt(t("Couldn't add that pin."), () => pinboardStore.add(typeId, normalized));
     if (pin) this.reveal(pin.id);
     return pin;
   },
@@ -570,7 +571,7 @@ const pinboardView = {
     }
     if (!claimed) return;
     await attempt(
-      "Couldn't set the pinboard up.",
+      t("Couldn't set the pinboard up."),
       () => pinboardStore.addAll(types.map(({ id }) => ({ type: id }))),
     );
   },
@@ -594,7 +595,7 @@ const pinboardView = {
     const retired = pinboardStore.get().filter((pin) => pin.type === RETIRED_PIN_TYPE);
     if (!retired.length) return;
     await attempt(
-      "Couldn't tidy the pinboard.",
+      t("Couldn't tidy the pinboard."),
       () => pinboardStore.applyOperations(retired.map((pin) => ({ op: 'remove', id: pin.id }))),
     );
   },
@@ -635,7 +636,7 @@ const pinboardView = {
   async remove(pinId, active) {
     const pin = pinboardStore.getPin(pinId);
     if (pin) await releasePin(pin, active);
-    await attempt("Couldn't remove that pin.", () => pinboardStore.remove(pinId));
+    await attempt(t("Couldn't remove that pin."), () => pinboardStore.remove(pinId));
   },
 
   /**
@@ -645,7 +646,7 @@ const pinboardView = {
    * @returns {Promise<void>}
    */
   async move(pinId, index) {
-    await attempt("Couldn't move that pin.", () => pinboardStore.move(pinId, index));
+    await attempt(t("Couldn't move that pin."), () => pinboardStore.move(pinId, index));
   },
 
   /**

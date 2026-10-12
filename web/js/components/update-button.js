@@ -173,9 +173,9 @@ class UpdateButton extends JugglerElement {
    */
   _label(vm) {
     if (vm.present) {
-      if (vm.updaterState === 'downloading') return 'Downloading update…';
-      if (vm.updaterState === 'verifying' || vm.updaterState === 'installing') return 'Preparing update…';
-      if (vm.updaterState === 'ready') return 'Update & restart...';
+      if (vm.updaterState === 'downloading') return t('Downloading update…');
+      if (vm.updaterState === 'verifying' || vm.updaterState === 'installing') return t('Preparing update…');
+      if (vm.updaterState === 'ready') return t('Update & restart...');
     }
     return 'Update';
   }
@@ -243,7 +243,7 @@ class UpdateButton extends JugglerElement {
       // Tint the pill background to download progress when we have a percentage.
       this._btn.style.setProperty('--update-pct', vm.pct === null ? '0%' : `${Math.round(vm.pct)}%`);
       this._btn.title = st === 'ready' ? t('Install the downloaded update and reopen')
-        : st === 'error' ? (vm.error || 'Update failed — click for details')
+        : st === 'error' ? (vm.error || t('Update failed — click for details'))
           : t('Update available');
 
       // One-shot attention pulse the first time the pill appears.

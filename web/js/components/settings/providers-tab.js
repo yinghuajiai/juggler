@@ -589,7 +589,7 @@ export class ProvidersTab {
       button.disabled = false;
       button.classList.remove('spinning');
       if (status) status.textContent = originalStatus;
-      await showAlert(err instanceof Error ? err.message : 'Refresh failed', provider.displayName);
+      await showAlert(err instanceof Error ? err.message : _t('Refresh failed'), provider.displayName);
     }
   }
 
@@ -692,11 +692,11 @@ export class ProvidersTab {
     const host = input.value.trim() || 'github.com';
     try {
       const data = await fetchJson(apiUrl('/providers/copilot/host'), { method: 'POST', body: { host } });
-      if (!data?.success) throw new Error(data?.error || 'Failed to set host');
+      if (!data?.success) throw new Error(data?.error || _t('Failed to set host'));
       // Re-check against the new host (rebuilds this field with the saved value).
       await this._refreshOAuthProvider(provider, this._buildOAuthRefreshButton(provider));
     } catch (err) {
-      await showAlert(httpErrorText(err, 'Failed to set host'), _t('GitHub Copilot'));
+      await showAlert(httpErrorText(err, _t('Failed to set host')), _t('GitHub Copilot'));
     }
   }
 
@@ -718,7 +718,7 @@ export class ProvidersTab {
     button.textContent = _t('Starting\u2026');
     try {
       const data = await fetchJson(apiUrl('/providers/copilot/device/start'), { method: 'POST', body: { host } });
-      if (!data?.success) throw new Error(data?.error || 'Failed to start sign-in');
+      if (!data?.success) throw new Error(data?.error || _t('Failed to start sign-in'));
 
       const { userCode, verificationUri, deviceCode, interval } = data;
       try { await navigator.clipboard.writeText(userCode); } catch { /* clipboard is best-effort */ }
@@ -727,13 +727,13 @@ export class ProvidersTab {
       setStatus(`Enter code ${userCode} at ${verificationUri} (opened in your browser, copied to clipboard). Waiting for authorization\u2026`);
 
       await this._pollCopilotLogin(deviceCode, Number(interval) || 5, host);
-      setStatus('Signed in with GitHub');
+      setStatus(_t('Signed in with GitHub'));
       await this._refreshAfterAuthChange(provider, true);
     } catch (err) {
-      setStatus(provider.authHint || 'Sign in to continue');
+      setStatus(provider.authHint || _t('Sign in to continue'));
       button.disabled = false;
       button.textContent = originalText;
-      await showAlert(httpErrorText(err, 'Sign-in failed'), _t('GitHub Copilot'));
+      await showAlert(httpErrorText(err, _t('Sign-in failed')), _t('GitHub Copilot'));
     }
   }
 
@@ -754,7 +754,7 @@ export class ProvidersTab {
         method: 'POST',
         body: { deviceCode, host },
       });
-      if (!data?.success) throw new Error(data?.error || 'Sign-in check failed');
+      if (!data?.success) throw new Error(data?.error || _t('Sign-in check failed'));
       switch (data.status) {
         case 'authorized': return;
         case 'pending': break;
@@ -782,11 +782,11 @@ export class ProvidersTab {
     button.disabled = true;
     try {
       const data = await fetchJson(apiUrl('/providers/copilot/signout'), { method: 'POST' });
-      if (!data?.success) throw new Error(data?.error || 'Sign out failed');
+      if (!data?.success) throw new Error(data?.error || _t('Sign out failed'));
       await this._refreshAfterAuthChange(provider, false);
     } catch (err) {
       button.disabled = false;
-      await showAlert(httpErrorText(err, 'Sign out failed'), _t('GitHub Copilot'));
+      await showAlert(httpErrorText(err, _t('Sign out failed')), _t('GitHub Copilot'));
     }
   }
 
@@ -804,7 +804,7 @@ export class ProvidersTab {
    */
   async _refreshAfterAuthChange(provider, available) {
     provider.available = available;
-    provider.authHint = available ? 'Signed in with GitHub' : '';
+    provider.authHint = available ? _t('Signed in with GitHub') : '';
     this.renderProviderFields();
     this.updateAllButtons();
   }
@@ -1406,8 +1406,8 @@ export class ProvidersTab {
 
       const limitFields = document.createElement('span');
       limitFields.className = 'model-limit-fields';
-      const contextInput = buildLimitInput(model, 'contextWindow', 'Context window');
-      const outputInput = buildLimitInput(model, 'maxOutputTokens', 'Max output tokens');
+      const contextInput = buildLimitInput(model, 'contextWindow', _t('Context window'));
+      const outputInput = buildLimitInput(model, 'maxOutputTokens', _t('Max output tokens'));
       limitFields.appendChild(contextInput);
       limitFields.appendChild(outputInput);
 
@@ -1666,7 +1666,7 @@ export class ProvidersTab {
       await fetchJson(apiUrl('/config/provider-enabled'), {
         method: 'POST',
         body: { provider: provider.name, enabled },
-        errorPrefix: "Couldn't update provider",
+        errorPrefix: _t("Couldn't update provider"),
       });
       // The handler queues a provider recompute; the resulting providers-update
       // is what refreshes every model selector.
@@ -1677,7 +1677,7 @@ export class ProvidersTab {
       if (toggle) {
         toggle.checked = !enabled;
       }
-      await showAlert(error instanceof Error ? error.message : "Couldn't update provider", 'Error');
+      await showAlert(error instanceof Error ? error.message : _t("Couldn't update provider"), 'Error');
     }
   }
 
@@ -1757,7 +1757,7 @@ export class ProvidersTab {
       await fetchJson(apiUrl('/config'), {
         method: 'PUT',
         body: { [provider.configKeyName]: apiKey },
-        errorPrefix: 'Failed to save API key',
+        errorPrefix: _t('Failed to save API key'),
       });
 
       // Clear the input so the UI returns to the "key is active" state
@@ -1770,7 +1770,7 @@ export class ProvidersTab {
       // providers-update is what refreshes every model selector.
     } catch (error) {
       console.error('Failed to save API key:', error);
-      await showAlert(error instanceof Error ? error.message : 'Failed to save API key', 'Error');
+      await showAlert(error instanceof Error ? error.message : _t('Failed to save API key'), 'Error');
     }
   }
 
@@ -1785,7 +1785,7 @@ export class ProvidersTab {
       await fetchJson(apiUrl('/config'), {
         method: 'PUT',
         body: { [provider.configKeyName]: '' },
-        errorPrefix: 'Failed to delete API key',
+        errorPrefix: _t('Failed to delete API key'),
       });
 
       // Reload config from server to get actual state (don't re-render fields)
@@ -1794,7 +1794,7 @@ export class ProvidersTab {
       // providers-update is what drops the key from every model selector.
     } catch (error) {
       console.error('Failed to delete API key:', error);
-      await showAlert(error instanceof Error ? error.message : 'Failed to delete API key', 'Error');
+      await showAlert(error instanceof Error ? error.message : _t('Failed to delete API key'), 'Error');
     }
   }
 }

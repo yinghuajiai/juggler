@@ -248,7 +248,7 @@ export function updateScheduleButton(composer) {
   /** @type {HTMLButtonElement} */ (btn).disabled = empty;
   if (composer._scheduledSendAt === null || empty) {
     btn.classList.remove('armed');
-    btn.setAttribute('title', 'Send later');
+    btn.setAttribute('title', t('Send later'));
     if (label) {
       /** @type {HTMLElement} */ (label).hidden = true;
       label.textContent = '';
@@ -258,7 +258,7 @@ export function updateScheduleButton(composer) {
   btn.classList.add('armed');
   const turnEnd = composer._scheduledSendMode === 'turn-end';
   btn.setAttribute('title', turnEnd
-    ? 'Sending when this turn ends — click to cancel'
+    ? t('Sending when this turn ends — click to cancel')
     : `Sending at ${formatClockTime(composer._scheduledSendAt)} — click to change or cancel`);
   if (label) {
     /** @type {HTMLElement} */ (label).hidden = false;

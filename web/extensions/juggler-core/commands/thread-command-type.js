@@ -15,7 +15,7 @@ import CommandType from 'juggler/command-type';
 class ThreadCommandType extends CommandType {
   static MANIFEST = {
     id: 'thread',
-    name: 'New Thread',
+    name: t('New Thread'),
     version: '1.0.0',
     description: t('Create a new sub-conversation thread'),
     icon: 'icon-thread',
@@ -40,7 +40,7 @@ class ThreadCommandType extends CommandType {
     } else {
       filteredArgs = [...args];
     }
-    const goal = filteredArgs.join(' ').trim() || 'New Thread';
+    const goal = filteredArgs.join(' ').trim() || t('New Thread');
 
     // Create thread message with optional draft.
     // strategyCreated marks this as a user-initiated thread (not LLM tool-created),

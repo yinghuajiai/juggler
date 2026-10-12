@@ -33,7 +33,7 @@ class MonitorContextItem extends ContextItem {
     name: 'Monitor',
     version: '1.0.0',
     description: _t('Run a background command and stream its output into the conversation'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     requiresApproval: true
   };
 
@@ -158,10 +158,10 @@ class MonitorContextItem extends ContextItem {
   async validate(toolInput) {
     const params = toolInput;
     if (!params.command) {
-      return { valid: false, error: 'Missing required parameter: command' };
+      return { valid: false, error: _t('Missing required parameter: command') };
     }
     if (typeof params.command !== 'string') {
-      return { valid: false, error: 'Parameter "command" must be a string' };
+      return { valid: false, error: _t('Parameter "command" must be a string') };
     }
     if (params.timeout_ms !== undefined) {
       const t = Number(params.timeout_ms);
@@ -169,7 +169,7 @@ class MonitorContextItem extends ContextItem {
       // time (below) rather than rejecting, so a generous timeout_ms still runs
       // (capped) instead of failing validation.
       if (isNaN(t) || t < 0) {
-        return { valid: false, error: 'Parameter "timeout_ms" must be a non-negative number' };
+        return { valid: false, error: _t('Parameter "timeout_ms" must be a non-negative number') };
       }
     }
     return { valid: true, params: toolInput };
@@ -226,7 +226,7 @@ class MonitorContextItem extends ContextItem {
     const command = prepParams.command || '';
 
     if (outcome.cancelled) {
-      return this.failureSummary('Monitor cancelled', { details: command ? `$ ${command}` : '' });
+      return this.failureSummary(_t('Monitor cancelled'), { details: command ? `$ ${command}` : '' });
     }
     if (!outcome.success) {
       return this.failureSummary(`Failed to start monitor: ${outcome.error}`);
@@ -235,7 +235,7 @@ class MonitorContextItem extends ContextItem {
     const result = /** @type {{task_id?: string, persistent?: boolean}} */ (outcome.result);
     const taskId = result.task_id || '';
     const persistentNote = result.persistent
-      ? ' It is persistent and runs until you call TaskStop or the session ends.'
+      ? _t(' It is persistent and runs until you call TaskStop or the session ends.')
       : '';
     const summary = `Monitor started (task ${taskId}). Matching output lines will be delivered into this conversation as they arrive — you keep working and they surface when you next yield, so don't wait for them.${persistentNote} Read full output with TaskOutput(${taskId}); stop it with TaskStop(${taskId}).`;
 

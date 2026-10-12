@@ -91,7 +91,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
     name: 'Auto-approve',
     version: '1.0.0',
     description: t('Like Default, but a cheap model auto-approves the routine prompts it is sure are safe — so you only get asked about the risky ones.'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     color: 'var(--accent-green)',
     icon: 'icon-auto-awesome',
     order: 1,
@@ -102,14 +102,14 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
     defaultRules: [],
     recommendations: {
       recommendedFor: [
-        "Longer autonomous runs where you're semi-watching",
-        'Cutting approval fatigue on routine edits and safe commands',
-        'Trusted projects where most actions are benign'
+        t("Longer autonomous runs where you're semi-watching"),
+        t('Cutting approval fatigue on routine edits and safe commands'),
+        t('Trusted projects where most actions are benign')
       ],
       exampleTriggers: [
-        "keep going without asking unless it's risky...",
-        'auto-approve the safe stuff...',
-        "don't stop for every little command..."
+        t("keep going without asking unless it's risky..."),
+        t('auto-approve the safe stuff...'),
+        t("don't stop for every little command...")
       ],
       approach: 'Auto-approve runs the same loop as Default, so the permission system still decides everything first: read tools, allowlisted commands, and in-project edits are approved automatically, and only the calls that would otherwise stop to ask you are handed off for review.\n\n'
         + 'Each parked call is checked by a cheap, fast model — the one set as your cheap model in settings — against a safety policy. You choose how strict that policy is in the Settings section of this page: Balanced (the default) approves only what your own words or standing permissions cover, Relaxed also trusts ordinary in-project work the agent chose itself, and Custom applies a policy you write. Every level still sends destructive, exfiltrating, security-weakening and trust-boundary-crossing actions to you, unless your custom policy says otherwise; file edits and calls that always need a human are never reviewed at all. To keep that judgement trustworthy the reviewer sees only your own messages and the agent\'s raw tool calls; it never sees the agent\'s explanations or any tool output, so it cannot be argued into an approval or fed instructions hidden in a tool result.\n\n'
@@ -119,14 +119,14 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
         + 'Because it only ever approves, the strategy can remove a prompt you would have granted but can never block the model or run something on its own that the reviewer distrusts.',
       tradeoffs: {
         pros: [
-          'Fewer prompts for obviously-safe actions',
-          'Can only remove prompts, never blocks or auto-runs something risky',
-          'Uses a cheap/fast model, low cost per review'
+          t('Fewer prompts for obviously-safe actions'),
+          t('Can only remove prompts, never blocks or auto-runs something risky'),
+          t('Uses a cheap/fast model, low cost per review')
         ],
         cons: [
-          'Adds ~1–3s latency to a parked call while it reviews, longer when a batch of calls queues for the pool',
-          'The reviewer is a probabilistic model and will sometimes leave a safe action parked',
-          'Not a security boundary — for untrusted code use Read-only'
+          t('Adds ~1–3s latency to a parked call while it reviews, longer when a batch of calls queues for the pool'),
+          t('The reviewer is a probabilistic model and will sometimes leave a safe action parked'),
+          t('Not a security boundary — for untrusted code use Read-only')
         ]
       }
     }
@@ -149,7 +149,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
       return {
         customPolicy: {
           seed: POLICY_BODIES[DEFAULT_REVIEW_LEVEL],
-          note: 'Your policy replaces the built-in rules. The reviewer is always also told what it can see, how to read your permissions, and how to answer — you only describe what to allow. Blank falls back to balanced.'
+          note: t('Your policy replaces the built-in rules. The reviewer is always also told what it can see, how to read your permissions, and how to answer — you only describe what to allow. Blank falls back to balanced.')
         }
       };
     }
@@ -247,7 +247,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
         return {
           note: reason
             ? `Auto-approve declined: ${reason}`
-            : 'Auto-approve declined — over to you'
+            : t('Auto-approve declined — over to you')
         };
       } catch (err) {
         // A cancelled turn aborts the review in flight. That is not a reviewer

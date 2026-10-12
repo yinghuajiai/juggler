@@ -16,6 +16,7 @@
  * - Single source of truth for API contracts
  */
 
+import { t } from '../i18n/index.js';
 import { extractHttpErrorDetail, withApiToken } from './http.js';
 import { apiUrl } from '../utils/api-url.js';
 
@@ -514,7 +515,7 @@ async function callOp(toolId, operation, params, signal, allowedPaths, workspace
 
   if (!result.success) {
     // All backend errors are operational feedback, not bugs
-    throw new OpsError(result.error || 'Operation failed', undefined, { code: result.code, detail: result.detail });
+    throw new OpsError(result.error || t('Operation failed'), undefined, { code: result.code, detail: result.detail });
   }
 
   if (!result.data) {

@@ -7,7 +7,6 @@
  * @typedef {import('./services/response-handler.js').default} ResponseHandler
  */
 
-import { t } from './i18n/index.js';
 import LLMState from './services/llm-state.js';
 import ConnectionManager from './services/connection-manager.js';
 import DisconnectionOverlay from './components/disconnection-overlay.js';
@@ -21,7 +20,7 @@ import { fetchJson } from './services/http.js';
 import { openSettings } from './services/settings-launcher.js';
 import { startSetupWizard, ONBOARDING_DISMISSED_PREF } from './components/onboarding/setup-wizard.js';
 import { getUserPref, setUserPref } from './services/prefs.js';
-import { initLanguage } from './i18n/index.js';
+import { t, initLanguage } from './i18n/index.js';
 import {
   reloadRegistries,
   initAllRegistries,
@@ -740,7 +739,7 @@ class JugglerApp {
       } else if (data.message) {
         errorMsg = data.message;
       } else {
-        errorMsg = 'Connection error - request failed';
+        errorMsg = t('Connection error - request failed');
       }
       conversation.handleError(errorMsg);
     } else if ('blocks' in data || 'inputTokens' in data) {
@@ -756,7 +755,7 @@ class JugglerApp {
     } else {
       // Unknown message format - log and notify user
       console.error('[Juggler] Unexpected message format from server:', data);
-      conversation.handleError('Received unexpected message format from server');
+      conversation.handleError(t('Received unexpected message format from server'));
     }
   }
 

@@ -15,6 +15,7 @@
  * @module services/response-handler-actions
  */
 
+import { t as _t } from '../i18n/index.js';
 import actionExecutor, { toolResultContent } from './action-executor.js';
 import { getBlockedToolReason, resolveToolName } from './tool-generator.js';
 import { withMcpToolMissReason } from './mcp-availability.js';
@@ -244,7 +245,7 @@ async function prepareAction(rh, toolCall, toolInput, messageThread) {
 
   // ========== 2. HANDLE INVALID PARAMETERS ==========
   if (!prepared.valid) {
-    const errorMessage = prepared.error || 'Validation failed';
+    const errorMessage = prepared.error || _t('Validation failed');
 
     return {
       result: failToolAction(messageThread, toolCall, {

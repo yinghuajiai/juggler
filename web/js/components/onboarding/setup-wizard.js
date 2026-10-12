@@ -54,19 +54,19 @@ const OPENROUTER_KEYS_URL = 'https://openrouter.ai/keys';
 const FREE_ROUTES = [
   {
     title: t('A free ChatGPT account'),
-    detail: 'Codex is included in every ChatGPT plan, the free one included. Install the app, sign in, done.',
+    detail: t('Codex is included in every ChatGPT plan, the free one included. Install the app, sign in, done.'),
     step: 'chatgptAccount',
   },
   {
     title: t('A GitHub account'),
     detail:
-      'GitHub Copilot has a free plan, and it is the only one Juggler can sign you into without leaving this window. Model choice is limited on it.',
+      t('GitHub Copilot has a free plan, and it is the only one Juggler can sign you into without leaving this window. Model choice is limited on it.'),
     step: 'copilotAccount',
   },
   {
     title: t('Neither, and no card'),
     detail:
-      'OpenRouter serves some models free — no payment method, around 50 requests a day. You paste an API key.',
+      t('OpenRouter serves some models free — no payment method, around 50 requests a day. You paste an API key.'),
     step: 'openrouterAccount',
   },
 ];
@@ -134,15 +134,15 @@ export async function startSetupWizard({
 
   const isWindows = platform === 'windows';
   const claudeInstall = isWindows
-    ? 'irm https://claude.ai/install.ps1 | iex'
-    : 'curl -fsSL https://claude.ai/install.sh | bash';
+    ? t('irm https://claude.ai/install.ps1 | iex')
+    : t('curl -fsSL https://claude.ai/install.sh | bash');
   const codexInstall = isWindows
-    ? 'powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"'
-    : 'curl -fsSL https://chatgpt.com/codex/install.sh | sh';
+    ? t('powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"')
+    : t('curl -fsSL https://chatgpt.com/codex/install.sh | sh');
 
   /** @returns {string|undefined} The small print for a check that found nothing. */
   const vainNote = () =>
-    state.checkedInVain ? 'Still nothing. The change may need a new terminal, or a moment.' : undefined;
+    state.checkedInVain ? t('Still nothing. The change may need a new terminal, or a moment.') : undefined;
 
   /**
    * The action every "go and do something" screen ends with.
@@ -176,7 +176,7 @@ export async function startSetupWizard({
    * @param {string} [label] - Button text.
    * @returns {import('./step-modal.js').StepAction} The settings button.
    */
-  const settingsAction = (label = 'Open provider settings') => ({
+  const settingsAction = (label = t('Open provider settings')) => ({
     label,
     onSelect: (ctx) => {
       ctx.finish('settings');
@@ -230,7 +230,7 @@ export async function startSetupWizard({
   /** @type {Record<string, (ctx: any) => import('./step-modal.js').StepView>} */
   const steps = {
     almostThere: () => {
-      const installed = state.detection?.claudeCLI ? 'Claude Code' : 'Codex';
+      const installed = state.detection?.claudeCLI ? t('Claude Code') : 'Codex';
       return {
         title: t('Nearly there'),
         body: `
@@ -275,22 +275,22 @@ export async function startSetupWizard({
       const routes = [
         {
           title: t('A ChatGPT account'),
-          detail: 'Any plan, including free. Codex is included with all of them.',
+          detail: t('Any plan, including free. Codex is included with all of them.'),
           step: 'chatgptAccount',
         },
         {
           title: t('A paid Claude plan'),
-          detail: 'Pro, Max, Team or Enterprise. Claude Code is not part of the free plan.',
+          detail: t('Pro, Max, Team or Enterprise. Claude Code is not part of the free plan.'),
           step: 'claudeAccount',
         },
         {
           title: t('An API key for something else'),
-          detail: 'Anthropic, OpenAI, Gemini, Mistral, a local model — settings takes keys for all of them.',
+          detail: t('Anthropic, OpenAI, Gemini, Mistral, a local model — settings takes keys for all of them.'),
           step: 'otherProvider',
         },
         {
           title: t('None of these'),
-          detail: 'There are a few ways to get running for nothing.',
+          detail: t('There are a few ways to get running for nothing.'),
           step: 'freeOptions',
         },
       ];
@@ -326,7 +326,7 @@ export async function startSetupWizard({
     otherProvider: () => ({
       title: t('Add a key'),
       body: `<p>Provider settings takes an API key for Anthropic, OpenAI, Gemini, Mistral, OpenRouter and the rest, and finds local models served by Ollama, LM Studio or llama.cpp.</p>`,
-      actions: [{ ...settingsAction('Open provider settings'), kind: 'primary' }],
+      actions: [{ ...settingsAction(t('Open provider settings')), kind: 'primary' }],
     }),
 
     freeOptions: (ctx) => {
@@ -344,7 +344,7 @@ export async function startSetupWizard({
         <p>Copilot's free plan costs nothing, and Juggler can sign you in from here — no other app, no key to paste.</p>
         <p>In provider settings, find <strong>GitHub Copilot</strong> and choose Sign in.</p>
         <p>Model choice is limited on the free plan.</p>`,
-      actions: [{ ...settingsAction('Open provider settings'), kind: 'primary' }],
+      actions: [{ ...settingsAction(t('Open provider settings')), kind: 'primary' }],
     }),
 
     openrouterAccount: () => ({
@@ -352,9 +352,9 @@ export async function startSetupWizard({
       body: `
         <p>OpenRouter serves some models free — no payment method, around 50 requests a day.</p>
         <p>Create a key at <a href="${OPENROUTER_KEYS_URL}" target="_blank" rel="noreferrer">openrouter.ai/keys</a>, then paste it into provider settings. The free models are the ones whose name ends in <strong>:free</strong>.</p>`,
-      actions: [{ ...settingsAction('Open provider settings'), kind: 'primary' }],
+      actions: [{ ...settingsAction(t('Open provider settings')), kind: 'primary' }],
     }),
   };
 
-  return presentWizard({ steps, start: state.route, dismissLabel: 'Close setup' });
+  return presentWizard({ steps, start: state.route, dismissLabel: t('Close setup') });
 }

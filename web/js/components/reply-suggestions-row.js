@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * Suggested replies: the row of chips directly above the composer.
  *
@@ -38,7 +40,7 @@ class ReplySuggestionsRow extends HTMLElement {
     // says what they are. Each chip's own words are its label; nothing else
     // would be more use to a screen reader than the sentence it is offering.
     this.setAttribute('role', 'group');
-    this.setAttribute('aria-label', 'Suggested replies');
+    this.setAttribute('aria-label', t('Suggested replies'));
     if (!this.firstElementChild) this.hidden = true;
   }
 
@@ -55,7 +57,7 @@ class ReplySuggestionsRow extends HTMLElement {
    *   default describes a reply to something; before anything has been said the
    *   same row carries starter prompts, which are a reply to nothing.
    */
-  update(suggestions, ariaLabel = 'Suggested replies') {
+  update(suggestions, ariaLabel = t('Suggested replies')) {
     const key = `${ariaLabel}\u0000${suggestions.join('\u0000')}`;
     if (key === this._key) return;
     this._key = key;

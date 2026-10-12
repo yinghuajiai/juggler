@@ -27,7 +27,7 @@ class ResearchAgentContextItem extends SubagentContextItem {
     name: 'Research',
     version: '1.0.0',
     description: t('Answer a question from the web in a sub-agent context'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false,
     // Always delegates: buildSubthreadSpec never returns null, and there is no
     // inline Research — so requiresDelegation lets the worker withhold the tool
@@ -50,16 +50,16 @@ class ResearchAgentContextItem extends SubagentContextItem {
       'It searches, reads as many pages as it needs, and checks them against the version actually installed in this project; none of those pages enter this conversation.\n' +
       'Use it when the answer takes several sources — API behaviour, what changed between versions, how a library is meant to be used. ' +
       'For one page whose URL you know, `WebFetch` with a `prompt` is cheaper; for questions about this codebase, use `Explore`.',
-    goalExample: 'Check React 20 changes',
+    goalExample: t('Check React 20 changes'),
     task:
-      'What to find out, stated in full — including the library, version, or platform it concerns.',
+      t('What to find out, stated in full — including the library, version, or platform it concerns.'),
     continues: 'research',
-    lead: 'Answer the following question thoroughly.',
+    lead: t('Answer the following question thoroughly.'),
     resultSpec:
-      'the answer, with a source URL for each claim, and a note of anything that differs from ' +
-      'the version installed in this project. Where you found nothing, say so explicitly rather than offering a plausible guess.',
+      t('the answer, with a source URL for each claim, and a note of anything that differs from ' +
+      'the version installed in this project. Where you found nothing, say so explicitly rather than offering a plausible guess.'),
     verbs: { pending: 'Researching…', done: 'Researched' },
-    fallback: 'Search the web directly with WebSearch and WebFetch.'
+    fallback: t('Search the web directly with WebSearch and WebFetch.')
   };
 }
 

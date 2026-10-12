@@ -22,7 +22,7 @@ const UNREACHABLE_SIGNATURE = /\b(?:ECONNREFUSED|ECONNRESET|ETIMEDOUT|ENOTFOUND|
  * lost.
  * @type {string}
  */
-const UNREACHABLE_LEAD = 'Couldn’t reach the model. Could be problems at their end, or your network.';
+const UNREACHABLE_LEAD = t('Couldn’t reach the model. Could be problems at their end, or your network.');
 
 
 // Settings icon (Material "settings") — the same gear the header's Settings

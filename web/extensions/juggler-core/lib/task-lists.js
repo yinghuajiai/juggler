@@ -25,6 +25,7 @@
  * @module lib/task-lists
  */
 
+import { t } from '../../../js/i18n/index.js';
 import { createElement, injectStylesOnce, taskMarker, taskStatusWord } from 'juggler/ui';
 import { createTextBlock } from 'juggler/item-utils';
 
@@ -159,7 +160,7 @@ export function renderTodoMarkdown(todos, opts = {}) {
 
   const { completed } = taskProgress(list);
   const lines = [
-    '# Todo list',
+    t('# Todo list'),
     `Progress: ${completed}/${list.length} completed`,
     ''
   ];

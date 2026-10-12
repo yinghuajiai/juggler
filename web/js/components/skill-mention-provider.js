@@ -24,6 +24,7 @@
  * @module components/skill-mention-provider
  */
 
+import { t } from '../i18n/index.js';
 import { longestCommonPrefix } from './completion-menu.js';
 import { getAvailableSkills } from '../services/skills.js';
 
@@ -85,7 +86,7 @@ export async function getThreadSkillSnapshot(messageThread) {
 export function createSkillMentionProvider(getSkills) {
   return {
     id: 'skill-mention',
-    emptyLabel: 'No matching skills',
+    emptyLabel: t('No matching skills'),
 
     detect(textBefore) {
       // A `$` at a boundary followed by zero or more name chars, up to the caret.

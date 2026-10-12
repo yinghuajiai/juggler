@@ -44,7 +44,7 @@ class SkillContextItem extends ContextItem {
     name: 'Skills',
     version: '1.0.0',
     description: t('Progressive-disclosure Agent Skills the assistant can load on demand'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     idPrefix: 'SKILL',
     requiresApproval: false,
     userAddable: false,
@@ -263,7 +263,7 @@ class SkillContextItem extends ContextItem {
   async validate(toolInput) {
     const name = toolInput.name;
     if (typeof name !== 'string' || name.trim() === '') {
-      return { valid: false, error: 'The "name" parameter is required — the exact name of the skill to load.' };
+      return { valid: false, error: t('The "name" parameter is required — the exact name of the skill to load.') };
     }
     return { valid: true, params: { name: name.trim() } };
   }
@@ -321,7 +321,7 @@ class SkillContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to load skill');
+      return this.failureSummary(outcome.error || t('Failed to load skill'));
     }
     const r = /** @type {{name: string, scope?: string, source?: string, alreadyLoaded?: boolean, body?: string, files?: any[]}} */ (
       outcome.result || {}
@@ -397,8 +397,8 @@ class SkillContextItem extends ContextItem {
       const list = files.map((f) => `- ${f.path} (${formatFileSize(f.size)})`).join('\n');
       parts.push(
         '',
-        'Resources bundled with this skill — read a file with the read tool, or run a script with ' +
-          'the execute tool (your normal approval rules apply):',
+        t('Resources bundled with this skill — read a file with the read tool, or run a script with ' +
+          'the execute tool (your normal approval rules apply):'),
         list
       );
     }
@@ -453,11 +453,11 @@ class SkillContextItem extends ContextItem {
 
     container.appendChild(SkillContextItem._explainer());
 
-    const heading = skills.length ? `Available skills (${skills.length})` : 'Available skills';
+    const heading = skills.length ? `Available skills (${skills.length})` : t('Available skills');
     container.appendChild(createElement('div', 'skill-panel-heading', heading));
 
     if (!Array.isArray(skills) || skills.length === 0) {
-      container.appendChild(createElement('div', 'skills-empty', 'No skills yet.'));
+      container.appendChild(createElement('div', 'skills-empty', t('No skills yet.')));
     } else {
       const loaded = this._loadedSet();
       const list = createElement('div', 'skills-manage-list');
@@ -486,8 +486,8 @@ class SkillContextItem extends ContextItem {
       createElement(
         'p',
         'skill-panel-lead',
-        'Agent Skills are specialized instruction sets the LLM can load on demand as extra ' +
-          'guidance for a particular kind of task, but kept out of the way until needed.'
+        t('Agent Skills are specialized instruction sets the LLM can load on demand as extra ' +
+          'guidance for a particular kind of task, but kept out of the way until needed.')
       )
     );
     const how = createElement('ul', 'skill-panel-how');
@@ -495,23 +495,23 @@ class SkillContextItem extends ContextItem {
       createElement(
         'li',
         '',
-        'The skills below are listed (name + description) in the system prompt, so the LLM ' +
-          'knows what it can reach for.'
+        t('The skills below are listed (name + description) in the system prompt, so the LLM ' +
+          'knows what it can reach for.')
       )
     );
     how.appendChild(
       createElement(
         'li',
         '',
-        'The LLM can choose to load a particular skill with a tool-call if it decides it\'s useful during the chat.'
+        t('The LLM can choose to load a particular skill with a tool-call if it decides it\'s useful during the chat.')
       )
     );
     how.appendChild(
       createElement(
         'li',
         '',
-        'Loading a skill only adds text. Any scripts or files it bundles are read or run later through ' +
-          'the normal tools, under your usual approval rules.'
+        t('Loading a skill only adds text. Any scripts or files it bundles are read or run later through ' +
+          'the normal tools, under your usual approval rules.')
       )
     );
     note.appendChild(how);
@@ -525,7 +525,7 @@ class SkillContextItem extends ContextItem {
    * @private
    */
   static _manageSkillsButton() {
-    const btn = /** @type {HTMLButtonElement} */ (createElement('button', 'skills-btn skill-manage-btn', 'Manage skills'));
+    const btn = /** @type {HTMLButtonElement} */ (createElement('button', 'skills-btn skill-manage-btn', t('Manage skills')));
     btn.type = 'button';
     btn.addEventListener('click', () => {
       const open = /** @type {any} */ (window).openSettings;
@@ -566,7 +566,7 @@ class SkillContextItem extends ContextItem {
     }
     main.appendChild(head);
     const desc = SkillContextItem._oneLine(skill.description || '');
-    main.appendChild(createElement('div', 'skills-card-desc', desc || 'No description.'));
+    main.appendChild(createElement('div', 'skills-card-desc', desc || t('No description.')));
     row.appendChild(main);
     // The Details button opens the same modal the settings Installed tab uses — the frozen
     // snapshot carries scope/source/name, which is all the popup needs to fetch
@@ -653,7 +653,7 @@ class SkillContextItem extends ContextItem {
         createElement(
           'div',
           'skill-load-note',
-          'These instructions were already loaded earlier in this conversation, so they weren\u2019t added again.'
+          t('These instructions were already loaded earlier in this conversation, so they weren\u2019t added again.')
         )
       );
     }

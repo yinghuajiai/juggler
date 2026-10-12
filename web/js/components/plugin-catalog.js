@@ -94,21 +94,21 @@ const SOURCE_LABELS = /** @type {Record<string, string>} */ ({
  * enforces (extensions run with full app privileges).
  */
 const PERMISSION_INFO = /** @type {Record<string, string>} */ ({
-  'filesystem.read': 'Read files and directories on your computer',
-  'filesystem.write': 'Create, modify, and delete files on your computer',
-  'shell.exec': 'Run shell commands on your computer',
-  'web.fetch': 'Fetch content from the web over the network',
-  'llm.generate': 'Generate text with a language model (uses your provider credits)',
+  'filesystem.read': t('Read files and directories on your computer'),
+  'filesystem.write': t('Create, modify, and delete files on your computer'),
+  'shell.exec': t('Run shell commands on your computer'),
+  'web.fetch': t('Fetch content from the web over the network'),
+  'llm.generate': t('Generate text with a language model (uses your provider credits)'),
 });
 
 /** Capability itemType → tree sub-heading, in display order under an extension. */
 const CAP_SECTIONS = /** @type {ReadonlyArray<readonly [string, string]>} */ ([
   ['strategy', 'Strategies'],
-  ['context-item', 'Context Items'],
+  ['context-item', t('Context Items')],
   ['command', 'Commands'],
-  ['info-card', 'Info Cards'],
-  ['file-viewer', 'File Viewers'],
-  ['pinboard-item', 'Pinboard Items'],
+  ['info-card', t('Info Cards')],
+  ['file-viewer', t('File Viewers')],
+  ['pinboard-item', t('Pinboard Items')],
   ['hook', 'Hooks'],
 ]);
 
@@ -127,12 +127,12 @@ const ORPHAN_CARD = /** @type {ExtCard} */ (/** @type {unknown} */ ({
 
 /** Human label for a capability itemType (singular, title-cased). */
 const TYPE_LABELS = /** @type {Record<string, string>} */ ({
-  'context-item': 'Context Item',
+  'context-item': t('Context Item'),
   strategy: 'Strategy',
   command: 'Command',
-  'info-card': 'Info Card',
-  'file-viewer': 'File Viewer',
-  'pinboard-item': 'Pinboard Item',
+  'info-card': t('Info Card'),
+  'file-viewer': t('File Viewer'),
+  'pinboard-item': t('Pinboard Item'),
   hook: 'Hook',
 });
 
@@ -542,7 +542,7 @@ class PluginCatalog extends JugglerElement {
     await fetchJson(apiUrl('/config/plugins'), {
       method: 'PUT',
       body: { disabled: disabledList, attribution },
-      errorPrefix: 'Failed to save extension config',
+      errorPrefix: t('Failed to save extension config'),
     });
   }
 
@@ -651,7 +651,7 @@ class PluginCatalog extends JugglerElement {
 
     const entries = this._buildEntries();
     if (entries.length === 0) {
-      this.appendChild(this._createElement('div', 'catalog-empty', 'No extensions installed'));
+      this.appendChild(this._createElement('div', 'catalog-empty', t('No extensions installed')));
       return;
     }
 
@@ -693,7 +693,7 @@ class PluginCatalog extends JugglerElement {
 
     const right = this._createElement('div', 'catalog-header-right');
     right.appendChild(this._createElement('p', 'catalog-explanation',
-      'Add your own extensions to ~/.juggler/extensions.'));
+      t('Add your own extensions to ~/.juggler/extensions.')));
     right.appendChild(this._renderReloadButton());
     header.appendChild(right);
     return header;
@@ -805,7 +805,7 @@ class PluginCatalog extends JugglerElement {
         key: `cap:orphan:${id}`,
         kind: 'cap',
         extKey: ORPHAN_KEY,
-        section: 'Switched off',
+        section: t('Switched off'),
         label: was?.name || id,
         card: ORPHAN_CARD,
         cap: /** @type {CapCard} */ (/** @type {unknown} */ ({
@@ -865,7 +865,7 @@ class PluginCatalog extends JugglerElement {
           for (const cap of inSection) children.appendChild(this._renderTreeCap(cap));
         }
         if (caps.length === 0) {
-          children.appendChild(this._createElement('div', 'plugin-tree-empty', 'No capabilities'));
+          children.appendChild(this._createElement('div', 'plugin-tree-empty', t('No capabilities')));
         }
         node.appendChild(children);
       }
@@ -880,7 +880,7 @@ class PluginCatalog extends JugglerElement {
       const node = this._createElement('div', 'plugin-tree-node');
       const header = this._createElement('div', 'plugin-tree-row plugin-tree-ext plugin-tree-row-off');
       header.appendChild(this._createElement('span', 'plugin-tree-caret', '▾'));
-      header.appendChild(this._createElement('span', 'plugin-tree-label', 'Not installed'));
+      header.appendChild(this._createElement('span', 'plugin-tree-label', t('Not installed')));
       node.appendChild(header);
       const children = this._createElement('div', 'plugin-tree-children');
       for (const orphan of orphans) children.appendChild(this._renderTreeCap(orphan));
@@ -1049,7 +1049,7 @@ class PluginCatalog extends JugglerElement {
     const entry = entries.find((e) => e.key === this._selectedKey);
     if (!entry) {
       this._detailPanel.replaceChildren(
-        this._createElement('div', 'catalog-detail-empty', 'Select an item to view its details'));
+        this._createElement('div', 'catalog-detail-empty', t('Select an item to view its details')));
       return;
     }
     const detail = entry.extKey === ORPHAN_KEY
@@ -1126,14 +1126,14 @@ class PluginCatalog extends JugglerElement {
 
     if (was?.extension) {
       const fromRow = this._createElement('div', 'plugin-detail-from');
-      fromRow.appendChild(this._createElement('span', 'plugin-id-label', 'Was provided by:'));
+      fromRow.appendChild(this._createElement('span', 'plugin-id-label', t('Was provided by:')));
       fromRow.appendChild(this._createElement('code', 'plugin-id-value', was.extension));
       header.appendChild(fromRow);
     }
 
     header.appendChild(this._createProse('div', 'plugin-description',
-      'Nothing installed provides this. Its extension was removed, or it stopped ' +
-      'loading while switched off. Switching it on clears it from the list.'));
+      t('Nothing installed provides this. Its extension was removed, or it stopped ' +
+      'loading while switched off. Switching it on clears it from the list.')));
     container.appendChild(header);
     return container;
   }
@@ -1200,7 +1200,7 @@ class PluginCatalog extends JugglerElement {
     if (card.error) {
       content.appendChild(this._createElement('div', 'ext-card-error-msg', card.error));
     }
-    const file = this._renderSourceFileSection(card.manifestPath, 'Manifest File');
+    const file = this._renderSourceFileSection(card.manifestPath, t('Manifest File'));
     if (file) content.appendChild(file);
     const perms = this._permissionsSection(card.manifest?.permissions);
     if (perms) content.appendChild(perms);
@@ -1228,7 +1228,7 @@ class PluginCatalog extends JugglerElement {
    * @returns {HTMLElement|null} The section, or null if no path
    * @private
    */
-  _renderSourceFileSection(filePath, title = 'Source File') {
+  _renderSourceFileSection(filePath, title = t('Source File')) {
     if (!filePath) return null;
     const section = this._createElement('section', 'plugin-section');
     const head = this._createElement('header', 'plugin-section-header');
@@ -1249,9 +1249,9 @@ class PluginCatalog extends JugglerElement {
   _renderBundledCaps(card) {
     const section = this._createElement('section', 'plugin-section');
     const head = this._createElement('header', 'plugin-section-header');
-    head.appendChild(this._createElement('h5', 'plugin-section-title', 'Bundled Capabilities'));
+    head.appendChild(this._createElement('h5', 'plugin-section-title', t('Bundled Capabilities')));
     head.appendChild(this._createElement('div', 'plugin-section-explanation',
-      'The strategies, context items, and commands this extension provides. Select one to see its details.'));
+      t('The strategies, context items, and commands this extension provides. Select one to see its details.')));
     section.appendChild(head);
 
     const list = this._createElement('div', 'ext-cap-list');
@@ -1281,7 +1281,7 @@ class PluginCatalog extends JugglerElement {
       main.appendChild(this._createElement('span', 'ext-cap-status ext-cap-status-failed', 'failed to load'));
     } else if (cap.disabled) {
       main.appendChild(this._createElement('span', 'ext-cap-status ext-cap-status-disabled',
-        cap.inherited ? 'disabled (extension off)' : 'disabled'));
+        cap.inherited ? t('disabled (extension off)') : 'disabled'));
     }
     row.appendChild(main);
     if (cap.description) row.appendChild(this._createElement('div', 'ext-cap-desc', cap.description));
@@ -1319,7 +1319,7 @@ class PluginCatalog extends JugglerElement {
       badges.appendChild(this._createElement('span', 'plugin-badge ext-cap-status-failed', 'failed to load'));
     } else if (cap.disabled) {
       badges.appendChild(this._createElement('span', 'plugin-badge ext-cap-status-disabled',
-        cap.inherited ? 'disabled (extension off)' : 'disabled'));
+        cap.inherited ? t('disabled (extension off)') : 'disabled'));
     }
     titleRow.appendChild(badges);
     header.appendChild(titleRow);
@@ -1334,7 +1334,7 @@ class PluginCatalog extends JugglerElement {
     const extName = card.manifest?.name || card.extId;
     if (extName) {
       const fromRow = this._createElement('div', 'plugin-detail-from');
-      fromRow.appendChild(this._createElement('span', 'plugin-id-label', 'From extension:'));
+      fromRow.appendChild(this._createElement('span', 'plugin-id-label', t('From extension:')));
       const link = this._createElement('span', 'plugin-detail-from-link', extName);
       link.addEventListener('click',
         () => this._select(`ext:${card.extId || card.manifest?.name}`));
@@ -1378,7 +1378,7 @@ class PluginCatalog extends JugglerElement {
 
     if (content.children.length === 0) {
       content.appendChild(this._createElement('div', 'catalog-detail-empty',
-        'No further details for this capability.'));
+        t('No further details for this capability.')));
     }
     container.appendChild(content);
     return container;
@@ -1408,7 +1408,7 @@ class PluginCatalog extends JugglerElement {
       const item = this._createElement('div', 'permission-explained-item');
       item.appendChild(this._createElement('code', 'permission-badge', p));
       item.appendChild(this._createElement('span', 'permission-explained-desc',
-        PERMISSION_INFO[p] || 'Custom permission required by this extension'));
+        PERMISSION_INFO[p] || t('Custom permission required by this extension')));
       list.appendChild(item);
     }
     section.appendChild(list);
@@ -1464,7 +1464,7 @@ class PluginCatalog extends JugglerElement {
       if (rows.length === 0) return;
 
       const footer = this._createElement('div', 'catalog-plugin-dirs');
-      footer.appendChild(this._createElement('span', 'catalog-plugin-dirs-label', 'Install locations: '));
+      footer.appendChild(this._createElement('span', 'catalog-plugin-dirs-label', t('Install locations: ')));
       for (const [label, p] of rows) {
         footer.appendChild(this._createElement('code', 'catalog-plugin-dir-path', `${label}: ${p}`));
       }
@@ -1501,17 +1501,17 @@ class PluginCatalog extends JugglerElement {
 
     const section = this._createElement('section', 'plugin-section');
     const header = this._createElement('header', 'plugin-section-header');
-    header.appendChild(this._createElement('h5', 'plugin-section-title', 'What it tells the model'));
+    header.appendChild(this._createElement('h5', 'plugin-section-title', t('What it tells the model')));
     header.appendChild(this._createElement('div', 'plugin-section-explanation',
-      'Text this strategy adds to the conversation when you switch to it. It is an ordinary message, '
-      + 'not a change to the system prompt, and it is everything the model is told about the strategy.'));
+      t('Text this strategy adds to the conversation when you switch to it. It is an ordinary message, '
+      + 'not a change to the system prompt, and it is everything the model is told about the strategy.')));
     section.appendChild(header);
 
     section.appendChild(declared
       ? this._createElement('pre', 'strategy-guidance-text', declared)
       : this._createElement('div', 'strategy-guidance-none',
-        'Nothing. This strategy says nothing to the model — it only decides which tools the model is '
-        + 'offered and which of its calls need your approval.'));
+        t('Nothing. This strategy says nothing to the model — it only decides which tools the model is '
+        + 'offered and which of its calls need your approval.')));
     return section;
   }
 
@@ -1527,14 +1527,14 @@ class PluginCatalog extends JugglerElement {
     const section = this._createElement('section', 'plugin-section');
 
     const header = this._createElement('header', 'plugin-section-header');
-    header.appendChild(this._createElement('h5', 'plugin-section-title', 'Strategy Recommendations'));
+    header.appendChild(this._createElement('h5', 'plugin-section-title', t('Strategy Recommendations')));
     section.appendChild(header);
 
     const container = this._createElement('div', 'strategy-recommendations');
 
     if (rec.recommendedFor && rec.recommendedFor.length > 0) {
       const group = this._createElement('div', 'recommendation-group');
-      group.appendChild(this._createElement('div', 'recommendation-label', 'Recommended For:'));
+      group.appendChild(this._createElement('div', 'recommendation-label', t('Recommended For:')));
       const list = this._createElement('div', 'recommendation-badges');
       for (const item of rec.recommendedFor) {
         list.appendChild(this._createElement('span', 'recommendation-badge', item));

@@ -1611,7 +1611,7 @@ class Conversation {
     const hasCopyableItem = sourceItems.some((/** @type {any} */ it) => this._isRootTopLevelItem(it.toJSON()));
     if (!hasCopyableItem) return null;
 
-    const newId = await this.session.createConversation(options.name || 'Copied items', {
+    const newId = await this.session.createConversation(options.name || _t('Copied items'), {
       activate: !!options.activate,
       origin: 'copy-items',
       // The copied items are about the tree this conversation works in, so the
@@ -1685,7 +1685,7 @@ class Conversation {
     const hasCopyableItem = promotedItems.some((/** @type {any} */ it) => this._isRootTopLevelItem(it.toJSON()));
     if (!hasCopyableItem) return null;
 
-    const goal = threadYMap.get('goal') || 'Promoted thread';
+    const goal = threadYMap.get('goal') || _t('Promoted thread');
     const newId = await this.session.createConversation(options.name || goal, {
       activate: !!options.activate,
       origin: 'promote-thread',
@@ -1841,7 +1841,7 @@ class Conversation {
     // they try to send — and leave their message in the box. Slash commands
     // were already handled above, so the Extensions settings stay reachable.
     if (!strategyRegistry.hasAnyStrategy()) {
-      this.showWarning("Can't start a conversation — the core Juggler extension is turned off. Re-enable it in Extensions settings to continue.", 8000);
+      this.showWarning(_t("Can't start a conversation — the core Juggler extension is turned off. Re-enable it in Extensions settings to continue."), 8000);
       return 'no strategy enabled';
     }
 
@@ -1909,7 +1909,7 @@ class Conversation {
     // ahead of the processing branches so a link drop reports itself as one
     // rather than as a busy turn.
     if (!workerManager.isWorkerReady(this.id)) {
-      this.showWarning('Still connecting to the engine — try again in a moment.', 5000);
+      this.showWarning(_t('Still connecting to the engine — try again in a moment.'), 5000);
       return 'worker not ready';
     }
 
@@ -2003,7 +2003,7 @@ class Conversation {
     // `preemptProcessing` cancel above, which the socket can die across. The
     // box has been cleared by this point, so hand the text back before
     // refusing — the user retries with their message still in front of them.
-    this.showWarning('Still connecting to the engine — try again in a moment.', 5000);
+    this.showWarning(_t('Still connecting to the engine — try again in a moment.'), 5000);
     this.restorePendingMessage();
     return 'worker not ready';
   }
@@ -2219,7 +2219,7 @@ class Conversation {
       // Extract content and status from result
       /** @type {'success'|'error'|'cancelled'} */
       let resultStatus = 'success';
-      let content = 'Tool executed successfully';
+      let content = _t('Tool executed successfully');
       let category = '';
 
       if (result.resultStatus) {
@@ -2713,7 +2713,7 @@ class Conversation {
     const message = hint
       ? `Can't send: ${label} is not available — ${hint}. Re-enable it in Provider Settings or pick another model.`
       : `Can't send: ${label} is not available. Re-enable it in Provider Settings or pick another model.`;
-    await this._offerProviderSettings(message, 'Model unavailable');
+    await this._offerProviderSettings(message, _t('Model unavailable'));
   }
 
   /**
@@ -2725,8 +2725,8 @@ class Conversation {
    */
   async _showNoProviderConfigured() {
     const message =
-      'No AI provider is configured yet — add an API key (or enable Claude Code) in Provider Settings to start chatting.';
-    await this._offerProviderSettings(message, 'No provider configured');
+      _t('No AI provider is configured yet — add an API key (or enable Claude Code) in Provider Settings to start chatting.');
+    await this._offerProviderSettings(message, _t('No provider configured'));
   }
 
   /**

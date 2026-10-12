@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * Append standard Delete / Delete up to here / Delete from here buttons to a container.
  * Buttons use properties-panel-btn danger styling, matching other properties panels.
@@ -33,7 +35,7 @@ export function appendDeleteControls(container, parentThread, itemId, onDelete) 
   // (the items it removes may be the ones the turn is waiting on), and it is
   // what offers the footer's undo.
   if (parentThread.findIndexByItemId(itemId) > 0) {
-    const upBtn = makeBtn('Delete up to here');
+    const upBtn = makeBtn(t('Delete up to here'));
     upBtn.addEventListener('click', () => {
       const index = parentThread.findIndexByItemId(itemId);
       if (index > 0) parentThread.conversation.deleteUpToWithCleanup(parentThread, index);
@@ -41,7 +43,7 @@ export function appendDeleteControls(container, parentThread, itemId, onDelete) 
     container.appendChild(upBtn);
   }
 
-  const fromBtn = makeBtn('Delete from here');
+  const fromBtn = makeBtn(t('Delete from here'));
   fromBtn.addEventListener('click', () => {
     const index = parentThread.findIndexByItemId(itemId);
     if (index >= 0) parentThread.conversation.deleteAfterWithCleanup(parentThread, index);

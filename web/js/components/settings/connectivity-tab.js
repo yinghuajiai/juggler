@@ -54,7 +54,7 @@ const CONNECTIVITY_POLL_MS = 2000;
  */
 function clientOriginLabel(c) {
   switch (c.origin) {
-    case 'local': return 'Same machine';
+    case 'local': return t('Same machine');
     case 'lan': return c.detail ? `LAN · ${c.detail}` : 'LAN';
     case 'remote': return c.detail || 'Remote';
     default: return 'Connected';
@@ -741,9 +741,9 @@ export class ConnectivityTab {
         method: 'POST',
         body: { enabled: true, mode },
       });
-      if (!data?.success) this._wanError = data?.error || 'Failed to start tunnel';
+      if (!data?.success) this._wanError = data?.error || t('Failed to start tunnel');
     } catch (e) {
-      this._wanError = httpErrorText(e, 'Failed to start tunnel');
+      this._wanError = httpErrorText(e, t('Failed to start tunnel'));
     }
     await this.refreshConnectivity(true);
   }
@@ -759,9 +759,9 @@ export class ConnectivityTab {
         method: 'POST',
         body: { enabled: false },
       });
-      if (!data?.success) this._wanError = data?.error || 'Failed to stop tunnel';
+      if (!data?.success) this._wanError = data?.error || t('Failed to stop tunnel');
     } catch (e) {
-      this._wanError = httpErrorText(e, 'Failed to stop tunnel');
+      this._wanError = httpErrorText(e, t('Failed to stop tunnel'));
     }
     await this.refreshConnectivity(true);
   }
@@ -785,13 +785,13 @@ export class ConnectivityTab {
     urlLink.rel = 'noopener noreferrer';
     urlLink.className = 'connectivity-url';
     urlLink.textContent = url;
-    const copyBtn = createCopyButton(url, 'connectivity-url-copy', 'Copy URL to clipboard');
+    const copyBtn = createCopyButton(url, 'connectivity-url-copy', t('Copy URL to clipboard'));
     urlRow.appendChild(urlLink);
     urlRow.appendChild(copyBtn);
     const qrHost = document.createElement('div');
     qrHost.className = 'connectivity-qr';
     qrHost.setAttribute('role', 'img');
-    qrHost.setAttribute('aria-label', 'QR code');
+    qrHost.setAttribute('aria-label', t('QR code'));
     loadQRCodeSVG(qrHost, url);
     urlBlock.appendChild(urlRow);
     urlBlock.appendChild(qrHost);

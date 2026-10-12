@@ -129,12 +129,12 @@ export function openImageLightbox(src, alt) {
 
   const toolbar = document.createElement('div');
   toolbar.className = 'image-lightbox-toolbar';
-  const zoomOutBtn = toolbarButton('image-lightbox-zoom-out', 'Zoom out', ZOOM_OUT_SVG);
+  const zoomOutBtn = toolbarButton('image-lightbox-zoom-out', t('Zoom out'), ZOOM_OUT_SVG);
   const levelBtn = document.createElement('button');
   levelBtn.type = 'button';
   levelBtn.className = 'image-lightbox-btn image-lightbox-level';
   levelBtn.title = t('Fit to window');
-  const zoomInBtn = toolbarButton('image-lightbox-zoom-in', 'Zoom in', ZOOM_IN_SVG);
+  const zoomInBtn = toolbarButton('image-lightbox-zoom-in', t('Zoom in'), ZOOM_IN_SVG);
   const closeBtn = toolbarButton('image-lightbox-close', 'Close', CLOSE_SVG);
   toolbar.append(zoomOutBtn, levelBtn, zoomInBtn, closeBtn);
   root.appendChild(toolbar);

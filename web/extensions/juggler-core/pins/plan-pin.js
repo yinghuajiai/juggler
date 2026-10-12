@@ -45,7 +45,7 @@ class PlanPin extends PinboardItemType {
    * @returns {true|string} True when there is a conversation to read a plan from.
    */
   canAdd(active) {
-    return active?.conversation ? true : 'No active conversation';
+    return active?.conversation ? true : t('No active conversation');
   }
 
   /**
@@ -78,7 +78,7 @@ class PlanPin extends PinboardItemType {
       itemType: 'plan',
       itemsOf: (data) => data?.steps || [],
       render: (data) => createPlanBlock(data),
-      empty: 'If the conversation contains a plan, this shows its current state',
+      empty: t('If the conversation contains a plan, this shows its current state'),
     });
   }
 }

@@ -446,7 +446,7 @@ export function renderToolAction(host, container, toolAction) {
   } else if (toolAction.get('toolUseId')) {
     const isAwaitingApproval = toolAction.get('state') === TOOL_STATES.PENDING;
     if (isAwaitingApproval) {
-      statusText = 'Awaiting approval';
+      statusText = t('Awaiting approval');
     } else {
       // Render as an element carrying data-elapsed-since so the panel's
       // 1s ticker can refresh just the digit without re-rendering the
@@ -577,7 +577,7 @@ export function renderToolAction(host, container, toolAction) {
       const isAwaitingApproval = toolAction.get('state') === TOOL_STATES.PENDING;
       const displayDataPlain = yGet(toolAction, 'displayData');
       const streamedOutput = displayDataPlain?.output;
-      const streamText = streamedOutput || displayDataPlain?.status || (isAwaitingApproval ? 'Waiting for approval...' : '');
+      const streamText = streamedOutput || displayDataPlain?.status || (isAwaitingApproval ? t('Waiting for approval...') : '');
       if (isTerminal) applyAnsi(outputDiv, streamText);
       else outputDiv.textContent = streamText;
       resultSection.appendChild(outputDiv);
@@ -616,7 +616,7 @@ export function renderToolAction(host, container, toolAction) {
         if (!awaitingApproval) wrapper.setAttribute('data-processing', 'true');
 
         const ddPlain = yGet(msg, 'displayData');
-        const liveText = ddPlain?.output || ddPlain?.status || (awaitingApproval ? 'Waiting for approval...' : '');
+        const liveText = ddPlain?.output || ddPlain?.status || (awaitingApproval ? t('Waiting for approval...') : '');
         if (isTerminal) applyAnsi(outputDiv, liveText);
         else outputDiv.textContent = liveText;
         return true;

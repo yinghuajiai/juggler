@@ -107,7 +107,7 @@ export class ProxySettings {
     const select = document.createElement('select');
     select.id = 'proxy-mode';
     select.className = 'proxy-mode-select';
-    select.setAttribute('aria-label', 'Proxy mode');
+    select.setAttribute('aria-label', t('Proxy mode'));
     for (const mode of MODES) {
       const opt = document.createElement('option');
       opt.value = mode.value;
@@ -215,7 +215,7 @@ export class ProxySettings {
     if (mode === 'manual') {
       const url = urlInput ? urlInput.value : this._url;
       if (!isValidProxyURL(url)) {
-        this._setStatus('Enter a proxy URL, e.g. http://127.0.0.1:7890');
+        this._setStatus(t('Enter a proxy URL, e.g. http://127.0.0.1:7890'));
         urlInput?.focus();
         return;
       }
@@ -251,7 +251,7 @@ export class ProxySettings {
     const url = urlInput ? urlInput.value.trim() : '';
     if (url === this._url && this._mode === 'manual') return; // already persisted
     if (!isValidProxyURL(url)) {
-      this._setStatus('That proxy URL looks invalid — include a scheme, e.g. http://host:port');
+      this._setStatus(t('That proxy URL looks invalid — include a scheme, e.g. http://host:port'));
       return;
     }
     await this._save('manual', url);

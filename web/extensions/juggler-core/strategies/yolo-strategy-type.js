@@ -44,7 +44,7 @@ export default class YoloStrategyType extends DefaultStrategyType {
     name: 'YOLO',
     version: '1.0.0',
     description: t('Auto-approves every tool use — use at your own risk!'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     color: 'var(--accent-red)',
     icon: 'icon-warning',
     order: 3,
@@ -54,24 +54,24 @@ export default class YoloStrategyType extends DefaultStrategyType {
     defaultRules: [],
     recommendations: {
       recommendedFor: [
-        'Trusted, low-stakes tasks where you want zero interruptions',
-        'Sandboxed or disposable environments',
-        'Rapid iteration when you are watching every step'
+        t('Trusted, low-stakes tasks where you want zero interruptions'),
+        t('Sandboxed or disposable environments'),
+        t('Rapid iteration when you are watching every step')
       ],
       exampleTriggers: [
-        'just do it...',
-        'no need to ask, go ahead...',
-        'run everything...'
+        t('just do it...'),
+        t('no need to ask, go ahead...'),
+        t('run everything...')
       ],
-      approach: 'Standard agentic loop, but every tool call is auto-approved — including file writes and shell commands.',
+      approach: t('Standard agentic loop, but every tool call is auto-approved — including file writes and shell commands.'),
       tradeoffs: {
         pros: [
-          'No approval interruptions — fully autonomous',
-          'Fastest path for trusted tasks'
+          t('No approval interruptions — fully autonomous'),
+          t('Fastest path for trusted tasks')
         ],
         cons: [
-          'No human checkpoint before destructive shell commands or writes',
-          'Mistakes execute immediately with no chance to deny'
+          t('No human checkpoint before destructive shell commands or writes'),
+          t('Mistakes execute immediately with no chance to deny')
         ]
       }
     }

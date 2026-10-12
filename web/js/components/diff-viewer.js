@@ -59,7 +59,7 @@ export const SPLIT_MIN_REM = 40;
  * panel is theirs to widen, and a diff in the Pinboard docked at 20rem is the
  * common way to meet this.
  */
-const SPLIT_TOO_NARROW = 'Two columns need a wider panel.';
+const SPLIT_TOO_NARROW = t('Two columns need a wider panel.');
 
 /**
  * The root font size, which the zoom preference sets.
@@ -72,10 +72,10 @@ function remInPx() {
 
 /** How a file with no text patch to show says so, by the status git gave it. */
 const STATUS_NOTICES = {
-  binary: 'Binary file. No text diff.',
-  conflicted: 'Unresolved merge conflict.',
+  binary: t('Binary file. No text diff.'),
+  conflicted: t('Unresolved merge conflict.'),
   truncated: 'This patch was cut short; the counts cover the whole file.',
-  large: 'This file is too large to diff here.',
+  large: t('This file is too large to diff here.'),
 };
 
 /**

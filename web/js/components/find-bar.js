@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import FindController from '../services/find-controller.js';
 import { isMac } from '../services/key-shortcut-manager.js';
 import { EXPAND_LESS_SVG, EXPAND_MORE_SVG } from '../utils/icons.js';
@@ -381,7 +382,7 @@ class FindBar {
     if (!hasQuery) {
       text = '';
     } else if (result.total === 0) {
-      text = 'No results';
+      text = t('No results');
       empty = true;
     } else {
       text = `${result.current} of ${result.total}`;

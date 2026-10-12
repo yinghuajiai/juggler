@@ -121,7 +121,7 @@ class ModelPicker extends JugglerElement {
     /** @type {ModelConfigShape} @private - The config currently in effect. */
     this._value = null;
     /** @type {string} @private - Label for the bottom row that selects nothing. */
-    this._noneLabel = 'No model';
+    this._noneLabel = _t('No model');
     /**
      * @type {string} @private - Label for the optional Off row. Empty (the
      * default) leaves the row out entirely, so only a host with a genuine
@@ -526,9 +526,9 @@ class ModelPicker extends JugglerElement {
    */
   _unavailableHint(provider) {
     if (provider.authType === 'oauth_bearer') {
-      return provider.authHint || 'Login required';
+      return provider.authHint || _t('Login required');
     }
-    return provider.authHint || 'Provider not configured';
+    return provider.authHint || _t('Provider not configured');
   }
 
   /**

@@ -71,7 +71,7 @@ import { insertAtCaret } from '../components/composer-paste-tokens.js';
  * and the code-block and diff-viewer providers, which are reached first and so
  * have to offer it themselves.
  */
-export const PASTE_REFERENCE_LABEL = 'Paste path and line number into prompt';
+export const PASTE_REFERENCE_LABEL = _t('Paste path and line number into prompt');
 
 /** @type {ContextMenuProvider[]} @private */
 const _providers = [];

@@ -302,7 +302,7 @@ export class ExtensionSettingsEditor {
       this._applyValues(values || {});
       this._message('');
     } catch (error) {
-      this._message(this._errorMessage(error, 'Failed to load extension settings.'), true);
+      this._message(this._errorMessage(error, t('Failed to load extension settings.')), true);
     } finally {
       this._setBusy(false);
     }
@@ -422,10 +422,10 @@ export class ExtensionSettingsEditor {
         values[setting.key] = decodeExtensionSettingValue(setting, raw);
       }
     } catch (error) {
-      this._message(this._errorMessage(error, 'Check the highlighted settings.'), true);
+      this._message(this._errorMessage(error, t('Check the highlighted settings.')), true);
       return;
     }
-    await this._save(values, 'Settings saved.');
+    await this._save(values, t('Settings saved.'));
   }
 
   /**
@@ -460,7 +460,7 @@ export class ExtensionSettingsEditor {
       this._applyValues(result || {});
       this._message(successMessage);
     } catch (error) {
-      this._message(this._errorMessage(error, 'Failed to save extension settings.'), true);
+      this._message(this._errorMessage(error, t('Failed to save extension settings.')), true);
     } finally {
       this._setBusy(false);
     }

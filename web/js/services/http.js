@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * The one JSON-over-HTTP transport for the frontend.
  *
@@ -57,7 +59,7 @@ export class HttpError extends Error {
  * @param {string} [fallbackMessage] - Used when the error says nothing useful
  * @returns {string} A message fit for an alert or status line
  */
-export function httpErrorText(error, fallbackMessage = 'Request failed') {
+export function httpErrorText(error, fallbackMessage = t('Request failed')) {
   if (error instanceof HttpError) return error.detail || fallbackMessage;
   return error instanceof Error && error.message ? error.message : fallbackMessage;
 }

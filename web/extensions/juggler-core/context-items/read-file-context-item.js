@@ -63,10 +63,10 @@ class ReadFileContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'read-file',
-    name: 'Read File',
+    name: t('Read File'),
     version: '1.0.0',
     description: t('Read file content with support for full files, line ranges, tail/head modes'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     // Reads are approval-gated, but only OUT-OF-ROOT ones ever prompt: isPermitted
     // auto-approves any read inside the project or a granted allowed path, so the
     // common case is silent. A read outside those roots (a sibling repo, an
@@ -150,12 +150,12 @@ class ReadFileContextItem extends ContextItem {
     // parameter names the LLM was never told about.
     if (toolInput.offset !== undefined) {
       if (typeof toolInput.offset !== 'number' || !Number.isFinite(toolInput.offset) || toolInput.offset <= 0) {
-        return { valid: false, error: 'Parameter "offset" must be a positive integer (1-indexed line number)' };
+        return { valid: false, error: t('Parameter "offset" must be a positive integer (1-indexed line number)') };
       }
     }
     if (toolInput.limit !== undefined) {
       if (typeof toolInput.limit !== 'number' || !Number.isFinite(toolInput.limit) || toolInput.limit <= 0) {
-        return { valid: false, error: 'Parameter "limit" must be a positive integer (number of lines to read)' };
+        return { valid: false, error: t('Parameter "limit" must be a positive integer (number of lines to read)') };
       }
     }
 
@@ -164,10 +164,10 @@ class ReadFileContextItem extends ContextItem {
     // Accept both file_path and path
     const path = params.path || /** @type {string|undefined} */ (toolInput.file_path);
     if (!path) {
-      return { valid: false, error: 'Missing required parameter: file_path' };
+      return { valid: false, error: t('Missing required parameter: file_path') };
     }
     if (typeof path !== 'string') {
-      return { valid: false, error: 'Parameter "file_path" must be a string' };
+      return { valid: false, error: t('Parameter "file_path" must be a string') };
     }
 
     return { valid: true, params };
@@ -374,7 +374,7 @@ class ReadFileContextItem extends ContextItem {
     const info = (data.exists !== false && data.size)
       ? [formatFileSize(data.size), data.totalLines ? `${data.totalLines} lines` : ''].filter(Boolean).join(' | ')
       : undefined;
-    addFilePath(container, absolutePath || data.path || 'No file', info, { pin: absolutePath });
+    addFilePath(container, absolutePath || data.path || t('No file'), info, { pin: absolutePath });
 
     const view = /** @type {any} */ (document.createElement('file-view'));
     view.showPath = false;

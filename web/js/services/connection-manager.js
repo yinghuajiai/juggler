@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import apiService from './api.js';
 import wsService from './websocket.js';
 import workerManager from './worker-manager.js';
@@ -387,7 +388,7 @@ class ConnectionManager {
       // has no alert UI.
       /** @type {any} */ (window).showAlert?.(
         `Couldn't load the session: ${loadError}\n\nPick a project to try again.`,
-        'Session load failed'
+        t('Session load failed')
       );
     }
   }

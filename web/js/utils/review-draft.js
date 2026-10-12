@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * The comments written against a working-tree review, as they are persisted.
  *
@@ -180,7 +182,7 @@ export function normalizeReviewDraft(raw) {
 export function reviewDraftBoundsError(draft) {
   const comments = draft?.comments;
   if (comments !== undefined && comments !== null && !Array.isArray(comments)) {
-    return 'A review draft\'s comments must be a list.';
+    return t('A review draft\'s comments must be a list.');
   }
   if (Array.isArray(comments) && comments.length > REVIEW_DRAFT_LIMITS.comments) {
     return `A review holds at most ${REVIEW_DRAFT_LIMITS.comments} comments; this one has ${comments.length}.`;

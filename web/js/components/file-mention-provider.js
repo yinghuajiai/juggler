@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { fetchFileCompletions, fetchPathCompletions, fetchExistingPaths } from '../services/completions-api.js';
 import { longestCommonPrefix } from './completion-menu.js';
 
@@ -78,7 +79,7 @@ export function createFileMentionProvider(getWorkspaceId = () => '') {
  */
 const fileMentionProviderBase = {
   id: 'file-mention',
-  emptyLabel: 'No matches',
+  emptyLabel: t('No matches'),
 
   detect(textBefore) {
     // Quoted path: @"..." — handles spaces.

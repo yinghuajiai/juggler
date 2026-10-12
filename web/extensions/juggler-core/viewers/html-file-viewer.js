@@ -62,7 +62,7 @@ function previewTarget(source) {
   // would be shown as something it is not.
   const offset = source.lineOffset || 1;
   if (offset > 1 || (source.lineCount && source.totalLines && source.lineCount < source.totalLines)) {
-    return { reason: 'Part of the file, so shown as source.' };
+    return { reason: t('Part of the file, so shown as source.') };
   }
   // pageURL where there is one: it puts the page in its own directory, so the
   // images, styles and scripts it links relatively load from beside it. url()
@@ -72,7 +72,7 @@ function previewTarget(source) {
   // Same-origin paths only. A text-backed source's URL is a data: stub, which
   // frame-src refuses and which would render as plain text if it did not.
   if (!/^\/(?!\/)/.test(url)) {
-    return { reason: 'Nothing to load it from, so shown as source.' };
+    return { reason: t('Nothing to load it from, so shown as source.') };
   }
   return { url };
 }
@@ -187,7 +187,7 @@ class HtmlFileViewer extends FileViewer {
       frame.setAttribute('referrerpolicy', 'no-referrer');
       // aria-label, not title: the pointer spends its time inside the page, where
       // a title would hover as a tooltip over whatever the user is doing.
-      frame.setAttribute('aria-label', source.path || 'HTML preview');
+      frame.setAttribute('aria-label', source.path || t('HTML preview'));
       frame.src = url;
       host.appendChild(frame);
     };
@@ -207,11 +207,11 @@ class HtmlFileViewer extends FileViewer {
         toggle.type = 'button';
         toggle.className = 'html-view-toggle';
         toggle.textContent = 'Source';
-        toggle.setAttribute('aria-label', 'Show HTML source');
+        toggle.setAttribute('aria-label', t('Show HTML source'));
         toggle.addEventListener('click', () => {
           previewing = !previewing;
           toggle.textContent = previewing ? 'Source' : 'Preview';
-          toggle.setAttribute('aria-label', previewing ? 'Show HTML source' : 'Show rendered page');
+          toggle.setAttribute('aria-label', previewing ? t('Show HTML source') : t('Show rendered page'));
           if (previewing) showPreview(url);
           else void showSource();
         });

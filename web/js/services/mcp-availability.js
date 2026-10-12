@@ -16,6 +16,7 @@
  * @module services/mcp-availability
  */
 
+import { t } from '../i18n/index.js';
 import { fetchDisabledPluginIds } from './extensions.js';
 import { mcpListServers } from './ops-api.js';
 import { parseMcpToolName } from './thread-tool-inventory.js';
@@ -32,7 +33,7 @@ export const MCP_ITEM_TYPE = 'mcp-tool';
  * @type {string}
  */
 export const MCP_DISABLED_NOTICE =
-  'The MCP extension is disabled, so no MCP tools reach the model. Turn "Juggler MCP" back on in Settings › Extensions.';
+  t('The MCP extension is disabled, so no MCP tools reach the model. Turn "Juggler MCP" back on in Settings › Extensions.');
 
 /**
  * Whether MCP tools are switched off at the extension level for this project.

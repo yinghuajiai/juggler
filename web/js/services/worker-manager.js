@@ -20,6 +20,7 @@
  * @module services/worker-manager
  */
 
+import { t } from '../i18n/index.js';
 import wsService from './websocket.js';
 import * as protocols from './worker-manager-protocols.js';
 import { routeWorkerMessage } from './worker-manager-inbound.js';
@@ -464,7 +465,7 @@ export class WorkerManager {
 
     // Reject outstanding thread requests so their awaiters unwind instead of
     // hanging forever, then drop them.
-    this._rejectThreadRequests(() => true, 'Worker manager terminated');
+    this._rejectThreadRequests(() => true, t('Worker manager terminated'));
 
     // Reject each pending ack — the reject wrapper clears its timeout, so the
     // timers don't fire later against torn-down state.

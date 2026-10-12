@@ -24,10 +24,10 @@ export default class DefaultStrategyType extends StrategyType {
    */
   static MANIFEST = {
     id: 'default',
-    name: 'Default Strategy',
+    name: t('Default Strategy'),
     version: '2.0.0',
     description: t('Standard Juggler behavior - general-purpose coding assistant'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     color: 'var(--accent-yellow)',
     icon: 'icon-live-help',
     order: 0,
@@ -35,30 +35,30 @@ export default class DefaultStrategyType extends StrategyType {
     defaultRules: [],
     recommendations: {
       recommendedFor: [
-        'General coding tasks',
-        'Bug fixes',
-        'Code refactoring',
-        'Feature implementation',
-        'Code review and analysis'
+        t('General coding tasks'),
+        t('Bug fixes'),
+        t('Code refactoring'),
+        t('Feature implementation'),
+        t('Code review and analysis')
       ],
       exampleTriggers: [
-        'fix the bug in...',
-        'refactor this code...',
-        'add a new feature...',
+        t('fix the bug in...'),
+        t('refactor this code...'),
+        t('add a new feature...'),
         'implement...',
-        'update the...'
+        t('update the...')
       ],
       approach: 'Iterative agentic loop with the full toolset. Read tools run automatically; writes and shell commands pause for your approval before they run. The loop continues until the task is done — there is no fixed iteration cap.',
       tradeoffs: {
         pros: [
-          'Well-tested, predictable baseline behaviour',
-          'Asks before writing files or running commands, so you stay in control',
-          'Read tools run without interruption',
-          'Suits the full range of everyday coding tasks'
+          t('Well-tested, predictable baseline behaviour'),
+          t('Asks before writing files or running commands, so you stay in control'),
+          t('Read tools run without interruption'),
+          t('Suits the full range of everyday coding tasks')
         ],
         cons: [
-          'Stops for approval on writes and shell commands — use YOLO for an uninterrupted run',
-          'Does not guarantee read-only safety — use Read-only to make changes impossible'
+          t('Stops for approval on writes and shell commands — use YOLO for an uninterrupted run'),
+          t('Does not guarantee read-only safety — use Read-only to make changes impossible')
         ]
       }
     }

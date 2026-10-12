@@ -31,37 +31,37 @@ export default class ReadOnlyStrategyType extends StrategyType {
     name: 'Read-only',
     version: '3.0.0',
     description: _t('Read-only mode — any actions that may change files are automatically refused'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     color: 'var(--accent-purple)',
     icon: 'icon-grep',
     order: 2,
     showsApprovalControls: false, // Read-only: no write actions to approve
     recommendations: {
       recommendedFor: [
-        'Understanding unfamiliar codebases',
-        'Exploring architecture and patterns',
-        'Investigating bugs before fixing them',
-        'Code review and analysis',
-        'Answering questions about the code'
+        _t('Understanding unfamiliar codebases'),
+        _t('Exploring architecture and patterns'),
+        _t('Investigating bugs before fixing them'),
+        _t('Code review and analysis'),
+        _t('Answering questions about the code')
       ],
       exampleTriggers: [
-        'help me understand...',
-        'explain how...',
-        'explore the codebase...',
-        'what does this code do...',
-        'how is X implemented...',
-        'analyze the architecture...'
+        _t('help me understand...'),
+        _t('explain how...'),
+        _t('explore the codebase...'),
+        _t('what does this code do...'),
+        _t('how is X implemented...'),
+        _t('analyze the architecture...')
       ],
-      approach: 'Read and meta tools only — every write, edit, and shell command is withheld, so the model cannot modify anything. Read/meta tools are auto-approved, so exploration runs uninterrupted.',
+      approach: _t('Read and meta tools only — every write, edit, and shell command is withheld, so the model cannot modify anything. Read/meta tools are auto-approved, so exploration runs uninterrupted.'),
       tradeoffs: {
         pros: [
-          'Hard guarantee: cannot modify files or run commands',
-          'Safe to point at unfamiliar or sensitive code',
-          'Auto-approved reads mean exploration never stops for a prompt'
+          _t('Hard guarantee: cannot modify files or run commands'),
+          _t('Safe to point at unfamiliar or sensitive code'),
+          _t('Auto-approved reads mean exploration never stops for a prompt')
         ],
         cons: [
-          'Cannot make any changes of any kind',
-          'To edit, run, or fix anything, switch to Default or YOLO'
+          _t('Cannot make any changes of any kind'),
+          _t('To edit, run, or fix anything, switch to Default or YOLO')
         ]
       }
     }
@@ -79,8 +79,8 @@ export default class ReadOnlyStrategyType extends StrategyType {
    * @type {string}
    */
   static GUIDANCE =
-    'READ-ONLY MODE: Only read-only tools are available this session — you cannot modify ' +
-    'any files or run commands. Explore the code and answer thoroughly within that constraint.';
+    _t('READ-ONLY MODE: Only read-only tools are available this session — you cannot modify ' +
+    'any files or run commands. Explore the code and answer thoroughly within that constraint.');
 
   /**
    * Auto-approve read and meta tools (read-only mode exposes nothing else).

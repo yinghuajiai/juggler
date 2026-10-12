@@ -73,10 +73,10 @@ class JugglerSourceContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'juggler-source',
-    name: 'Read Juggler Source',
+    name: t('Read Juggler Source'),
     version: '1.0.0',
     description: t('Read Juggler SDK base classes and example-extension source'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -127,12 +127,12 @@ class JugglerSourceContextItem extends ContextItem {
   async validate(toolInput) {
     const params = /** @type {JugglerSourceParams} */ (toolInput);
     if (typeof params.path !== 'string' || params.path.trim() === '') {
-      return { valid: false, error: 'Parameter "path" must be a non-empty string' };
+      return { valid: false, error: t('Parameter "path" must be a non-empty string') };
     }
     if (!toAssetURL(params.path)) {
       return {
         valid: false,
-        error: 'path must be under sdk/ or extensions/ (e.g. sdk/context-item.js)'
+        error: t('path must be under sdk/ or extensions/ (e.g. sdk/context-item.js)')
       };
     }
     return { valid: true, params: toolInput };
@@ -172,7 +172,7 @@ class JugglerSourceContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to read Juggler source');
+      return this.failureSummary(outcome.error || t('Failed to read Juggler source'));
     }
     const result = /** @type {JugglerSourceResult} */ (outcome.result);
     return this.successSummary(result.content || '');
@@ -189,9 +189,9 @@ class JugglerSourceContextItem extends ContextItem {
     const path = toolInput && typeof toolInput.path === 'string' ? toolInput.path : '';
 
     return this.buildStatusUI(actionStatus, {
-      typeName: 'Juggler Source',
-      pending: 'Reading Juggler source\u2026',
-      success: path || 'Juggler source',
+      typeName: t('Juggler Source'),
+      pending: t('Reading Juggler source\u2026'),
+      success: path || t('Juggler source'),
       failurePrefix: 'Failed'
     });
   }

@@ -19,6 +19,7 @@
  * @module components/composer-attachments
  */
 
+import { t as _t } from '../i18n/index.js';
 import apiService from '../services/api.js';
 import { createImageThumb } from '../utils/image-lightbox.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -264,7 +265,7 @@ function removeTextFile(composer, entry) {
 export async function uploadAndAdd(composer, file) {
   const convId = composer._conversation?.id;
   if (!convId) {
-    composer.showWarning('No active conversation for the attachment.');
+    composer.showWarning(_t('No active conversation for the attachment.'));
     return;
   }
   // Placeholder chip while the bytes upload. Carries a local preview URL so
@@ -435,7 +436,7 @@ export function renderAttachmentChips(composer) {
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.className = 'attachment-remove';
-    remove.setAttribute('aria-label', 'Remove attachment');
+    remove.setAttribute('aria-label', _t('Remove attachment'));
     remove.textContent = '\u00d7';
     remove.addEventListener('click', () => removeAttachment(composer, ref));
     chip.appendChild(remove);
@@ -460,7 +461,7 @@ export function renderAttachmentChips(composer) {
     const remove = document.createElement('button');
     remove.type = 'button';
     remove.className = 'attachment-remove';
-    remove.setAttribute('aria-label', 'Remove attachment');
+    remove.setAttribute('aria-label', _t('Remove attachment'));
     remove.textContent = '\u00d7';
     remove.addEventListener('click', () => removeTextFile(composer, entry));
     chip.appendChild(remove);

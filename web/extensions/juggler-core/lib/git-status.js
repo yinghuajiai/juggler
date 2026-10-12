@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../js/i18n/index.js';
+
 /**
  * How the working tree is put into words, shared by the two surfaces that say
  * it: the sidebar info card and the Git pin. Only the phrasing lives here —
@@ -50,8 +52,8 @@ export function countsPhrase(repo) {
  * @returns {string} e.g. 'develop', 'Detached head'.
  */
 export function branchPhrase(repo) {
-  if (repo.detached) return 'Detached head';
-  return repo.branch || 'No branch';
+  if (repo.detached) return t('Detached head');
+  return repo.branch || t('No branch');
 }
 
 /**
@@ -79,7 +81,7 @@ const STATUS_WORDS = new Map([
   ['D', 'Deleted'],
   ['R', 'Renamed'],
   ['C', 'Copied'],
-  ['T', 'Type changed'],
+  ['T', t('Type changed')],
   ['U', 'Conflicted'],
   ['?', 'Untracked'],
 ]);

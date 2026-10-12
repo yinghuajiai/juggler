@@ -15,6 +15,7 @@
  * @module model/conversation-tool-actions
  */
 
+import { t as _t } from '../i18n/index.js';
 import {
   isToolActionMessage,
   TOOL_STATES,
@@ -269,7 +270,7 @@ async function evaluateNewToolAction(messageThread, toolUseId, conversation, exi
   }
 
   if (!prepared.valid) {
-    const errorMessage = prepared.error || 'Validation failed';
+    const errorMessage = prepared.error || _t('Validation failed');
     messageThread.completeToolAction(toolUseId, {
       content: errorMessage,
       isError: true,

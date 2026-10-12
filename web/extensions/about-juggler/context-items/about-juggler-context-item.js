@@ -103,10 +103,10 @@ class AboutJugglerContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'about-juggler',
-    name: 'About Juggler',
+    name: t('About Juggler'),
     version: '1.0.0',
     description: t('Answer questions about the Juggler application itself'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -167,7 +167,7 @@ class AboutJugglerContextItem extends ContextItem {
   async validate(toolInput) {
     const params = /** @type {AboutJugglerParams} */ (toolInput);
     if (params.question !== undefined && typeof params.question !== 'string') {
-      return { valid: false, error: 'Parameter "question" must be a string' };
+      return { valid: false, error: t('Parameter "question" must be a string') };
     }
     return { valid: true, params: toolInput };
   }
@@ -193,7 +193,7 @@ class AboutJugglerContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to load the Juggler manual');
+      return this.failureSummary(outcome.error || t('Failed to load the Juggler manual'));
     }
 
     const result = /** @type {AboutJugglerResult} */ (outcome.result);
@@ -211,9 +211,9 @@ class AboutJugglerContextItem extends ContextItem {
     const question = toolInput && typeof toolInput.question === 'string' ? toolInput.question : '';
 
     return this.buildStatusUI(actionStatus, {
-      typeName: 'About Juggler',
-      pending: 'Looking up Juggler\u2026',
-      success: question || 'About Juggler',
+      typeName: t('About Juggler'),
+      pending: t('Looking up Juggler\u2026'),
+      success: question || t('About Juggler'),
       failurePrefix: 'Failed'
     });
   }

@@ -21,6 +21,7 @@
  * answer when it lands, rather than abandoning a per-client promise.
  */
 
+import { t } from '../i18n/index.js';
 import * as Y from '../vendor/yjs.mjs';
 
 const PENDING_REQUESTS_KEY = 'pendingRequests';
@@ -134,7 +135,7 @@ export function submitPendingRequest(thread, kind, fillRequest, signal) {
         if (finish()) return;
         reject(new Error(msg));
       } else if (status === 'cancelled') {
-        const msg = entry.get('error') || 'Operation aborted';
+        const msg = entry.get('error') || t('Operation aborted');
         if (finish()) return;
         const err = new Error(msg);
         err.name = 'AbortError';

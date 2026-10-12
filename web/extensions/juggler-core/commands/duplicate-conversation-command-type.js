@@ -25,7 +25,7 @@ import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
 class DuplicateConversationCommandType extends CommandType {
   static MANIFEST = {
     id: 'duplicate',
-    name: 'Duplicate Conversation',
+    name: t('Duplicate Conversation'),
     version: '1.0.0',
     description: t('Clone this conversation into a new one'),
     icon: 'icon-box'

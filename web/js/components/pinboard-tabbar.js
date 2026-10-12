@@ -87,13 +87,13 @@ class PinboardTabbar extends JugglerElement {
     const list = document.createElement('div');
     list.className = 'pinboard-tabbar__list';
     list.setAttribute('role', 'tablist');
-    list.setAttribute('aria-label', 'Pinned items');
+    list.setAttribute('aria-label', _t('Pinned items'));
 
     const add = document.createElement('button');
     add.type = 'button';
     add.className = 'pinboard-tabbar__add';
     add.title = _t('Add pin');
-    add.setAttribute('aria-label', 'Add pin');
+    add.setAttribute('aria-label', _t('Add pin'));
     add.setAttribute('aria-haspopup', 'menu');
     add.setAttribute('aria-expanded', 'false');
     add.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="${ADD_ICON_PATH}"/></svg>`;
@@ -174,7 +174,7 @@ class PinboardTabbar extends JugglerElement {
     button.setAttribute('aria-controls', PINBOARD_BODY_ID);
     // Reordering has to be reachable without a pointer, and the strip is the only
     // place that says so.
-    button.setAttribute('aria-keyshortcuts', 'Alt+ArrowLeft Alt+ArrowRight');
+    button.setAttribute('aria-keyshortcuts', _t('Alt+ArrowLeft Alt+ArrowRight'));
     button.innerHTML = '<span class="pinboard-tab__label"></span><span class="pinboard-tab__badge" hidden></span>';
 
     const remove = document.createElement('button');

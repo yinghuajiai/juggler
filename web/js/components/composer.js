@@ -832,7 +832,7 @@ class Composer extends HTMLElement {
       // "there is nothing to press this for" state — and says what it is
       // waiting for, since unlike an empty box the reason is not self-evident.
       sendBtn.classList.toggle('is-empty', empty || this.sendBlocked);
-      const title = this.sendBlocked && this._sendBlockedReason ? this._sendBlockedReason : 'Send message';
+      const title = this.sendBlocked && this._sendBlockedReason ? this._sendBlockedReason : _t('Send message');
       sendBtn.setAttribute('title', title);
       sendBtn.setAttribute('aria-label', title);
     }
@@ -2094,7 +2094,7 @@ class Composer extends HTMLElement {
    */
   _createThread() {
     if (this._conversation?.isTurnActive()) {
-      this.showWarning('Wait for the current turn to finish before creating a new thread.');
+      this.showWarning(_t('Wait for the current turn to finish before creating a new thread.'));
       return;
     }
     const textarea = this.querySelector('textarea');
@@ -2498,7 +2498,7 @@ class Composer extends HTMLElement {
     // Schedule-send ("send later") is a rarely-used control, so on touch it
     // lives here rather than on the inline row. The row opens the same picker as
     // the inline clock button (which stays visible only while armed).
-    addRow('Send later', CLOCK_SVG, () => toggleSchedulePicker(this));
+    addRow(_t('Send later'), CLOCK_SVG, () => toggleSchedulePicker(this));
 
     /**
      * Append a closed-by-default collapsible section of pre-built rows (native
@@ -2538,7 +2538,7 @@ class Composer extends HTMLElement {
       });
       return row;
     });
-    addSection('Slash commands', [manageRow, browseRow, ...commandRows]);
+    addSection(_t('Slash commands'), [manageRow, browseRow, ...commandRows]);
 
     // Skills section (collapsed) — this thread's frozen snapshot, standing in for
     // the inline `$` picker on touch. Selecting one splices `$name ` into the
@@ -2588,7 +2588,7 @@ class Composer extends HTMLElement {
     // New Thread closes the sheet — it starts a fresh sub-thread rather than
     // acting on this composer, so it sits apart at the bottom below the command
     // and skill sections.
-    addRow('New Thread', THREAD_ARROW_SVG, () => this._createThread(), 'new-thread');
+    addRow(_t('New Thread'), THREAD_ARROW_SVG, () => this._createThread(), 'new-thread');
     this._updateNewThreadControls();
 
     this._actionsSheet = menu;

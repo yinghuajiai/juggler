@@ -21,10 +21,10 @@ import { shellKill } from 'juggler/ops';
 class TaskStopContextItem extends ContextItem {
   static MANIFEST = {
     id: 'task-stop',
-    name: 'Task Stop',
+    name: t('Task Stop'),
     version: '1.0.0',
     description: t('Stop a background task'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -94,7 +94,7 @@ class TaskStopContextItem extends ContextItem {
     // TaskStop uses `task_id`; the KillShell alias uses `shell_id`. Accept either.
     const id = toolInput.task_id || toolInput.shell_id;
     if (!id || typeof id !== 'string') {
-      return { valid: false, error: 'Missing required parameter: task_id (or shell_id)' };
+      return { valid: false, error: t('Missing required parameter: task_id (or shell_id)') };
     }
     return { valid: true, params: toolInput };
   }
@@ -117,7 +117,7 @@ class TaskStopContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to stop task');
+      return this.failureSummary(outcome.error || t('Failed to stop task'));
     }
     const result = /** @type {{shell_id?: string, killed?: boolean, error?: string}} */ (outcome.result);
     if (result.killed) {
@@ -138,7 +138,7 @@ class TaskStopContextItem extends ContextItem {
       typeName: TaskStopContextItem.getTypeName(),
       pending: `Stopping ${taskId}...`,
       success: `Stopped ${taskId}`,
-      failurePrefix: 'Failed to stop task'
+      failurePrefix: t('Failed to stop task')
     });
   }
 

@@ -118,7 +118,7 @@ function withLauncher(nodes, review = false) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'info-card__git-launch';
-  button.setAttribute('aria-label', review ? 'Review changes in the Pinboard' : 'Open Git status in the Pinboard');
+  button.setAttribute('aria-label', review ? t('Review changes in the Pinboard') : t('Open Git status in the Pinboard'));
   button.title = review ? t('Review changes') : t('Open in the Pinboard');
   button.append(...nodes);
   if (review) {
@@ -151,12 +151,12 @@ function render(contentEl) {
   }
   const repos = snap.repos || [];
   if (repos.length === 0) {
-    contentEl.replaceChildren(...withLauncher(inTree(snap.workspace, [line('No git repository')])));
+    contentEl.replaceChildren(...withLauncher(inTree(snap.workspace, [line(t('No git repository'))])));
     return;
   }
   const dirty = repos.filter((r) => r.changed > 0 || r.staged > 0);
   if (dirty.length === 0) {
-    contentEl.replaceChildren(...withLauncher(inTree(snap.workspace, [line('No changed files')])));
+    contentEl.replaceChildren(...withLauncher(inTree(snap.workspace, [line(t('No changed files'))])));
     return;
   }
   // Only the lone-repo-at-root case hides its location; anything else labels.
@@ -175,10 +175,10 @@ export default class GitStatusCard extends InfoCardType {
   /** @type {import('juggler/info-card-type').InfoCardManifest} */
   static MANIFEST = {
     id: 'git-status',
-    name: 'Git status',
+    name: t('Git status'),
     version: '1.0.0',
     description: t("Show a summary of the git working tree in the sidebar — the project's, or the visible conversation's workspace."),
-    eyebrow: 'Git status',
+    eyebrow: t('Git status'),
     priority: 10,
   };
 

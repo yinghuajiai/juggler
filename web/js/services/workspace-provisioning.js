@@ -19,6 +19,7 @@
  * @module services/workspace-provisioning
  */
 
+import { t } from '../i18n/index.js';
 import { createBoundOps } from '../../sdk/ops.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
 import workspaceProviderRegistry from '../registries/workspace-provider-registry.js';
@@ -52,7 +53,7 @@ import { rebindConversation } from './workspace-rebinding.js';
  * the absence must read as a missing *feature*, never as a missing place.
  * @type {string}
  */
-export const PROVIDER_UNAVAILABLE = 'Provider unavailable';
+export const PROVIDER_UNAVAILABLE = t('Provider unavailable');
 
 /**
  * How a workspace is doing, asked of its provider when there is one.
@@ -521,7 +522,7 @@ export function workspaceFinishWarning(session, workspace, options = {}) {
       ? `${busy.join(', ')} ${busy.length === 1 ? 'is' : 'are'} in the middle of a turn.`
       : '',
     warning: action?.danger && status?.dirty
-      ? 'This workspace holds uncommitted work, which goes with it.'
+      ? t('This workspace holds uncommitted work, which goes with it.')
       : ''
   };
 }

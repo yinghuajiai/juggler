@@ -68,7 +68,7 @@ function isSynthetic(item) {
  */
 export const slashCommandProvider = {
   id: 'slash-command',
-  emptyLabel: 'No commands',
+  emptyLabel: t('No commands'),
 
   detect(textBefore) {
     // Start-anchored: the `/` must be the first character of the message and

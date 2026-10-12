@@ -158,9 +158,9 @@ export function configScopeOf(config, name) {
 export function makeNameValidator({ article, noun, reserved, reservedMsg }) {
   return (name, existingNames) => {
     const trimmed = (name || '').trim();
-    if (!trimmed) return 'Name is required.';
-    if (/\s/.test(trimmed)) return 'Name cannot contain spaces.';
-    if (trimmed.includes('/')) return 'Name cannot contain "/".';
+    if (!trimmed) return t('Name is required.');
+    if (/\s/.test(trimmed)) return t('Name cannot contain spaces.');
+    if (trimmed.includes('/')) return t('Name cannot contain "/".');
     if (reserved && trimmed === reserved) return reservedMsg || `"${reserved}" is reserved.`;
     if ((existingNames || []).includes(trimmed)) return `${article} ${noun} named "${trimmed}" already exists in this scope.`;
     return '';
@@ -719,7 +719,7 @@ export class ConfigTabController {
       transportSelect.className = `mcp-input ${spec.id}-transport-input`;
       /** @type {Array<[string, string]>} */
       const transportOptions = [
-        ['stdio', 'Local process (stdio)'],
+        ['stdio', t('Local process (stdio)')],
         ['http', 'Remote (HTTP)'],
         ['sse', 'Remote (SSE)'],
       ];
@@ -737,7 +737,7 @@ export class ConfigTabController {
         this.render();
       });
       wrap.appendChild(this._formField('Transport', transportSelect,
-        'A local process (stdio) or a remote MCP endpoint (HTTP/SSE).'));
+        t('A local process (stdio) or a remote MCP endpoint (HTTP/SSE).')));
     }
 
     if (spec.supportsTransport && isRemoteTransport(f.transport)) {
@@ -880,7 +880,7 @@ export class ConfigTabController {
     urlInput.className = `mcp-input ${spec.id}-url-input`;
     urlInput.placeholder = spec.urlPlaceholder || 'https://example.com/mcp';
     urlInput.value = f.url || '';
-    wrap.appendChild(this._formField('URL', urlInput, spec.urlHint || 'The remote MCP endpoint URL.'));
+    wrap.appendChild(this._formField('URL', urlInput, spec.urlHint || t('The remote MCP endpoint URL.')));
 
     // Headers
     const headersField = document.createElement('div');
@@ -950,7 +950,7 @@ export class ConfigTabController {
       const remove = document.createElement('button');
       remove.type = 'button';
       remove.className = 'mcp-remove-row';
-      remove.setAttribute('aria-label', 'Remove argument');
+      remove.setAttribute('aria-label', t('Remove argument'));
       remove.textContent = '×';
       remove.addEventListener('click', () => {
         this.editing.args = this._readArgs();
@@ -990,7 +990,7 @@ export class ConfigTabController {
       const reveal = document.createElement('button');
       reveal.type = 'button';
       reveal.className = 'mcp-reveal-btn';
-      reveal.setAttribute('aria-label', 'Reveal value');
+      reveal.setAttribute('aria-label', t('Reveal value'));
       reveal.textContent = t('👁');
       reveal.addEventListener('click', () => {
         value.type = value.type === 'password' ? 'text' : 'password';
@@ -998,7 +998,7 @@ export class ConfigTabController {
       const remove = document.createElement('button');
       remove.type = 'button';
       remove.className = 'mcp-remove-row';
-      remove.setAttribute('aria-label', 'Remove variable');
+      remove.setAttribute('aria-label', t('Remove variable'));
       remove.textContent = '×';
       remove.addEventListener('click', () => {
         this.editing.envPairs = this._readEnvPairs();
@@ -1041,7 +1041,7 @@ export class ConfigTabController {
       const reveal = document.createElement('button');
       reveal.type = 'button';
       reveal.className = 'mcp-reveal-btn';
-      reveal.setAttribute('aria-label', 'Reveal value');
+      reveal.setAttribute('aria-label', t('Reveal value'));
       reveal.textContent = t('👁');
       reveal.addEventListener('click', () => {
         value.type = value.type === 'password' ? 'text' : 'password';
@@ -1049,7 +1049,7 @@ export class ConfigTabController {
       const remove = document.createElement('button');
       remove.type = 'button';
       remove.className = 'mcp-remove-row';
-      remove.setAttribute('aria-label', 'Remove header');
+      remove.setAttribute('aria-label', t('Remove header'));
       remove.textContent = '×';
       remove.addEventListener('click', () => {
         this.editing.headerPairs = this._readHeaderPairs();
@@ -1149,14 +1149,14 @@ export class ConfigTabController {
       if (err) { f.error = err; this.render(); return; }
     }
     if (remote) {
-      if (!f.url) { f.error = 'URL is required for a remote server.'; this.render(); return; }
+      if (!f.url) { f.error = t('URL is required for a remote server.'); this.render(); return; }
       for (const p of (f.headerPairs || [])) {
-        if (!p.key.trim() && p.value) { f.error = 'Every header needs a name.'; this.render(); return; }
+        if (!p.key.trim() && p.value) { f.error = t('Every header needs a name.'); this.render(); return; }
       }
     } else {
-      if (!f.command) { f.error = 'Command is required.'; this.render(); return; }
+      if (!f.command) { f.error = t('Command is required.'); this.render(); return; }
       for (const p of (f.envPairs || [])) {
-        if (!p.key.trim() && p.value) { f.error = 'Every environment variable needs a name.'; this.render(); return; }
+        if (!p.key.trim() && p.value) { f.error = t('Every environment variable needs a name.'); this.render(); return; }
       }
     }
 
@@ -1178,7 +1178,7 @@ export class ConfigTabController {
       try {
         entry = { ...entry, ...spec.formToConfigExtra(f) };
       } catch (e) {
-        f.error = e instanceof Error ? e.message : 'Invalid field.';
+        f.error = e instanceof Error ? e.message : t('Invalid field.');
         this.render();
         return;
       }

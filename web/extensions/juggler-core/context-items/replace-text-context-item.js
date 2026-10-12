@@ -51,10 +51,10 @@ const SEARCH_NOT_FOUND = 'SEARCH_NOT_FOUND';
 class ReplaceTextContextItem extends EditBase {
   static MANIFEST = {
     id: 'replace-text',
-    name: 'Replace Text',
+    name: t('Replace Text'),
     version: '1.0.0',
     description: t('Find and replace text in files'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: true
   };
 
@@ -93,7 +93,7 @@ class ReplaceTextContextItem extends EditBase {
       required: ['file_path', 'old_string', 'new_string']
     };
 
-    const description = 'Performs exact string replacements in files. Read the file first — the edit is refused if this conversation has not read it, or if it changed on disk since. It also fails if old_string is not unique in the file: include more surrounding context, or use replace_all.';
+    const description = t('Performs exact string replacements in files. Read the file first — the edit is refused if this conversation has not read it, or if it changed on disk since. It also fails if old_string is not unique in the file: include more surrounding context, or use replace_all.');
 
     return [
       {
@@ -148,22 +148,22 @@ class ReplaceTextContextItem extends EditBase {
 
     // Validation - use current-style names in error messages
     if (params.path === undefined || params.path === null) {
-      return { valid: false, error: 'Missing required parameter: file_path' };
+      return { valid: false, error: t('Missing required parameter: file_path') };
     }
     if (typeof params.path !== 'string') {
-      return { valid: false, error: 'Parameter "file_path" must be a string' };
+      return { valid: false, error: t('Parameter "file_path" must be a string') };
     }
     if (params.old_str === undefined || params.old_str === null) {
-      return { valid: false, error: 'Missing required parameter: old_string' };
+      return { valid: false, error: t('Missing required parameter: old_string') };
     }
     if (typeof params.old_str !== 'string') {
-      return { valid: false, error: 'Parameter "old_string" must be a string' };
+      return { valid: false, error: t('Parameter "old_string" must be a string') };
     }
     if (params.new_str === undefined || params.new_str === null) {
-      return { valid: false, error: 'Missing required parameter: new_string' };
+      return { valid: false, error: t('Missing required parameter: new_string') };
     }
     if (typeof params.new_str !== 'string') {
-      return { valid: false, error: 'Parameter "new_string" must be a string' };
+      return { valid: false, error: t('Parameter "new_string" must be a string') };
     }
 
     // Read-before-edit guard (Claude Code-style): refuse to edit a file the
@@ -507,7 +507,7 @@ class ReplaceTextContextItem extends EditBase {
       }
       const fullResult = result.get ? result.get('fullResult') : result?.fullResult;
       const fullObj = fullResult?.toJSON ? fullResult.toJSON() : fullResult;
-      const errorText = fullObj?.llmFeedback || fullObj?.error || 'Edit failed';
+      const errorText = fullObj?.llmFeedback || fullObj?.error || t('Edit failed');
       const errorDiv = document.createElement('div');
       errorDiv.className = 'properties-panel-result error';
       errorDiv.textContent = errorText;

@@ -69,7 +69,7 @@ class FilePin extends PinboardItemType {
     // that choosing it asks a question. "View" is the load-bearing word: a pin is
     // somewhere to watch a file, and naming one here does not put it in front of
     // the agent.
-    addLabel: 'Add a file to view…',
+    addLabel: t('Add a file to view…'),
     order: -1,
     // This pin takes any file at all, so it is the answer only where nothing more
     // specific wants the path — a patch, a notebook, a diagram. Being asked last
@@ -83,7 +83,7 @@ class FilePin extends PinboardItemType {
    * @returns {true|string} True when a project is open.
    */
   canAdd(active) {
-    return active?.project?.path ? true : 'No project';
+    return active?.project?.path ? true : t('No project');
   }
 
   /**

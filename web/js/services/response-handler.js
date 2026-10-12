@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { withMcpToolMissReason } from './mcp-availability.js';
 import { extractErrorInfo, extractErrorMessage } from '../../sdk/lib/error-utils.js';
 import { createContextWriter } from './context-writer.js';
@@ -156,7 +157,7 @@ class ResponseHandler {
       // Extract content for both UI message and return value
       const content = typeof result.content === 'string'
         ? result.content
-        : extractErrorMessage(result.content) || 'Tool executed.';
+        : extractErrorMessage(result.content) || t('Tool executed.');
 
       // DOCUMENT-DRIVEN FLOW: Worker created the tool-action item.
       // We just need to update it with the result via completeToolAction.
@@ -286,7 +287,7 @@ class ResponseHandler {
 
       const drops = [{
         itemIds: itemIds,
-        rawMatch: '(from drop_context_items tool)'
+        rawMatch: t('(from drop_context_items tool)')
       }];
       this._processDrops(drops, messageThread);
 
@@ -352,7 +353,7 @@ class ResponseHandler {
   async _doContextItemTool(itemDetails, toolCall, ctx, messageThread) {
     const itemResult = await this._executeContextItemToolCall(itemDetails, toolCall, ctx, messageThread);
 
-    const content = itemResult?.message || (itemResult?.success ? 'Context item updated successfully.' : 'Context item update failed.');
+    const content = itemResult?.message || (itemResult?.success ? t('Context item updated successfully.') : t('Context item update failed.'));
     /** @type {ResultStatus} */
     const resultStatus = itemResult?.success ? 'success' : 'error';
 
@@ -401,7 +402,7 @@ class ResponseHandler {
         success: false,
         shouldContinue: true,
         message: undefined,
-        error: result.error || 'Context item creation failed'
+        error: result.error || t('Context item creation failed')
       };
     }
 

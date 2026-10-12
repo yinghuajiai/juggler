@@ -169,7 +169,7 @@ class ModalDialog extends HTMLElement {
       defaultValue = '',
       choices = [],
       allowCustom = false,
-      noneText = 'None of the above',
+      noneText = t('None of the above'),
       duration = 5000
     } = options;
 
@@ -311,7 +311,7 @@ class ModalDialog extends HTMLElement {
    * @param {HTMLInputElement} customInput - Custom input element
    * @param {string} [noneText] - The last button, which answers null
    */
-  setupChoices(choices, allowCustom, container, customInput, noneText = 'None of the above') {
+  setupChoices(choices, allowCustom, container, customInput, noneText = t('None of the above')) {
     container.innerHTML = '';
     let focusedIndex = 0;
     /** @type {HTMLButtonElement[]} */

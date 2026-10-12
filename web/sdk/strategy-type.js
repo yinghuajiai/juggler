@@ -150,6 +150,7 @@
  * @property {boolean} hasLLMErrors - True if any errors are LLM errors (retryable)
  */
 
+import { t } from '../js/i18n/index.js';
 import { submitPendingRequest } from '../js/services/thread-orchestrator.js';
 import { validateManifest } from './lib/manifest.js';
 
@@ -183,7 +184,7 @@ export const APPROVAL_POLICY = Object.freeze({
  * Strategies should not catch this — let it propagate to the framework.
  */
 export class AbortError extends Error {
-  constructor(message = 'Operation aborted') {
+  constructor(message = t('Operation aborted')) {
     super(message);
     this.name = 'AbortError';
   }
@@ -584,7 +585,7 @@ class StrategyType {
    */
   _checkAborted() {
     if (this._abortController?.signal?.aborted) {
-      throw new AbortError('Strategy execution was cancelled');
+      throw new AbortError(t('Strategy execution was cancelled'));
     }
   }
 

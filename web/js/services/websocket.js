@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { recordTape } from '../utils/event-tape.js';
 import { isEngine } from '../../sdk/lib/client-role.js';
 import { fetchJson } from './http.js';
@@ -426,7 +427,7 @@ class WebSocketService {
       const answer = await fetchJson(apiUrl('/webrtc/signal'), {
         method: 'POST',
         body: { role, offer: pc.localDescription },
-        errorPrefix: 'WebRTC signaling failed',
+        errorPrefix: t('WebRTC signaling failed'),
       });
       await pc.setRemoteDescription(answer.answer);
       await opened;
@@ -1067,7 +1068,7 @@ class WebSocketService {
       requestId,
       shouldContinue,
       message
-    }, 'should_continue response');
+    }, t('should_continue response'));
   }
 
   /**

@@ -34,7 +34,7 @@ export default class ExploreSubagentStrategyType extends SubagentStrategyType {
     name: 'Explore (sub-agent)',
     version: '1.0.0',
     description: _t('Read-only codebase investigation for a delegated Explore run — no network, no edits.'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     hidden: true,
     showsApprovalControls: false
   };

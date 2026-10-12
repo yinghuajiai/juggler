@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
 import { subagentBrief } from './subagent-brief.js';
 
 /**
@@ -16,11 +17,11 @@ export const EXPLORE_GUIDANCE = subagentBrief({
   label: 'EXPLORE',
   scope: 'about this codebase',
   rules: [
-    'Search the code, do not guess. Ground every claim in a file and line you '
-    + 'actually read.',
-    'You have the read tools and `bash` for inspection (`git log`, `git blame`). '
-    + 'You cannot edit anything, and you have no network access.',
-    'Prefer `query_code` when the answer is computable in one pass, and '
-    + '`batch_read` / `batch_grep` over many single calls.'
+    t('Search the code, do not guess. Ground every claim in a file and line you '
+    + 'actually read.'),
+    t('You have the read tools and `bash` for inspection (`git log`, `git blame`). '
+    + 'You cannot edit anything, and you have no network access.'),
+    t('Prefer `query_code` when the answer is computable in one pass, and '
+    + '`batch_read` / `batch_grep` over many single calls.')
   ]
 });

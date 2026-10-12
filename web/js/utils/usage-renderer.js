@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { escapeHtml } from '../../sdk/lib/html.js';
 
 /** Usage snapshots older than this are stale. */
@@ -16,7 +17,7 @@ export function formatResetIn(resetsAt) {
   if (!resetsAt) return '';
   const ms = new Date(resetsAt).getTime() - Date.now();
   if (!Number.isFinite(ms)) return '';
-  if (ms <= 0) return 'Resets now';
+  if (ms <= 0) return t('Resets now');
   const mins = Math.floor(ms / 60000);
   if (mins < 60) return `Resets in ${Math.max(1, mins)}m`;
   const hours = Math.floor(mins / 60);

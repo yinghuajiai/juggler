@@ -1004,7 +1004,7 @@ class ConversationBar extends JugglerElement {
       undoToast.className = 'conversation-bin-undo';
       undoToast.type = 'button';
       undoToast.title = t('Put the conversation you just binned back');
-      undoToast.setAttribute('aria-label', 'Restore the conversation from the bin');
+      undoToast.setAttribute('aria-label', t('Restore the conversation from the bin'));
       undoToast.hidden = true;
       undoToast.innerHTML = `${UNDO_SVG}<span>Restore from Bin</span>`;
       undoToast.addEventListener('click', () => this._undoBin());
@@ -1018,7 +1018,7 @@ class ConversationBar extends JugglerElement {
       binBtn = document.createElement('button');
       binBtn.className = 'btn-ghost conversation-bin-button';
       binBtn.title = t('View binned conversations');
-      binBtn.setAttribute('aria-label', 'Open bin');
+      binBtn.setAttribute('aria-label', t('Open bin'));
       binBtn.innerHTML = `${BIN_ICON_SVG}<span class="conversation-bin-label">Bin</span><span class="conversation-bin-size" hidden></span><span class="conversation-bin-count" hidden></span>`;
       binBtn.addEventListener('click', () => this._openBinModal());
       this._cachedElements.set('bin-button', binBtn);
@@ -1047,7 +1047,7 @@ class ConversationBar extends JugglerElement {
       if (sizeEl.textContent !== sizeText) sizeEl.textContent = sizeText;
       sizeEl.hidden = !showSize;
     }
-    let binTitle = 'View binned conversations';
+    let binTitle = t('View binned conversations');
     if (count > 0) {
       const items = `${count} ${count === 1 ? 'conversation' : 'conversations'}`;
       binTitle = sizeBytes > 0

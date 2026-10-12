@@ -350,10 +350,10 @@ class SystemPromptContextItem extends ContextItem {
    */
   static MANIFEST = {
     id: 'system-prompt',
-    name: 'System Prompt',
+    name: t('System Prompt'),
     version: '1.0.0',
     description: t('Base system instructions for the LLM'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     idPrefix: 'SYSTEM',
     preventUserDeletion: true,
     contextPosition: 'system'
@@ -366,7 +366,7 @@ class SystemPromptContextItem extends ContextItem {
 
   /** @returns {import('juggler/context-item').ResultStatusMessage} Status UI config */
   getStatusUI() {
-    return { typeName: 'System Prompt', summary: this.getTitle() };
+    return { typeName: t('System Prompt'), summary: this.getTitle() };
   }
 
   /**
@@ -444,9 +444,9 @@ class SystemPromptContextItem extends ContextItem {
       }
     }
     if (this.data.isModified) {
-      return 'System Prompt (Custom)';
+      return t('System Prompt (Custom)');
     }
-    return 'System Prompt';
+    return t('System Prompt');
   }
 
   /**
@@ -513,7 +513,7 @@ class SystemPromptContextItem extends ContextItem {
     const envBlock = buildEnvBlock(
       this._workingDir(), this.session?.projectPath || '', this.session?.platform || '', today);
     const envDisplay = envBlock.replace(/^<env>\n?/, '').replace(/\n?<\/env>$/, '');
-    this._addPreviewSection(wrapper, 'environment', 'Environment info', envDisplay);
+    this._addPreviewSection(wrapper, 'environment', t('Environment info'), envDisplay);
 
     // Section 3: Rules (from other system-position context items)
     const rulesContent = this._gatherRulesContent();
@@ -526,7 +526,7 @@ class SystemPromptContextItem extends ContextItem {
     // Aggregation is async; fill the section once it resolves, or drop it.
     // Strategies contribute no system-prompt text (they inject messages), so
     // there is no strategy section here.
-    const extSection = this._addPreviewSection(wrapper, 'extensions', 'Extension guidance', 'Loading…');
+    const extSection = this._addPreviewSection(wrapper, 'extensions', t('Extension guidance'), 'Loading…');
     this._fillExtensionGuidance(extSection);
 
     // Section 5: Tools. The prompt is only half of what the model is handed —
@@ -830,7 +830,7 @@ class SystemPromptContextItem extends ContextItem {
       const row = createElement('div', 'system-prompt-tools-silent');
       const detail = status?.error ? String(status.error).split('\n')[0] : '';
       const state = status?.status || 'not running';
-      const unreached = state === 'running' ? ', tools not offered' : '';
+      const unreached = state === 'running' ? t(', tools not offered') : '';
       row.textContent = `MCP · ${name} — ${state}${unreached}${detail ? `: ${detail}` : ''}`;
       wrap.appendChild(row);
     }
@@ -881,7 +881,7 @@ class SystemPromptContextItem extends ContextItem {
     const row = createElement('button', 'system-prompt-tool');
     /** @type {HTMLButtonElement} */ (row).type = 'button';
     row.textContent = label;
-    const where = server ? `Configure "${server}"` : 'Show where this tool is defined';
+    const where = server ? `Configure "${server}"` : t('Show where this tool is defined');
     row.title = [note, description, where].filter(Boolean).join('\n\n');
     row.addEventListener('click', () => { void this._openToolDefinition(toolName, server); });
     return row;

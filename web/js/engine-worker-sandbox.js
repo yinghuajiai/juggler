@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from './i18n/index.js';
 import { extractErrorMessage } from '../sdk/lib/error-utils.js';
 
 /**
@@ -91,7 +92,7 @@ export function createSandboxBridge({ post, graceMs = SANDBOX_DELEGATE_GRACE_MS 
      * @returns {Promise<unknown>} The script's return value
      */
     delegate(code, capabilities, timeoutMs, callerRoot, { signal, onConsole } = {}) {
-      const abortError = () => new DOMException('The operation was aborted.', 'AbortError');
+      const abortError = () => new DOMException(t('The operation was aborted.'), 'AbortError');
       if (signal?.aborted) return Promise.reject(abortError());
       const id = `sbx_${++sandboxSeq}`;
       const descriptors = Object.entries(capabilities).map(([name, cap]) => ({

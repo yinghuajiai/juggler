@@ -27,6 +27,7 @@
  * @module services/git-review-service
  */
 
+import { t } from '../i18n/index.js';
 import api from './api.js';
 import { gitWorkspaceId, onGitWorkspaceChange } from './git-workspace.js';
 import wsService from './websocket.js';
@@ -53,7 +54,7 @@ function staleError() {
 
 /** @returns {DOMException} The rejection a caller that cancelled gets. */
 function cancelledError() {
-  return new DOMException('The read was cancelled.', 'AbortError');
+  return new DOMException(t('The read was cancelled.'), 'AbortError');
 }
 
 /**

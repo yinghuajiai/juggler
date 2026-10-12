@@ -18,6 +18,7 @@
  * The icon inherits `currentColor`, so it recolours with the surrounding theme.
  */
 
+import { t } from '../i18n/index.js';
 import { osRevealPath } from '../services/ops-api.js';
 import { showNotice } from './modal-dialog.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -34,15 +35,15 @@ const REVEAL_ICON_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -96
  */
 export function revealLabel() {
   const platform = document.documentElement.dataset.windowPlatform;
-  if (platform === 'windows') return 'Reveal in Explorer';
-  if (platform === 'mac') return 'Reveal in Finder';
+  if (platform === 'windows') return t('Reveal in Explorer');
+  if (platform === 'mac') return t('Reveal in Finder');
   const ua = navigator.userAgent || '';
-  if (/Windows/.test(ua)) return 'Reveal in Explorer';
-  if (/Macintosh|Mac OS X/.test(ua)) return 'Reveal in Finder';
+  if (/Windows/.test(ua)) return t('Reveal in Explorer');
+  if (/Macintosh|Mac OS X/.test(ua)) return t('Reveal in Finder');
   // Finder and Explorer are named because the platform names them. Everywhere
   // else there is no one answer — the file manager is whichever one the desktop
   // registered — so the label says the job rather than inventing a name.
-  return 'Show in file manager';
+  return t('Show in file manager');
 }
 
 class RevealButton extends HTMLElement {

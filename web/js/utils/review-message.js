@@ -17,11 +17,12 @@
  * @module utils/review-message
  */
 
+import { t } from '../i18n/index.js';
 import { formatCodeReference } from '../../sdk/lib/context-item-utils.js';
 import { normalizeReviewDraft } from './review-draft.js';
 
 /** What the message announces itself as. */
-const REVIEW_HEADER = 'Review feedback:';
+const REVIEW_HEADER = t('Review feedback:');
 
 /**
  * Where a comment sorts among the comments on the same file. A comment about the

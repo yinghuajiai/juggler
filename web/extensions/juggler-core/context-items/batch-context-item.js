@@ -53,10 +53,10 @@ class BatchContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'batch',
-    name: 'Batch Operations',
+    name: t('Batch Operations'),
     version: '1.0.0',
     description: t('Batch read and grep operations for context efficiency'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -177,11 +177,11 @@ class BatchContextItem extends ContextItem {
         return { valid: false, error: 'files must be a non-empty array' };
       }
       if (files.length > 10) {
-        return { valid: false, error: 'Maximum 10 files per batch_read call' };
+        return { valid: false, error: t('Maximum 10 files per batch_read call') };
       }
       for (const f of files) {
         if (!f.file_path || typeof f.file_path !== 'string') {
-          return { valid: false, error: 'Each file must have a file_path string' };
+          return { valid: false, error: t('Each file must have a file_path string') };
         }
       }
       return { valid: true, params: { _batchType: 'read', files } };
@@ -193,17 +193,17 @@ class BatchContextItem extends ContextItem {
         return { valid: false, error: 'searches must be a non-empty array' };
       }
       if (searches.length > 10) {
-        return { valid: false, error: 'Maximum 10 searches per batch_grep call' };
+        return { valid: false, error: t('Maximum 10 searches per batch_grep call') };
       }
       for (const s of searches) {
         if (!s.pattern || typeof s.pattern !== 'string') {
-          return { valid: false, error: 'Each search must have a pattern string' };
+          return { valid: false, error: t('Each search must have a pattern string') };
         }
       }
       return { valid: true, params: { _batchType: 'grep', searches } };
     }
 
-    return { valid: false, error: 'Must provide either "files" (batch_read) or "searches" (batch_grep)' };
+    return { valid: false, error: t('Must provide either "files" (batch_read) or "searches" (batch_grep)') };
   }
 
   /**
@@ -276,7 +276,7 @@ class BatchContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Batch operation failed');
+      return this.failureSummary(outcome.error || t('Batch operation failed'));
     }
 
     const result = /** @type {Record<string, unknown>} */ (outcome.result);

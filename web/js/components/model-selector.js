@@ -50,7 +50,7 @@ import './model-picker/model-picker.js';
  * say so, and the safe reading of an undefined control is "stop the turn first"
  * — which costs the work already done.
  */
-const RUNNING_TURN_NOTE = 'A turn is running. A change takes effect on its next request — no need to stop it.';
+const RUNNING_TURN_NOTE = t('A turn is running. A change takes effect on its next request — no need to stop it.');
 
 /**
  * Why a CLI provider is not offered to a conversation working in a workspace
@@ -340,7 +340,7 @@ class ModelSelector extends HTMLElement {
    * @private
    */
   _noneLabel() {
-    return this._messageThread?.threadItemId ? 'Inherit from parent' : 'No model';
+    return this._messageThread?.threadItemId ? t('Inherit from parent') : t('No model');
   }
 
   /**
@@ -934,7 +934,7 @@ class ModelSelector extends HTMLElement {
     // Cite the switch-model shortcut (⌥⌘M / Ctrl+Alt+M) live from the central
     // table, so the tooltip stays correct if it's ever rebound or left unbound.
     const cycleModelKey = keyShortcutManager.formatBinding('cycle-model');
-    const modelTitle = cycleModelKey ? `LLM Model (${cycleModelKey}, hold for menu)` : 'LLM Model';
+    const modelTitle = cycleModelKey ? `LLM Model (${cycleModelKey}, hold for menu)` : t('LLM Model');
 
     this.innerHTML = '<model-chip></model-chip>';
     const chip = this._chip;

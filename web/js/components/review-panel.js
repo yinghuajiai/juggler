@@ -20,6 +20,7 @@
  * @module components/review-panel
  */
 
+import { t } from '../i18n/index.js';
 import { createDiffViewer } from './diff-viewer.js';
 
 /**
@@ -201,7 +202,7 @@ class ReviewPanel {
     /** @type {HTMLElement} @private */
     this._railEl = el('div', 'review-panel__rail');
     this._railEl.setAttribute('role', 'group');
-    this._railEl.setAttribute('aria-label', 'Changed files');
+    this._railEl.setAttribute('aria-label', t('Changed files'));
     /** @type {HTMLElement} @private */
     this._diffEl = el('div', 'review-panel__diff');
     /** @type {HTMLElement} @private */
@@ -353,7 +354,7 @@ class ReviewPanel {
     this._show(this._warningsEl, warnings.length > 0,
       this._errorEl.parentNode === this.element ? this._errorEl : this._mainEl);
     if (warnings.length === 0) return;
-    this._warningsEl.append(el('div', 'review-panel__warnings-lead', 'Not everything could be reviewed:'));
+    this._warningsEl.append(el('div', 'review-panel__warnings-lead', t('Not everything could be reviewed:')));
     const list = el('ul', 'review-panel__warning-list');
     for (const warning of warnings) list.append(el('li', '', warning));
     this._warningsEl.append(list);
@@ -508,7 +509,7 @@ class ReviewPanel {
     const file = this._fileFor(this._activeKey);
     if (!file) {
       this._diffEl.replaceChildren(el('div', 'review-panel__placeholder',
-        this._manifest ? 'Nothing changed.' : ''));
+        this._manifest ? t('Nothing changed.') : ''));
       return;
     }
 
@@ -563,7 +564,7 @@ class ReviewPanel {
     const actions = file.actions?.();
     if (actions) head.append(actions);
     if (this._canComment()) {
-      const whole = el('button', 'review-panel__file-comment', 'Comment on this file');
+      const whole = el('button', 'review-panel__file-comment', t('Comment on this file'));
       /** @type {HTMLButtonElement} */ (whole).type = 'button';
       whole.addEventListener('click', () => this._openEditor({
         repo: file.repo,
@@ -766,7 +767,7 @@ class ReviewPanel {
     const actions = el('div', 'review-panel__editor-actions');
     // An edit replaces the comment it was opened on, so only a new one is
     // joining anything. Neither is sent: both end at the batch in the footer.
-    const save = el('button', 'review-panel__save', anchor.id ? 'Save changes' : 'Add to feedback');
+    const save = el('button', 'review-panel__save', anchor.id ? t('Save changes') : t('Add to feedback'));
     /** @type {HTMLButtonElement} */ (save).type = 'button';
     const cancel = el('button', 'review-panel__cancel', 'Cancel');
     /** @type {HTMLButtonElement} */ (cancel).type = 'button';
@@ -844,7 +845,7 @@ class ReviewPanel {
     if (!editor) return;
     const body = editor.textarea.value.trim();
     if (!body) {
-      this._showEditorError('A comment with nothing in it says nothing.');
+      this._showEditorError(t('A comment with nothing in it says nothing.'));
       return;
     }
 
@@ -914,7 +915,7 @@ class ReviewPanel {
     if (!this._canComment()) {
       this._show(this._footerEl, true, null);
       this._footerEl.append(el('span', 'review-panel__footer-note',
-        'No conversation open, so there is nowhere to put a comment.'));
+        t('No conversation open, so there is nowhere to put a comment.')));
       return;
     }
 
@@ -931,7 +932,7 @@ class ReviewPanel {
     const discard = el('button', 'review-panel__discard', 'Discard');
     /** @type {HTMLButtonElement} */ (discard).type = 'button';
     discard.addEventListener('click', () => { void this._discard(); });
-    const compose = el('button', 'review-panel__compose', 'Paste feedback into prompt');
+    const compose = el('button', 'review-panel__compose', t('Paste feedback into prompt'));
     /** @type {HTMLButtonElement} */ (compose).type = 'button';
     compose.addEventListener('click', () => { void this._compose(); });
     this._footerEl.append(discard, compose);

@@ -16,6 +16,7 @@
  * @module utils/window-title
  */
 
+import { t } from '../i18n/index.js';
 import { isDesktopWindow, postWindowControl } from '../../sdk/lib/window-control.js';
 
 /**
@@ -32,7 +33,7 @@ export function windowTitleForProject(projectPath) {
   // Both separators: the desktop app reports native paths, so Windows projects
   // arrive backslash-separated.
   const dirName = (projectPath || '').replace(/[/\\]+$/, '').split(/[/\\]/).pop();
-  return 'Juggler - ' + (dirName || 'New Window');
+  return 'Juggler - ' + (dirName || t('New Window'));
 }
 
 /**

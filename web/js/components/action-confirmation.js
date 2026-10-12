@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { escapeHtml } from '../../sdk/lib/html.js';
 
 /**
@@ -500,7 +501,7 @@ class ActionConfirmation extends HTMLElement {
     row.classList.toggle('revise-invalid', !valid);
 
     if (notice) {
-      const msg = (result && result.notice) ? result.notice : (valid ? '' : 'Invalid pattern');
+      const msg = (result && result.notice) ? result.notice : (valid ? '' : t('Invalid pattern'));
       if (msg) {
         notice.textContent = msg;
         notice.hidden = false;

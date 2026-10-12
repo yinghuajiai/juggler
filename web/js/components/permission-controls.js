@@ -575,7 +575,7 @@ class PermissionControls extends HTMLElement {
     const scopeBtn = row.querySelector('.path-scope-btn');
     if (scopeBtn) {
       const scope = d.scope || 'conversation';
-      const label = scope === 'session' ? 'All conversations' : 'This conversation';
+      const label = scope === 'session' ? t('All conversations') : t('This conversation');
       if (scopeBtn.getAttribute('data-scope') !== scope) scopeBtn.setAttribute('data-scope', scope);
       if (scopeBtn.textContent !== label) scopeBtn.textContent = label;
     }

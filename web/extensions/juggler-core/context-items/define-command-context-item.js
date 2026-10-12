@@ -29,10 +29,10 @@ class DefineCommandContextItem extends ContextItem {
   /** @type {import('juggler/context-item').ContextItemManifest} */
   static MANIFEST = {
     id: 'define-command',
-    name: 'Define Command',
+    name: t('Define Command'),
     version: '1.0.0',
     description: t('Create a user-defined slash command'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     // Always gated behind approval: the user must see the full template before
     // a command that will send arbitrary prompts is installed.
     requiresApproval: true,
@@ -132,7 +132,7 @@ class DefineCommandContextItem extends ContextItem {
   async validate(toolInput) {
     const name = typeof toolInput.name === 'string' ? toolInput.name.trim() : '';
     if (!USER_COMMAND_NAME_RE.test(name)) {
-      return { valid: false, error: 'name must be lowercase letters, digits, and hyphens, starting with a letter' };
+      return { valid: false, error: t('name must be lowercase letters, digits, and hyphens, starting with a letter') };
     }
     if (typeof toolInput.description !== 'string' || toolInput.description.trim() === '') {
       return { valid: false, error: 'description is required' };
@@ -141,10 +141,10 @@ class DefineCommandContextItem extends ContextItem {
       return { valid: false, error: 'template is required' };
     }
     if (toolInput.run !== undefined && !DefineCommandContextItem.RUN_MODES.includes(/** @type {string} */ (toolInput.run))) {
-      return { valid: false, error: 'run must be one of "send", "draft", or "subthread"' };
+      return { valid: false, error: t('run must be one of "send", "draft", or "subthread"') };
     }
     if (toolInput.scope !== undefined && toolInput.scope !== 'user' && toolInput.scope !== 'project') {
-      return { valid: false, error: 'scope must be "user" or "project"' };
+      return { valid: false, error: t('scope must be "user" or "project"') };
     }
     return { valid: true, params: toolInput };
   }
@@ -214,7 +214,7 @@ class DefineCommandContextItem extends ContextItem {
   getStatusUI(actionStatus, toolInput) {
     const name = String(toolInput?.name || 'command');
     return this.buildStatusUI(actionStatus, {
-      typeName: 'Define Command',
+      typeName: t('Define Command'),
       pending: `Creating /${name}…`,
       success: `Created /${name}`
     });

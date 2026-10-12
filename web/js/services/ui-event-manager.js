@@ -290,7 +290,7 @@ class UIEventManager {
     const reflect = () => {
       const on = isSoundEnabled();
       bellButton.classList.toggle('is-muted', !on);
-      bellButton.setAttribute('title', 'Toggle notification sounds on/off');
+      bellButton.setAttribute('title', t('Toggle notification sounds on/off'));
       bellButton.setAttribute('aria-pressed', String(on));
     };
 
@@ -333,8 +333,8 @@ class UIEventManager {
       // current state — folded or unfolded.
       groupingButton.classList.toggle('is-active', on);
       groupingButton.setAttribute('title', on
-        ? 'Consecutive tool uses are grouped — click to show them individually'
-        : 'Group consecutive tool uses');
+        ? t('Consecutive tool uses are grouped — click to show them individually')
+        : t('Group consecutive tool uses'));
       groupingButton.setAttribute('aria-pressed', String(on));
     };
 
@@ -741,7 +741,7 @@ class UIEventManager {
     // adds nothing is the common case — and without a word it reads as a dead
     // menu item.
     showNotice(addedCount === 0
-      ? 'No assistant files to add — they are already in context, or this project has none.'
+      ? t('No assistant files to add — they are already in context, or this project has none.')
       : `Added ${addedCount} assistant file${addedCount === 1 ? '' : 's'} to context.`);
   }
 

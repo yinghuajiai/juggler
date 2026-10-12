@@ -128,7 +128,7 @@ class BinaryFileViewer extends FileViewer {
     // rather than growing a row under the reader's eyes.
     const modified = await modifiedAt(source);
 
-    host.appendChild(createElement('div', 'binary-file__note', 'No viewer for this file.'));
+    host.appendChild(createElement('div', 'binary-file__note', t('No viewer for this file.')));
 
     const facts = createElement('div', 'binary-file__facts');
     addFact(facts, 'Kind', kindOf(source));

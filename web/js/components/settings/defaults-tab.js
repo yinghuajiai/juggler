@@ -116,11 +116,11 @@ export class DefaultsTab {
     container.appendChild(this._buildDefaultStrategyRow());
 
     const { row } = buildToggleRow(
-      'Allow file edits in new conversations',
-      'Start each new conversation with file editing already allowed, so the agent can edit ' +
+      t('Allow file edits in new conversations'),
+      t('Start each new conversation with file editing already allowed, so the agent can edit ' +
       'without asking first — handy when your project is in version control. Each conversation ' +
       'can still be toggled individually, and edits outside the project and allowed ' +
-      'paths always prompt.',
+      'paths always prompt.'),
       isDefaultFileEditingOn(getAppSession()),
       (on) => setDefaultFileEditingOn(getAppSession(), on),
     );
@@ -153,9 +153,9 @@ export class DefaultsTab {
     // On/off switch. Checked = enabled; we persist the *disabled* bool so the
     // stored key is absent by default (default-on).
     const { row, input: toggleInput } = buildToggleRow(
-      'Name new conversations',
-      'Derives a tab title from your first message. Turn this off to name new ' +
-      'conversations yourself.',
+      t('Name new conversations'),
+      t('Derives a tab title from your first message. Turn this off to name new ' +
+      'conversations yourself.'),
       !(/** @type {any} */ (this.config).autoNameDisabled),
       async (on) => {
         const previous = toggleInput.checked;
@@ -196,9 +196,9 @@ export class DefaultsTab {
     // Checked = enabled; the stored key is the *disabled* bool, so it is absent
     // by default and the feature ships on.
     const { row, input: toggleInput } = buildToggleRow(
-      'Suggest replies',
-      'Offers a few things you might say next when a turn finishes. Clicking one ' +
-      'puts it in the message box to edit — it is never sent for you.',
+      t('Suggest replies'),
+      t('Offers a few things you might say next when a turn finishes. Clicking one ' +
+      'puts it in the message box to edit — it is never sent for you.'),
       !(/** @type {any} */ (this.config).replySuggestionsDisabled),
       async (on) => {
         const previous = toggleInput.checked;
@@ -392,10 +392,10 @@ export class DefaultsTab {
     // second sentence discloses the "fully off" consequence to the person
     // deliberately flipping the switch.
     const { row: autoCompactRow, input: autoCompactInput } = buildToggleRow(
-      'Automatic compaction',
-      'When a conversation nears the model\u2019s context limit, Juggler summarizes ' +
+      t('Automatic compaction'),
+      t('When a conversation nears the model\u2019s context limit, Juggler summarizes ' +
       'older turns to make room. Turn this off to keep full transcripts \u2014 long ' +
-      'conversations may then hit the model\u2019s limit and error.',
+      'conversations may then hit the model\u2019s limit and error.'),
       !(/** @type {any} */ (this.config).autoCompactDisabled),
       async (on) => {
         const previous = autoCompactInput.checked;
@@ -412,7 +412,7 @@ export class DefaultsTab {
 
     this._appendNumberField(container, {
       heading: t('Stream idle timeout'),
-      name: 'Seconds to wait',
+      name: t('Seconds to wait'),
       description:
         t('Seconds to wait for the next stream event before treating the connection ' +
         'as dropped ("stream stalled"). Raise it for gateways with slow cold ' +
@@ -420,11 +420,11 @@ export class DefaultsTab {
       inputId: 'stream-idle-timeout-input',
       placeholder: '180',
       current: () => /** @type {any} */ (this.config).streamIdleTimeout || '',
-      validate: (value) => (parseInt(value, 10) <= 0 ? 'Must be greater than zero.' : ''),
+      validate: (value) => (parseInt(value, 10) <= 0 ? t('Must be greater than zero.') : ''),
       save: async (value) => {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { stream_idle_timeout: value } });
         /** @type {any} */ (this.config).streamIdleTimeout = value;
-        return value ? `Saved. Waiting up to ${value}s.` : 'Saved. Using default (180s).';
+        return value ? `Saved. Waiting up to ${value}s.` : t('Saved. Using default (180s).');
       },
       failureLog: 'stream idle timeout',
     });
@@ -434,7 +434,7 @@ export class DefaultsTab {
     // them to count zeroes invites the slip that switches the guard off.
     this._appendNumberField(container, {
       heading: t('Spend ceiling'),
-      name: 'Million tokens per conversation',
+      name: t('Million tokens per conversation'),
       description:
         t('Counts the input a conversation has not already paid for, across all of ' +
         'its threads: context re-read from cache does not add to it. Past the ' +
@@ -452,8 +452,8 @@ export class DefaultsTab {
         const tokens = value === '' ? '' : String(parseInt(value, 10) * 1_000_000);
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { spend_limit_tokens: tokens } });
         /** @type {any} */ (this.config).spendLimitTokens = tokens;
-        if (value === '') return 'Saved. Using the default (10M).';
-        return value === '0' ? 'Saved. No ceiling.' : `Saved. Stopping delegated work past ${value}M.`;
+        if (value === '') return t('Saved. Using the default (10M).');
+        return value === '0' ? t('Saved. No ceiling.') : `Saved. Stopping delegated work past ${value}M.`;
       },
       failureLog: 'spend ceiling',
     });
@@ -483,10 +483,10 @@ export class DefaultsTab {
     container.appendChild(heading);
 
     const { row: splitRow } = buildToggleRow(
-      'Side-by-side diffs',
-      'Show the old and new file in two columns instead of one combined list. ' +
+      t('Side-by-side diffs'),
+      t('Show the old and new file in two columns instead of one combined list. ' +
       'Needs a wide enough panel — a diff with no room for two columns shows the ' +
-      'combined list whatever this says.',
+      'combined list whatever this says.'),
       defaultDiffView() === 'split',
       (on) => setDefaultDiffView(on ? 'split' : 'inline'),
     );
@@ -644,7 +644,7 @@ export class DefaultsTab {
   renderDefaultModelField() {
     this._renderModelRow({
       containerId: '#default-model-field-container',
-      nameLabel: 'Default model for new conversations',
+      nameLabel: t('Default model for new conversations'),
       current: this.defaultModel || { provider: '', model: '', explicit: false },
       statusText: (ref) => this._defaultModelStatusText(ref),
       onSave: (config) => this._saveDefaultModel(config),
@@ -665,13 +665,13 @@ export class DefaultsTab {
   renderCheapModelField() {
     this._renderModelRow({
       containerId: '#cheap-model-field-container',
-      nameLabel: 'Cheap model',
+      nameLabel: t('Cheap model'),
       description: t('"Automatic" derives one from the model in use.'),
       current: this.cheapModel || { explicit: false },
       // The one row with a third state. Turning it off is a real answer — the
       // tasks it runs are optional — and recording it is what stops the server
       // deriving a model anyway, and stops it mentioning that it can't.
-      offLabel: 'Off — no cheap model',
+      offLabel: t('Off — no cheap model'),
       statusText: (ref) => this._cheapModelStatusText(ref),
       onSave: (config) => this._saveCheapModel(config),
     });
@@ -880,7 +880,7 @@ export class DefaultsTab {
       if (ref && ref.provider && ref.model) {
         return `Auto — currently ${modelLabelFromList(this.providers, ref.provider, ref.model)}.`;
       }
-      return 'Auto — no provider is configured yet.';
+      return t('Auto — no provider is configured yet.');
     }
     return this._explicitModelStatusText(ref);
   }
@@ -896,13 +896,13 @@ export class DefaultsTab {
    * @private
    */
   _cheapModelStatusText(ref) {
-    if (ref && ref.disabled) return 'Off — background tasks won\'t run.';
+    if (ref && ref.disabled) return t('Off — background tasks won\'t run.');
     if (!ref || !ref.explicit) {
       const auto = ref && ref.autoResolved;
       if (auto && auto.provider && auto.model) {
         return `Auto — currently ${modelLabelFromList(this.providers, auto.provider, auto.model)}.`;
       }
-      return 'Auto — nothing available for this provider.';
+      return t('Auto — nothing available for this provider.');
     }
     return this._explicitModelStatusText(ref);
   }
@@ -916,13 +916,13 @@ export class DefaultsTab {
    */
   _explicitModelStatusText(ref) {
     const p = this.providers.find((/** @type {any} */ pp) => pp.name === ref.provider);
-    if (!p) return 'Provider not registered.';
+    if (!p) return t('Provider not registered.');
     if (!p.available) return p.authType === 'oauth_bearer'
-      ? (p.authHint || 'Provider is unavailable. Sign in to continue.')
-      : 'Provider is configured but has no API key.';
+      ? (p.authHint || t('Provider is unavailable. Sign in to continue.'))
+      : t('Provider is configured but has no API key.');
     const hasModel = p.modelsWithContext && p.modelsWithContext.some((/** @type {{id: string}} */ m) => m.id === ref.model);
     if (p.modelsWithContext && !hasModel) {
-      return 'Model is not in the provider’s current model list.';
+      return t('Model is not in the provider’s current model list.');
     }
     return 'Active.';
   }

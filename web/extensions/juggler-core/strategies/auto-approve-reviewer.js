@@ -22,6 +22,7 @@
  * @module extensions/juggler-core/strategies/auto-approve-reviewer
  */
 
+import { t } from '../../../js/i18n/index.js';
 import { isUserMessage, isToolActionMessage, itemField } from 'juggler/model';
 import { extractUserMessage } from '../../../sdk/lib/error-utils.js';
 
@@ -346,9 +347,9 @@ export function buildReviewerPrompt(items, action, opts = {}) {
       ? 'allowed by the user anywhere inside ALLOWED PATHS'
       : 'must be approved individually by the user'}`);
   }
-  const pathsLine = formatGrantList('ALLOWED PATHS', context.allowedPaths);
+  const pathsLine = formatGrantList(t('ALLOWED PATHS'), context.allowedPaths);
   if (pathsLine) envLines.push(pathsLine);
-  const commandsLine = formatGrantList('ALLOWLISTED COMMANDS', context.allowedCommands);
+  const commandsLine = formatGrantList(t('ALLOWLISTED COMMANDS'), context.allowedCommands);
   if (commandsLine) envLines.push(commandsLine);
   const envBlock = envLines.length
     ? `=== ENVIRONMENT (ground truth) ===\n${envLines.join('\n')}\n\n`
@@ -570,7 +571,7 @@ export function describeReviewFailure(err) {
  * talking before it says what went wrong.
  * @type {string}
  */
-const FAILURE_LEAD = "Auto-approve couldn't run —";
+const FAILURE_LEAD = t("Auto-approve couldn't run —");
 
 /**
  * The line left on the approval card when a review could not be completed.

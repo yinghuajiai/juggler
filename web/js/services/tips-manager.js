@@ -58,31 +58,31 @@ const TIPS_CHANGED_EVENT = 'juggler:tips-changed';
  * @type {Array<{kind: 'shortcut', id: string, body: string} | Tip>}
  */
 const TIPS = [
-  { kind: 'shortcut', id: 'new-conversation', body: 'Spin up another conversation and switch to it — run several in parallel.' },
-  { kind: 'shortcut', id: 'jump-to-attention', body: 'Jump straight to whichever conversation is waiting on you, landing on its pending approval.' },
+  { kind: 'shortcut', id: 'new-conversation', body: t('Spin up another conversation and switch to it — run several in parallel.') },
+  { kind: 'shortcut', id: 'jump-to-attention', body: t('Jump straight to whichever conversation is waiting on you, landing on its pending approval.') },
   { kind: 'shortcut', id: 'strategy-switch', body: 'Flip the active strategy from the composer; hold to open the full strategy menu.' },
   { kind: 'shortcut', id: 'cycle-model', body: 'Tap to flip back to your previous model; hold to open the full model menu — no mouse needed.' },
   {
     id: 'workspaces',
     kind: 'feature',
     title: 'Workspaces',
-    body: 'A workspace is a custom environment for the LLM to work in — e.g. a git worktree, or a copy to try '
+    body: t('A workspace is a custom environment for the LLM to work in — e.g. a git worktree, or a copy to try '
       + 'something risky in. Make one at the foot of the conversation list, then start '
-      + 'conversations in it or drag them across.',
+      + 'conversations in it or drag them across.'),
   },
-  { kind: 'shortcut', id: 'toggle-file-editing', body: 'Flip between letting the agent edit files freely and asking you first.' },
-  { kind: 'shortcut', id: 'pause-conversation', body: 'Pause after the current step finishes — a non-destructive stop, instead of a hard cancel.' },
+  { kind: 'shortcut', id: 'toggle-file-editing', body: t('Flip between letting the agent edit files freely and asking you first.') },
+  { kind: 'shortcut', id: 'pause-conversation', body: t('Pause after the current step finishes — a non-destructive stop, instead of a hard cancel.') },
   { kind: 'shortcut', id: 'next-tab', body: 'Step through your conversation list without leaving the keyboard; Previous conversation steps back.' },
   { kind: 'shortcut', id: 'cycle-thinking', body: 'Nudge the current model\u2019s thinking level up or down; hold to open the level popover.' },
-  { kind: 'shortcut', id: 'find-in-conversation', body: 'Search the text of whatever you\u2019re reading — the conversation, a properties panel, a pin.' },
+  { kind: 'shortcut', id: 'find-in-conversation', body: t('Search the text of whatever you\u2019re reading — the conversation, a properties panel, a pin.') },
   {
     id: 'paste-images',
     kind: 'feature',
     title: t('Paste a screenshot'),
-    body: 'Paste an image straight into the composer to attach it to your prompt.',
+    body: t('Paste an image straight into the composer to attach it to your prompt.'),
   },
-  { kind: 'shortcut', id: 'rename-conversation', body: 'Give the current conversation a memorable name, straight from the keyboard.' },
-  { kind: 'shortcut', id: 'bin-conversation', body: 'Clear a conversation out of the way — you can restore it from the Bin anytime.' },
+  { kind: 'shortcut', id: 'rename-conversation', body: t('Give the current conversation a memorable name, straight from the keyboard.') },
+  { kind: 'shortcut', id: 'bin-conversation', body: t('Clear a conversation out of the way — you can restore it from the Bin anytime.') },
 ];
 
 /**

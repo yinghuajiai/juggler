@@ -132,16 +132,16 @@ export class NotificationsTab {
     // The sound toggle is the same `sound` pref the header bell drives; flipping
     // either updates the other live via ATTENTION_PREFS_EVENT.
     const soundRow = buildToggleRow(
-      'Play notification sounds',
-      'Chime when a conversation you’re not viewing needs you. Also toggled by the header bell.',
+      t('Play notification sounds'),
+      t('Chime when a conversation you’re not viewing needs you. Also toggled by the header bell.'),
       prefs.sound,
       (on) => setSoundEnabled(on),
     );
     const notifyRow = buildToggleRow(
-      desktopApp ? 'Bounce the Dock icon' : 'Flash the browser tab',
+      desktopApp ? t('Bounce the Dock icon') : t('Flash the browser tab'),
       desktopApp
-        ? 'When a conversation needs attention, bounce the app’s Dock icon.'
-        : 'When a conversation needs attention, mark this browser tab’s title so you can spot it',
+        ? t('When a conversation needs attention, bounce the app’s Dock icon.')
+        : t('When a conversation needs attention, mark this browser tab’s title so you can spot it'),
       prefs.notify,
       (on) => setNotifyEnabled(on),
     );
@@ -192,14 +192,14 @@ export class NotificationsTab {
     container.innerHTML = '';
 
     const highlightRow = buildToggleRow(
-      'Highlight conversations that need attention',
-      'Flash and tint a conversation’s tab when it needs you while you’re elsewhere. With this off the tab stays plain, though its status circle still shows when it’s waiting, and the “Jump to conversation needing attention” shortcut still finds it.',
+      t('Highlight conversations that need attention'),
+      t('Flash and tint a conversation’s tab when it needs you while you’re elsewhere. With this off the tab stays plain, though its status circle still shows when it’s waiting, and the “Jump to conversation needing attention” shortcut still finds it.'),
       prefs.tabHighlight,
       (on) => setTabHighlightEnabled(on),
     );
     const reorderRow = buildToggleRow(
-      'Updated conversations move to the top',
-      'Float a conversation’s tab up the list when you send to it, when it finishes, and when it needs your approval. Output arriving mid-turn leaves the order alone. With this off, tabs only move when you drag them.',
+      t('Updated conversations move to the top'),
+      t('Float a conversation’s tab up the list when you send to it, when it finishes, and when it needs your approval. Output arriving mid-turn leaves the order alone. With this off, tabs only move when you drag them.'),
       prefs.tabReorder,
       (on) => setTabReorderEnabled(on),
     );

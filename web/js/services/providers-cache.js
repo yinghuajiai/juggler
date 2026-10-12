@@ -10,6 +10,7 @@
  * callers that need to block until the first push arrives.
  */
 
+import { t } from '../i18n/index.js';
 import wsService from './websocket.js';
 import { fetchJson } from './http.js';
 import { apiUrl } from '../utils/api-url.js';
@@ -114,7 +115,7 @@ const providersCache = {
    * @returns {Promise<void>}
    */
   async refresh() {
-    await fetchJson(apiUrl('/providers/refresh'), { method: 'POST', errorPrefix: 'Provider refresh failed' });
+    await fetchJson(apiUrl('/providers/refresh'), { method: 'POST', errorPrefix: t('Provider refresh failed') });
   },
 
   /**
@@ -128,7 +129,7 @@ const providersCache = {
     const result = await fetchJson(apiUrl('/providers/switch'), {
       method: 'POST',
       body: { from },
-      errorPrefix: "Couldn't switch provider",
+      errorPrefix: t("Couldn't switch provider"),
     });
     return /** @type {any} */ (result)?.provider || '';
   }

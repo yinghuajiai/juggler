@@ -16,7 +16,7 @@ import CommandType from 'juggler/command-type';
 class CommandsCommandType extends CommandType {
   static MANIFEST = {
     id: 'commands',
-    name: 'Manage Commands',
+    name: t('Manage Commands'),
     version: '1.0.0',
     description: t('Create and manage user-defined slash commands'),
     icon: 'icon-slash',

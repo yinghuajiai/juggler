@@ -44,10 +44,10 @@ class DroppedFileContextItem extends ContextItem {
   /** @type {import('juggler/context-item').ContextItemManifest} */
   static MANIFEST = {
     id: 'dropped-file',
-    name: 'Dropped File',
+    name: t('Dropped File'),
     version: '1.0.0',
     description: t('Text file dropped into the composer (inline content snapshot)'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     idPrefix: 'DROP',
     userAddable: false,
     watchesFileChanges: false,
@@ -100,18 +100,18 @@ class DroppedFileContextItem extends ContextItem {
    * @returns {import('juggler/context-item').ResultStatusMessage} Status UI config
    */
   getStatusUI() {
-    const name = this.data.filename || 'Dropped File';
-    return { typeName: 'Dropped File', summary: name, status: 'success' };
+    const name = this.data.filename || t('Dropped File');
+    return { typeName: t('Dropped File'), summary: name, status: 'success' };
   }
 
   /** @returns {string} Item title */
   getTitle() {
-    return this.data.filename || 'Dropped File';
+    return this.data.filename || t('Dropped File');
   }
 
   /** @returns {string} Brief summary for transaction display */
   getBriefSummary() {
-    return this.data.filename ? `Dropped file: ${this.data.filename}` : 'Dropped file';
+    return this.data.filename ? `Dropped file: ${this.data.filename}` : t('Dropped file');
   }
 
   /**
@@ -148,7 +148,7 @@ class DroppedFileContextItem extends ContextItem {
 
     const content = this.data.content || '';
     if (!content) {
-      addFilePath(container, this.data.filename || 'Dropped file');
+      addFilePath(container, this.data.filename || t('Dropped file'));
       container.appendChild(createElement('div', 'file-content-loading', '(empty)'));
       return container;
     }

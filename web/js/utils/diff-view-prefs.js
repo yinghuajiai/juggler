@@ -19,6 +19,7 @@
  * @module utils/diff-view-prefs
  */
 
+import { t } from '../i18n/index.js';
 import { cachedUserPref, setUserPref, notifyPrefChanged, reconcilePref } from '../services/prefs.js';
 
 const VIEW_KEY = 'juggler-diff-view';
@@ -51,7 +52,7 @@ export const CONTEXT_CHOICES = [0, 1, 3, 5, 10, 25, WHOLE_FILE];
  * @returns {string} Its label.
  */
 export function contextLabel(lines) {
-  if (lines === WHOLE_FILE) return 'Whole file';
+  if (lines === WHOLE_FILE) return t('Whole file');
   if (lines === 0) return 'None';
   return lines === 1 ? '1 line' : `${lines} lines`;
 }

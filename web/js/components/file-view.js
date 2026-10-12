@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import fileViewerRegistry from '../registries/file-viewer-registry.js';
 import { toDescriptor } from '../../sdk/file-source.js';
 import { formatFileSize, injectFileContentStyles } from '../../sdk/lib/context-item-utils.js';
@@ -126,7 +127,7 @@ class FileView extends HTMLElement {
         ? [formatFileSize(source.size), source.totalLines ? `${source.totalLines} lines` : '']
           .filter(Boolean).join(' | ')
         : undefined;
-      addFilePath(this, source.absPath || source.path || 'No file', info);
+      addFilePath(this, source.absPath || source.path || t('No file'), info);
     }
 
     if (source.exists === false) {

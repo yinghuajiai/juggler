@@ -34,7 +34,7 @@ injectStylesOnce('git-pin-styles', `
 `);
 
 /** What this pin compares, said once, at the top, in words. */
-const SCOPE_LABEL = 'Working tree against HEAD';
+const SCOPE_LABEL = t('Working tree against HEAD');
 
 /**
  * The scope line for one review. A workspace's tree is named in it: the pin
@@ -73,8 +73,8 @@ function repoDetail(repo) {
   if (repo.upstream) parts.push(`→ ${repo.upstream}`);
   const divergence = divergencePhrase(repo);
   if (divergence) parts.push(divergence);
-  else if (repo.upstream) parts.push('Up to date');
-  if (repo.initial) parts.push('No commits yet');
+  else if (repo.upstream) parts.push(t('Up to date'));
+  if (repo.initial) parts.push(t('No commits yet'));
   else if (repo.head) parts.push(repo.head.slice(0, 7));
   if (repo.stashes > 0) parts.push(`${repo.stashes} ${repo.stashes === 1 ? 'stash' : 'stashes'}`);
   return parts.filter(Boolean).join(' · ');
@@ -177,7 +177,7 @@ class GitPin extends PinboardItemType {
    * @returns {true|string} True when there is a project whose tree to read.
    */
   canAdd(active) {
-    return active?.project?.path ? true : 'No project';
+    return active?.project?.path ? true : t('No project');
   }
 
   /**
@@ -256,7 +256,7 @@ class GitPin extends PinboardItemType {
       if ((review.repos || []).length === 0) {
         // Already the whole answer: the tab says what the pin is for, and this
         // says why there is none of it. Centred like every other empty card.
-        body.replaceChildren(pinEmpty(review.workspace ? `No git repository in ${review.workspace}.` : 'No git repository.'));
+        body.replaceChildren(pinEmpty(review.workspace ? `No git repository in ${review.workspace}.` : t('No git repository.')));
         return;
       }
 

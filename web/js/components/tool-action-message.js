@@ -718,14 +718,14 @@ class ToolActionMessage extends HTMLElement {
       });
       article.appendChild(this._wrapWithIcon(errorElement, 'red'));
     } else if (result?.cancelled) {
-      const content = result.formatted?.summary || 'Action cancelled';
+      const content = result.formatted?.summary || _t('Action cancelled');
       const statusElement = renderResultStatusMessage({
         summary: content,
         status: 'cancelled'
       });
       article.appendChild(this._wrapWithIcon(statusElement));
     } else if (result?.blocked) {
-      const content = result.formatted?.summary || 'Action blocked (plan mode active)';
+      const content = result.formatted?.summary || _t('Action blocked (plan mode active)');
       const statusElement = renderResultStatusMessage({
         summary: content,
         status: 'cancelled'

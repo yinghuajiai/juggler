@@ -28,7 +28,7 @@ class ExploreAgentContextItem extends SubagentContextItem {
     name: 'Explore',
     version: '1.0.0',
     description: t('Investigate this codebase in a sub-agent context'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false,
     // Always delegates: buildSubthreadSpec never returns null, and there is no
     // inline Explore — so requiresDelegation lets the worker withhold the tool
@@ -53,17 +53,17 @@ class ExploreAgentContextItem extends SubagentContextItem {
       'the files it opens never enter this conversation, so an open-ended question costs one result instead of thirty tool calls.\n' +
       'For questions that need reading and judgment — "how does auth work here", "what calls this and why". ' +
       'Use `query_code` instead when the answer is computable exactly in a script; use `Research` when it is on the web (Explore has no network access).',
-    goalExample: 'Trace auth flow',
+    goalExample: t('Trace auth flow'),
     task:
-      'What to find out, stated in full: name the files, symbols, or behaviour you mean ' +
-      'rather than referring to what was said here.',
+      t('What to find out, stated in full: name the files, symbols, or behaviour you mean ' +
+      'rather than referring to what was said here.'),
     continues: 'investigation',
-    lead: 'Investigate this codebase and answer the following.',
+    lead: t('Investigate this codebase and answer the following.'),
     resultSpec:
       'the answer to the task; the evidence as a list of `file:line — what is there`; ' +
       'and the paths worth reading next. Say what you looked for and did not find rather than guessing.',
     verbs: { pending: 'Exploring…', done: 'Explored' },
-    fallback: 'Search the code directly with grep, glob and read.'
+    fallback: t('Search the code directly with grep, glob and read.')
   };
 }
 

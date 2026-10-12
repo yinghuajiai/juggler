@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * The task-list marker vocabulary: the one place that decides which character
  * denotes which state.
@@ -45,7 +47,7 @@ export const TASK_STATES = new Map([
  */
 export const TASK_LABELS = {
   'pending': 'To do',
-  'in-progress': 'In progress',
+  'in-progress': t('In progress'),
   'completed': 'Completed',
   'failed': 'Failed',
   'skipped': 'Skipped',

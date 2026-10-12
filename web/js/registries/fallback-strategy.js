@@ -36,7 +36,7 @@ export default class FallbackStrategy extends StrategyType {
    */
   static MANIFEST = {
     id: 'fallback',
-    name: 'No Strategy',
+    name: t('No Strategy'),
     version: '1.0.0',
     description: t('Built-in placeholder used when no strategy plugin is enabled. It only keeps the app alive and the Extensions settings reachable so a strategy can be re-enabled.'),
     author: 'Juggler',

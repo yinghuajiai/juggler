@@ -16,10 +16,10 @@ import { shellOutputDelta } from 'juggler/ops';
 class TaskOutputContextItem extends ContextItem {
   static MANIFEST = {
     id: 'task-output',
-    name: 'Task Output',
+    name: t('Task Output'),
     version: '1.0.0',
     description: t('Read output from a background task'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -63,7 +63,7 @@ class TaskOutputContextItem extends ContextItem {
    */
   async validate(toolInput) {
     if (!toolInput.task_id || typeof toolInput.task_id !== 'string') {
-      return { valid: false, error: 'Missing required parameter: task_id' };
+      return { valid: false, error: t('Missing required parameter: task_id') };
     }
     return { valid: true, params: toolInput };
   }
@@ -89,7 +89,7 @@ class TaskOutputContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to read task output');
+      return this.failureSummary(outcome.error || t('Failed to read task output'));
     }
     const result = /** @type {{task_id?: string, status?: string, output?: string, exitCode?: number, error?: string}} */ (outcome.result);
 
@@ -99,7 +99,7 @@ class TaskOutputContextItem extends ContextItem {
 
     let summary = `Status: ${result.status || 'unknown'}`;
     if (result.exitCode !== undefined) summary += ` (exit code ${result.exitCode})`;
-    summary += '\n\n' + (result.output || '(no new output since last read)');
+    summary += '\n\n' + (result.output || t('(no new output since last read)'));
     if (result.error) summary += `\n\n${result.error}`;
 
     return this.successSummary(this.truncateForLLM(summary));
@@ -117,7 +117,7 @@ class TaskOutputContextItem extends ContextItem {
       typeName: TaskOutputContextItem.getTypeName(),
       pending: `Reading output of ${taskId}...`,
       success: `Read output of ${taskId}`,
-      failurePrefix: 'Failed to read task output'
+      failurePrefix: t('Failed to read task output')
     });
   }
 

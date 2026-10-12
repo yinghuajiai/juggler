@@ -66,7 +66,7 @@ class SearchContextItem extends ContextItem {
     name: 'Search',
     version: '1.0.0',
     description: t('Search codebase for patterns and symbols'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     // Approval-gated like read, but only an out-of-root NON-glob `path` prompts:
     // a search with no path (cwd) or a glob path is confined to the project by
     // the backend, so isPermitted auto-approves it and the common case is silent.
@@ -226,10 +226,10 @@ class SearchContextItem extends ContextItem {
     const params = this._normalizeParams(toolInput);
 
     if (!params.pattern) {
-      return { valid: false, error: 'Missing required parameter: pattern' };
+      return { valid: false, error: t('Missing required parameter: pattern') };
     }
     if (typeof params.pattern !== 'string') {
-      return { valid: false, error: 'Parameter "pattern" must be a string' };
+      return { valid: false, error: t('Parameter "pattern" must be a string') };
     }
 
     return { valid: true, params };
@@ -385,11 +385,11 @@ class SearchContextItem extends ContextItem {
     // Show which paths the grep was looking in. An explicit `path` narrows the
     // search; otherwise the search spans the conversation's allowed roots.
     if (input.path) {
-      helpers.addSubsection(wrapper, 'Searched in', String(input.path), 'properties-panel-code');
+      helpers.addSubsection(wrapper, t('Searched in'), String(input.path), 'properties-panel-code');
     } else {
       const allowed = this.getAllowedPaths();
       if (allowed.length > 0) {
-        helpers.addSubsection(wrapper, 'Searched in', allowed.join('\n'), 'properties-panel-code');
+        helpers.addSubsection(wrapper, t('Searched in'), allowed.join('\n'), 'properties-panel-code');
       }
     }
   }

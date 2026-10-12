@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { fetchJson } from '../services/http.js';
 import { apiUrl } from './api-url.js';
 
@@ -90,11 +91,11 @@ const A4_HZ = 440;
  */
 const PATTERNS = Object.freeze(/** @type {ReadonlyArray<ChimePattern>} */ ([
   // ── Lone notes, various pitches ──────────────────────────────────────
-  { id: 'lone-bell',   name: 'Lone Bell',   root: 0,   spacing: 0.1,  decay: 0.5,  notes: [{ s: 0 }] },
+  { id: 'lone-bell',   name: t('Lone Bell'),   root: 0,   spacing: 0.1,  decay: 0.5,  notes: [{ s: 0 }] },
   { id: 'droplet',     name: 'Droplet',     root: 5,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }] },
   { id: 'halo',        name: 'Halo',        root: 9,   spacing: 0.1,  decay: 0.4,  notes: [{ s: 0 }] },
   { id: 'pip',         name: 'Pip',         root: 14,  spacing: 0.1,  decay: 0.16, notes: [{ s: 0 }] },
-  { id: 'deep-ping',   name: 'Deep Ping',   root: -12, spacing: 0.1,  decay: 0.45, notes: [{ s: 0 }] },
+  { id: 'deep-ping',   name: t('Deep Ping'),   root: -12, spacing: 0.1,  decay: 0.45, notes: [{ s: 0 }] },
   { id: 'needlepoint', name: 'Needlepoint', root: 19,  spacing: 0.1,  decay: 0.13, notes: [{ s: 0 }] },
   // ── Two notes ────────────────────────────────────────────────────────
   { id: 'ascend',      name: 'Ascend',      root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 7 }] },
@@ -103,16 +104,16 @@ const PATTERNS = Object.freeze(/** @type {ReadonlyArray<ChimePattern>} */ ([
   { id: 'doorbell',    name: 'Doorbell',    root: 9,   spacing: 0.16, decay: 0.4,  notes: [{ s: 0 }, { s: -4 }] },
   { id: 'sigh',        name: 'Sigh',        root: 8,   spacing: 0.13, decay: 0.34, notes: [{ s: 0 }, { s: -3 }] },
   { id: 'nudge',       name: 'Nudge',       root: 0,   spacing: 0.09, decay: 0.2,  notes: [{ s: 0 }, { s: 2 }] },
-  { id: 'knock-knock', name: 'Knock Knock', root: 4,   spacing: 0.1,  decay: 0.18, notes: [{ s: 0 }, { s: 0 }] },
-  { id: 'sixth-sense', name: 'Sixth Sense', root: 0,   spacing: 0.12, decay: 0.34, notes: [{ s: 0 }, { s: 9 }] },
+  { id: 'knock-knock', name: t('Knock Knock'), root: 4,   spacing: 0.1,  decay: 0.18, notes: [{ s: 0 }, { s: 0 }] },
+  { id: 'sixth-sense', name: t('Sixth Sense'), root: 0,   spacing: 0.12, decay: 0.34, notes: [{ s: 0 }, { s: 9 }] },
   // The interval that refuses to settle — halfway up the octave, belonging to no key.
   { id: 'tritone',     name: 'Tritone',     root: 0,   spacing: 0.12, decay: 0.32, notes: [{ s: 0 }, { s: 6 }] },
   // ── Three notes ──────────────────────────────────────────────────────
-  { id: 'major-triad', name: 'Major Triad', root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }] },
-  { id: 'minor-mood',  name: 'Minor Mood',  root: 0,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }, { s: 3 }, { s: 7 }] },
+  { id: 'major-triad', name: t('Major Triad'), root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }] },
+  { id: 'minor-mood',  name: t('Minor Mood'),  root: 0,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }, { s: 3 }, { s: 7 }] },
   { id: 'ta-da',       name: 'Ta-Da',       root: 0,   spacing: 0.13, decay: 0.34, notes: [{ s: 0, a: 0.85 }, { s: 7 }, { s: 12 }] },
   { id: 'cascade',     name: 'Cascade',     root: 12,  spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: -5 }, { s: -8 }] },
-  { id: 'little-turn', name: 'Little Turn', root: 5,   spacing: 0.09, decay: 0.24, notes: [{ s: 0 }, { s: 2 }, { s: 0 }] },
+  { id: 'little-turn', name: t('Little Turn'), root: 5,   spacing: 0.09, decay: 0.24, notes: [{ s: 0 }, { s: 2 }, { s: 0 }] },
   { id: 'bounce',      name: 'Bounce',      root: 0,   spacing: 0.1,  decay: 0.26, notes: [{ s: 0 }, { s: 12 }, { s: 0, g: 5 }] },
   { id: 'question',    name: 'Question?',   root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 5 }] },
   { id: 'pentatonic',  name: 'Pentatonic',  root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 2 }, { s: 7 }] },
@@ -122,13 +123,13 @@ const PATTERNS = Object.freeze(/** @type {ReadonlyArray<ChimePattern>} */ ([
   // ── Four notes ───────────────────────────────────────────────────────
   { id: 'sparkle',     name: 'Sparkle',     root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 12 }] },
   { id: 'skip',        name: 'Skip',        root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 7 }] },
-  { id: 'music-box',   name: 'Music Box',   root: 12,  spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: -5 }, { s: -8 }, { s: -12 }] },
+  { id: 'music-box',   name: t('Music Box'),   root: 12,  spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: -5 }, { s: -8 }, { s: -12 }] },
   { id: 'fountain',    name: 'Fountain',    root: 0,   spacing: 0.08, decay: 0.24, notes: [{ s: 0 }, { s: 7 }, { s: 12 }, { s: 16 }] },
   { id: 'wander',      name: 'Wander',      root: 0,   spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: 5 }, { s: 3 }, { s: 7 }] },
-  { id: 'pixie-dust',  name: 'Pixie Dust',  root: 7,   spacing: 0.08, decay: 0.22, notes: [{ s: 0 }, { s: 5 }, { s: 7 }, { s: 12 }] },
+  { id: 'pixie-dust',  name: t('Pixie Dust'),  root: 7,   spacing: 0.08, decay: 0.22, notes: [{ s: 0 }, { s: 5 }, { s: 7 }, { s: 12 }] },
   { id: 'staircase',   name: 'Staircase',   root: -5,  spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 11 }] },
   // Even whole steps — the scale with no leading note, so it never arrives anywhere.
-  { id: 'whole-tone',  name: 'Whole Tone',  root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 6 }] },
+  { id: 'whole-tone',  name: t('Whole Tone'),  root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 6 }] },
   // Stacked minor thirds: symmetrical, rootless, and faintly ominous.
   { id: 'diminished',  name: 'Diminished',  root: 0,   spacing: 0.09, decay: 0.28, notes: [{ s: 0 }, { s: 3 }, { s: 6 }, { s: 9 }] },
   // Wide alternating leaps that cross over themselves instead of climbing.
@@ -163,7 +164,7 @@ const SOUNDS = Object.freeze(/** @type {ReadonlyArray<ChimeSound>} */ ([
   // Metallic struck bell — inharmonic partials, the original voice.
   { id: 'bell',      name: 'Bell',       wave: 'sine',     partials: [[1, 1], [2.76, 0.18], [5.4, 0.08]], gain: 1 },
   // Bright, glassy, quick to fade — a wind-up music box.
-  { id: 'music-box', name: 'Music Box',  wave: 'sine',     partials: [[1, 1], [3, 0.3], [6, 0.14]], attack: 0.004, decayScale: 0.7, gain: 0.85 },
+  { id: 'music-box', name: t('Music Box'),  wave: 'sine',     partials: [[1, 1], [3, 0.3], [6, 0.14]], attack: 0.004, decayScale: 0.7, gain: 0.85 },
   // Woody mallet — the strong 4th-harmonic bar of a marimba, plucky and dry.
   { id: 'marimba',   name: 'Marimba',    wave: 'triangle', partials: [[1, 1], [4, 0.25], [10, 0.05]], attack: 0.004, decayScale: 0.8, gain: 0.9 },
   // Icy, shimmering, slightly inharmonic — struck glass with a long tail.
@@ -171,7 +172,7 @@ const SOUNDS = Object.freeze(/** @type {ReadonlyArray<ChimeSound>} */ ([
   // Plucked string — a filtered sawtooth with a short, snappy decay.
   { id: 'pluck',     name: 'Pluck',      wave: 'sawtooth', partials: [[1, 1]], attack: 0.004, decayScale: 0.55, gain: 0.5, lowpassRatio: 6 },
   // Clean, soft sine — the gentlest, least attention-grabbing voice.
-  { id: 'pure',      name: 'Pure Tone',  wave: 'sine',     partials: [[1, 1]], decayScale: 1.1, gain: 1.1 },
+  { id: 'pure',      name: t('Pure Tone'),  wave: 'sine',     partials: [[1, 1]], decayScale: 1.1, gain: 1.1 },
   // Stacked harmonics with a slow swell — a small reed organ.
   { id: 'organ',     name: 'Organ',      wave: 'sine',     partials: [[1, 1], [2, 0.5], [3, 0.3], [4, 0.15]], attack: 0.02, decayScale: 1.3, gain: 0.5 },
   // Chiptune blip — a rounded square wave, short and retro.
@@ -625,7 +626,7 @@ function audioContext() {
   // invisible here, and is handled by the media-element sink (see audioSink). We
   // still surface `interrupted` as the canary in case such a state ever occurs.
   if (ac.state === 'interrupted') {
-    areport('error', 'fresh AudioContext came up interrupted — OS audio session wedged below the web layer');
+    areport('error', t('fresh AudioContext came up interrupted — OS audio session wedged below the web layer'));
   }
   try {
     ac.onstatechange = () => {
@@ -635,7 +636,7 @@ function audioContext() {
       if (ac.state === 'running') { if (idleParkedCtx === ac) idleParkedCtx = null; }
       // Report only the OS parking the session live; routine suspend/resume churn
       // isn't worth an app-log line.
-      else if (ac.state === 'interrupted') areport('info', 'audio session parked (onstatechange → interrupted)');
+      else if (ac.state === 'interrupted') areport('info', t('audio session parked (onstatechange → interrupted)'));
       wakeContext(ac);
     };
   } catch { /* onstatechange unsettable — play-time recoverThenSchedule still covers it */ }
@@ -655,7 +656,7 @@ export function unlockAudio() {
   // idle-park (and cancel a pending one) so the resume/prime below can wake it.
   cancelIdlePark();
   let ac = audioContext();
-  if (!ac) { areport('error', 'unlockAudio: Web Audio unavailable'); return; }
+  if (!ac) { areport('error', t('unlockAudio: Web Audio unavailable')); return; }
   // Inside a user gesture we can afford the heavy hammer. If the context is stuck
   // past what resume() can fix — a `closed` context, or a stale `interrupted`
   // session — discard it and build a fresh one so this gesture (the settings
@@ -667,7 +668,7 @@ export function unlockAudio() {
     areport('info', `unlockAudio: context wedged (${ac.state}) — rebuilding to reset stuck state`);
     recreateContext();
     ac = audioContext();
-    if (!ac) { areport('error', 'unlockAudio: rebuild failed — Web Audio unavailable'); return; }
+    if (!ac) { areport('error', t('unlockAudio: rebuild failed — Web Audio unavailable')); return; }
   }
   // Start the media-element sink (Apple only) within this gesture so automatic
   // chimes can feed the already-playing element without a gesture of their own
@@ -740,7 +741,7 @@ export function recoverThenSchedule(ac, schedule, rebuild, { retries = RECOVER_R
     if (!rebuilt && isContextWedged(context)) {
       areport('info', `playChime: context wedged (${context.state}) — rebuilding`);
       const fresh = rebuild();
-      if (!fresh) { areport('error', 'playChime: rebuild failed — Web Audio unavailable'); return; }
+      if (!fresh) { areport('error', t('playChime: rebuild failed — Web Audio unavailable')); return; }
       attempt(fresh, triesLeft, true);
       return;
     }
@@ -776,7 +777,7 @@ export function playChime(params = {}) {
   // timer re-suspends it out from under this chime.
   cancelIdlePark();
   const ac = audioContext();
-  if (!ac) { areport('error', 'playChime: Web Audio unavailable — chime dropped'); return; }
+  if (!ac) { areport('error', t('playChime: Web Audio unavailable — chime dropped')); return; }
   const plan = mapChimeParams({ ...CHIME_DEFAULTS, ...params });
   if (ac.state === 'running') { scheduleChime(ac, plan); return; }
   recoverThenSchedule(

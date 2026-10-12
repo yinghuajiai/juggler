@@ -43,6 +43,7 @@
  * @module services/pinboard-link
  */
 
+import { t } from '../i18n/index.js';
 import wsService from './websocket.js';
 import api from './api.js';
 import pinboardStore from './pinboard-store.js';
@@ -292,11 +293,11 @@ export const ownerLink = {
    * @returns {Promise<string>} A complaint for the status line, or '' when it opened.
    */
   async detach(pinId, conversationId, pins, frame = null) {
-    if (!canLinkBoards()) return "Couldn't detach the board. This viewer has no address for one to answer.";
+    if (!canLinkBoards()) return t("Couldn't detach the board. This viewer has no address for one to answer.");
     // A board is a view of one conversation, fixed for its life. Without one
     // there is nothing for the window to be a view of, and it would open only to
     // say so.
-    if (!conversationId) return "Couldn't detach the board. There's no conversation for it to be a view of.";
+    if (!conversationId) return t("Couldn't detach the board. There's no conversation for it to be a view of.");
 
     const board = pinboardStore.newBoardId();
     try {
@@ -335,7 +336,7 @@ export const ownerLink = {
         await api.openPinboardWindow(wsService.viewerId, boardId, pinId, conversationId, frame);
       } catch (err) {
         // Already worded for the status line by the request's error prefix.
-        return extractErrorMessage(err) || "Couldn't open that board.";
+        return extractErrorMessage(err) || t("Couldn't open that board.");
       }
       return '';
     }
@@ -343,7 +344,7 @@ export const ownerLink = {
     // app's to use: sizing a tab is not a thing a page may do, and a popup that
     // could be sized is the window the user did not ask for.
     const opened = window.open(detachedBoardURL(boardId, pinId, conversationId), '_blank');
-    if (!opened) return "Couldn't open that board. The browser blocked the tab.";
+    if (!opened) return t("Couldn't open that board. The browser blocked the tab.");
     return '';
   },
 

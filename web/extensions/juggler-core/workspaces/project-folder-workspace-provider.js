@@ -65,13 +65,13 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
     name: 'Subfolder',
     version: '1.0.0',
     description: t('Conversations here work in a subfolder instead of the project root'),
-    setupLabel: 'A subfolder of this project',
+    setupLabel: t('A subfolder of this project'),
     recommendations: {
-      bestFor: 'one package, service or subrepo of a large project',
-      avoidFor: 'anything that needs the project left untouched — a copy does that',
+      bestFor: t('one package, service or subrepo of a large project'),
+      avoidFor: t('anything that needs the project left untouched — a copy does that'),
       notes: [
-        'Commands run in the folder. The rest of the project stays readable, which is what makes a monorepo usable from here.',
-        'Nothing is created and nothing is removed: the folder is yours, before and after.'
+        t('Commands run in the folder. The rest of the project stays readable, which is what makes a monorepo usable from here.'),
+        t('Nothing is created and nothing is removed: the folder is yours, before and after.')
       ]
     }
   };
@@ -155,16 +155,16 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
     if (this._form !== form || String(form.input?.value ?? '').trim() !== typed) return;
 
     if (!found?.exists) {
-      form.verdict = 'There is no such folder.';
+      form.verdict = t('There is no such folder.');
     } else if (!found.isDirectory) {
-      form.verdict = 'That is a file, not a folder.';
+      form.verdict = t('That is a file, not a folder.');
     } else {
       form.verdict = '';
     }
 
     showNote(
       form.note,
-      form.verdict || 'Commands run here. The rest of the project stays readable.',
+      form.verdict || t('Commands run here. The rest of the project stays readable.'),
       { error: Boolean(form.verdict), path: form.verdict ? '' : places.dir });
     this._report();
   }
@@ -279,7 +279,7 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
   async status(workspace, ctx) {
     void ctx;
     if (workspace.available === false) {
-      return { detail: 'The folder is missing.', available: false };
+      return { detail: t('The folder is missing.'), available: false };
     }
     return { available: true };
   }

@@ -95,7 +95,7 @@ class ImageFileViewer extends FileViewer {
    */
   async extract(source, ctx = {}) {
     if (!ctx.conversationId) {
-      return { warning: 'Image could not be attached for viewing (no conversation context).' };
+      return { warning: t('Image could not be attached for viewing (no conversation context).') };
     }
     try {
       const base64 = toBase64(await source.bytes());

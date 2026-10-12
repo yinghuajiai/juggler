@@ -41,7 +41,7 @@ import { compactConversation, isCompactionPending } from 'juggler/model';
 class HandoffCommandType extends CommandType {
   static MANIFEST = {
     id: 'handoff',
-    name: 'Summarise this conversation into a new one',
+    name: t('Summarise this conversation into a new one'),
     version: '1.0.0',
     description: t('Summarise this conversation into a new one to continue work'),
     icon: 'icon-compact'

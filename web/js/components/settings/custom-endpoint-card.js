@@ -343,7 +343,7 @@ function buildNameField(endpoint, saveFields) {
   const { wrapper, input } = wrappedInput({
     value: endpoint.displayName || '',
     placeholder: endpoint.id,
-    ariaLabel: 'Name shown in the model picker',
+    ariaLabel: t('Name shown in the model picker'),
     className: 'custom-endpoint-name-input',
   });
   field.body.appendChild(wrapper);
@@ -366,11 +366,11 @@ function buildNameField(endpoint, saveFields) {
  * @returns {HTMLElement} The field.
  */
 function buildURLField(endpoint, saveFields) {
-  const field = subfield('Base URL');
+  const field = subfield(t('Base URL'));
   const { wrapper, input } = wrappedInput({
     value: endpoint.url || '',
     placeholder: 'https://gateway.example.com/v1',
-    ariaLabel: 'Base URL',
+    ariaLabel: t('Base URL'),
     className: 'custom-endpoint-url-input',
   });
   field.body.appendChild(wrapper);
@@ -396,7 +396,7 @@ function buildURLField(endpoint, saveFields) {
  * @returns {HTMLElement} The field.
  */
 function buildHeadersField(endpoint, saveFields) {
-  const field = subfield('Request headers');
+  const field = subfield(t('Request headers'));
   const rows = document.createElement('div');
   rows.className = 'custom-endpoint-headers';
   field.body.appendChild(rows);
@@ -409,7 +409,7 @@ function buildHeadersField(endpoint, saveFields) {
       const value = /** @type {HTMLInputElement} */ (row.querySelector('.custom-endpoint-header-value')).value;
       if (!key) {
         if (value.trim()) {
-          field.setStatus('Every header needs a name.', 'error');
+          field.setStatus(t('Every header needs a name.'), 'error');
           return;
         }
         continue;
@@ -430,7 +430,7 @@ function buildHeadersField(endpoint, saveFields) {
     row.className = 'custom-endpoint-header-row';
 
     const name = wrappedInput({
-      value: key, placeholder: t('X-Tenant'), ariaLabel: 'Header name', className: 'custom-endpoint-header-name',
+      value: key, placeholder: t('X-Tenant'), ariaLabel: t('Header name'), className: 'custom-endpoint-header-name',
     });
     const val = wrappedInput({
       value, placeholder: 'value', ariaLabel: `Value for header ${key || 'being added'}`, className: 'custom-endpoint-header-value',
@@ -485,7 +485,7 @@ function buildHeadersField(endpoint, saveFields) {
  * @returns {{element: HTMLElement, refresh: () => void}} The field and its updater.
  */
 function buildKeyField(endpoint, ctx) {
-  const field = subfield('API key');
+  const field = subfield(t('API key'));
   const fromEnv = endpoint.keySource === 'env';
 
   const wrapper = document.createElement('div');
@@ -496,7 +496,7 @@ function buildKeyField(endpoint, ctx) {
   // No settings-value-input: that class marks the non-secret values the panel
   // keeps across a close, and a typed key is neither.
   input.className = 'custom-endpoint-key-input';
-  input.setAttribute('aria-label', 'API key');
+  input.setAttribute('aria-label', t('API key'));
   input.autocomplete = 'off';
   input.setAttribute('autocorrect', 'off');
   input.setAttribute('autocapitalize', 'off');
@@ -653,13 +653,13 @@ export function buildAddEndpointForm(ctx) {
 
   const nameField = subfield('Name');
   const name = wrappedInput({
-    placeholder: t('Acme Gateway'), ariaLabel: 'Name shown in the model picker', className: 'custom-endpoint-add-name',
+    placeholder: t('Acme Gateway'), ariaLabel: t('Name shown in the model picker'), className: 'custom-endpoint-add-name',
   });
   nameField.body.appendChild(name.wrapper);
 
-  const urlField = subfield('Base URL');
+  const urlField = subfield(t('Base URL'));
   const url = wrappedInput({
-    placeholder: 'https://gateway.example.com/v1', ariaLabel: 'Base URL', className: 'custom-endpoint-add-url',
+    placeholder: 'https://gateway.example.com/v1', ariaLabel: t('Base URL'), className: 'custom-endpoint-add-url',
   });
   urlField.body.appendChild(url.wrapper);
 
@@ -691,7 +691,7 @@ export function buildAddEndpointForm(ctx) {
     const label = name.input.value.trim();
     const baseURL = url.input.value.trim();
     if (!baseURL) {
-      urlField.setStatus('A base URL is required.', 'error');
+      urlField.setStatus(t('A base URL is required.'), 'error');
       url.input.focus();
       return;
     }

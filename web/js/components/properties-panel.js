@@ -445,7 +445,7 @@ class PropertiesPanel extends HTMLElement {
     const section = document.createElement('properties-panel-section');
     contentArea.appendChild(section);
 
-    const header = this._createHeader('LLM Transaction', {
+    const header = this._createHeader(t('LLM Transaction'), {
       color: TRANSACTION_HEADER_COLOR,
       iconSvg: TRANSACTION_ICON_SVG
     });
@@ -458,7 +458,7 @@ class PropertiesPanel extends HTMLElement {
     // queued messages — were never part of a round-trip. That is a fact about
     // the item, not a missing blob, so say so and skip the fetch.
     if (!mode.transactionId) {
-      renderTransactionDetail(body, null, 'Not part of a round-trip.');
+      renderTransactionDetail(body, null, t('Not part of a round-trip.'));
       return;
     }
 
@@ -880,7 +880,7 @@ class PropertiesPanel extends HTMLElement {
     btn.type = 'button';
     btn.className = 'properties-panel-header-icon-btn';
     btn.title = t('View the LLM input/output for this round-trip');
-    btn.setAttribute('aria-label', 'View transaction');
+    btn.setAttribute('aria-label', t('View transaction'));
     btn.innerHTML = TRANSACTION_ICON_SVG;
     btn.addEventListener('click', (e) => {
       e.stopPropagation();

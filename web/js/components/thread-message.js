@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { wrapWithIcon } from '../utils/icon-message-renderer.js';
 import { badgeForItem } from '../utils/item-badge.js';
 import { getThreadStatus, getThreadDisplayContent, paintThreadSummary, paintThreadStatusText, threadCostFigures,
@@ -263,8 +264,8 @@ class ThreadMessage extends HTMLElement {
         // action it does not perform.
         (msgEl || body).appendChild(this._buildStopButton(
           status?.openRun === true
-            ? 'Stop waiting for this thread'
-            : 'Stop this thread'
+            ? t('Stop waiting for this thread')
+            : t('Stop this thread')
         ));
       }
 

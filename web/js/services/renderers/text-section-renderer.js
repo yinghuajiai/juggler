@@ -9,6 +9,7 @@
  * Produces {text: string, sections: ContextSection[]} format with offset tracking.
  */
 
+import { t } from '../../i18n/index.js';
 import {
   isUserMessage,
   isAssistantMessage,
@@ -89,7 +90,7 @@ export class TextSectionRenderer {
     // 1. System Prompt
     const systemPrompt = await builder.getSystemPrompt();
     if (systemPrompt) {
-      addSection('system', 'System Prompt', systemPrompt);
+      addSection('system', t('System Prompt'), systemPrompt);
       addSection('separator', '', '\n---\n');
     }
 
@@ -109,11 +110,11 @@ export class TextSectionRenderer {
     );
 
     // 4. Context Items Section
-    const itemsHeader = '\n' + this._heading('Current Context Items', 2) + '\n';
-    addSection('context-items-header', 'Current Context Items', itemsHeader);
+    const itemsHeader = '\n' + this._heading(t('Current Context Items'), 2) + '\n';
+    addSection('context-items-header', t('Current Context Items'), itemsHeader);
 
     if (contextItemToolResults.length === 0) {
-      addSection('context-items-empty', '(No active context items)', '(No active context items)');
+      addSection('context-items-empty', t('(No active context items)'), t('(No active context items)'));
     } else {
       let itemIndex = 0;
       for (const ciMsg of contextItemToolResults) {
@@ -134,8 +135,8 @@ export class TextSectionRenderer {
 
     // 5. Conversation History
     if (conversationMessages.length > 0) {
-      const conversationHeader = '\n' + this._heading('Conversation History', 2) + '\n';
-      addSection('conversation-header', 'Conversation History', conversationHeader);
+      const conversationHeader = '\n' + this._heading(t('Conversation History'), 2) + '\n';
+      addSection('conversation-header', t('Conversation History'), conversationHeader);
 
       conversationMessages.forEach((msg, index) => {
         let messageContent = '';

@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * DOM animation helpers. Pure UI affordances — no-ops when there's no document
  * (e.g. the headless engine worker).
@@ -35,7 +37,7 @@ export function animateContextItemRefresh(itemId) {
     void refreshBtn.offsetWidth;
   }
   // Apply spin animation (2 full rotations over 0.6s)
-  refreshBtn.style.animation = 'spin 0.6s ease-in-out';
+  refreshBtn.style.animation = t('spin 0.6s ease-in-out');
 
   // Clean up animation after it completes
   setTimeout(() => {

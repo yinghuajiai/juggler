@@ -20,6 +20,7 @@
  * @module item-badge
  */
 
+import { t } from '../i18n/index.js';
 import { TYPE_ICONS, TYPE_COLORS } from './icon-message-renderer.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import { yGet } from '../model/item-accessor.js';
@@ -234,7 +235,7 @@ function toolActionStatusArgs(item, ctx) {
  */
 export function typeNameForItem(item, ctx = {}) {
   if (isContextItemInstance(item)) {
-    const fallback = item.getManifest?.()?.name || item.type || 'Context Item';
+    const fallback = item.getManifest?.()?.name || item.type || t('Context Item');
     return pluginTypeName(item, item.constructor, [], fallback);
   }
 
@@ -245,9 +246,9 @@ export function typeNameForItem(item, ctx = {}) {
     // explanation the row prints beside this lozenge, and the panel prints the
     // same pair.
     case 'notice': return NOTICE_TYPE_NAME;
-    case 'user': return 'User Message';
+    case 'user': return t('User Message');
     case 'thinking': return 'Thinking';
-    case 'assistant': return 'Assistant Message';
+    case 'assistant': return t('Assistant Message');
     case 'thread': {
       // A compaction fold is a thread by construction, but it is not work the
       // user asked for: it stands where the folded history began and is the way
@@ -266,15 +267,15 @@ export function typeNameForItem(item, ctx = {}) {
       const toolName = item.get('toolName');
       const ActionClass = actionClassFor(item);
       const instance = ActionClass ? makeInstance(ActionClass, ctx) : null;
-      return pluginTypeName(instance, ActionClass, toolActionStatusArgs(item, ctx), toolName || 'Tool Action');
+      return pluginTypeName(instance, ActionClass, toolActionStatusArgs(item, ctx), toolName || t('Tool Action'));
     }
     case 'context-item': {
       const inst = ctx.messageThread?.getContextItem?.(item.get('itemId'));
       if (inst) {
-        const fallback = inst.getManifest?.()?.name || inst.type || 'Context Item';
+        const fallback = inst.getManifest?.()?.name || inst.type || t('Context Item');
         return pluginTypeName(inst, inst.constructor, [], fallback);
       }
-      return item.get?.('type') || 'Context Item';
+      return item.get?.('type') || t('Context Item');
     }
     default:
       return 'Message';

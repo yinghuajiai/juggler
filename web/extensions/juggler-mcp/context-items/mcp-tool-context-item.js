@@ -218,10 +218,10 @@ try {
 class McpToolContextItem extends ContextItem {
   static MANIFEST = {
     id: ITEM_TYPE,
-    name: 'MCP Tools',
+    name: _t('MCP Tools'),
     version: '1.0.0',
     description: _t('Tools provided by connected MCP (Model Context Protocol) servers'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     requiresApproval: true
   };
 
@@ -421,7 +421,7 @@ class McpToolContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'MCP tool call failed');
+      return this.failureSummary(outcome.error || _t('MCP tool call failed'));
     }
     const result = /** @type {{content: any[], isError: boolean, text: string}} */ (outcome.result || {});
     let text = result.text || '';
@@ -446,7 +446,7 @@ class McpToolContextItem extends ContextItem {
   getStatusUI(actionStatus, toolInput) {
     void toolInput;
     const info = this._target().info;
-    const label = info ? `${info.server}: ${info.title || info.name}` : (this.toolName || 'MCP tool');
+    const label = info ? `${info.server}: ${info.title || info.name}` : (this.toolName || _t('MCP tool'));
 
     return this.buildStatusUI(actionStatus, {
       typeName: 'MCP',

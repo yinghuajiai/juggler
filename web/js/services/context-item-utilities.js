@@ -13,6 +13,7 @@
  * belong on MessageThread itself.
  */
 
+import { t } from '../i18n/index.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import workerManager from './worker-manager.js';
 import { createContextItemMessage } from '../../sdk/lib/message.js';
@@ -120,7 +121,7 @@ export async function executeContextItem(mt, conv, itemTypeId, params, options =
   }
 
   if (!toolResult.success) {
-    const errorMessage = toolResult.error || 'Context item execution failed';
+    const errorMessage = toolResult.error || t('Context item execution failed');
     mt.addEvent(createContextItemMessage({ itemType: itemTypeId, error: errorMessage, isNew: true }));
     return { id: null, type: itemTypeId, created: false, error: errorMessage };
   }
@@ -215,7 +216,7 @@ export async function executeContextItemIntoPending(mt, conv, itemTypeId, params
   }
 
   if (!toolResult.success) {
-    const errorMessage = toolResult.error || 'Context item execution failed';
+    const errorMessage = toolResult.error || t('Context item execution failed');
     mt.addEvent(createContextItemMessage({ itemType: itemTypeId, error: errorMessage, isNew: true }));
     return { id: null, type: itemTypeId, created: false, error: errorMessage };
   }
@@ -394,7 +395,7 @@ export function findNeighborItemId(items, deletedIndex, messageThread) {
  * Text a reused context item's original tool-action shows once the item has
  * moved on to its new position.
  */
-const REPOSITIONED_PLACEHOLDER = '(context item was repositioned)';
+const REPOSITIONED_PLACEHOLDER = t('(context item was repositioned)');
 
 /**
  * @param {Conversation} conv

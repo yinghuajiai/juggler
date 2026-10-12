@@ -312,7 +312,7 @@ class ProjectFilesPin extends PinboardItemType {
   /** @type {import('juggler/pinboard-item-type').PinboardItemManifest} */
   static MANIFEST = {
     id: 'project-files',
-    name: 'Project files',
+    name: t('Project files'),
     version: '1.0.0',
     description: t("The project's files, as a tree"),
     // One project, so one tree. A second would be the same tree twice.
@@ -325,7 +325,7 @@ class ProjectFilesPin extends PinboardItemType {
    * @returns {true|string} True when a project is open.
    */
   canAdd(active) {
-    return active?.project?.path ? true : 'No project';
+    return active?.project?.path ? true : t('No project');
   }
 
   /**
@@ -383,7 +383,7 @@ class ProjectFilesPin extends PinboardItemType {
     const body = createElement('div', 'project-files-pin');
     const list = createElement('div', 'project-files-pin__list');
     list.setAttribute('role', 'tree');
-    list.setAttribute('aria-label', 'Project files');
+    list.setAttribute('aria-label', t('Project files'));
     const status = createElement('div', 'project-files-pin__status');
     container.replaceChildren(body);
 
@@ -660,7 +660,7 @@ class ProjectFilesPin extends PinboardItemType {
       // project, not something to flash at someone who has one.
       const lead = root
         ? list
-        : (body.querySelector('.pin-empty') || pinEmpty("The project's files appear here."));
+        : (body.querySelector('.pin-empty') || pinEmpty(t("The project's files appear here.")));
       if (body.firstChild !== lead) body.replaceChildren(lead);
 
       if (statusText) {

@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * How far the app has got through starting up: the registries, the socket, the
  * session, and then done. One state for the whole of it, so the UI that covers
@@ -29,9 +31,9 @@
  */
 const PHASE_LABELS = Object.freeze({
   starting: '',
-  extensions: 'Loading extensions',
+  extensions: t('Loading extensions'),
   connecting: 'Connecting',
-  session: 'Loading session',
+  session: t('Loading session'),
   ready: ''
 });
 

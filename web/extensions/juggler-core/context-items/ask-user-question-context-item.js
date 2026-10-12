@@ -32,7 +32,7 @@ function optionRow(label, description, selected, extraClass = '') {
   const tick = document.createElement('span');
   tick.className = selected ? 'tick-box option-tick checked' : 'tick-box option-tick';
   tick.setAttribute('role', 'img');
-  tick.setAttribute('aria-label', selected ? 'Chosen' : 'Not chosen');
+  tick.setAttribute('aria-label', selected ? 'Chosen' : t('Not chosen'));
   const tickIcon = document.createElement('span');
   tickIcon.className = 'tick-box-mark icon-check';
   tick.appendChild(tickIcon);
@@ -109,10 +109,10 @@ class AskUserQuestionContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'ask-user-question',
-    name: 'Ask User Question',
+    name: t('Ask User Question'),
     version: '1.0.0',
     description: t('Ask the user questions with structured options'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: true,
     // This tool's approval surface is a data-entry form, not a go/no-go gate:
     // the user's submission IS the tool's answer. Declaring it an elicitation
@@ -206,15 +206,15 @@ class AskUserQuestionContextItem extends ContextItem {
     const params = /** @type {AskUserQuestionParams} */ (toolInput);
 
     if (!params.questions || !Array.isArray(params.questions)) {
-      return { valid: false, error: 'Missing required parameter: questions' };
+      return { valid: false, error: t('Missing required parameter: questions') };
     }
 
     if (params.questions.length === 0) {
-      return { valid: false, error: 'At least one question is required' };
+      return { valid: false, error: t('At least one question is required') };
     }
 
     if (params.questions.length > 4) {
-      return { valid: false, error: 'Maximum 4 questions allowed' };
+      return { valid: false, error: t('Maximum 4 questions allowed') };
     }
 
     // Validate each question
@@ -309,7 +309,7 @@ class AskUserQuestionContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to get user response');
+      return this.failureSummary(outcome.error || t('Failed to get user response'));
     }
 
     const result = /** @type {AskUserQuestionResult} */ (outcome.result);
@@ -325,7 +325,7 @@ class AskUserQuestionContextItem extends ContextItem {
       }
     }
 
-    return this.successSummary(lines.join('\n') || 'No answers provided');
+    return this.successSummary(lines.join('\n') || t('No answers provided'));
   }
 
   /**
@@ -366,7 +366,7 @@ class AskUserQuestionContextItem extends ContextItem {
         }
         return answerEntries.length > 1
           ? `Answered ${answerEntries.length} questions`
-          : 'No answer provided';
+          : t('No answer provided');
       }
     });
   }
@@ -425,7 +425,7 @@ class AskUserQuestionContextItem extends ContextItem {
       // model's labels. Render it as one more ticked option carrying the text.
       const optionLabels = new Set(q.options.map(o => o.label));
       for (const custom of selectedLabels.filter(l => l && !optionLabels.has(l))) {
-        optionsList.appendChild(optionRow(custom, 'Your own answer', true, 'custom-answer'));
+        optionsList.appendChild(optionRow(custom, t('Your own answer'), true, 'custom-answer'));
       }
 
       questionBlock.appendChild(optionsList);

@@ -86,10 +86,10 @@ class MemoryContextItem extends ContextItem {
   /** @type {import('juggler/context-item').ContextItemManifest} */
   static MANIFEST = {
     id: 'memory',
-    name: 'Project Memory',
+    name: t('Project Memory'),
     version: '1.0.0',
     description: t('Durable, user-visible project memory the assistant maintains across conversations'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     idPrefix: 'MEM',
     requiresApproval: false,
     userAddable: false,
@@ -186,7 +186,7 @@ class MemoryContextItem extends ContextItem {
 
   /** @returns {string} Item title */
   getTitle() {
-    return 'Project Memory';
+    return t('Project Memory');
   }
 
   /**
@@ -366,17 +366,17 @@ class MemoryContextItem extends ContextItem {
   async validate(toolInput) {
     const action = toolInput.action;
     if (action !== 'remember' && action !== 'forget') {
-      return { valid: false, error: 'Parameter "action" must be "remember" or "forget"' };
+      return { valid: false, error: t('Parameter "action" must be "remember" or "forget"') };
     }
     if (action === 'remember') {
       const fact = toolInput.fact;
       if (typeof fact !== 'string' || fact.trim() === '') {
-        return { valid: false, error: 'remember requires a non-empty "fact"' };
+        return { valid: false, error: t('remember requires a non-empty "fact"') };
       }
     } else {
       const match = toolInput.match;
       if (typeof match !== 'string' || match === '') {
-        return { valid: false, error: 'forget requires a "match" string' };
+        return { valid: false, error: t('forget requires a "match" string') };
       }
     }
     return { valid: true, params: toolInput };
@@ -475,7 +475,7 @@ class MemoryContextItem extends ContextItem {
     // Standing store card: state, not an event. Names what it is and that it
     // reaches the model, so it never reads as a duplicate of the action below.
     if (!actionStatus) {
-      return { typeName: 'Project Memory', summary: t('Durable facts — in context since this conversation began') };
+      return { typeName: t('Project Memory'), summary: t('Durable facts — in context since this conversation began') };
     }
     // Tool-action row: the write event. A verb typeName ('Remember'/'Forget')
     // plus the edit badge distinguishes it from the 'Project Memory' store.
@@ -533,7 +533,7 @@ class MemoryContextItem extends ContextItem {
       const banner = createElement(
         'div',
         `memory-action-banner ${result.cancelled ? 'cancelled' : 'error'}`,
-        result.cancelled ? 'Cancelled' : (fullResult.error || result.content || 'Memory update failed')
+        result.cancelled ? 'Cancelled' : (fullResult.error || result.content || t('Memory update failed'))
       );
       panel.appendChild(banner);
       wrapper.appendChild(panel);
@@ -547,7 +547,7 @@ class MemoryContextItem extends ContextItem {
         : (typeof data.removedCount === 'number' ? data.removedCount : null);
 
       if (removedCount === 0) {
-        panel.appendChild(verbChip('No change', 'remove'));
+        panel.appendChild(verbChip(t('No change'), 'remove'));
         panel.appendChild(factBlock(`No memory entry matched “${match}”.`, 'muted'));
       } else {
         panel.appendChild(verbChip('Forgot', 'remove'));
@@ -568,7 +568,7 @@ class MemoryContextItem extends ContextItem {
 
     const entryCount = typeof data.entryCount === 'number' ? data.entryCount : null;
     const note = entryCount === null
-      ? 'Project memory is carried into every new conversation.'
+      ? t('Project memory is carried into every new conversation.')
       : `Project memory now holds ${entryCount} ${entryCount === 1 ? 'fact' : 'facts'}. New conversations start with all of them.`;
     panel.appendChild(createElement('div', 'memory-action-note', note));
 
@@ -606,7 +606,7 @@ class MemoryContextItem extends ContextItem {
 
     if (entries.length === 0) {
       container.appendChild(
-        createElement('div', 'memory-empty', 'No facts recorded yet.')
+        createElement('div', 'memory-empty', t('No facts recorded yet.'))
       );
       return;
     }

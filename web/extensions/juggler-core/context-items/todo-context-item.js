@@ -52,19 +52,19 @@ class TodoContextItem extends ContextItem {
    */
   static MANIFEST = {
     id: 'todo',
-    name: 'Todo list',
+    name: _t('Todo list'),
     version: '1.0.0',
     description: _t('Lightweight todo checklist the assistant tracks during multi-step work'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     idPrefix: 'TODO',
     requiresApproval: false,
     contextPosition: 'none',
     syntheticToolName: 'todo',
     exampleData: {
       todos: [
-        { content: 'Read the existing auth middleware', status: 'completed' },
-        { content: 'Add a token-refresh endpoint', status: 'in_progress' },
-        { content: 'Write tests for the refresh flow', status: 'pending' }
+        { content: _t('Read the existing auth middleware'), status: 'completed' },
+        { content: _t('Add a token-refresh endpoint'), status: 'in_progress' },
+        { content: _t('Write tests for the refresh flow'), status: 'pending' }
       ]
     }
   };
@@ -203,7 +203,7 @@ class TodoContextItem extends ContextItem {
     const todos = this.data.todos || [];
     const total = todos.length;
     if (total === 0) {
-      return 'No todos';
+      return _t('No todos');
     }
     return `${this._countByStatus('completed')}/${total} completed`;
   }
@@ -254,7 +254,7 @@ class TodoContextItem extends ContextItem {
     const container = createElement('div', 'ci-expanded');
     const todos = this.data.todos || [];
     if (todos.length === 0) {
-      container.appendChild(createEmptyState('No todos yet', ''));
+      container.appendChild(createEmptyState(_t('No todos yet'), ''));
       return container;
     }
     const section = document.createElement('properties-panel-subsection');
@@ -279,12 +279,12 @@ class TodoContextItem extends ContextItem {
       try {
         todos = JSON.parse(todos);
       } catch {
-        return { valid: false, error: 'todos parameter is not valid JSON' };
+        return { valid: false, error: _t('todos parameter is not valid JSON') };
       }
     }
 
     if (!todos || !Array.isArray(todos)) {
-      return { valid: false, error: 'Missing required parameter: todos (must be array)' };
+      return { valid: false, error: _t('Missing required parameter: todos (must be array)') };
     }
 
     const normalized = [];

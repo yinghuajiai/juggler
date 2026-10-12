@@ -80,7 +80,7 @@ class PlanContextItem extends ContextItem {
     name: 'Plan',
     version: '4.0.0',
     description: t('Implementation plan with step tracking and sub-thread orchestration'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: true,
     // 'none': the plan is not re-injected into the trailing tail every turn.
     // Its full state is already durable in the model's own tool_use history — the
@@ -93,9 +93,9 @@ class PlanContextItem extends ContextItem {
       title: t('Implement User Authentication'),
       status: 'executing',
       steps: [
-        { content: 'Create user model in `models/user.js`', status: 'completed', threadItemId: null, result: 'Created User model with email and password fields' },
-        { content: 'Add login endpoint in `routes/auth.js`', status: 'in_progress', threadItemId: null, result: null },
-        { content: 'Write tests in `tests/auth.test.js`', status: 'pending', threadItemId: null, result: null }
+        { content: t('Create user model in `models/user.js`'), status: 'completed', threadItemId: null, result: t('Created User model with email and password fields') },
+        { content: t('Add login endpoint in `routes/auth.js`'), status: 'in_progress', threadItemId: null, result: null },
+        { content: t('Write tests in `tests/auth.test.js`'), status: 'pending', threadItemId: null, result: null }
       ]
     }
   };
@@ -129,7 +129,7 @@ class PlanContextItem extends ContextItem {
    * @returns {string} Display title
    */
   static getToolActionTitle(toolInput) {
-    return (toolInput?.action || 'submit') === 'submit' ? 'Plan' : 'Update plan';
+    return (toolInput?.action || 'submit') === 'submit' ? 'Plan' : t('Update plan');
   }
 
   // ============================================================================
@@ -299,7 +299,7 @@ class PlanContextItem extends ContextItem {
     const completed = this._countByStatus('completed');
 
     if (total === 0) {
-      return 'No steps';
+      return t('No steps');
     }
 
     return `${completed}/${total} completed`;
@@ -314,7 +314,7 @@ class PlanContextItem extends ContextItem {
 
     const steps = this.data.steps || [];
     if (steps.length === 0) {
-      const empty = createEmptyState('No plan steps yet', '');
+      const empty = createEmptyState(t('No plan steps yet'), '');
       container.appendChild(empty);
       return container;
     }
@@ -376,7 +376,7 @@ class PlanContextItem extends ContextItem {
     const action = /** @type {string|undefined} */ (toolInput.action);
 
     if (!action) {
-      return { valid: false, error: 'Missing required parameter: action' };
+      return { valid: false, error: t('Missing required parameter: action') };
     }
 
     if (action === 'submit') {
@@ -412,7 +412,7 @@ class PlanContextItem extends ContextItem {
     // Title: weaker models sometimes omit it or name it differently. A plan
     // without a title is still a usable plan, so default rather than reject.
     const rawTitle = toolInput.title ?? toolInput.name ?? toolInput.plan_title;
-    const title = typeof rawTitle === 'string' && rawTitle.trim() ? rawTitle : 'Implementation Plan';
+    const title = typeof rawTitle === 'string' && rawTitle.trim() ? rawTitle : t('Implementation Plan');
 
     // Items: the tool param is `items`, but the stored shape, the PlanData
     // typedef, and the rendered plan context all call them `steps`, so a model
@@ -424,16 +424,16 @@ class PlanContextItem extends ContextItem {
       try {
         items = JSON.parse(items);
       } catch {
-        return { valid: false, error: 'Items parameter is not valid JSON' };
+        return { valid: false, error: t('Items parameter is not valid JSON') };
       }
     }
 
     if (!items || !Array.isArray(items)) {
-      return { valid: false, error: 'Missing required parameter: items (must be array)' };
+      return { valid: false, error: t('Missing required parameter: items (must be array)') };
     }
 
     if (items.length === 0) {
-      return { valid: false, error: 'Plan must have at least one step' };
+      return { valid: false, error: t('Plan must have at least one step') };
     }
 
     // Validate each item and normalize to step format
@@ -497,7 +497,7 @@ class PlanContextItem extends ContextItem {
     // undocumented aliases kept for resilience.
     const rawIndex = toolInput.index ?? toolInput.id ?? toolInput.item;
     if (rawIndex === undefined || rawIndex === null) {
-      return { valid: false, error: 'Missing required parameter: index' };
+      return { valid: false, error: t('Missing required parameter: index') };
     }
 
     if (!Number.isInteger(rawIndex) || /** @type {number} */ (rawIndex) < 1) {
@@ -889,8 +889,8 @@ class PlanContextItem extends ContextItem {
 
     if (outcome.cancelled) {
       return this.failureSummary(`Plan cancelled: ${prepTitle}`, {
-        details: 'You can revise the plan and resubmit.',
-        feedbackForLLM: 'The user wants to discuss the plan further. Ask them what changes they would like, then revise and resubmit.'
+        details: t('You can revise the plan and resubmit.'),
+        feedbackForLLM: t('The user wants to discuss the plan further. Ask them what changes they would like, then revise and resubmit.')
       });
     }
 
@@ -969,7 +969,7 @@ class PlanContextItem extends ContextItem {
     const isStepAction = action !== 'submit';
     // "submit" creates/replaces the plan; the step actions change it. Badge each
     // for what it does so creation and update aren't both just "Plan".
-    const typeName = isStepAction ? 'Update plan' : 'Plan';
+    const typeName = isStepAction ? t('Update plan') : 'Plan';
 
     // Get plan data from displayData (set during prepare)
     const planData = /** @type {any} */ (actionStatus)?.displayData?.planData ||
@@ -1130,7 +1130,7 @@ class PlanContextItem extends ContextItem {
     } else if (action !== 'submit') {
       return { skipResultSection: true };
     } else {
-      helpers.addSubsection(wrapper, 'Action', 'Submit plan', 'properties-panel-code');
+      helpers.addSubsection(wrapper, 'Action', t('Submit plan'), 'properties-panel-code');
     }
   }
 }

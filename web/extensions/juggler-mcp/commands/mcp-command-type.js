@@ -21,7 +21,7 @@ import { extractErrorMessage } from 'juggler/ui';
 class McpCommandType extends CommandType {
   static MANIFEST = {
     id: 'mcp',
-    name: 'MCP Servers',
+    name: t('MCP Servers'),
     version: '1.0.0',
     description: t('List and control connected MCP servers'),
     icon: 'icon-search'
@@ -73,7 +73,7 @@ class McpCommandType extends CommandType {
   static async _list() {
     const { servers } = await mcpListServers();
     if (!servers || servers.length === 0) {
-      return 'No MCP servers configured. Add them to ~/.juggler/mcp.json or <project>/.juggler/mcp.json.';
+      return t('No MCP servers configured. Add them to ~/.juggler/mcp.json or <project>/.juggler/mcp.json.');
     }
     const lines = servers.map((s) => {
       const tok = s.schemaTokens ? ` · ~${McpCommandType._fmtTokens(s.schemaTokens)} tokens/request` : '';

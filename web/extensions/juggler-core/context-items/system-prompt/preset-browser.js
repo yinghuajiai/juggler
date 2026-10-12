@@ -117,10 +117,10 @@ function renderPresetMenu(item, dropdown, container) {
   // Footer actions.
   menu.appendChild(createElement('li', 'sp-preset-separator'));
 
-  menu.appendChild(buildActionItem(SP_ICON_PLUS, 'Save current text as preset…', () => {
+  menu.appendChild(buildActionItem(SP_ICON_PLUS, t('Save current text as preset…'), () => {
     saveCurrentAsPreset(item, dropdown, container);
   }));
-  menu.appendChild(buildActionItem(SP_ICON_GEAR, 'Manage presets…', () => {
+  menu.appendChild(buildActionItem(SP_ICON_GEAR, t('Manage presets…'), () => {
     closeDropdown(item);
     showManagePresets(item, container);
   }));
@@ -258,8 +258,8 @@ async function saveCurrentAsPreset(item, dropdown, container) {
       if (showChoice) {
         const choice = await showChoice(
           `"${existing.name}" is already a preset.`,
-          ['Update', 'Save as new\u2026', 'Cancel'],
-          'Save preset',
+          ['Update', t('Save as new\u2026'), 'Cancel'],
+          t('Save preset'),
           false
         );
         if (choice === 'Update') {
@@ -330,11 +330,11 @@ function showManagePresets(item, container) {
 
   const render = () => {
     const menu = document.createElement('menu');
-    menu.appendChild(buildCategoryHeader('Your presets'));
+    menu.appendChild(buildCategoryHeader(t('Your presets')));
 
     const userPresets = systemPromptRegistry.getPresetsByCategory('user');
     if (userPresets.length === 0) {
-      menu.appendChild(createElement('li', 'sp-preset-empty', 'No saved presets yet.'));
+      menu.appendChild(createElement('li', 'sp-preset-empty', t('No saved presets yet.')));
     }
 
     for (const preset of userPresets) {

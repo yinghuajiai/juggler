@@ -44,7 +44,7 @@ class GlobContextItem extends ContextItem {
     name: 'Glob',
     version: '1.0.0',
     description: t('Fast file pattern matching tool that works with any codebase size'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     // Approval-gated like read: the `pattern` is confined to `path` by the
     // backend, so only an out-of-root search `path` prompts. No path (cwd) or an
     // in-project path is auto-approved, so the common case is silent.
@@ -98,10 +98,10 @@ class GlobContextItem extends ContextItem {
     const params = /** @type {GlobParams} */ (toolInput);
 
     if (!params.pattern) {
-      return { valid: false, error: 'Missing required parameter: pattern' };
+      return { valid: false, error: t('Missing required parameter: pattern') };
     }
     if (typeof params.pattern !== 'string') {
-      return { valid: false, error: 'Parameter "pattern" must be a string' };
+      return { valid: false, error: t('Parameter "pattern" must be a string') };
     }
 
     // The backend escape-hatch flags (outOfRootApproved/userInitiated) are set by

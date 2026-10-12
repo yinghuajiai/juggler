@@ -89,7 +89,7 @@ export class UpdatesTab {
     const modeGroup = document.createElement('div');
     modeGroup.className = 'settings-form updates-mode-group';
     modeGroup.setAttribute('role', 'radiogroup');
-    modeGroup.setAttribute('aria-label', 'Update mode');
+    modeGroup.setAttribute('aria-label', t('Update mode'));
     for (const mode of MODES) {
       const row = document.createElement('label');
       row.className = 'settings-group provider-field updates-mode-row';
@@ -190,11 +190,11 @@ export class UpdatesTab {
       // so it is reported as what it is, never as the version being run.
       parts.push(latest
         ? `Latest release is ${latest}; a build from source is never offered updates.`
-        : 'A build from source is never offered updates.');
+        : t('A build from source is never offered updates.'));
     } else if (latest) {
       parts.push(`This is the latest version (${latest}).`);
     } else {
-      parts.push('No update information yet.');
+      parts.push(t('No update information yet.'));
     }
     // App-bundle / server skew: an in-app updater whose bundle version differs
     // from the viewed server (a server started outside the app), mirroring
@@ -277,7 +277,7 @@ export class UpdatesTab {
 
       const status = await fetchJson(apiUrl('/update-status/check'), { method: 'POST' });
       if (status.error) {
-        this._setStatus('Couldn’t reach the update server. Try again later.');
+        this._setStatus(t('Couldn’t reach the update server. Try again later.'));
       } else if (status.updateAvailable) {
         this._setStatus(`Version ${status.latestVersion || ''} is available.`.trim());
         // Surface the full dialog (with download/install affordances).
@@ -285,9 +285,9 @@ export class UpdatesTab {
       } else if (status.unpublished) {
         this._setStatus(status.latestVersion
           ? `Latest release is ${status.latestVersion}; a build from source is never offered updates.`
-          : 'A build from source is never offered updates.');
+          : t('A build from source is never offered updates.'));
       } else {
-        this._setStatus('You’re on the latest version.');
+        this._setStatus(t('You’re on the latest version.'));
       }
       const updater = await getUpdaterState();
       this._renderVersion(status, updater);

@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import strategyRegistry from '../registries/strategy-registry.js';
 import { REGISTRIES_RELOADED } from '../registries/reload-registries.js';
 import { presentInlineMenu } from '../utils/popup-surface.js';
@@ -677,7 +678,7 @@ class StrategySelector extends HTMLElement {
    */
   getCurrentStrategyName() {
     const strategy = this._strategies.find(s => s.id === this._buttonStrategyId());
-    return strategy ? strategy.manifest.name : 'Select Strategy';
+    return strategy ? strategy.manifest.name : _t('Select Strategy');
   }
 
   /**

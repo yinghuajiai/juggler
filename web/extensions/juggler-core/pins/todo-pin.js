@@ -40,7 +40,7 @@ class TodoPin extends PinboardItemType {
    * @returns {true|string} True when there is a conversation to read a list from.
    */
   canAdd(active) {
-    return active?.conversation ? true : 'No active conversation';
+    return active?.conversation ? true : t('No active conversation');
   }
 
   /**
@@ -73,7 +73,7 @@ class TodoPin extends PinboardItemType {
       itemType: 'todo',
       itemsOf: (data) => data?.todos || [],
       render: (_data, todos) => createTodoBlock(todos),
-      empty: 'If the conversation contains a TODO list, this shows its current state',
+      empty: t('If the conversation contains a TODO list, this shows its current state'),
     });
   }
 }

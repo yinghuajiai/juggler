@@ -258,7 +258,7 @@ class TasksPin extends PinboardItemType {
   /** @type {import('juggler/pinboard-item-type').PinboardItemManifest} */
   static MANIFEST = {
     id: 'tasks',
-    name: 'Background tasks',
+    name: t('Background tasks'),
     version: '1.0.0',
     description: t('Lists the background tasks this conversation is running'),
     order: 50,
@@ -270,7 +270,7 @@ class TasksPin extends PinboardItemType {
    * @returns {true|string} True when there is a conversation whose tasks to list.
    */
   canAdd(active) {
-    return active?.conversation ? true : 'No active conversation';
+    return active?.conversation ? true : t('No active conversation');
   }
 
   /**
@@ -361,7 +361,7 @@ class TasksPin extends PinboardItemType {
         // holds before anything has been asked would be a guess.
         const words = tasks === null
           ? 'Looking…'
-          : 'Commands left running in the background appear here.';
+          : t('Commands left running in the background appear here.');
         parts.push({
           key: 'empty',
           build: () => pinEmpty(''),

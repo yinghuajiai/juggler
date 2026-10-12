@@ -109,7 +109,7 @@ class MemoryPin extends PinboardItemType {
    * @returns {true|string} True when there is a project to read memory from.
    */
   canAdd(active) {
-    return active?.project?.path ? true : 'No project';
+    return active?.project?.path ? true : t('No project');
   }
 
   /**
@@ -175,10 +175,10 @@ class MemoryPin extends PinboardItemType {
         // An empty board is where most people meet memory for the first time, so
         // this says what the feature is rather than what the card would contain.
         body.replaceChildren(pinEmpty(
-          'Facts the assistant keeps about this project, in .juggler/MEMORY.md. '
+          t('Facts the assistant keeps about this project, in .juggler/MEMORY.md. '
           + 'Ask it to remember something — a build command, a convention, a decision '
           + 'you would rather not explain twice — and every conversation after this one '
-          + 'starts with it already read.',
+          + 'starts with it already read.'),
         ));
         return;
       }
@@ -193,7 +193,7 @@ class MemoryPin extends PinboardItemType {
         del.type = 'button';
         del.className = 'memory-delete icon-btn';
         del.title = t('Forget this');
-        del.setAttribute('aria-label', 'Delete memory item');
+        del.setAttribute('aria-label', t('Delete memory item'));
         del.innerHTML = '<span class="icon-trashcan"></span>';
         del.addEventListener('click', async (event) => {
           event.stopPropagation();

@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * The three things offered in a conversation nobody has said anything in yet.
  *
@@ -20,7 +22,7 @@
  * @type {readonly string[]}
  */
 export const STARTER_PROMPTS = Object.freeze([
-  'What can you do?',
-  'Give me a tour of this project',
-  'What should I work on first?',
+  t('What can you do?'),
+  t('Give me a tour of this project'),
+  t('What should I work on first?'),
 ]);

@@ -7,6 +7,7 @@
  * Provides consistent formatting for all status scenarios during LLM processing
  */
 
+import { t } from '../i18n/index.js';
 import { formatDuration, formatTokens } from '../utils/format.js';
 
 /**
@@ -210,7 +211,7 @@ export class StatusMessageBuilder {
    * @returns {string} Formatted status message
    */
   static buildPreparingStatus(data = {}) {
-    return this._withElapsed('Preparing request', data);
+    return this._withElapsed(t('Preparing request'), data);
   }
 
   /**
@@ -224,9 +225,9 @@ export class StatusMessageBuilder {
    */
   static buildWaitingStatus(data = {}) {
     const elapsed = data.elapsedTime ?? 0;
-    let label = 'Waiting for response';
-    if (elapsed >= RESTATE_AFTER_MS.waitingLong) label = 'Still nothing back';
-    else if (elapsed >= RESTATE_AFTER_MS.waitingQuiet) label = 'Nothing back yet';
+    let label = t('Waiting for response');
+    if (elapsed >= RESTATE_AFTER_MS.waitingLong) label = t('Still nothing back');
+    else if (elapsed >= RESTATE_AFTER_MS.waitingQuiet) label = t('Nothing back yet');
     return this._withElapsed(label, data);
   }
 
@@ -250,8 +251,8 @@ export class StatusMessageBuilder {
    */
   static buildProcessingToolsStatus(data = {}) {
     const label = (data.elapsedTime ?? 0) >= RESTATE_AFTER_MS.toolsLong
-      ? 'Tools still running'
-      : 'Waiting for tools to finish';
+      ? t('Tools still running')
+      : t('Waiting for tools to finish');
     return this._withElapsed(label, data);
   }
 
@@ -261,7 +262,7 @@ export class StatusMessageBuilder {
    * @returns {string} Formatted status message
    */
   static buildExecutingActionStatus(data = {}) {
-    return this._withElapsed('Running action', data);
+    return this._withElapsed(t('Running action'), data);
   }
 
   /**
@@ -287,7 +288,7 @@ export class StatusMessageBuilder {
    * @returns {string} Cancellation status message
    */
   static buildCancelledStatus() {
-    return 'Operation cancelled';
+    return t('Operation cancelled');
   }
 
   /**

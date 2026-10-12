@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { windowControlURL } from '../../sdk/lib/window-control.js';
 import { conversationAssetURL } from '../../sdk/file-source.js';
 import { getPaintedTheme, getMode } from '../utils/theme-manager.js';
@@ -429,7 +430,7 @@ class APIService {
       method: 'PUT',
       headers: { 'Content-Type': 'application/octet-stream' },
       body: yjsData,
-      errorPrefix: 'Failed to save conversation binary'
+      errorPrefix: t('Failed to save conversation binary')
     });
   }
 
@@ -639,7 +640,7 @@ class APIService {
     if (path) params.set('project', path);
     const url = windowControlURL('new', `?${params.toString()}`);
     if (!url) return; // no native host (browser tab) — nothing to open
-    await fetchJson(url, { method: 'POST', errorPrefix: 'Could not open a new window' });
+    await fetchJson(url, { method: 'POST', errorPrefix: t('Could not open a new window') });
   }
 
   /**
@@ -678,7 +679,7 @@ class APIService {
     }
     const url = windowControlURL('new', `?${params.toString()}`);
     if (!url) return; // no native host (browser tab) — nothing to open
-    await fetchJson(url, { method: 'POST', errorPrefix: "Couldn't open that board" });
+    await fetchJson(url, { method: 'POST', errorPrefix: t("Couldn't open that board") });
   }
 
   /**
@@ -723,7 +724,7 @@ class APIService {
       method: 'POST',
       headers: { 'Content-Type': file.type || 'application/octet-stream' },
       body: file,
-      errorPrefix: 'Asset upload failed'
+      errorPrefix: t('Asset upload failed')
     });
   }
 

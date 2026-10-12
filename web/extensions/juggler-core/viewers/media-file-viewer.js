@@ -168,7 +168,7 @@ class MediaFileViewer extends FileViewer {
     // macOS on HEVC, HEIC, TIFF…) says so rather than leaving a dead player.
     el.addEventListener('error', () => {
       el.replaceWith(note(kind === 'image'
-        ? 'This image format can’t be displayed here.'
+        ? t('This image format can’t be displayed here.')
         : `This ${kind} format can’t be played here.`));
     }, { once: true });
     host.appendChild(el);

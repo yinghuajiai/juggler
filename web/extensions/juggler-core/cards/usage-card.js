@@ -78,8 +78,8 @@ function providerLabel(providerName) {
  * @returns {string} Short user-facing error.
  */
 function usageErrorLabel(error) {
-  if (/sign-in not yet confirmed|not logged in/i.test(error)) return 'Not logged in';
-  return 'Couldn’t get usage';
+  if (/sign-in not yet confirmed|not logged in/i.test(error)) return t('Not logged in');
+  return t('Couldn’t get usage');
 }
 
 /**

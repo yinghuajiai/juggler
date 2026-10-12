@@ -587,7 +587,7 @@ export class SkillsTab {
    */
   async _install(entry, scope, target, mode) {
     if (!entry.name) {
-      await this._alert('This skill has no valid name to install under.');
+      await this._alert(_t('This skill has no valid name to install under.'));
       return;
     }
     try {
@@ -977,7 +977,7 @@ export class SkillsTab {
    * @private
    */
   async _removeSource(id) {
-    const ok = await this._confirm('Remove this source? Installed skills are unaffected.');
+    const ok = await this._confirm(_t('Remove this source? Installed skills are unaffected.'));
     if (!ok) return;
     try {
       await removeSource(id);

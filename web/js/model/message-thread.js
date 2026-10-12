@@ -9,6 +9,7 @@
  * pointing at different Y.Map containers, so consumers never need to ask
  * "am I root or thread?".
  */
+import { t } from '../i18n/index.js';
 import * as Y from '../vendor/yjs.mjs';
 import { plainToYMap, convertToYType } from './item-accessor.js';
 import { itemRunSettled, promoteThreadView } from './thread-alias.js';
@@ -1139,7 +1140,7 @@ export default class MessageThread {
 
       if (newState === TOOL_STATES.CANCELLED) {
         ymap.set('result', convertToYType({
-          content: 'Action was cancelled.',
+          content: t('Action was cancelled.'),
           isError: false,
           cancelled: true,
           fullResult: { state: ACTION_STATES.CANCELLED }
@@ -1175,7 +1176,7 @@ export default class MessageThread {
    * @returns {boolean} True when the refusal was written. False when the call is
    *   missing or has already left PENDING.
    */
-  refuseApproval(toolUseId, reason = 'Refused: this call needed approval and nothing here can grant it.') {
+  refuseApproval(toolUseId, reason = t('Refused: this call needed approval and nothing here can grant it.')) {
     const message = this.getToolAction(toolUseId);
     if (!message || message.get('state') !== TOOL_STATES.PENDING) return false;
 

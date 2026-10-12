@@ -12,7 +12,7 @@ import CommandType from 'juggler/command-type';
 class ClearCommandType extends CommandType {
   static MANIFEST = {
     id: 'clear',
-    name: 'Clear Conversation',
+    name: t('Clear Conversation'),
     version: '1.0.0',
     description: t('Clear conversation messages'),
     danger: true,

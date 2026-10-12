@@ -25,6 +25,7 @@
  * @module components/empty-hint-tips
  */
 
+import { t as _t } from '../i18n/index.js';
 import JugglerElement from './juggler-element.js';
 import keyShortcutManager from '../services/key-shortcut-manager.js';
 import { allTips, isSeen } from '../services/tips-manager.js';
@@ -132,7 +133,7 @@ class EmptyHintTips extends JugglerElement {
     btn.className = which === 'prev'
       ? 'btn-ghost empty-hint-tips__nav empty-hint-tips__nav--prev'
       : 'btn-ghost empty-hint-tips__nav empty-hint-tips__nav--next';
-    btn.setAttribute('aria-label', which === 'prev' ? 'Previous tip' : 'Next tip');
+    btn.setAttribute('aria-label', which === 'prev' ? _t('Previous tip') : _t('Next tip'));
     btn.innerHTML = chevron(which === 'prev' ? 'left' : 'right');
     btn.addEventListener('click', () => {
       this.step(which === 'prev' ? -1 : 1);

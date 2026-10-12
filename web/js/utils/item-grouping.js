@@ -39,6 +39,7 @@
  * @module utils/item-grouping
  */
 
+import { t } from '../i18n/index.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import { hasPendingApprovalInTree, hasUnsettledToolInTree } from '../model/thread-navigation.js';
 import { TOOL_STATES, isProviderStateMessage } from '../../sdk/lib/message.js';
@@ -400,7 +401,7 @@ export function getGroupStatus(members, live) {
       const state = m?.get?.('state');
       return state === TOOL_STATES.PENDING || state === 'awaiting_approval';
     }).length;
-    const message = waiting > 1 ? `${waiting} waiting for approval` : 'Waiting for approval';
+    const message = waiting > 1 ? `${waiting} waiting for approval` : t('Waiting for approval');
     return { kind: 'paused', goal, message, spinner: false };
   }
 

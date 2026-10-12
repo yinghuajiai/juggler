@@ -560,7 +560,7 @@ class PinboardPanel extends JugglerElement {
     popOut.type = 'button';
     popOut.className = 'btn-ghost pinboard-toolbar__popout';
     popOut.title = t('Open this board in its own window');
-    popOut.setAttribute('aria-label', 'Pop out Pinboard');
+    popOut.setAttribute('aria-label', t('Pop out Pinboard'));
     popOut.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="${POPOUT_ICON_PATH}"/></svg><span>Pop-out</span>`;
     popOut.hidden = !canLinkBoards();
     this.on(popOut, 'click', () => { void this._popOut(); });
@@ -574,7 +574,7 @@ class PinboardPanel extends JugglerElement {
     // should not have a private way of saying so.
     close.className = 'close-button';
     close.title = t('Close Pinboard');
-    close.setAttribute('aria-label', 'Close Pinboard');
+    close.setAttribute('aria-label', t('Close Pinboard'));
     close.innerHTML = '<span class="icon-close"></span>';
     this.on(close, 'click', () => pinboardView.close());
     controls.appendChild(close);
@@ -635,7 +635,7 @@ class PinboardPanel extends JugglerElement {
         const button = /** @type {HTMLButtonElement} */ (conversation);
         button.type = 'button';
         button.title = t('Show this conversation in the main window');
-        button.setAttribute('aria-label', 'Show this conversation in the main window');
+        button.setAttribute('aria-label', t('Show this conversation in the main window'));
         // Listeners rather than `this.on`: the node is replaced whenever the name
         // changes, and a per-render cleanup entry for a node already discarded
         // would be a list that only grows.

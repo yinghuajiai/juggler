@@ -220,13 +220,13 @@ export function createFileActions(path, options = {}) {
     open.type = 'button';
     open.className = 'properties-panel-filepath-btn';
     open.title = t('Open file');
-    open.setAttribute('aria-label', 'Open file');
+    open.setAttribute('aria-label', t('Open file'));
     open.innerHTML = OPEN_IN_NEW_SVG;
     open.addEventListener('click', () => { void openPath(path); });
     actions.appendChild(open);
   }
 
-  actions.appendChild(createCopyButton(path, 'properties-panel-filepath-btn', 'Copy path to clipboard'));
+  actions.appendChild(createCopyButton(path, 'properties-panel-filepath-btn', t('Copy path to clipboard')));
 
   const reveal = document.createElement('reveal-button');
   reveal.setAttribute('path', path);
@@ -241,7 +241,7 @@ export function createFileActions(path, options = {}) {
 }
 
 /** What pinning something is called, wherever it is offered. */
-const PIN_LABEL = 'Pin to Pinboard';
+const PIN_LABEL = t('Pin to Pinboard');
 
 /**
  * What a path looks like to the Pinboard: the live file, whatever surface named
@@ -326,7 +326,7 @@ export function createPinControl(source) {
 }
 
 /** What revealing an existing pin is called, wherever it is offered. */
-const SHOW_PIN_LABEL = 'Show on Pinboard';
+const SHOW_PIN_LABEL = t('Show on Pinboard');
 
 /**
  * A pin put on the board earlier, identified well enough to find it again or

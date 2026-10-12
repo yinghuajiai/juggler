@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import LoadingOverlay from './loading-overlay.js';
 
 /**
@@ -29,10 +30,10 @@ const OPENING_LINE = 'Reconnecting.';
  * @type {ReadonlyArray<{afterMs: number, line: string}>}
  */
 const MESSAGE_TIERS = Object.freeze([
-  { afterMs: 8 * 60 * 1000, line: 'This isn’t going very well.' },
-  { afterMs: 3 * 60 * 1000, line: 'Still trying.' },
-  { afterMs: 60 * 1000, line: 'Lost the server.' },
-  { afterMs: 20 * 1000, line: 'Still reconnecting.' },
+  { afterMs: 8 * 60 * 1000, line: t('This isn’t going very well.') },
+  { afterMs: 3 * 60 * 1000, line: t('Still trying.') },
+  { afterMs: 60 * 1000, line: t('Lost the server.') },
+  { afterMs: 20 * 1000, line: t('Still reconnecting.') },
 ]);
 
 /**

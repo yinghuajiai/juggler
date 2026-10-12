@@ -164,7 +164,7 @@ export function openWorkspaceMove(conversation, workspaceId) {
       dialog.className = 'workspace-move-dialog';
       dialog.setAttribute('role', 'dialog');
       dialog.setAttribute('aria-modal', 'true');
-      dialog.setAttribute('aria-label', 'Move this conversation');
+      dialog.setAttribute('aria-label', t('Move this conversation'));
       root.appendChild(dialog);
 
       const header = document.createElement('div');
@@ -186,8 +186,8 @@ export function openWorkspaceMove(conversation, workspaceId) {
       body.className = 'workspace-move-body';
       dialog.appendChild(body);
 
-      body.appendChild(placeBlock('workspace-move-from', 'Working in', currentId));
-      body.appendChild(placeBlock('workspace-move-to', 'Moving to', target));
+      body.appendChild(placeBlock('workspace-move-from', t('Working in'), currentId));
+      body.appendChild(placeBlock('workspace-move-to', t('Moving to'), target));
 
       if (error) {
         const failure = document.createElement('div');

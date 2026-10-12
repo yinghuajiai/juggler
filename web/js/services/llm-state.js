@@ -576,7 +576,7 @@ class LLMState {
       case 'retry':
         return StatusMessageBuilder.buildRetryStatus((/** @type {any} */ (data)));
       case 'error':
-        return StatusMessageBuilder.buildErrorStatus(data.message || 'Unknown error');
+        return StatusMessageBuilder.buildErrorStatus(data.message || t('Unknown error'));
       case 'cancelled':
         return StatusMessageBuilder.buildCancelledStatus();
       case 'custom':
@@ -896,7 +896,7 @@ class LLMState {
         // the self-heal was already spent): surface the warning and restore the
         // user's text so they can act on it.
         if (conversation) {
-          conversation.showWarning(message || 'Validation error');
+          conversation.showWarning(message || t('Validation error'));
           conversation.restorePendingMessage();
         }
         this._stopThread(conversationId, key);

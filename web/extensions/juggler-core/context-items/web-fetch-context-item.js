@@ -43,10 +43,10 @@ class WebFetchContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'web-fetch',
-    name: 'Web Fetch',
+    name: t('Web Fetch'),
     version: '2.0.0',
     description: t('Fetch and process web content'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false,
     // With a `prompt`, buildSubthreadSpec fetches the page here and delegates to
     // a sub-agent with the page text already inlined in its seed — the child
@@ -118,28 +118,28 @@ class WebFetchContextItem extends ContextItem {
     const params = /** @type {WebFetchParams} */ (toolInput);
 
     if (!params.url) {
-      return { valid: false, error: 'Missing required parameter: url' };
+      return { valid: false, error: t('Missing required parameter: url') };
     }
     if (typeof params.url !== 'string') {
-      return { valid: false, error: 'Parameter "url" must be a string' };
+      return { valid: false, error: t('Parameter "url" must be a string') };
     }
     if (params.goal !== undefined && params.goal !== null && typeof params.goal !== 'string') {
-      return { valid: false, error: 'Parameter "goal" must be a string' };
+      return { valid: false, error: t('Parameter "goal" must be a string') };
     }
     if (params.session !== undefined && params.session !== null && typeof params.session !== 'string') {
-      return { valid: false, error: 'Parameter "session" must be a string' };
+      return { valid: false, error: t('Parameter "session" must be a string') };
     }
     // prompt is optional: with it, the call delegates to a sub-agent
     // (buildSubthreadSpec); without it, execute() returns raw content.
     if (params.prompt !== undefined && params.prompt !== null && typeof params.prompt !== 'string') {
-      return { valid: false, error: 'Parameter "prompt" must be a string' };
+      return { valid: false, error: t('Parameter "prompt" must be a string') };
     }
 
     // Basic URL validation
     try {
       new URL(params.url);
     } catch {
-      return { valid: false, error: 'Parameter "url" must be a valid URL' };
+      return { valid: false, error: t('Parameter "url" must be a valid URL') };
     }
 
     return { valid: true, params: toolInput };
@@ -188,13 +188,13 @@ class WebFetchContextItem extends ContextItem {
     if (!page || page.redirect || !page.content) return null;
 
     return {
-      goal: goal || 'Read web page',
+      goal: goal || t('Read web page'),
       prompt:
         'You have been given the full text of a web page below. Using ONLY that text, ' +
         'answer the request. Do NOT fetch anything — the page content is already here.\n\n' +
         `# Request\n${prompt}\n\n` +
         `# Page: ${url}\n${page.content}`,
-      resultSpec: 'the answer in markdown, quoting the page where relevant, or "not found in page" if the content does not answer the request',
+      resultSpec: t('the answer in markdown, quoting the page where relevant, or "not found in page" if the content does not answer the request'),
       sessionName: toolInput.session ? String(toolInput.session).trim() : undefined
     };
   }
@@ -242,7 +242,7 @@ class WebFetchContextItem extends ContextItem {
     // Build summary for LLM
     let summary = result.content || '';
     if (result.truncated) {
-      summary += '\n\n(Content was truncated due to size limits)';
+      summary += t('\n\n(Content was truncated due to size limits)');
     }
     if (result.cached) {
       summary += '\n\n(From cache)';
@@ -264,7 +264,7 @@ class WebFetchContextItem extends ContextItem {
     const displayUrl = url.length > 60 ? url.substring(0, 60) + '...' : url;
 
     return this.buildStatusUI(actionStatus, {
-      typeName: 'Web Fetch',
+      typeName: t('Web Fetch'),
       pending: `Fetching ${displayUrl}...`,
       success: () => {
         const result = /** @type {WebFetchResult} */ (actionStatus?.result);

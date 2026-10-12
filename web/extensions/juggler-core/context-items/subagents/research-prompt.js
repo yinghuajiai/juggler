@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
 import { subagentBrief } from './subagent-brief.js';
 
 /**
@@ -18,10 +19,10 @@ export const RESEARCH_GUIDANCE = subagentBrief({
   rules: [
     'Read more than one source. A single page is a claim; agreement across '
     + 'sources, or the primary docs, is evidence.',
-    'Check what is actually installed here before answering. You have `read`, '
+    t('Check what is actually installed here before answering. You have `read`, '
     + '`grep` and `glob` for exactly that — lockfiles, manifests, vendored '
-    + 'source. Advice for the wrong version is worse than no advice.',
-    'Cite a URL for every claim you make.',
-    'You have no shell and can change nothing: this is a reading job.'
+    + 'source. Advice for the wrong version is worse than no advice.'),
+    t('Cite a URL for every claim you make.'),
+    t('You have no shell and can change nothing: this is a reading job.')
   ]
 });

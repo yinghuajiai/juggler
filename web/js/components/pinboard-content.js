@@ -813,7 +813,7 @@ class PinboardContent extends JugglerElement {
     more.type = 'button';
     more.className = 'btn-ghost pinboard-item-toolbar__more';
     more.textContent = '⋯';
-    more.setAttribute('aria-label', 'More actions');
+    more.setAttribute('aria-label', t('More actions'));
     more.setAttribute('aria-haspopup', 'menu');
     more.addEventListener('click', () => {
       const rect = more.getBoundingClientRect();

@@ -53,7 +53,7 @@ const TEXT_NODE = 3;
 const ELEMENT_NODE = 1;
 
 /** Generic heading used when the manifest doesn't author its own title. */
-const DEFAULT_TITLE = 'New Juggler Version Available';
+const DEFAULT_TITLE = t('New Juggler Version Available');
 
 /**
  * Plain-English lead for a failure, keyed by the stage that produced it. The
@@ -63,15 +63,15 @@ const DEFAULT_TITLE = 'New Juggler Version Available';
  * @type {Record<string, string>}
  */
 const ERROR_LEADS = {
-  check: 'Couldn’t check for updates.',
-  download: 'Couldn’t download the update.',
-  verify: 'Couldn’t verify the downloaded update.',
-  install: 'Couldn’t install the update.',
-  restart: 'Couldn’t restart to finish the update.',
+  check: t('Couldn’t check for updates.'),
+  download: t('Couldn’t download the update.'),
+  verify: t('Couldn’t verify the downloaded update.'),
+  install: t('Couldn’t install the update.'),
+  restart: t('Couldn’t restart to finish the update.'),
 };
 
 /** Lead used when the failure arrived without a recognised stage. */
-const ERROR_LEAD_DEFAULT = 'Couldn’t complete the update.';
+const ERROR_LEAD_DEFAULT = t('Couldn’t complete the update.');
 
 /**
  * Tags allowed in a server-authored notice body, each mapped to the attributes
@@ -334,7 +334,7 @@ class UpdateNotice extends HTMLElement {
    * @returns {string} The dialog heading text.
    */
   _title(vm) {
-    if (vm.upToDate) return "You're up to date";
+    if (vm.upToDate) return t("You're up to date");
     if (vm.notice && vm.notice.title) return vm.notice.title;
     if (vm.targetVersion) return `Version ${vm.targetVersion} is available`;
     return DEFAULT_TITLE;
@@ -510,7 +510,7 @@ class UpdateNotice extends HTMLElement {
 
     switch (vm.updaterState) {
       case 'ready':
-        footer.appendChild(this._button('Update & restart', 'primary', () => this._doRestart()));
+        footer.appendChild(this._button(t('Update & restart'), 'primary', () => this._doRestart()));
         break;
       case 'downloading':
       case 'verifying':
@@ -531,7 +531,7 @@ class UpdateNotice extends HTMLElement {
         break;
       default:
         // available / idle / checking / up-to-date-with-server-notice.
-        footer.appendChild(this._button('Update now', 'primary', () => this._doInstall()));
+        footer.appendChild(this._button(t('Update now'), 'primary', () => this._doInstall()));
     }
     return footer;
   }
@@ -575,7 +575,7 @@ class UpdateNotice extends HTMLElement {
       let res = await requestRestart({ force: false });
       if (res.status === 'busy') {
         const proceed = await showConfirm(
-          res.message || 'A conversation is still working. Restarting will stop and discard it.',
+          res.message || t('A conversation is still working. Restarting will stop and discard it.'),
           t('Restart to update?'),
           { confirmText: t('Restart anyway'), cancelText: t('Keep working'), danger: true },
         );

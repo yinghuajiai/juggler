@@ -265,7 +265,7 @@ export function openWorkspaceCreate(session) {
     dialog.className = 'workspace-create-dialog';
     dialog.setAttribute('role', 'dialog');
     dialog.setAttribute('aria-modal', 'true');
-    dialog.setAttribute('aria-label', 'New workspace');
+    dialog.setAttribute('aria-label', t('New workspace'));
     root.appendChild(dialog);
 
     /** Draw the dialog as it stands. */

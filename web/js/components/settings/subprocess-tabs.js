@@ -174,11 +174,11 @@ function renderMcpFormExtra(f, wrap, ctrl) {
   toolsField.appendChild(toolsLabel);
 
   if (f.mode === 'add' || !f.name) {
-    toolsField.appendChild(mcpHint('Save the server first, then edit it to choose which tools are exposed. New servers expose all tools.'));
+    toolsField.appendChild(mcpHint(_t('Save the server first, then edit it to choose which tools are exposed. New servers expose all tools.')));
   } else if (f.toolsLoaded) {
     const names = f.toolNames || [];
     if (!names.length) {
-      toolsField.appendChild(mcpHint('No tools discovered yet — the server may be stopped or still connecting. All tools stay exposed until you pick.'));
+      toolsField.appendChild(mcpHint(_t('No tools discovered yet — the server may be stopped or still connecting. All tools stay exposed until you pick.')));
     } else {
       const enabled = names.filter((n) => f.toolChecked[n]).length;
       const summary = document.createElement('div');
@@ -201,7 +201,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
       }
     }
   } else {
-    toolsField.appendChild(mcpHint('Loading tools…'));
+    toolsField.appendChild(mcpHint(_t('Loading tools…')));
     if (!f.toolsLoading) {
       f.toolsLoading = true;
       mcpListTools({ server: f.name })
@@ -242,7 +242,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
   ta.value = f.defaultArgsText || '';
   ta.addEventListener('input', () => { f.defaultArgsText = ta.value; });
   argsField.appendChild(ta);
-  argsField.appendChild(mcpHint('A JSON object merged into every call to this server and hidden from the model. The configured value overrides anything the model supplies — use it to fix routing keys.'));
+  argsField.appendChild(mcpHint(_t('A JSON object merged into every call to this server and hidden from the model. The configured value overrides anything the model supplies — use it to fix routing keys.')));
   wrap.appendChild(argsField);
 }
 
@@ -293,7 +293,7 @@ export const validateMcpServerName = makeNameValidator({
   article: 'A',
   noun: 'server',
   reserved: 'juggler',
-  reservedMsg: '"juggler" is reserved for the built-in tools.',
+  reservedMsg: _t('"juggler" is reserved for the built-in tools.'),
 });
 
 /**
@@ -346,7 +346,7 @@ const MCP_SPEC = {
   noun: 'server',
   formHostSelector: '#mcp-form',
   pollMs: MCP_POLL_MS,
-  loadError: 'Failed to load MCP servers.',
+  loadError: _t('Failed to load MCP servers.'),
   ops: {
     list: async () => (await mcpListServers()).servers || [],
     getConfig: () => mcpGetConfig(),
@@ -354,7 +354,7 @@ const MCP_SPEC = {
     restart: (name) => mcpServerControl({ server: name, action: 'restart' }),
     getLog: async (name) => (await mcpGetLog({ server: name })).log,
   },
-  addLabel: 'Add server',
+  addLabel: _t('Add server'),
   emptyText: _t('No MCP servers yet. Add one to give the assistant extra tools — for example a filesystem, GitHub, or database server.'),
   // The rows below report the manager's view: servers run, discover tools, and
   // show green dots whether or not anything publishes those tools to the model.
@@ -384,20 +384,20 @@ const MCP_SPEC = {
     message: `Remove the MCP server "${name}"? Its tools will disappear from conversations.`,
     title: _t('Remove server'),
   }),
-  formAddTitle: 'Add MCP server',
+  formAddTitle: _t('Add MCP server'),
   namePlaceholder: 'name',
-  nameHintAdd: 'A short id — becomes the tool prefix (mcp__<name>__…). No spaces or “/”.',
-  nameHintEdit: 'Renaming means deleting and re-adding the server.',
+  nameHintAdd: _t('A short id — becomes the tool prefix (mcp__<name>__…). No spaces or “/”.'),
+  nameHintEdit: _t('Renaming means deleting and re-adding the server.'),
   commandPlaceholder: 'npx',
-  commandHint: 'The executable to launch (stdio transport).',
+  commandHint: _t('The executable to launch (stdio transport).'),
   argFirstPlaceholder: '-y',
   argRestPlaceholder: '@modelcontextprotocol/server-github',
   envKeyPlaceholder: 'API_TOKEN',
-  saveFailMsg: 'Failed to save the server.',
+  saveFailMsg: _t('Failed to save the server.'),
   // MCP servers can be local subprocesses (stdio) or remote endpoints (http/sse).
   supportsTransport: true,
   urlPlaceholder: 'https://example.com/mcp',
-  urlHint: 'The remote MCP endpoint URL (http/sse transport).',
+  urlHint: _t('The remote MCP endpoint URL (http/sse transport).'),
   headerKeyPlaceholder: 'Authorization',
   // Per-server tool visibility filter + fixed arguments (MCP only).
   seedFormExtra: mcpSeedFormExtra,
@@ -417,13 +417,13 @@ const ACP_SPEC = {
   noun: 'agent',
   formHostSelector: '#acp-form',
   pollMs: ACP_POLL_MS,
-  loadError: 'Failed to load ACP agents.',
+  loadError: _t('Failed to load ACP agents.'),
   ops: {
     list: async () => (await acpListAgents()).agents || [],
     getConfig: () => acpGetConfig(),
     setConfig: (scope, agents) => acpSetConfig({ scope, agents }),
   },
-  addLabel: 'Add agent',
+  addLabel: _t('Add agent'),
   emptyText: _t('No ACP agents yet. Add one — for example Gemini CLI in ACP mode — and it will appear as a model in the picker.'),
   validateName: validateAcpAgentName,
   dotClass: (s) => acpDotClass(s.status),
@@ -434,16 +434,16 @@ const ACP_SPEC = {
     message: `Remove the ACP agent "${name}"? It will disappear from the model picker.`,
     title: _t('Remove agent'),
   }),
-  formAddTitle: 'Add ACP agent',
+  formAddTitle: _t('Add ACP agent'),
   namePlaceholder: 'gemini',
-  nameHintAdd: 'A short id — becomes the model name in the picker. No spaces or “/”.',
-  nameHintEdit: 'Renaming means deleting and re-adding the agent.',
+  nameHintAdd: _t('A short id — becomes the model name in the picker. No spaces or “/”.'),
+  nameHintEdit: _t('Renaming means deleting and re-adding the agent.'),
   commandPlaceholder: 'gemini',
-  commandHint: 'The agent executable to launch (resolved on PATH).',
+  commandHint: _t('The agent executable to launch (resolved on PATH).'),
   argFirstPlaceholder: '--experimental-acp',
   argRestPlaceholder: 'value',
   envKeyPlaceholder: 'API_KEY',
-  saveFailMsg: 'Failed to save the agent.',
+  saveFailMsg: _t('Failed to save the agent.'),
   // Provider AutoDetect is computed once at startup (sync.Once), so it won't
   // notice an agent added mid-session; enabling the provider closes that gap.
   // Only for an enabled agent — a disabled one adds nothing to the picker.

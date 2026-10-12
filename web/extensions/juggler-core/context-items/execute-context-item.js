@@ -55,7 +55,7 @@ function describeTaskStatus(state) {
       return state.error ? `${exit} — ${state.error}` : exit;
     }
     case 'not_found':
-      return 'Gone — reaped an hour after it ended, or lost to a server restart';
+      return t('Gone — reaped an hour after it ended, or lost to a server restart');
     default:
       return String(state.status || '');
   }
@@ -183,10 +183,10 @@ function stripLeadingProjectCd(command, opts = {}) {
 class ExecuteContextItem extends ContextItem {
   static MANIFEST = {
     id: 'execute',
-    name: 'Execute Command',
+    name: t('Execute Command'),
     version: '1.0.0',
     description: t('Execute shell commands'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: true
   };
 
@@ -326,7 +326,7 @@ class ExecuteContextItem extends ContextItem {
       required: ['command']
     };
 
-    const description = 'Runs a bash command in a fresh shell rooted at the project directory (no `cd` needed). Nothing persists between calls.';
+    const description = t('Runs a bash command in a fresh shell rooted at the project directory (no `cd` needed). Nothing persists between calls.');
 
     return [
       {
@@ -585,7 +585,7 @@ class ExecuteContextItem extends ContextItem {
     });
 
     const text = typeof editedText === 'string' ? editedText.trim() : '';
-    if (!command) return { valid: false, patterns: text ? [text] : [], notice: 'No command to approve' };
+    if (!command) return { valid: false, patterns: text ? [text] : [], notice: t('No command to approve') };
 
     const isPathGrant = Array.isArray(original?.allowedPaths) && original.allowedPaths.length > 0;
     return isPathGrant
@@ -602,13 +602,13 @@ class ExecuteContextItem extends ContextItem {
    * @returns {{rules?: Array<object>, patterns: string[], valid: boolean, notice?: string}} Re-derived suggestion
    */
   static _reviseCommandGlob(text, approvesWith) {
-    if (!text) return { valid: false, patterns: [], notice: 'Enter a command pattern' };
+    if (!text) return { valid: false, patterns: [], notice: t('Enter a command pattern') };
     if (text.length > MAX_SUGGESTED_PATTERN_LENGTH) {
-      return { valid: false, patterns: [text], notice: 'Pattern is too long' };
+      return { valid: false, patterns: [text], notice: t('Pattern is too long') };
     }
     const rules = [{ kind: 'glob', value: text, scope: 'conversation' }];
     if (!approvesWith({ extraPatterns: [text] })) {
-      return { rules, patterns: [text], valid: false, notice: "This pattern wouldn't approve this command" };
+      return { rules, patterns: [text], valid: false, notice: t("This pattern wouldn't approve this command") };
     }
     const notice = ExecuteContextItem._broadGlobNotice(text);
     return notice
@@ -629,18 +629,18 @@ class ExecuteContextItem extends ContextItem {
    * @returns {{allowedPaths?: string[], patterns: string[], valid: boolean, notice?: string}} Re-derived suggestion
    */
   static _reviseFolderGrant(text, home, cwd, approvesWith) {
-    if (!text) return { valid: false, patterns: [], notice: 'Enter a folder path' };
+    if (!text) return { valid: false, patterns: [], notice: t('Enter a folder path') };
     const abs = resolveAgainstCwd(ExecuteContextItem._untildeify(text, home), cwd);
     if (!abs || !abs.startsWith('/')) {
-      return { valid: false, patterns: [text], notice: 'Not a valid folder' };
+      return { valid: false, patterns: [text], notice: t('Not a valid folder') };
     }
     const root = canonicalRoot(abs, home);
     if (!root || !isGrantableRoot(root, home)) {
-      return { allowedPaths: [abs], patterns: [ExecuteContextItem._tildeify(abs, home)], valid: false, notice: 'Not a grantable folder' };
+      return { allowedPaths: [abs], patterns: [ExecuteContextItem._tildeify(abs, home)], valid: false, notice: t('Not a grantable folder') };
     }
     const patterns = [ExecuteContextItem._tildeify(root, home)];
     if (!approvesWith({ extraAllowedRoots: [root] })) {
-      return { allowedPaths: [root], patterns, valid: false, notice: "This folder wouldn't cover this command" };
+      return { allowedPaths: [root], patterns, valid: false, notice: t("This folder wouldn't cover this command") };
     }
     const notice = ExecuteContextItem._broadRootNotice(root, home);
     return notice
@@ -659,13 +659,13 @@ class ExecuteContextItem extends ContextItem {
   static _broadGlobNotice(pattern) {
     const p = pattern.trim();
     if (!p) return '';
-    if (p === '*' || p === '**' || p.startsWith('*')) return 'Very broad — approves many commands';
+    if (p === '*' || p === '**' || p.startsWith('*')) return t('Very broad — approves many commands');
     const first = /** @type {string} */ (p.split(/\s+/)[0]).toLowerCase();
     const interpreters = new Set([
       ...ExecuteContextItem.UNIX_INTERPRETERS,
       ...ExecuteContextItem.WINDOWS_INTERPRETERS
     ]);
-    if (interpreters.has(first) && p.includes('*')) return 'Very broad — approves many commands';
+    if (interpreters.has(first) && p.includes('*')) return t('Very broad — approves many commands');
     return '';
   }
 
@@ -679,12 +679,12 @@ class ExecuteContextItem extends ContextItem {
    */
   static _broadRootNotice(root, home) {
     const segs = root.split('/').filter(Boolean);
-    if (segs.length <= 2) return 'Broad — grants read access to a large tree';
+    if (segs.length <= 2) return t('Broad — grants read access to a large tree');
     if (home) {
       const base = home.endsWith('/') ? home.slice(0, -1) : home;
       const homeSegs = base.split('/').filter(Boolean);
       if (segs.length === homeSegs.length + 1 && root.startsWith(base + '/')) {
-        return 'Broad — grants read access to a large tree';
+        return t('Broad — grants read access to a large tree');
       }
     }
     return '';
@@ -713,11 +713,11 @@ class ExecuteContextItem extends ContextItem {
 
     // Validation - must have command
     if (!params.command) {
-      return { valid: false, error: 'Missing required parameter: command' };
+      return { valid: false, error: t('Missing required parameter: command') };
     }
 
     if (typeof params.command !== 'string') {
-      return { valid: false, error: 'Parameter "command" must be a string' };
+      return { valid: false, error: t('Parameter "command" must be a string') };
     }
 
     // Validate timeout if provided (max MAX_EXEC_TIMEOUT_MS = 20 minutes)
@@ -856,8 +856,8 @@ class ExecuteContextItem extends ContextItem {
           // relay the explanatory hint through onProgress.
           if (chunk.status) {
             const hint = chunk.hint || (chunk.status === 'awaiting-permission'
-              ? 'Waiting for filesystem-access permission — check for a system dialog'
-              : 'Running… (no output yet)');
+              ? t('Waiting for filesystem-access permission — check for a system dialog')
+              : t('Running… (no output yet)'));
             if (this.onProgress) {
               this.onProgress({ type: 'status', message: hint });
             }
@@ -960,7 +960,7 @@ class ExecuteContextItem extends ContextItem {
 
     // Handle non-success cases
     if (outcome.cancelled) {
-      const summary = truncatedCmd ? `Command cancelled: ${truncatedCmd}` : 'Command execution cancelled';
+      const summary = truncatedCmd ? `Command cancelled: ${truncatedCmd}` : t('Command execution cancelled');
       return this.failureSummary(summary, { details: prepCommand ? `$ ${prepCommand}` : '' });
     }
     if (!outcome.success) {
@@ -984,8 +984,8 @@ class ExecuteContextItem extends ContextItem {
     // The lead says which kind of non-completion this was; the server's own
     // text follows it verbatim, because that is the part that names the cause.
     const errorLead = blocked
-      ? 'Blocked by Juggler — the command never ran, so retrying it unchanged will do the same.'
-      : "Couldn't run the command to completion.";
+      ? t('Blocked by Juggler — the command never ran, so retrying it unchanged will do the same.')
+      : t("Couldn't run the command to completion.");
 
     // Build summary for LLM (this is what goes in tool_result content)
     // Note: stderr is merged into stdout at execution time
@@ -1192,7 +1192,7 @@ class ExecuteContextItem extends ContextItem {
     // as a first-class property so the user can find the handle to read
     // (TaskOutput) or kill (TaskStop) it.
     const taskId = ExecuteContextItem._backgroundTaskId(toolAction);
-    helpers.addSubsection(wrapper, 'Background task', taskId || '(starting…)', 'properties-panel-code');
+    helpers.addSubsection(wrapper, t('Background task'), taskId || '(starting…)', 'properties-panel-code');
 
     // No task id means the launch itself failed or hasn't landed — leave the
     // generic result section to report it.
@@ -1214,7 +1214,7 @@ class ExecuteContextItem extends ContextItem {
       initialState: persistedTask,
       convId: this.conversation.id,
       onStop: () => shellKill({ shell_id: taskId, conv_id: this.conversation.id }),
-      stopLabel: 'Stop task'
+      stopLabel: t('Stop task')
     });
 
     return { skipResultSection: true };

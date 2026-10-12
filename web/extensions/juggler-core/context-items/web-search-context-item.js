@@ -43,10 +43,10 @@ class WebSearchContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'web-search',
-    name: 'Web Search',
+    name: t('Web Search'),
     version: '2.0.0',
     description: t('Search the web (no API key required)'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     requiresApproval: false
   };
 
@@ -87,7 +87,7 @@ class WebSearchContextItem extends ContextItem {
       required: ['query']
     };
 
-    const description = 'Searches the web using DuckDuckGo (no API key required). Returns up to 10 results with titles, URLs, and descriptions. Supports domain filtering.';
+    const description = t('Searches the web using DuckDuckGo (no API key required). Returns up to 10 results with titles, URLs, and descriptions. Supports domain filtering.');
 
     return [
       {
@@ -199,13 +199,13 @@ class WebSearchContextItem extends ContextItem {
     const params = /** @type {WebSearchParams} */ (toolInput);
 
     if (!params.query) {
-      return { valid: false, error: 'Missing required parameter: query' };
+      return { valid: false, error: t('Missing required parameter: query') };
     }
     if (typeof params.query !== 'string') {
-      return { valid: false, error: 'Parameter "query" must be a string' };
+      return { valid: false, error: t('Parameter "query" must be a string') };
     }
     if (params.query.length < 2) {
-      return { valid: false, error: 'Parameter "query" must be at least 2 characters' };
+      return { valid: false, error: t('Parameter "query" must be at least 2 characters') };
     }
 
     return { valid: true, params: toolInput };
@@ -272,7 +272,7 @@ class WebSearchContextItem extends ContextItem {
     const displayQuery = query.length > 40 ? query.substring(0, 40) + '...' : query;
 
     return this.buildStatusUI(actionStatus, {
-      typeName: 'Web Search',
+      typeName: t('Web Search'),
       pending: `Searching for "${displayQuery}"...`,
       success: () => {
         const result = /** @type {WebSearchResult} */ (actionStatus?.result);

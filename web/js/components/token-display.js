@@ -127,7 +127,7 @@ class TokenDisplay extends HTMLElement {
     // than one that isn't there.
     this.setAttribute('role', 'button');
     this.setAttribute('tabindex', '0');
-    this.setAttribute('aria-label', 'View transaction');
+    this.setAttribute('aria-label', t('View transaction'));
 
     // The cached count the render works from: null wherever there is nothing
     // trustworthy to say about the cache, whether because the provider did not

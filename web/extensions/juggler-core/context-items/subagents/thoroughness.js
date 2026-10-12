@@ -25,9 +25,9 @@ import { t } from '../../../../js/i18n/index.js';
  * from them, so a level can't exist without an instruction to go with it.
  */
 const EFFORT = Object.freeze({
-  quick: 'Answer as soon as you can support an answer — a few searches, not an audit.',
-  medium: 'Confirm what you find in a second place before you conclude.',
-  thorough: 'Be exhaustive: follow every lead to its source before you conclude, and say what you ruled out.'
+  quick: t('Answer as soon as you can support an answer — a few searches, not an audit.'),
+  medium: t('Confirm what you find in a second place before you conclude.'),
+  thorough: t('Be exhaustive: follow every lead to its source before you conclude, and say what you ruled out.')
 });
 
 /**

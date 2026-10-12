@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * Error Utilities
  *
@@ -47,7 +49,7 @@ export function extractErrorMessage(error) {
   }
 
   // Null/undefined
-  if (error === null || error === undefined) return 'Unknown error';
+  if (error === null || error === undefined) return t('Unknown error');
 
   // Primitive (number, boolean, symbol, bigint)
   return String(error);

@@ -45,7 +45,7 @@ export default class ResearchSubagentStrategyType extends SubagentStrategyType {
     name: 'Research (sub-agent)',
     version: '1.0.0',
     description: _t('Web research for a delegated Research run — search and fetch, plus read-only local lookups.'),
-    author: 'Juggler Team',
+    author: _t('Juggler Team'),
     hidden: true,
     showsApprovalControls: false
   };

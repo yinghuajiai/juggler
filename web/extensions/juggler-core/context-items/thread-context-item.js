@@ -27,7 +27,7 @@ class ThreadContextItem extends ContextItem {
 
   static MANIFEST = {
     id: 'thread',
-    name: 'Create Thread',
+    name: t('Create Thread'),
     version: '1.0.0',
     description: t('Create a nested sub-conversation (thread)'),
     author: 'Juggler',
@@ -78,10 +78,10 @@ class ThreadContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || 'Failed to create thread');
+      return this.failureSummary(outcome.error || t('Failed to create thread'));
     }
 
-    return this.successSummary('Thread completed', { icon: '▼' });
+    return this.successSummary(t('Thread completed'), { icon: '▼' });
   }
 }
 

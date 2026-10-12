@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
+
 /**
  * The part of a sub-agent's brief that is true of every sub-agent.
  *
@@ -26,10 +28,10 @@
  * @type {readonly string[]}
  */
 const UNIVERSAL_RULES = Object.freeze([
-  'Nobody is watching this thread: a call that would need approval is refused '
-  + 'automatically, so stay within what needs none.',
-  'Say plainly what you looked for and could not find. An honest gap is worth '
-  + 'more to the caller than a plausible guess.'
+  t('Nobody is watching this thread: a call that would need approval is refused '
+  + 'automatically, so stay within what needs none.'),
+  t('Say plainly what you looked for and could not find. An honest gap is worth '
+  + 'more to the caller than a plausible guess.')
 ]);
 
 /**

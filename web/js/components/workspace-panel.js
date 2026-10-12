@@ -22,6 +22,7 @@
  * @module components/workspace-panel
  */
 
+import { t } from '../i18n/index.js';
 import {
   selectedWorkspace,
   workspaceStatus,
@@ -404,11 +405,11 @@ class WorkspacePanel extends HTMLElement {
     // written twice, the second time with less in it. Only a provider that
     // flagged the work without describing it gets a line to say so.
     if (detail) say(`workspace-panel-detail${dirty ? ' workspace-panel-dirty' : ''}`, detail);
-    else if (dirty) say('workspace-panel-dirty', 'Uncommitted changes.');
+    else if (dirty) say('workspace-panel-dirty', t('Uncommitted changes.'));
     if (problem) say('workspace-panel-problem', problem);
     // A provider that answers with no opinion has still answered, and the
     // heading is already on screen by then. Saying so beats a heading over a gap.
-    if (!lines.children.length) say('workspace-panel-note', 'Nothing to report.');
+    if (!lines.children.length) say('workspace-panel-note', t('Nothing to report.'));
     return section;
   }
 
@@ -439,10 +440,10 @@ class WorkspacePanel extends HTMLElement {
     // there that it works somewhere else would be the opposite of true.
     const inProject = sameTree(this._session, this._workspace?.id ?? '', '');
     create.appendChild(this._actionLabel(
-      'Start a new conversation here',
+      t('Start a new conversation here'),
       inProject
-        ? 'It works in the project as usual, and is kept here with the others.'
-        : 'It works in this workspace’s own files, not the project’s.',
+        ? t('It works in the project as usual, and is kept here with the others.')
+        : t('It works in this workspace’s own files, not the project’s.'),
       'icon-plus'));
     create.addEventListener('click', () => this._create());
     rows.appendChild(create);

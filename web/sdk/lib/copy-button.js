@@ -13,6 +13,7 @@
  * @module utils/copy-button
  */
 
+import { t } from '../../js/i18n/index.js';
 import { copyToClipboard } from './clipboard.js';
 
 export const COPY_ICON_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
@@ -35,7 +36,7 @@ export const COPY_ICON_HTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="
  *   advertised, e.g. "Copy path to clipboard" for a file-path row.
  * @returns {HTMLButtonElement} The copy button element.
  */
-export function createCopyButton(text, className = 'properties-panel-inline-copy', label = 'Copy to clipboard') {
+export function createCopyButton(text, className = 'properties-panel-inline-copy', label = t('Copy to clipboard')) {
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = className;
@@ -50,7 +51,7 @@ export function createCopyButton(text, className = 'properties-panel-inline-copy
       btn.classList.add('copied');
       setTimeout(() => btn.classList.remove('copied'), 2000);
     } catch (err) {
-      /** @type {any} */ (window).showAlert?.(/** @type {Error} */ (err).message, 'Copy Failed');
+      /** @type {any} */ (window).showAlert?.(/** @type {Error} */ (err).message, t('Copy Failed'));
     }
   });
   return btn;

@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * Application-wide constants
  */
@@ -119,7 +121,7 @@ export const BIN_LARGE_BYTES = 1024 * 1024 * 1024;
  * preempts a live LLM turn by cancelling it first. Surfacing this keeps the
  * cancellation from being silent.
  */
-export const TURN_CANCELLED_NOTICE = 'Cancelled the active turn';
+export const TURN_CANCELLED_NOTICE = t('Cancelled the active turn');
 
 /**
  * Notice shown when a duplication opts out of forking a running source (via
@@ -128,4 +130,4 @@ export const TURN_CANCELLED_NOTICE = 'Cancelled the active turn';
  * snapshots the live doc and the clone loads stopped, so they never show this.
  */
 export const DUPLICATE_WHILE_ACTIVE_NOTICE =
-  "Can't duplicate while a turn is running — wait for it to finish, or cancel it first.";
+  t("Can't duplicate while a turn is running — wait for it to finish, or cancel it first.");

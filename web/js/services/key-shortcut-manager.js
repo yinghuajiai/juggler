@@ -172,7 +172,7 @@ const MAC_KEY_GLYPHS = {
 const NAMED_KEY_LABELS = {
   ' ': 'Space', Space: 'Space', ArrowUp: 'Up', ArrowDown: 'Down',
   ArrowLeft: 'Left', ArrowRight: 'Right',
-  PageUp: 'Page Up', PageDown: 'Page Down',
+  PageUp: t('Page Up'), PageDown: t('Page Down'),
 };
 
 /**

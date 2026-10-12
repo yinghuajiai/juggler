@@ -122,10 +122,10 @@ class FileContentContextItem extends ContextItem {
   /** @type {import('juggler/context-item').ContextItemManifest} */
   static MANIFEST = {
     id: 'file-content',
-    name: 'File Content',
+    name: t('File Content'),
     version: '1.0.0',
     description: t('Add file content to context'),
-    author: 'Juggler Team',
+    author: t('Juggler Team'),
     idPrefix: 'FILE',
     userAddable: true,
     watchesFileChanges: false,
@@ -164,14 +164,14 @@ class FileContentContextItem extends ContextItem {
    */
   getStatusUI() {
     if (!this.data.path) {
-      return { typeName: 'File Content', summary: t('No file selected') };
+      return { typeName: t('File Content'), summary: t('No file selected') };
     }
     if (this.data.isDirectory) {
       const displayPath = basename(this.data.path) || this.data.path;
       return { typeName: 'Folder', summary: `${displayPath}/`, status: 'success' };
     }
     const filename = basename(this.data.path) || this.data.path;
-    return { typeName: 'File Content', summary: filename, status: 'success' };
+    return { typeName: t('File Content'), summary: filename, status: 'success' };
   }
 
   /**
@@ -189,7 +189,7 @@ class FileContentContextItem extends ContextItem {
     const startDir = context.startDir || '';
     const loopback = ['127.0.0.1', 'localhost', '[::1]', '::1'].includes(globalThis.location?.hostname);
     if (hasNativeHost() && loopback && context.localTree !== false) {
-      const picked = await pickFile('Add File Content', startDir);
+      const picked = await pickFile(t('Add File Content'), startDir);
       return picked ? { path: picked } : null;
     }
 
@@ -457,7 +457,7 @@ class FileContentContextItem extends ContextItem {
    */
   getTitle() {
     if (!this.data.path) {
-      return 'File Content';
+      return t('File Content');
     }
     if (this.data.isDirectory) {
       return formatDisplayPath(this.data.path.replace(/\/+$/, '')) + '/';
@@ -471,7 +471,7 @@ class FileContentContextItem extends ContextItem {
    */
   getBriefSummary() {
     if (!this.data.path) {
-      return 'Empty file content';
+      return t('Empty file content');
     }
     if (this.data.isDirectory) {
       return `Directory listing: ${this.data.path}`;
@@ -514,11 +514,11 @@ class FileContentContextItem extends ContextItem {
     const body = createElement('div', 'file-content-body');
     container.appendChild(body);
 
-    addFilePath(headerHost, this.getAbsolutePath() || 'No file', undefined,
+    addFilePath(headerHost, this.getAbsolutePath() || t('No file'), undefined,
       { pin: this.getAbsolutePath() });
 
     if (!this.data.path) {
-      body.appendChild(createElement('div', 'file-content-loading', 'No file selected'));
+      body.appendChild(createElement('div', 'file-content-loading', t('No file selected')));
       return container;
     }
 
@@ -534,7 +534,7 @@ class FileContentContextItem extends ContextItem {
       // Swap body. Replace the header info with the just-fetched stats.
       headerHost.replaceChildren();
       const absolute = this.getAbsolutePath() || r.path || '';
-      addFilePath(headerHost, absolute || 'No file', liveFileInfo(r), { pin: absolute });
+      addFilePath(headerHost, absolute || t('No file'), liveFileInfo(r), { pin: absolute });
 
       const frozen = FileContentContextItem.isFrozen(this.data);
       if (frozen) {
@@ -744,14 +744,14 @@ class FileContentContextItem extends ContextItem {
 
     if (typeof this.data.content !== 'string') {
       note.appendChild(createElement('div', 'file-content-seeded-line', seeded
-        ? 'Added at the start of this conversation. It is frozen as it stands when the first message is sent.'
-        : 'Mentioned in a message. It is frozen as it stands when that message is sent.'));
+        ? t('Added at the start of this conversation. It is frozen as it stands when the first message is sent.')
+        : t('Mentioned in a message. It is frozen as it stands when that message is sent.')));
       return note;
     }
 
     note.appendChild(createElement('div', 'file-content-seeded-line', seeded
-      ? 'Added at the start of this conversation and frozen when it began, so that editing this file does not make the conversation re-read itself. Below is the frozen copy the conversation reads.'
-      : 'Mentioned in a message and frozen when it was sent, so that editing this file does not make the conversation re-read itself. Below is the frozen copy the conversation reads.'));
+      ? t('Added at the start of this conversation and frozen when it began, so that editing this file does not make the conversation re-read itself. Below is the frozen copy the conversation reads.')
+      : t('Mentioned in a message and frozen when it was sent, so that editing this file does not make the conversation re-read itself. Below is the frozen copy the conversation reads.')));
 
     // Offer the update only against a real difference.
     this._renderLive().then(live => {
@@ -761,12 +761,12 @@ class FileContentContextItem extends ContextItem {
 
       const row = createElement('div', 'file-content-seeded-actions');
       row.appendChild(createElement('span', 'file-content-seeded-changed',
-        'The file has changed since. Updating re-reads the conversation once.'));
+        t('The file has changed since. Updating re-reads the conversation once.')));
 
       const update = document.createElement('button');
       update.className = 'file-content-seeded-update';
       update.textContent = 'Update';
-      update.setAttribute('aria-label', 'Update the frozen copy of this file');
+      update.setAttribute('aria-label', t('Update the frozen copy of this file'));
       update.addEventListener('click', async (ev) => {
         ev.stopPropagation();
         update.disabled = true;

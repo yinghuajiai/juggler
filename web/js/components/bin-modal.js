@@ -384,7 +384,7 @@ class BinModal extends JugglerElement {
     const confirmed = await showConfirm(
       doomed
         ? `Permanently delete ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
-        : 'Permanently delete every conversation in the bin?\n\nThis cannot be undone.',
+        : _t('Permanently delete every conversation in the bin?\n\nThis cannot be undone.'),
       _t('Empty Bin'),
       { confirmText: doomed ? 'Delete' : _t('Empty Bin'), cancelText: 'Cancel', danger: true }
     );

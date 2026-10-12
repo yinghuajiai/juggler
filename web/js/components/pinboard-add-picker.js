@@ -95,7 +95,7 @@ export function openAddPicker({ anchor, active, onPick }) {
   const menu = document.createElement('nav');
   menu.className = 'dropdown-menu pinboard-add-picker show';
   menu.setAttribute('role', 'menu');
-  menu.setAttribute('aria-label', 'Add to Pinboard');
+  menu.setAttribute('aria-label', t('Add to Pinboard'));
 
   /** @type {(() => void)|null} */
   let release = null;
@@ -115,7 +115,7 @@ export function openAddPicker({ anchor, active, onPick }) {
     filter.type = 'search';
     filter.className = 'pinboard-add-picker__filter';
     filter.placeholder = t('Search…');
-    filter.setAttribute('aria-label', 'Search pinboard items');
+    filter.setAttribute('aria-label', t('Search pinboard items'));
     filter.addEventListener('input', () => render(filter?.value || ''));
     menu.appendChild(filter);
   }

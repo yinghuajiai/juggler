@@ -71,7 +71,7 @@ export function buildPickerPanel({
   confirmOpensNewWindow = false,
   validate = null,
   onNewWindow = null,
-  newWindowLabel = 'Open in new window',
+  newWindowLabel = t('Open in new window'),
 } = {}) {
   /** @type {(v: string|null) => void} */
   let resolve = () => {};
@@ -159,14 +159,14 @@ export function buildPickerPanel({
           const result = await validate(path);
           if (gen !== validationGen) return;
           if (result.valid) {
-            setStatus('valid', result.current ? 'This is the current project' : (result.path || path));
+            setStatus('valid', result.current ? t('This is the current project') : (result.path || path));
             confirmAction();
           } else {
-            setStatus('invalid', result.error || 'Invalid path');
+            setStatus('invalid', result.error || t('Invalid path'));
           }
         } catch (_err) {
           if (gen !== validationGen) return;
-          setStatus('invalid', 'Could not check path');
+          setStatus('invalid', t('Could not check path'));
         }
       });
       recentsEl.appendChild(btn);
@@ -229,13 +229,13 @@ export function buildPickerPanel({
       const result = await validate(val);
       if (gen !== validationGen) return;
       if (result.valid) {
-        setStatus('valid', result.current ? 'This is the current project' : (result.path || val));
+        setStatus('valid', result.current ? t('This is the current project') : (result.path || val));
       } else {
-        setStatus('invalid', result.error || 'Invalid path');
+        setStatus('invalid', result.error || t('Invalid path'));
       }
     } catch (_err) {
       if (gen !== validationGen) return;
-      setStatus('invalid', 'Could not check path');
+      setStatus('invalid', t('Could not check path'));
     }
   }
 
@@ -503,8 +503,8 @@ function previewPath(parent, name) {
  * @returns {string} A reason, or "" when the name is fine.
  */
 function folderNameProblem(name) {
-  if (name === '.' || name === '..') return 'That names the parent folder, not a new one';
-  if (/[/\\]/.test(name)) return 'A name cannot contain a slash — it is created inside the folder above';
+  if (name === '.' || name === '..') return t('That names the parent folder, not a new one');
+  if (/[/\\]/.test(name)) return t('A name cannot contain a slash — it is created inside the folder above');
   return '';
 }
 

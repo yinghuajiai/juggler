@@ -609,14 +609,14 @@ class ContextItem {
   getSummary(outcome) {
     if (!outcome.success) {
       if (outcome.denied) {
-        return this.failureSummary('Action denied by user');
+        return this.failureSummary(t('Action denied by user'));
       }
       if (outcome.cancelled) {
-        return this.failureSummary('Action cancelled');
+        return this.failureSummary(t('Action cancelled'));
       }
       return this.failureSummary(`Action failed: ${outcome.error}`);
     }
-    return this.successSummary('Action completed');
+    return this.successSummary(t('Action completed'));
   }
 
   /**
@@ -1322,7 +1322,7 @@ class ContextItem {
 
     return {
       id: manifest?.id || 'unknown',
-      name: manifest?.name || 'Unknown Item',
+      name: manifest?.name || t('Unknown Item'),
       version: manifest?.version || '0.0.0',
       description: manifest?.description || '',
       requiresApproval: manifest?.requiresApproval ?? false,
