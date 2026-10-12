@@ -5,6 +5,8 @@ of changes; this project follows semantic versioning.
 
 ## [Unreleased]
 
+- Choose the interface language in Settings, with a Simplified Chinese translation throughout
+
 ## [0.7.6] - 2026-10-09
 
 - Tool hooks: deny, hold or annotate any tool call, from extensions or `~/.juggler/hooks`

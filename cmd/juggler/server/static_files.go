@@ -527,7 +527,7 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 	// the preference has been read. Unlike the zoom and theme above it is a
 	// per-person setting, so it rides the global settings document rather than
 	// the session.
-	initialLanguage := settingsLanguage(s.settings.get())
+	initialLanguage := s.uiLanguage()
 
 	data := struct {
 		StaticVersion    string
