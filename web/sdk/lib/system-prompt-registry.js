@@ -12,8 +12,29 @@
  *
  * Module singleton: there is exactly one preset catalog app-wide and `import` is
  * the discovery mechanism (see the frontend-service-style note in CLAUDE.md).
+ *
+ * The shipped presets are bilingual: each carries the English prompt and its
+ * Chinese counterpart, and the one matching the interface language is chosen
+ * when the preset is read. The text is kept here rather than in the viewer's
+ * translation catalogue for a structural reason — this module is loaded by the
+ * **engine** as well as the viewer, and the engine page has no access to the
+ * viewer's UI tree. The language reaches it as a server-baked global.
  * @module services/system-prompt-registry
  */
+
+/**
+ * Whether the interface is being shown in Chinese, from the language the server
+ * baked into the page. Read at access time rather than captured, so a preset
+ * reflects a language changed after the registry was populated. Absent in any
+ * context that never sets it (a unit test, the Node engine host), which reads as
+ * English — the source language.
+ * @returns {boolean} True when the language is Chinese.
+ */
+function isChinese() {
+  if (typeof window === 'undefined') return false;
+  const language = /** @type {any} */ (window).__jugglerLanguage;
+  return typeof language === 'string' && /^zh/i.test(language);
+}
 
 /**
  * @typedef {object} SystemPromptPreset
@@ -135,45 +156,118 @@ const GLOBAL_GUIDANCE =
 	'- Match the existing patterns, naming, and formatting of the surrounding code.\n' +
 	'- Read the relevant code before changing it.\n' +
 	'- When a tool call fails, read the error and adjust your approach.\n\n' +
-	'## Code references\n' +
+  '## Code references\n' +
 	'Refer to code locations as `file_path:line_number`.';
 
-/** @type {SystemPromptPreset[]} */
+/**
+ * The Chinese counterpart of {@link GLOBAL_GUIDANCE}, used when the interface
+ * is Chinese. Code identifiers and the `file_path:line_number` convention are
+ * left as written — the model is told to use them verbatim.
+ * @type {string}
+ */
+const GLOBAL_GUIDANCE_ZH =
+  '## 回复\n' +
+  '- 用纯文本、Markdown、HTML 或包含 HTML 的 Markdown 回复，选择最适合该回复的形式。\n' +
+  '- 这只针对你的回复本身。作为工具参数传入的字符串是纯文本——绝不要对它们做 HTML 转义。\n\n' +
+  '## 代码\n' +
+	'- 与周围代码的既有模式、命名和格式保持一致。\n' +
+	'- 修改代码前先阅读相关代码。\n' +
+	'- 工具调用失败时，阅读错误信息并调整做法。\n\n' +
+	'## 代码引用\n' +
+	'用 `file_path:line_number` 的形式引用代码位置。';
+
+/**
+ * One built-in preset, in both languages. `name` and `description` are what the
+ * preset picker shows; `content` is the prompt body the model receives.
+ * @typedef {object} BilingualPreset
+ * @property {string} id - Unique preset identifier (kebab-case)
+ * @property {string} category - Category: "general" or "specialized"
+ * @property {string} version - Semantic version
+ * @property {string} name - English display name
+ * @property {string} nameZh - Chinese display name
+ * @property {string} description - English description
+ * @property {string} descriptionZh - Chinese description
+ * @property {string} content - English prompt body
+ * @property {string} contentZh - Chinese prompt body
+ */
+
+/** @type {BilingualPreset[]} */
 const BUILTIN_PRESETS = [
   {
     id: 'default',
-    name: 'Default',
     version: '2.0.0',
-    description: 'General-purpose coding assistant with neutral working guidance',
     category: 'general',
-    builtin: true,
-    content: 'You are Juggler, an AI coding assistant.\n\n' + GLOBAL_GUIDANCE
+    name: 'Default',
+    nameZh: '默认',
+    description: 'General-purpose coding assistant with neutral working guidance',
+    descriptionZh: '通用编码助手，附带中性的工作指引',
+    content: 'You are Juggler, an AI coding assistant.\n\n' + GLOBAL_GUIDANCE,
+    contentZh: '你是 Juggler，一个 AI 编码助手。\n\n' + GLOBAL_GUIDANCE_ZH
   },
   {
     id: 'minimal',
-    name: 'Minimal',
     version: '2.0.0',
-    description: 'Just the role — no added guidance',
     category: 'general',
-    builtin: true,
-    content: 'You are Juggler, a coding assistant.'
+    name: 'Minimal',
+    nameZh: '极简',
+    description: 'Just the role — no added guidance',
+    descriptionZh: '只保留角色设定——不附加任何指引',
+    content: 'You are Juggler, a coding assistant.',
+    contentZh: '你是 Juggler，一个编码助手。'
   },
   {
     id: 'code-reviewer',
-    name: 'Code Reviewer',
     version: '2.0.0',
-    description: 'Review-focused: examines changes for correctness, edge cases, and clarity',
     category: 'specialized',
-    builtin: true,
+    name: 'Code Reviewer',
+    nameZh: '代码审查',
+    description: 'Review-focused: examines changes for correctness, edge cases, and clarity',
+    descriptionZh: '以审查为核心：检查改动的正确性、边界情况与清晰度',
     content:
 			'You are Juggler, an AI coding assistant focused on reviewing code. Examine changes for ' +
 			'correctness, edge cases, and clarity, and explain the reasoning behind each point you raise.\n\n' +
-			GLOBAL_GUIDANCE
+			GLOBAL_GUIDANCE,
+    contentZh:
+			'你是 Juggler，一个专注于代码审查的 AI 编码助手。检查改动的正确性、边界情况和清晰度，' +
+			'并解释你提出的每一点背后的理由。\n\n' +
+			GLOBAL_GUIDANCE_ZH
   }
 ];
 
+/**
+ * Flatten a bilingual preset into the single-language shape the registry stores,
+ * for the language in use now.
+ * @param {BilingualPreset} p - The bilingual definition.
+ * @returns {SystemPromptPreset} The preset in the current language.
+ */
+function localise(p) {
+  const zh = isChinese();
+  return {
+    id: p.id,
+    version: p.version,
+    category: p.category,
+    builtin: true,
+    name: zh ? p.nameZh : p.name,
+    description: zh ? p.descriptionZh : p.description,
+    content: zh ? p.contentZh : p.content
+  };
+}
+
 for (const preset of BUILTIN_PRESETS) {
-  systemPromptRegistry.register(preset);
+  systemPromptRegistry.register(localise(preset));
+}
+
+/**
+ * Re-register every built-in preset in the language now in use. Called when the
+ * language changes: a preset already registered (and possibly already displayed,
+ * or already seeded into a conversation) is otherwise frozen in the language it
+ * was read in. User-saved presets are left alone — their text is the user's.
+ * @returns {void}
+ */
+export function relocaliseBuiltinPresets() {
+  for (const preset of BUILTIN_PRESETS) {
+    systemPromptRegistry.register(localise(preset));
+  }
 }
 
 /**
@@ -184,6 +278,10 @@ for (const preset of BUILTIN_PRESETS) {
  */
 export function getDefaultIdentityText() {
   const preset = systemPromptRegistry.getPreset(BUILTIN_DEFAULT_ID);
+  // A user preset may share the id only if it was saved under one, which the
+  // registry refuses; so this is always a built-in and always re-derivable.
+  const bilingual = BUILTIN_PRESETS.find((p) => p.id === BUILTIN_DEFAULT_ID);
+  if (bilingual) return localise(bilingual).content;
   return preset ? preset.content : '';
 }
 

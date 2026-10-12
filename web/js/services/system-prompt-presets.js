@@ -15,7 +15,26 @@
 
 import { t } from '../i18n/index.js';
 import apiService from './api.js';
-import { systemPromptRegistry, BUILTIN_DEFAULT_ID } from '../../sdk/lib/system-prompt-registry.js';
+import {
+  systemPromptRegistry,
+  BUILTIN_DEFAULT_ID,
+  relocaliseBuiltinPresets,
+} from '../../sdk/lib/system-prompt-registry.js';
+
+/**
+ * A language change re-registers the built-in presets in the new language: their
+ * text, and the prompt body a new conversation is seeded with, is chosen when a
+ * preset is read. This module already owns the bridge between the registry and
+ * the rest of the app, so the subscription lives here.
+ *
+ * Guarded because this module is also loaded in a worker — the engine imports it
+ * through the worker-module graph — where there is no document to subscribe on.
+ */
+if (typeof document !== 'undefined') {
+  document.addEventListener('juggler:language-changed', () => {
+    relocaliseBuiltinPresets();
+  });
+}
 
 /** @type {string} Last-known default preset id from the server ('' = unset). */
 let _defaultId = '';

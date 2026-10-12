@@ -57,6 +57,12 @@
         // the worker alongside the token.
         window.__jugglerBase = '{{.BasePath}}';
         window.JUGGLER_ENGINE = true;
+        // The interface language, so the system prompt is assembled in it. The
+        // engine has no view of the user's preferences — it is a hidden page
+        // that loads the SDK and the extensions, not the viewer's UI — so the
+        // server bakes the choice in here. '' means "not set", which the prompt
+        // code reads as English, the source language.
+        window.__jugglerLanguage = '{{.Language}}';
     </script>
 
     <!-- Engine entry point: boots the worker-backed runtime. The engine's

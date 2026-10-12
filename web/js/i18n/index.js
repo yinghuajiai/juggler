@@ -182,6 +182,11 @@ export function applyLanguage(preference) {
   // Keep the document's declared language in step — index.html sets it for the
   // first paint, and a change made at runtime has to follow.
   if (typeof document !== 'undefined') document.documentElement.setAttribute('lang', next);
+  // The engine-side prompt code cannot import this module (the engine loads the
+  // SDK, not the viewer's UI), so it reads the language from this global, which
+  // the server bakes into both pages. Keeping it current here is what lets a
+  // language changed at runtime reach the prompt.
+  if (typeof window !== 'undefined') /** @type {any} */ (window).__jugglerLanguage = next;
   if (changed) notifyPrefChanged(LANGUAGE_EVENT);
 }
 

@@ -281,10 +281,46 @@ func (s *Server) serveEngine(w http.ResponseWriter, r *http.Request) {
 		"StaticVersion": s.staticVersion,
 		"CSPNonce":      nonce,
 		"APIToken":      s.apiToken,
+		// The engine assembles the system prompt, so it has to know which
+		// language to assemble it in. A stored choice wins; failing that the
+		// engine WebView's own Accept-Language decides, since unlike the viewer
+		// page the engine has no localStorage mirror to fall back on.
+		"Language": s.engineLanguage(r),
 		// Safe to substitute unescaped: requestBasePath admits only plain
 		// path segments.
 		"BasePath": requestBasePath(r),
 	}, func() { setHTMLSecurityHeaders(w, nonce) })
+}
+
+// engineLanguage is the language to bake into the engine page: the person's
+// stored choice when there is one ('system' left as-is for the page to resolve),
+// otherwise a concrete locale derived from the engine's own Accept-Language.
+//
+// It differs from the viewer's injection in exactly one way: the viewer resolves
+// "system" itself against navigator.language, while the engine page needs no
+// JavaScript to answer "am I Chinese" — so the header is resolved here.
+func (s *Server) engineLanguage(r *http.Request) string {
+	if stored := s.uiLanguage(); stored != "" {
+		return stored
+	}
+	if asksForChinese(r.Header.Get("Accept-Language")) {
+		return "zh-CN"
+	}
+	return "en"
+}
+
+// asksForChinese reports whether an Accept-Language header's most preferred
+// locale is a Chinese one.
+func asksForChinese(header string) bool {
+	for _, part := range strings.Split(header, ",") {
+		tag := strings.TrimSpace(strings.SplitN(part, ";", 2)[0])
+		if tag == "" {
+			continue
+		}
+		// The header is ordered by preference, so only the first tag speaks.
+		return strings.HasPrefix(strings.ToLower(tag), "zh")
+	}
+	return false
 }
 
 // serveHeadlessTest serves the headless test page (only registered by RegisterTestRoutes)
@@ -548,6 +584,16 @@ func settingsLanguage(gs core.GlobalSettings) string {
 		return ""
 	}
 	return language
+}
+
+// uiLanguage is the settings-side of {@link settingsLanguage}, tolerant of a
+// server with no settings store: a test that drives serveIndex for one window's
+// theme has no need of one, and the language it would supply is absent anyway.
+func (s *Server) uiLanguage() string {
+	if s.settings == nil {
+		return ""
+	}
+	return settingsLanguage(s.settings.get())
 }
 
 // findWebDir finds the web directory for dev mode (package-level, used during server creation)

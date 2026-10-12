@@ -148,6 +148,58 @@ export async function runTests(_ctx) {
     applyLanguage(LANGUAGE_EN);
   });
 
+  // The system prompt is assembled by the engine from the SDK and the
+  // juggler-core extension, which cannot read this module — they take the
+  // language from the global the server bakes into the page. These cases hold
+  // that path: with the global set to Chinese, both the identity text and the
+  // tool guidance must come out Chinese, and with it English they must not.
+  const { getDefaultIdentityText } = await import('../../sdk/lib/system-prompt-registry.js');
+  const { default: systemPromptContribution } =
+    await import('../../extensions/juggler-core/system-prompt-contribution.js');
+  const w = /** @type {any} */ (window);
+  const previous = w.__jugglerLanguage;
+
+  run('the built-in prompt is Chinese when the page language is', () => {
+    w.__jugglerLanguage = 'zh-CN';
+    try {
+      const identity = getDefaultIdentityText();
+      assert(/[\u4e00-\u9fff]/.test(identity),
+        'the default identity text should be Chinese');
+      assert(identity.includes('你是 Juggler'),
+        `the default identity text should open in Chinese, got ${JSON.stringify(identity.slice(0, 40))}`);
+    } finally {
+      w.__jugglerLanguage = previous;
+    }
+  });
+
+  run('the tool guidance is Chinese when the page language is', () => {
+    w.__jugglerLanguage = 'zh-CN';
+    try {
+      const guidance = systemPromptContribution({ enabledPluginIds: ['read-file', 'memory'] });
+      assert(/[\u4e00-\u9fff]/.test(guidance), 'the tool guidance should be Chinese');
+      assert(guidance.includes('## 工具使用') && guidance.includes('## 记忆'),
+        'the Chinese section headings should be present');
+    } finally {
+      w.__jugglerLanguage = previous;
+    }
+  });
+
+  run('the built-in prompt is English when the page language is', () => {
+    w.__jugglerLanguage = 'en';
+    try {
+      const identity = getDefaultIdentityText();
+      assert(identity.startsWith('You are Juggler'),
+        `English identity text should be unchanged, got ${JSON.stringify(identity.slice(0, 40))}`);
+      assert(!/[\u4e00-\u9fff]/.test(identity),
+        'the English prompt must carry no Chinese');
+      const guidance = systemPromptContribution({ enabledPluginIds: ['read-file', 'memory'] });
+      assert(guidance.includes('## Tool Usage') && guidance.includes('## Memory'),
+        'the English section headings should be present');
+    } finally {
+      w.__jugglerLanguage = previous;
+    }
+  });
+
   // Leave the app English for whatever runs after this suite.
   applyLanguage(LANGUAGE_EN);
 
