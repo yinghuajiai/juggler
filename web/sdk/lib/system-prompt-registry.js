@@ -72,12 +72,29 @@ class SystemPromptRegistry {
   }
 
   /**
+   * A built-in preset is stored in the single language it was registered in, but
+   * must be handed out in the language in use now — which can have changed since
+   * registration, and in a plain unit test changes without any event. So the
+   * read is where the language is applied, and the stored entry's language never
+   * matters. A user preset is the user's own text and passes through untouched.
+   * @param {SystemPromptPreset} preset - A stored preset.
+   * @returns {SystemPromptPreset} The preset in the language now in use.
+   * @private
+   */
+  _localise(preset) {
+    if (!preset.builtin) return preset;
+    const bilingual = BUILTIN_PRESETS.find((p) => p.id === preset.id);
+    return bilingual ? localise(bilingual) : preset;
+  }
+
+  /**
    * Get a preset by ID
    * @param {string} id - Preset ID
    * @returns {SystemPromptPreset|undefined} Preset if found
    */
   getPreset(id) {
-    return this._presets.get(id);
+    const preset = this._presets.get(id);
+    return preset ? this._localise(preset) : undefined;
   }
 
   /**
@@ -85,7 +102,7 @@ class SystemPromptRegistry {
    * @returns {SystemPromptPreset[]} Array of all presets
    */
   getAllPresets() {
-    return Array.from(this._presets.values());
+    return Array.from(this._presets.values(), (p) => this._localise(p));
   }
 
   /**
@@ -278,10 +295,6 @@ export function relocaliseBuiltinPresets() {
  */
 export function getDefaultIdentityText() {
   const preset = systemPromptRegistry.getPreset(BUILTIN_DEFAULT_ID);
-  // A user preset may share the id only if it was saved under one, which the
-  // registry refuses; so this is always a built-in and always re-derivable.
-  const bilingual = BUILTIN_PRESETS.find((p) => p.id === BUILTIN_DEFAULT_ID);
-  if (bilingual) return localise(bilingual).content;
   return preset ? preset.content : '';
 }
 
