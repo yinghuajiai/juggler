@@ -9,6 +9,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io/fs"
@@ -484,6 +485,14 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 	// Ranked for a remote viewer exactly as the zoom above is.
 	initialThemeMode, _ := s.SessionManager().GetWindowUITheme(role)
 
+	// This person's saved UI language ('system'|'en'|'zh-CN'), or "" to let the
+	// client follow the browser. Injected so the first frame renders its text in
+	// the chosen language rather than flashing English and correcting itself once
+	// the preference has been read. Unlike the zoom and theme above it is a
+	// per-person setting, so it rides the global settings document rather than
+	// the session.
+	initialLanguage := settingsLanguage(s.settings.get())
+
 	data := struct {
 		StaticVersion    string
 		IsTestMode       bool
@@ -494,6 +503,7 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 		BasePath         string
 		InitialZoom      int
 		InitialThemeMode string
+		InitialLanguage  string
 		ProjectKey       string
 	}{
 		StaticVersion: s.staticVersion,
@@ -505,6 +515,7 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 		BasePath:         requestBasePath(r),
 		InitialZoom:      initialZoom,
 		InitialThemeMode: initialThemeMode,
+		InitialLanguage:  initialLanguage,
 		// Namespaces the viewer's localStorage so a cached zoom/theme belongs to
 		// the project it was set in, whichever origin the viewer arrived on.
 		ProjectKey: projectStorageKey(s.ProjectPath()),
@@ -519,6 +530,24 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 		jlog.Error("Error executing template: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}
+}
+
+// settingsLanguage reads the UI language out of the global settings document's
+// `ui` section, returning "" when none has been chosen (the client then follows
+// the browser). The value is a stored preference, not a resolved locale, so the
+// server makes no judgement about which languages exist — it passes through
+// whatever the settings API accepted, and the client treats an unknown value as
+// "follow the system". A value that is not a JSON string is treated as unset.
+func settingsLanguage(gs core.GlobalSettings) string {
+	raw, ok := gs.UI["language"]
+	if !ok {
+		return ""
+	}
+	var language string
+	if err := json.Unmarshal(raw, &language); err != nil {
+		return ""
+	}
+	return language
 }
 
 // findWebDir finds the web directory for dev mode (package-level, used during server creation)

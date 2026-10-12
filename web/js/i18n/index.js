@@ -174,6 +174,9 @@ export function applyLanguage(preference) {
   const changed = next !== _locale;
   _preference = typeof preference === 'string' && preference ? preference : LANGUAGE_SYSTEM;
   _locale = next;
+  // Keep the document's declared language in step — index.html sets it for the
+  // first paint, and a change made at runtime has to follow.
+  if (typeof document !== 'undefined') document.documentElement.setAttribute('lang', next);
   if (changed) notifyPrefChanged(LANGUAGE_EVENT);
 }
 
@@ -195,7 +198,12 @@ export async function setLanguage(preference) {
  * @returns {void}
  */
 export function initLanguage() {
-  const cached = cachedUserPref(LANGUAGE_PREF, LANGUAGE_SYSTEM);
+  const w = typeof window !== 'undefined' ? /** @type {any} */ (window) : null;
+  // The server injected the stored choice into the page before it painted, and
+  // index.html already resolved it into `__locale`; adopting rather than
+  // re-deriving means the first frame and this module always agree.
+  const injected = w && typeof w.__sessionLanguage === 'string' ? w.__sessionLanguage : '';
+  const cached = injected || cachedUserPref(LANGUAGE_PREF, LANGUAGE_SYSTEM);
   applyLanguage(typeof cached === 'string' ? cached : LANGUAGE_SYSTEM);
 
   void reconcilePref('user', LANGUAGE_PREF, LANGUAGE_EVENT)

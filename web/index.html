@@ -151,6 +151,24 @@
                 ? [sessionZoom, seedZoom, lsZoom]
                 : [lsZoom, sessionZoom], isZoom) || 110;
             document.documentElement.style.fontSize = Math.max(60, Math.min(160, zoom)) + '%';
+            // Resolve the UI language before anything renders, so text is not
+            // painted in English and then corrected. The preference itself is a
+            // per-person setting (it rides the global settings document), so it
+            // is the same in every window and project; the server injects it so
+            // this does not wait on a fetch. Precedence (mirrors
+            // js/i18n/index.js, which re-reads it at boot): the server's stored
+            // choice > this device's mirrored copy > follow the browser. An
+            // unknown value is treated as 'system', never as a locale.
+            // window.__sessionLanguage is read back by initLanguage().
+            var sessionLanguage = "{{.InitialLanguage}}";
+            window.__sessionLanguage = sessionLanguage;
+            var isLanguage = function(l) { return l === 'system' || l === 'en' || l === 'zh-CN'; };
+            var lsLanguage = localStorage.getItem('language');
+            var language = pick([sessionLanguage, lsLanguage], isLanguage) || 'system';
+            window.__locale = language === 'system'
+                ? (/^zh\b/i.test(navigator.language) ? 'zh-CN' : 'en')
+                : language;
+            document.documentElement.setAttribute('lang', window.__locale);
             // Mark window-mode when loaded inside a native desktop window.
             if (isWindow) {
                 document.documentElement.dataset.windowMode = '1';
