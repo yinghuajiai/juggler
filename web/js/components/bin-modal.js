@@ -93,14 +93,14 @@ class BinModal extends JugglerElement {
       <modal-backdrop class="modal-backdrop-el bin-backdrop"></modal-backdrop>
       <modal-panel class="modal-container bin-panel">
         <header class="modal-header">
-          <h2 class="modal-title">Bin</h2>
+          <h2 class="modal-title">${_t('Bin')}</h2>
           <div class="bin-header-actions">
-            <button class="bin-empty-now" type="button" disabled aria-haspopup="menu" aria-expanded="false">Empty Bin</button>
-            <button class="bin-close" aria-label="Close" title="Close">×</button>
+            <button class="bin-empty-now" type="button" disabled aria-haspopup="menu" aria-expanded="false">${_t('Empty Bin')}</button>
+            <button class="bin-close" aria-label="${_t('Close')}" title="${_t('Close')}">×</button>
           </div>
         </header>
         <div class="modal-body bin-body">
-            <div class="bin-empty hidden">The bin is empty.</div>
+            <div class="bin-empty hidden">${_t('The bin is empty.')}</div>
             <div class="bin-size-notice hidden" role="status"></div>
           <ul class="bin-list" role="list"></ul>
         </div>
@@ -200,8 +200,8 @@ class BinModal extends JugglerElement {
           <span class="bin-row-date"></span>
         </div>
         <div class="bin-row-actions">
-          <button class="bin-action bin-restore" type="button">Restore</button>
-          <button class="bin-action bin-delete" type="button">Delete</button>
+          <button class="bin-action bin-restore" type="button">${_t('Restore')}</button>
+          <button class="bin-action bin-delete" type="button">${_t('Delete')}</button>
         </div>
       `;
       const nameEl = li.querySelector('.bin-row-name');

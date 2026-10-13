@@ -241,14 +241,14 @@ class FindBar {
     el.className = 'find-bar';
     el.setAttribute('role', 'search');
     el.innerHTML = `
-      <input type="text" class="find-bar__input" aria-label="Find"
-        placeholder="Find" spellcheck="false" autocomplete="off" />
+      <input type="text" class="find-bar__input" aria-label="${t('Find')}"
+        placeholder="${t('Find')}" spellcheck="false" autocomplete="off" />
       <span class="find-bar__counter" aria-live="polite"></span>
-      <button type="button" class="find-bar__btn find-bar__prev" aria-label="Previous match" title="Previous match (⇧⏎)">${EXPAND_LESS_SVG}</button>
-      <button type="button" class="find-bar__btn find-bar__next" aria-label="Next match" title="Next match (⏎)">${EXPAND_MORE_SVG}</button>
-      <button type="button" class="find-bar__btn find-bar__toggle find-bar__case" aria-label="Match case" aria-pressed="false" title="Match case">Aa</button>
-      <button type="button" class="find-bar__btn find-bar__toggle find-bar__word" aria-label="Match whole word" aria-pressed="false" title="Match whole word">W</button>
-      <button type="button" class="find-bar__btn find-bar__close" aria-label="Close find" title="Close (Esc)">&#x2715;</button>
+      <button type="button" class="find-bar__btn find-bar__prev" aria-label="${t('Previous match')}" title="${t('Previous match (⇧⏎)')}">${EXPAND_LESS_SVG}</button>
+      <button type="button" class="find-bar__btn find-bar__next" aria-label="${t('Next match')}" title="${t('Next match (⏎)')}">${EXPAND_MORE_SVG}</button>
+      <button type="button" class="find-bar__btn find-bar__toggle find-bar__case" aria-label="${t('Match case')}" aria-pressed="false" title="${t('Match case')}">${t('Aa')}</button>
+      <button type="button" class="find-bar__btn find-bar__toggle find-bar__word" aria-label="${t('Match whole word')}" aria-pressed="false" title="${t('Match whole word')}">W</button>
+      <button type="button" class="find-bar__btn find-bar__close" aria-label="${t('Close find')}" title="${t('Close (Esc)')}">&#x2715;</button>
     `;
 
     const input = /** @type {HTMLInputElement} */ (el.querySelector('.find-bar__input'));

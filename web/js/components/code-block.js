@@ -69,7 +69,7 @@ class CodeBlock extends HTMLElement {
     this.innerHTML = `
             <header class="code-header">
                 <span class="language">${this.language}</span>
-                <button class="copy-btn" type="button">Copy</button>
+                <button class="copy-btn" type="button">${t('Copy')}</button>
             </header>
             <pre><code class="syntax-highlight language-${this.language}">${highlightedCode}</code></pre>
         `;

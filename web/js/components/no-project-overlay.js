@@ -215,17 +215,17 @@ class NoProjectOverlay extends HTMLElement {
     const canDropFolders = hasNativeHost();
 
     this.innerHTML = `
-      <section class="onboarding-panel" aria-label="Welcome to Juggler">
-        <div class="onboarding-logo" role="img" aria-label="Juggler"></div>
-        <h1 class="np-heading">Welcome to Juggler</h1>
+      <section class="onboarding-panel" aria-label="${t('Welcome to Juggler')}">
+        <div class="onboarding-logo" role="img" aria-label="${t('Juggler')}"></div>
+        <h1 class="np-heading">${t('Welcome to Juggler')}</h1>
         <p class="np-lead">
           Juggler is an AI coding agent designed around transparency, control, and fast iteration.
           It works inside one project folder at a time.
         </p>
 
         <div class="np-actions">
-          <button type="button" class="np-action np-action--primary np-open">Open an existing folder…</button>
-          <button type="button" class="np-action np-new">Create a new folder to work in…</button>
+          <button type="button" class="np-action np-action--primary np-open">${t('Open an existing folder…')}</button>
+          <button type="button" class="np-action np-new">${t('Create a new folder to work in…')}</button>
         </div>
 
         ${canDropFolders ? '<p class="np-drop-hint">Or drag a folder onto this window.</p>' : ''}
@@ -242,7 +242,7 @@ class NoProjectOverlay extends HTMLElement {
         <p class="np-footnote">
           Once a project is open, ask Juggler about itself — it explains its own tools and
           features. Or browse the
-          <button type="button" class="onboarding-link np-shortcuts">keyboard shortcuts</button>.
+          <button type="button" class="onboarding-link np-shortcuts">${t('keyboard shortcuts')}</button>.
         </p>
       </section>
     `;

@@ -22,6 +22,7 @@
  * @module components/model-picker/model-tuning
  */
 
+import { t as _t } from '../../i18n/index.js';
 import { escapeHtml } from '../../../sdk/lib/html.js';
 
 /**
@@ -175,8 +176,8 @@ class ModelTuning extends HTMLElement {
 
     return `
             <div class="model-thinking">
-                <div class="model-thinking-label">Thinking</div>
-                <div class="thinking-segmented" role="radiogroup" aria-label="Thinking level">${segments.join('')}</div>
+                <div class="model-thinking-label">${_t('Thinking')}</div>
+                <div class="thinking-segmented" role="radiogroup" aria-label="${_t('Thinking level')}">${segments.join('')}</div>
             </div>`;
   }
 
@@ -208,8 +209,8 @@ class ModelTuning extends HTMLElement {
 
     return `
             <div class="model-speed">
-                <div class="model-speed-label">Speed</div>
-                <div class="tier-segmented" role="radiogroup" aria-label="Serving speed">${segments.join('')}</div>
+                <div class="model-speed-label">${_t('Speed')}</div>
+                <div class="tier-segmented" role="radiogroup" aria-label="${_t('Serving speed')}">${segments.join('')}</div>
             </div>`;
   }
 

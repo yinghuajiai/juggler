@@ -39,6 +39,7 @@
  * owner scopes to the run's own rows — and disappears entirely when the run is
  * settled.
  */
+import { t } from '../i18n/index.js';
 import { findAssistantTxnIds, findLastAssistantItemId } from '../utils/transaction-anchor.js';
 import { formatRelativeDateTime } from '../utils/format.js';
 import providersCache from '../services/providers-cache.js';
@@ -702,12 +703,12 @@ class ConversationFooter extends HTMLElement {
             <footer-processing class="hidden">
                 <juggler-spinner live></juggler-spinner>
                 <span class="llm-busy-text"></span>
-                <button class="message-action-btn footer-pause-btn" type="button" title="Pause as soon as possible, without cancelling any operations in progress">
+                <button class="message-action-btn footer-pause-btn" type="button" title="${t('Pause as soon as possible, without cancelling any operations in progress')}">
                     <svg class="footer-pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M560-200v-560h160v560H560Zm-320 0v-560h160v560H240Z"/></svg>
                     <juggler-spinner class="footer-pause-spinner" style="--size: 1rem"></juggler-spinner>
-                    <span class="footer-pause-label">Pause</span>
+                    <span class="footer-pause-label">${t('Pause')}</span>
                 </button>
-                <button class="message-action-btn footer-stop-btn" type="button" title="Cancel all pending operations and stop">
+                <button class="message-action-btn footer-stop-btn" type="button" title="${t('Cancel all pending operations and stop')}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m336-280-56-56 144-144-144-143 56-56 144 144 143-144 56 56-144 143 144 144-56 56-143-144-144 144Z"/></svg>
                     Stop
                 </button>
@@ -724,15 +725,15 @@ class ConversationFooter extends HTMLElement {
                 <token-display></token-display>
                 <div class="footer-activity hidden">
                     <span class="footer-last-activity"></span>
-                    <button class="properties-panel-header-icon-btn footer-log-btn" type="button" title="Open this conversation's log" aria-label="Open conversation log">${LOG_ICON_SVG}</button>
+                    <button class="properties-panel-header-icon-btn footer-log-btn" type="button" title="${t("Open this conversation's log")}" aria-label="${t('Open conversation log')}">${LOG_ICON_SVG}</button>
                 </div>
             </div>
             <footer-idle>
                 <div class="footer-idle-row footer-idle-main">
                     <div class="footer-idle-left">
                         <div class="footer-paused hidden" role="status">
-                            <span class="footer-paused-label">Paused</span>
-                            <button class="message-action-btn footer-resume-btn" type="button" title="Lift the pause and carry on">
+                            <span class="footer-paused-label">${t('Paused')}</span>
+                            <button class="message-action-btn footer-resume-btn" type="button" title="${t('Lift the pause and carry on')}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-240v-480h66.67v480H240Zm169.33 0 390-240-390-240v480ZM476-363.67v-232.66L665-480 476-363.67ZM476-480Z"/></svg>
                                 Resume
                             </button>

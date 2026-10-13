@@ -179,33 +179,33 @@ class SettingsPanel extends HTMLElement {
     this.innerHTML = `
             <modal-backdrop class="settings-backdrop" id="settings-backdrop"></modal-backdrop>
             <modal-panel class="settings-container">
-                <button class="close-button" id="settings-close" title="Close" aria-label="Close"><span class="icon-close"></span></button>
+                <button class="close-button" id="settings-close" title="${t('Close')}" aria-label="${t('Close')}"><span class="icon-close"></span></button>
                 <nav class="settings-tabs">
                     <div class="settings-tabs-scroll">
-                        <button class="settings-tab active" data-tab="providers">Providers</button>
-                        <button class="settings-tab" data-tab="defaults">Defaults</button>
-                        <button class="settings-tab" data-tab="connectivity">Connectivity</button>
-                        <button class="settings-tab" data-tab="extensions">Extensions</button>
-                        <button class="settings-tab" data-tab="skills">Skills</button>
-                        <button class="settings-tab" data-tab="mcp">MCP servers</button>
-                        <button class="settings-tab" data-tab="acp">ACP agents</button>
-                        <button class="settings-tab" data-tab="appearance">Appearance</button>
-                        <button class="settings-tab" data-tab="notifications">Notifications</button>
-                        <button class="settings-tab" data-tab="shortcuts">Keyboard shortcuts</button>
-                        <button class="settings-tab" data-tab="logs">Logs</button>
-                        <button class="settings-tab" data-tab="updates">Updates</button>
+                        <button class="settings-tab active" data-tab="providers">${t('Providers')}</button>
+                        <button class="settings-tab" data-tab="defaults">${t('Defaults')}</button>
+                        <button class="settings-tab" data-tab="connectivity">${t('Connectivity')}</button>
+                        <button class="settings-tab" data-tab="extensions">${t('Extensions')}</button>
+                        <button class="settings-tab" data-tab="skills">${t('Skills')}</button>
+                        <button class="settings-tab" data-tab="mcp">${t('MCP servers')}</button>
+                        <button class="settings-tab" data-tab="acp">${t('ACP agents')}</button>
+                        <button class="settings-tab" data-tab="appearance">${t('Appearance')}</button>
+                        <button class="settings-tab" data-tab="notifications">${t('Notifications')}</button>
+                        <button class="settings-tab" data-tab="shortcuts">${t('Keyboard shortcuts')}</button>
+                        <button class="settings-tab" data-tab="logs">${t('Logs')}</button>
+                        <button class="settings-tab" data-tab="updates">${t('Updates')}</button>
                     </div>
                 </nav>
 
                 <div class="settings-loading" id="settings-loading">
                     <juggler-spinner style="--size: 2.5rem"></juggler-spinner>
-                    <div class="settings-loading-text">Loading settings...</div>
+                    <div class="settings-loading-text">${t('Loading settings...')}</div>
                 </div>
 
                 <main class="settings-content">
                     <section class="settings-tab-content active" id="tab-providers">
                         <p class="settings-description">
-                            Provider keys are stored in <code id="credentials-path">~/.juggler/credentials.json</code>.
+                            Provider keys are stored in <code id="credentials-path">${t('~/.juggler/credentials.json')}</code>.
                         </p>
 
                         <div class="settings-form" id="provider-form">
@@ -214,7 +214,7 @@ class SettingsPanel extends HTMLElement {
                     </section>
 
                     <section class="settings-tab-content" id="tab-defaults">
-                        <div class="settings-section-heading">New conversation defaults</div>
+                        <div class="settings-section-heading">${t('New conversation defaults')}</div>
                         <div class="settings-form" id="new-conversation-defaults-form">
                             <div class="settings-card">
                                 <div id="default-model-field-container"></div>
@@ -222,7 +222,7 @@ class SettingsPanel extends HTMLElement {
                             </div>
                         </div>
 
-                        <div class="settings-section-heading">Cheap model</div>
+                        <div class="settings-section-heading">${t('Cheap model')}</div>
                         <p class="settings-description">
                             A small, fast model for the background jobs below. Extensions can
                             use it too. Never used for your conversations.
@@ -274,7 +274,7 @@ class SettingsPanel extends HTMLElement {
                         </p>
                         <div class="settings-form" id="connectivity-form">
                         </div>
-                        <div class="settings-section-heading">Proxy Settings</div>
+                        <div class="settings-section-heading">${t('Proxy Settings')}</div>
                         <div class="settings-form" id="proxy-form"></div>
                     </section>
 
@@ -284,7 +284,7 @@ class SettingsPanel extends HTMLElement {
 
                     <section class="settings-tab-content" id="tab-notifications">
                         <div class="settings-form" id="notifications-form"></div>
-                        <div class="settings-section-heading">Tabs</div>
+                        <div class="settings-section-heading">${t('Tabs')}</div>
                         <div class="settings-form" id="tab-behaviour-form"></div>
                     </section>
 
@@ -303,9 +303,9 @@ class SettingsPanel extends HTMLElement {
                             zip its folder.
                         </p>
                         <div class="settings-form" id="logs-form">
-                            <div class="logs-empty" id="logs-empty">No log files yet.</div>
+                            <div class="logs-empty" id="logs-empty">${t('No log files yet.')}</div>
                             <div class="logs-controls" id="logs-controls" hidden>
-                                <label class="logs-picker-label" for="logs-picker">Log file</label>
+                                <label class="logs-picker-label" for="logs-picker">${t('Log file')}</label>
                                 <select class="logs-picker" id="logs-picker"></select>
                             </div>
                             <div class="logs-filepath" id="logs-filepath"></div>

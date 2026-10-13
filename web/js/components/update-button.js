@@ -59,8 +59,8 @@ class UpdateButton extends JugglerElement {
 
   connectedCallback() {
     this.innerHTML = `
-      <button type="button" class="update-btn" title="Update available">
-        <span class="update-btn__label">Update</span>
+      <button type="button" class="update-btn" title="${t('Update available')}">
+        <span class="update-btn__label">${t('Update')}</span>
         <span class="update-btn__pct" aria-hidden="true"></span>
         <span class="update-btn__dot" aria-hidden="true"></span>
       </button>`;

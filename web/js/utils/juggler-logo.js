@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * The Juggler logo with its name — three clubs plus the "Juggler" lettering — as
  * inline SVG.
@@ -40,7 +42,7 @@
  * The clubs leave this box when they are thrown, so whatever draws this needs
  * `overflow: visible` on the `<svg>` and its ancestors up to the viewport.
  */
-export const LOGO_WITH_NAME_SVG = `<svg class="juggler-logo" viewBox="0 0 96.238 28.263" role="img" aria-label="Juggler">`
+export const LOGO_WITH_NAME_SVG = `<svg class="juggler-logo" viewBox="0 0 96.238 28.263" role="img" aria-label="${t('Juggler')}">`
   + `<g class="logo-club logo-club-1"><g class="logo-spin">`
   + `<path d="M8.362 9.777c-1.24 1.375-3.474 3.52-4.946 6.617-.559 1.34-1.527 3.973-1.646 4.978l2.412 1.354c1.961-1.977 3.682-3.777 4.904-7.097.4-1.169.86-2.95 1.331-4.615z"/>`
   + `<path d="M13.955.001c-1.32.025-1.84 1.475-1.287 2.488-1.325 2.876-3.075 5.701-3.684 6.58l1.683.985c.46-1.104 1.828-4.072 3.355-6.863 1.107-.18 1.627-1.105 1.509-1.931-.086-.863-.94-1.285-1.576-1.259z"/>`

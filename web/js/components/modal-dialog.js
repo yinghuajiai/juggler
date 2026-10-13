@@ -130,13 +130,13 @@ class ModalDialog extends HTMLElement {
             <modal-backdrop class="modal-backdrop-el"></modal-backdrop>
       <modal-panel class="modal-container">
         <header class="modal-header">
-          <h2 class="modal-title">Dialog</h2>
+          <h2 class="modal-title">${t('Dialog')}</h2>
         </header>
         <div class="modal-body">
           <div class="modal-message"></div>
           <input type="text" class="modal-input hidden" autocorrect="off" autocapitalize="off" spellcheck="false" />
           <div class="modal-choice-options hidden"></div>
-          <input type="text" class="modal-custom-input hidden" placeholder="Enter your answer..." autocorrect="off" autocapitalize="off" spellcheck="false" />
+          <input type="text" class="modal-custom-input hidden" placeholder="${t('Enter your answer...')}" autocorrect="off" autocapitalize="off" spellcheck="false" />
         </div>
           <footer class="modal-footer">
             <!-- Buttons will be added dynamically -->

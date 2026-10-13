@@ -1061,7 +1061,7 @@ export class ProvidersTab {
     activeBadge.id = `${provider.name}-active-badge`;
     activeBadge.className = 'provider-active-badge';
     activeBadge.style.display = 'none';
-    activeBadge.innerHTML = `${CHECK_SVG}<span>key is active</span>`;
+    activeBadge.innerHTML = `${CHECK_SVG}<span>${_t('key is active')}</span>`;
 
     const buttonGroup = document.createElement('div');
     buttonGroup.className = 'provider-buttons';

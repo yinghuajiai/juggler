@@ -26,6 +26,7 @@
  * @module components/settings/skill-preview
  */
 
+import { t } from '../../i18n/index.js';
 import { escapeHtml } from '../../../sdk/lib/html.js';
 import { renderMarkdown } from '../../../sdk/lib/markdown.js';
 import { extractErrorMessage } from '../../../sdk/lib/error-utils.js';
@@ -49,7 +50,7 @@ export function skillPreviewShell(title, bodyHtml, footerHtml = '') {
     <modal-panel class="skills-preview-panel">
       <header class="skills-preview-header">
         <h2 class="skills-preview-title">${title}</h2>
-        <button class="close-button skills-preview-close" data-action="drawer-close" title="Close (Esc)" aria-label="Close"><span class="icon-close"></span></button>
+        <button class="close-button skills-preview-close" data-action="drawer-close" title="${t('Close (Esc)')}" aria-label="${t('Close')}"><span class="icon-close"></span></button>
       </header>
       <div class="skills-preview-body">${bodyHtml}</div>
       ${footerHtml ? `<footer class="skills-preview-footer">${footerHtml}</footer>` : ''}
@@ -95,7 +96,7 @@ function installedPreviewBody(skill, detail) {
 
   const location = detail.path
     ? `<div class="skills-section">
-         <div class="skills-section-title">Location</div>
+         <div class="skills-section-title">${t('Location')}</div>
          <div class="skills-filepath-mount" data-path="${escapeHtml(detail.path)}"></div>
        </div>`
     : '';

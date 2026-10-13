@@ -608,7 +608,7 @@ class ModelPicker extends JugglerElement {
       });
     });
 
-    const toggle = `<button type="button" class="provider-view-toggle" data-provider="${escapeHtml(provider.name)}" title="Toggle model list: none / top / all">${state}</button>`;
+    const toggle = `<button type="button" class="provider-view-toggle" data-provider="${escapeHtml(provider.name)}" title="${_t('Toggle model list: none / top / all')}">${state}</button>`;
     const header = `<li class="menu-header provider-menu-header"><span class="menu-header-label">${escapeHtml(provider.displayName)}</span>${toggle}</li>`;
     const group = items.length ? `<menu class="menu-group">${items.join('')}</menu>` : '';
     return `${header}${group}`;
@@ -671,7 +671,7 @@ class ModelPicker extends JugglerElement {
                 </li>`;
     }).join('');
 
-    return `<div class="model-picker-recent-label">Recent</div><menu class="recent-model-list">${items}</menu>`;
+    return `<div class="model-picker-recent-label">${_t('Recent')}</div><menu class="recent-model-list">${items}</menu>`;
   }
 
   /**
@@ -685,7 +685,7 @@ class ModelPicker extends JugglerElement {
       return `
                 <li class="menu-item unavailable">
                     <juggler-spinner style="--size: 0.875rem"></juggler-spinner>
-                    <span>Loading providers…</span>
+                    <span>${_t('Loading providers…')}</span>
                 </li>
             `;
     }
@@ -706,7 +706,7 @@ class ModelPicker extends JugglerElement {
       // missing credentials. Point at the footer action that fixes it.
       content += `
                 <li class="menu-item menu-item-hint">
-                    <span class="menu-hint-text">No providers yet.<br/>Choose "Manage LLM providers…" to add credentials.</span>
+                    <span class="menu-hint-text">${_t('No providers yet.')}<br/>${_t('Choose "Manage LLM providers…" to add credentials.')}</span>
                 </li>
             `;
     } else if (!sections && this._filter) {
@@ -786,8 +786,8 @@ class ModelPicker extends JugglerElement {
     if (!cfg?.provider || !cfg?.model) {
       return `
             <div class="model-current">
-                <div class="model-current-label">Current model</div>
-                <div class="model-current-name model-current-name--muted">No model selected</div>
+                <div class="model-current-label">${_t('Current model')}</div>
+                <div class="model-current-name model-current-name--muted">${_t('No model selected')}</div>
             </div>`;
     }
 
@@ -812,7 +812,7 @@ class ModelPicker extends JugglerElement {
 
     return `
             <div class="model-current">
-                <div class="model-current-label">Current model</div>
+                <div class="model-current-label">${_t('Current model')}</div>
                 <div class="model-current-name">${escapeHtml(modelLabel(entry?.displayName, cfg.model))}</div>
                 <div class="model-current-sub">${escapeHtml(subParts.join(' · '))}${assumedHTML}</div>${this._switchHTML(providerEntry)}${this._usageHTML(cfg.provider)}
             </div>`;
@@ -833,7 +833,7 @@ class ModelPicker extends JugglerElement {
     return `
                 <div class="model-current-switch" title="${escapeHtml(target.reason || '')}">
                     <span class="model-current-switch-text">${escapeHtml(target.displayName)} reads this server's real context windows.</span>
-                    <button type="button" class="model-provider-switch" data-from="${escapeHtml(providerEntry.name)}" data-to="${escapeHtml(target.provider)}">Switch</button>
+                    <button type="button" class="model-provider-switch" data-from="${escapeHtml(providerEntry.name)}" data-to="${escapeHtml(target.provider)}">${_t('Switch')}</button>
                 </div>`;
   }
 
@@ -899,7 +899,7 @@ class ModelPicker extends JugglerElement {
             <div class="model-picker-recent">${this._lastRecentHTML}</div>
             <div class="model-picker-list">
                 <div class="model-picker-filter">
-                    <input type="text" class="model-picker-filter-input" aria-label="Filter models" placeholder="Filter models" value="${escapeHtml(this._filter)}">
+                    <input type="text" class="model-picker-filter-input" aria-label="${_t('Filter models')}" placeholder="${_t('Filter models')}" value="${escapeHtml(this._filter)}">
                 </div>
                 <menu class="model-picker-rows">${this._lastListHTML}</menu>
             </div>

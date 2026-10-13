@@ -398,7 +398,7 @@ class PropertiesPanel extends HTMLElement {
                     <span class="properties-panel-empty-icon">
                         ${INFO_SVG}
                     </span>
-                    <span class="properties-panel-empty-text">Select an item to view details</span>
+                    <span class="properties-panel-empty-text">${t('Select an item to view details')}</span>
                 </properties-panel-empty>
             </properties-panel-content>
             <col-resize-handle></col-resize-handle>
@@ -903,7 +903,7 @@ class PropertiesPanel extends HTMLElement {
                 <span class="properties-panel-empty-icon">
                     ${INFO_SVG}
                 </span>
-                <span class="properties-panel-empty-text">Select an item to view details</span>
+                <span class="properties-panel-empty-text">${t('Select an item to view details')}</span>
             </properties-panel-empty>
         `;
   }

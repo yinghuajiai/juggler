@@ -8,6 +8,7 @@
  * @typedef {import('./conversation-area.js').default} ConversationArea
  */
 
+import { t } from '../i18n/index.js';
 import { isThreadMessage } from '../../sdk/lib/message.js';
 import { findFirstPendingApprovalId } from '../model/thread-navigation.js';
 import { ColumnSelectionState } from '../utils/column-selection.js';
@@ -2004,7 +2005,7 @@ class ConversationTab extends JugglerElement {
           <div class="conversation-tab-loading-message">
             Failed to load conversation
           </div>
-          <button type="button" class="conversation-tab-loading-retry">Retry</button>
+          <button type="button" class="conversation-tab-loading-retry">${t('Retry')}</button>
         </div>
       `;
       const retryBtn = overlay.querySelector('.conversation-tab-loading-retry');

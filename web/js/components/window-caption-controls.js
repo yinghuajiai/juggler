@@ -28,6 +28,7 @@
  * drag region or uses Win+Up).
  */
 
+import { t } from '../i18n/index.js';
 import { windowControlURL } from '../../sdk/lib/window-control.js';
 import { fetchJson } from '../services/http.js';
 import JugglerElement from './juggler-element.js';
@@ -72,11 +73,11 @@ class WindowCaptionControls extends JugglerElement {
     if (this.childElementCount === 0) {
       this.innerHTML = `
                 <button type="button" class="window-caption-btn" data-action="minimise"
-                        aria-label="Minimise" title="Minimise">${svg(GLYPH.minimise)}</button>
+                        aria-label="${t('Minimise')}" title="${t('Minimise')}">${svg(GLYPH.minimise)}</button>
                 <button type="button" class="window-caption-btn" data-action="maximise"
-                        aria-label="Maximise" title="Maximise">${svg(GLYPH.maximise)}</button>
+                        aria-label="${t('Maximise')}" title="${t('Maximise')}">${svg(GLYPH.maximise)}</button>
                 <button type="button" class="window-caption-btn window-caption-btn--close" data-action="close"
-                        aria-label="Close" title="Close">${svg(GLYPH.close)}</button>
+                        aria-label="${t('Close')}" title="${t('Close')}">${svg(GLYPH.close)}</button>
             `;
     }
 

@@ -18,6 +18,7 @@
  * @module components/onboarding/step-modal
  */
 
+import { t } from '../../i18n/index.js';
 import { escapeHtml } from '../../../sdk/lib/html.js';
 import { presentModal } from '../../utils/modal-surface.js';
 
@@ -227,7 +228,7 @@ function shell(view, actions, dismissLabel, canGoBack) {
       <header class="wiz-header">
         ${canGoBack ? '<button type="button" class="wiz-back" aria-label="Back">← Back</button>' : ''}
         <h2 class="wiz-title">${escapeHtml(view.title)}</h2>
-        <button class="close-button wiz-close" title="Close (Esc)" aria-label="${escapeHtml(dismissLabel)}"><span class="icon-close"></span></button>
+        <button class="close-button wiz-close" title="${t('Close (Esc)')}" aria-label="${escapeHtml(dismissLabel)}"><span class="icon-close"></span></button>
       </header>
       <div class="wiz-body">${view.body}</div>
       ${buttons ? `<footer class="wiz-footer">${buttons}</footer>` : ''}

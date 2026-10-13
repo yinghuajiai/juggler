@@ -561,7 +561,7 @@ class PinboardPanel extends JugglerElement {
     popOut.className = 'btn-ghost pinboard-toolbar__popout';
     popOut.title = t('Open this board in its own window');
     popOut.setAttribute('aria-label', t('Pop out Pinboard'));
-    popOut.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="${POPOUT_ICON_PATH}"/></svg><span>Pop-out</span>`;
+    popOut.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" aria-hidden="true"><path d="${POPOUT_ICON_PATH}"/></svg><span>${t('Pop-out')}</span>`;
     popOut.hidden = !canLinkBoards();
     this.on(popOut, 'click', () => { void this._popOut(); });
     controls.appendChild(popOut);

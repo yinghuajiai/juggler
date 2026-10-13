@@ -508,7 +508,7 @@ function buildKeyField(endpoint, ctx) {
 
   const badge = document.createElement('span');
   badge.className = 'provider-active-badge';
-  badge.innerHTML = `${CHECK_SVG}<span>key is active</span>`;
+  badge.innerHTML = `${CHECK_SVG}<span>${t('key is active')}</span>`;
   badge.style.display = endpoint.hasKey && !fromEnv ? 'inline-flex' : 'none';
 
   const buttons = document.createElement('div');

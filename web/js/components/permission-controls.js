@@ -284,7 +284,7 @@ class PermissionControls extends HTMLElement {
     const includePopupHtml = this.popupOpen && !existingPopup;
 
     this.innerHTML = `
-            <button class="permission-btn input-ctrl-btn ${this._buttonStateClass()} ${this.popupOpen ? 'open' : ''}" title="Manage auto-approval permissions" data-shortcut-id="toggle-file-editing">
+            <button class="permission-btn input-ctrl-btn ${this._buttonStateClass()} ${this.popupOpen ? 'open' : ''}" title="${t('Manage auto-approval permissions')}" data-shortcut-id="toggle-file-editing">
                   ${this._buttonInnerHTML()}
               </button>
             ${includePopupHtml ? `<div class="dropdown-menu permissions-popup show"></div>` : ''}
@@ -467,10 +467,10 @@ class PermissionControls extends HTMLElement {
     let listEl = /** @type {HTMLElement | null} */ (host.querySelector('.paths-list'));
     if (!listEl) {
       host.innerHTML = `
-              <h4 class="plugin-section-heading">Allowed paths</h4>
+              <h4 class="plugin-section-heading">${t('Allowed paths')}</h4>
               <div class="paths-list"></div>
               <div class="add-pattern-row">
-                <button class="add-pattern-btn add-path-btn">+ Add path</button>
+                <button class="add-pattern-btn add-path-btn">${t('+ Add path')}</button>
               </div>
         `;
       listEl = /** @type {HTMLElement} */ (host.querySelector('.paths-list'));
@@ -531,26 +531,26 @@ class PermissionControls extends HTMLElement {
       // removed — it applies to every conversation and never changes.
       row.className = 'pattern-row pattern-row-implicit';
       row.innerHTML = `
-        <span class="pattern-text" data-path="${escapeHtml(p)}" title="Project root — available in every conversation">${escapeHtml(p)}</span>
-        <span class="permission-scope-label" title="Project root — available in every conversation">All conversations</span>`;
+        <span class="pattern-text" data-path="${escapeHtml(p)}" title="${t('Project root — available in every conversation')}">${escapeHtml(p)}</span>
+        <span class="permission-scope-label" title="${t('Project root — available in every conversation')}">${t('All conversations')}</span>`;
     } else if (d.mode === 'edit') {
       row.className = 'pattern-row editing';
       row.innerHTML = `
         <path-input dirs-only class="path-edit-input" value="${escapeHtml(p)}" data-old-path="${escapeHtml(d.key)}" placeholder="${escapeHtml(p)}"></path-input>
-        <button class="pattern-save-btn path-save-btn" data-old-path="${escapeHtml(d.key)}" title="Save">Save</button>
-        <button class="pattern-cancel-btn path-cancel-btn" title="Cancel">Cancel</button>`;
+        <button class="pattern-save-btn path-save-btn" data-old-path="${escapeHtml(d.key)}" title="${t('Save')}">${t('Save')}</button>
+        <button class="pattern-cancel-btn path-cancel-btn" title="${t('Cancel')}">${t('Cancel')}</button>`;
     } else if (d.mode === 'new') {
       row.className = 'pattern-row editing';
       row.innerHTML = `
-        <path-input dirs-only class="path-edit-input" placeholder="e.g., ~/code/juggler" data-old-path=""></path-input>
-        <button class="pattern-save-btn path-save-btn" data-old-path="" title="Save">Save</button>
-        <button class="pattern-cancel-btn path-cancel-btn" title="Cancel">Cancel</button>`;
+        <path-input dirs-only class="path-edit-input" placeholder="${t('e.g., ~/code/juggler')}" data-old-path=""></path-input>
+        <button class="pattern-save-btn path-save-btn" data-old-path="" title="${t('Save')}">${t('Save')}</button>
+        <button class="pattern-cancel-btn path-cancel-btn" title="${t('Cancel')}">${t('Cancel')}</button>`;
     } else {
       row.className = 'pattern-row';
       row.innerHTML = `
         <span class="pattern-text path-text" data-path-id="${escapeHtml(d.key)}" data-path="${escapeHtml(p)}"></span>
         <button class="permission-scope-btn path-scope-btn" data-path-id="${escapeHtml(d.key)}" data-scope=""></button>
-        <button class="pattern-delete-btn path-delete-btn icon-btn" data-path-id="${escapeHtml(d.key)}" title="Delete"><span class="icon-trashcan"></span></button>`;
+        <button class="pattern-delete-btn path-delete-btn icon-btn" data-path-id="${escapeHtml(d.key)}" title="${t('Delete')}"><span class="icon-trashcan"></span></button>`;
       this._updatePathRow(row, d);
     }
     return row;

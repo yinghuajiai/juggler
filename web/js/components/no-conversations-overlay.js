@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * <no-conversations-overlay> — full-area placeholder shown when a project is
  * loaded but no conversation is open.
@@ -85,9 +87,9 @@ class NoConversationsOverlay extends HTMLElement {
   /** @private */
   _render() {
     this.innerHTML = `
-      <section class="onboarding-panel" aria-label="No conversations">
-        <div class="onboarding-logo" role="img" aria-label="Juggler"></div>
-        <p>Click '+ New conversation' in the sidebar to start one.</p>
+      <section class="onboarding-panel" aria-label="${t('No conversations')}">
+        <div class="onboarding-logo" role="img" aria-label="${t('Juggler')}"></div>
+        <p>${t("Click '+ New conversation' in the sidebar to start one.")}</p>
       </section>
     `;
   }

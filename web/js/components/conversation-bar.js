@@ -1006,7 +1006,7 @@ class ConversationBar extends JugglerElement {
       undoToast.title = t('Put the conversation you just binned back');
       undoToast.setAttribute('aria-label', t('Restore the conversation from the bin'));
       undoToast.hidden = true;
-      undoToast.innerHTML = `${UNDO_SVG}<span>Restore from Bin</span>`;
+      undoToast.innerHTML = `${UNDO_SVG}<span>${t('Restore from Bin')}</span>`;
       undoToast.addEventListener('click', () => this._undoBin());
       this._cachedElements.set('bin-undo', undoToast);
       footer.appendChild(undoToast);
@@ -1019,7 +1019,7 @@ class ConversationBar extends JugglerElement {
       binBtn.className = 'btn-ghost conversation-bin-button';
       binBtn.title = t('View binned conversations');
       binBtn.setAttribute('aria-label', t('Open bin'));
-      binBtn.innerHTML = `${BIN_ICON_SVG}<span class="conversation-bin-label">Bin</span><span class="conversation-bin-size" hidden></span><span class="conversation-bin-count" hidden></span>`;
+      binBtn.innerHTML = `${BIN_ICON_SVG}<span class="conversation-bin-label">${t('Bin')}</span><span class="conversation-bin-size" hidden></span><span class="conversation-bin-count" hidden></span>`;
       binBtn.addEventListener('click', () => this._openBinModal());
       this._cachedElements.set('bin-button', binBtn);
       footer.appendChild(binBtn);
@@ -1076,8 +1076,8 @@ class ConversationBar extends JugglerElement {
       // column and the words where tab names start.
       addButton.innerHTML = `
         <button class="conversation-add" type="button"
-                title="New conversation" data-shortcut-id="new-conversation"
-                aria-label="Create new conversation">${ADD_ICON_SVG}<span class="conversation-box-new-label"><span class="conversation-box-new-label-full">New conversation</span><span class="conversation-box-new-label-short">Conversation</span></span></button>
+                title="${t('New conversation')}" data-shortcut-id="new-conversation"
+                aria-label="${t('Create new conversation')}">${ADD_ICON_SVG}<span class="conversation-box-new-label"><span class="conversation-box-new-label-full">${t('New conversation')}</span><span class="conversation-box-new-label-short">${t('Conversation')}</span></span></button>
       `;
       this._cachedElements.set('add-button', addButton);
 
@@ -1104,8 +1104,8 @@ class ConversationBar extends JugglerElement {
       newWorkspace.className = 'conversation-box-new';
       newWorkspace.innerHTML = `
         <button class="conversation-box-new-button" type="button"
-                 title="Create a new workspace, or a group to keep conversations together"
-                 aria-label="New workspace or group">${ADD_ICON_SVG}<span class="conversation-box-new-label"><span class="conversation-box-new-label-full">New workspace or group</span><span class="conversation-box-new-label-short">Workspace/Group</span></span></button>
+                 title="${t('Create a new workspace, or a group to keep conversations together')}"
+                 aria-label="${t('New workspace or group')}">${ADD_ICON_SVG}<span class="conversation-box-new-label"><span class="conversation-box-new-label-full">${t('New workspace or group')}</span><span class="conversation-box-new-label-short">${t('Workspace/Group')}</span></span></button>
       `;
       this._cachedElements.set('new-workspace', newWorkspace);
       newWorkspace.querySelector('button')?.addEventListener('click', () => { void this._createWorkspace(); });
@@ -1248,10 +1248,10 @@ class ConversationBar extends JugglerElement {
           <workspace-box-header class="conversation-box-header"></workspace-box-header>
         </div>
         <button class="conversation-box-add" type="button"
-                title="New conversation in this workspace"
-                aria-label="New conversation in this workspace">${ADD_ICON_SVG}</button>
+                title="${t('New conversation in this workspace')}"
+                aria-label="${t('New conversation in this workspace')}">${ADD_ICON_SVG}</button>
         <menu class="conversation-box-tabs">
-          <li class="conversation-box-empty" hidden>(empty)</li>
+          <li class="conversation-box-empty" hidden>${t('(empty)')}</li>
         </menu>
       `;
       this._workspaceBoxes.set(workspace.id, box);

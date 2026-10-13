@@ -2624,7 +2624,7 @@ class Composer extends HTMLElement {
                 <composer-config-strip></composer-config-strip>
                 <composer-box-attachments></composer-box-attachments>
                 <textarea
-                    aria-label="Message input"
+                    aria-label="${_t('Message input')}"
                     autocorrect="off"
                     autocapitalize="off"
                     spellcheck="false"
@@ -2639,45 +2639,45 @@ class Composer extends HTMLElement {
                     </input-controls-config>
                     <input-controls-actions>
                         <button class="commands-button input-ctrl-btn" id="commands-button"
-                                title="Commands"
-                                aria-label="Commands menu">
+                                title="${_t('Commands')}"
+                                aria-label="${_t('Commands menu')}">
                             <span class="icon-slash"></span>
                         </button>
                         <button class="skill-button input-ctrl-btn" id="skill-button"
-                                title="Load a skill ($)"
-                                aria-label="Load a skill">
+                                title="${_t('Load a skill ($)')}"
+                                aria-label="${_t('Load a skill')}">
                             <span class="skill-glyph" aria-hidden="true">$</span>
                         </button>
                         <button class="more-actions-btn input-ctrl-btn" id="more-actions-button"
-                                title="More actions"
-                                aria-label="More actions">
+                                title="${_t('More actions')}"
+                                aria-label="${_t('More actions')}">
                             <span class="more-actions-icon">${KEBAB_SVG}</span>
                         </button>
                         <button class="schedule-send-btn input-ctrl-btn"
-                                title="Send later"
-                                aria-label="Send later">
+                                title="${_t('Send later')}"
+                                aria-label="${_t('Send later')}">
                             <span class="schedule-send-icon">${CLOCK_SVG}</span>
                             <span class="schedule-send-countdown" hidden></span>
                         </button>
                     </input-controls-actions>
                     <input-controls-send>
-                        <button class="new-thread-btn input-ctrl-btn" title="Create a new sub-thread">
+                        <button class="new-thread-btn input-ctrl-btn" title="${_t('Create a new sub-thread')}">
                             New Thread
                             <span class="new-thread-arrow">${THREAD_ARROW_SVG}</span>
                         </button>
                         <button class="context-cache-warning-btn" id="context-cache-warning" hidden
-                                title="Items in the conversation have changed, so the next message will cause a cache-miss"
-                                aria-label="Items in the conversation have changed, so the next message will cause a cache-miss">
+                                title="${_t('Items in the conversation have changed, so the next message will cause a cache-miss')}"
+                                aria-label="${_t('Items in the conversation have changed, so the next message will cause a cache-miss')}">
                             <span class="icon-warning" aria-hidden="true"></span>
                         </button>
                         <button class="attach-btn input-ctrl-btn" id="attach-button"
-                                title="Attach files — or drop or paste them here"
-                                aria-label="Attach files">
+                                title="${_t('Attach files — or drop or paste them here')}"
+                                aria-label="${_t('Attach files')}">
                             <span class="attach-icon">${PAPERCLIP_SVG}</span>
                         </button>
                         <button class="send-btn is-empty" id="send-button"
-                                title="Send message"
-                                aria-label="Send message">
+                                title="${_t('Send message')}"
+                                aria-label="${_t('Send message')}">
                             <span class="send-icon">${SEND_ARROW_SVG}</span>
                         </button>
                     </input-controls-send>

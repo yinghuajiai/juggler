@@ -370,16 +370,16 @@ export function openCommandManager() {
     const overlay = modal.root;
     overlay.innerHTML = `
       <div class="command-editor-backdrop"></div>
-      <div class="command-editor-panel" role="dialog" aria-modal="true" aria-label="Custom slash commands">
+      <div class="command-editor-panel" role="dialog" aria-modal="true" aria-label="${t('Custom slash commands')}">
         <header class="command-editor-header">
-          <h2>Custom slash commands</h2>
-          <button id="cmd-close" class="close-button command-editor-close" title="Close" aria-label="Close"><span class="icon-close"></span></button>
+          <h2>${t('Custom slash commands')}</h2>
+          <button id="cmd-close" class="close-button command-editor-close" title="${t('Close')}" aria-label="${t('Close')}"><span class="icon-close"></span></button>
         </header>
         <div class="command-editor-body" id="cmd-manager-body"></div>
         <footer class="command-editor-footer">
           <div class="command-editor-path"></div>
           <div class="command-editor-actions">
-            <button id="cmd-manager-new" class="modal-button primary">New command…</button>
+            <button id="cmd-manager-new" class="modal-button primary">${t('New command…')}</button>
           </div>
         </footer>
       </div>`;
@@ -577,10 +577,10 @@ function buildMarkup(v) {
   const esc = (/** @type {string} */ s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
   return `
     <div class="command-editor-backdrop"></div>
-    <div class="command-editor-panel" role="dialog" aria-modal="true" aria-label="Command editor">
+    <div class="command-editor-panel" role="dialog" aria-modal="true" aria-label="${t('Command editor')}">
       <header class="command-editor-header">
         <h2>${v.editing ? 'Edit command' : 'New command'}</h2>
-        <button id="cmd-close" class="close-button command-editor-close" title="Close" aria-label="Close"><span class="icon-close"></span></button>
+        <button id="cmd-close" class="close-button command-editor-close" title="${t('Close')}" aria-label="${t('Close')}"><span class="icon-close"></span></button>
       </header>
       <div class="command-editor-body">
         <div class="command-editor-row">
@@ -590,7 +590,7 @@ function buildMarkup(v) {
                 autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="review-pr" /></div>
           </label>
           <label class="command-editor-label">
-            <span class="command-editor-label-text">Args hint <span class="command-editor-optional">(optional)</span></span>
+            <span class="command-editor-label-text">${t('Args hint')} <span class="command-editor-optional">${t('(optional)')}</span></span>
             <input id="cmd-argshint" type="text" class="command-editor-input" value="${esc(v.argsHint)}" placeholder="&lt;pr-number&gt;" />
           </label>
         </div>
@@ -598,42 +598,42 @@ function buildMarkup(v) {
 
         <label class="command-editor-label">Description
           <input id="cmd-description" type="text" class="command-editor-input" value="${esc(v.description)}"
-            placeholder="Shown in the slash menu" />
+            placeholder="${t('Shown in the slash menu')}" />
           <div class="command-editor-field-error" data-error-for="description"></div>
         </label>
 
         <label class="command-editor-label">Prompt template
           <textarea id="cmd-template" class="command-editor-textarea" rows="6"
-            placeholder="Review PR $1. $ARGUMENTS">${esc(v.template)}</textarea>
+            placeholder="${t('Review PR $1. $ARGUMENTS')}">${esc(v.template)}</textarea>
           <div class="command-editor-field-error" data-error-for="template"></div>
-          <div class="command-editor-hint">Placeholders: <code>$1</code>…<code>$9</code>, <code>$ARGUMENTS</code>, <code>$$</code> for a literal $.</div>
+          <div class="command-editor-hint">${t('Placeholders:')} <code>$1</code>…<code>$9</code>, <code>${t('$ARGUMENTS')}</code>, <code>$$</code> ${t('for a literal $.')}</div>
         </label>
 
         <div class="command-editor-preview">
           <div class="command-editor-preview-head">
-            <span class="command-editor-preview-title">Preview</span>
+            <span class="command-editor-preview-title">${t('Preview')}</span>
             <input id="cmd-preview-args" type="text" class="command-editor-input command-editor-preview-args"
-              placeholder="sample args" aria-label="Sample arguments for the preview" />
+              placeholder="${t('sample args')}" aria-label="${t('Sample arguments for the preview')}" />
           </div>
           <pre id="cmd-preview-out" class="command-editor-preview-out"></pre>
         </div>
 
         <div class="command-editor-field">
-          <div class="command-editor-label-text">When invoked</div>
+          <div class="command-editor-label-text">${t('When invoked')}</div>
           ${segmentedHTML('cmd-run', 'Run mode', 'run', RUN_MODES, v.run)}
           <div id="cmd-run-hint" class="command-editor-run-hint"></div>
         </div>
 
         <div id="cmd-subthread-fields" class="command-editor-subthread hidden">
-          <div class="command-editor-hint">Applied to the thread only. Anything left inherited follows this conversation.</div>
+          <div class="command-editor-hint">${t('Applied to the thread only. Anything left inherited follows this conversation.')}</div>
           <label class="command-editor-label">Thread goal
-            <input id="cmd-goal" type="text" class="command-editor-input" value="${esc(v.goal)}" placeholder="PR review" />
+            <input id="cmd-goal" type="text" class="command-editor-input" value="${esc(v.goal)}" placeholder="${t('PR review')}" />
           </label>
           <label class="command-editor-label">Strategy
-            <select id="cmd-strategy" class="command-editor-select"><option value="">Inherit from parent</option></select>
+            <select id="cmd-strategy" class="command-editor-select"><option value="">${t('Inherit from parent')}</option></select>
           </label>
           <div class="command-editor-label">
-            <span class="command-editor-label-text">Model</span>
+            <span class="command-editor-label-text">${t('Model')}</span>
             <model-chip id="cmd-model"></model-chip>
           </div>
         </div>
@@ -646,8 +646,8 @@ function buildMarkup(v) {
           <div id="cmd-path-hint" class="command-editor-path"></div>
         </div>
         <div class="command-editor-actions">
-          <button id="cmd-delete" class="modal-button danger hidden">Delete</button>
-          <button id="cmd-save" class="modal-button primary">Save</button>
+          <button id="cmd-delete" class="modal-button danger hidden">${t('Delete')}</button>
+          <button id="cmd-save" class="modal-button primary">${t('Save')}</button>
         </div>
       </footer>
     </div>

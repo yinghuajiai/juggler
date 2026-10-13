@@ -842,11 +842,11 @@ class ConversationArea extends HTMLElement {
         <section class="conversation-message-list" id="message-list">
           <div class="conversation-message-list-inner" id="message-list-inner">
             <thread-column-actions class="hidden">
-              <button class="properties-panel-btn thread-expand-btn" title="Expand this thread back into the parent">
+              <button class="properties-panel-btn thread-expand-btn" title="${_t('Expand this thread back into the parent')}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M120-120v-320h80v184l504-504H520v-80h320v320h-80v-184L256-200h184v80H120Z"/></svg>
                 Expand into parent
               </button>
-              <button class="properties-panel-btn thread-copy-tab-btn" title="Copy this thread (with inherited context) to a new conversation">
+              <button class="properties-panel-btn thread-copy-tab-btn" title="${_t('Copy this thread (with inherited context) to a new conversation')}">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-160v-326L336-382l-56-58 200-200 200 200-56 58-104-104v326h-80ZM160-600v-120q0-33 23.5-56.5T240-800h480q33 0 56.5 23.5T800-720v120h-80v-120H240v120h-80Z"/></svg>
                 Copy thread to new conversation
               </button>
@@ -856,8 +856,8 @@ class ConversationArea extends HTMLElement {
         </section>
         ${emptyHintMarkup()}
         <div class="scroll-controls" id="scroll-controls">
-          <button type="button" class="scroll-control-btn hidden" data-scroll="top" title="Scroll to top" aria-label="Scroll to top">${SCROLL_TOP_SVG}</button>
-          <button type="button" class="scroll-control-btn hidden" data-scroll="bottom" title="Scroll to bottom" aria-label="Scroll to bottom">${SCROLL_BOTTOM_SVG}</button>
+          <button type="button" class="scroll-control-btn hidden" data-scroll="top" title="${_t('Scroll to top')}" aria-label="${_t('Scroll to top')}">${SCROLL_TOP_SVG}</button>
+          <button type="button" class="scroll-control-btn hidden" data-scroll="bottom" title="${_t('Scroll to bottom')}" aria-label="${_t('Scroll to bottom')}">${SCROLL_BOTTOM_SVG}</button>
         </div>
       </conversation-message-list-wrapper>
       <reply-suggestions></reply-suggestions>

@@ -12,6 +12,7 @@
  * @module juggler-core/context-items/search-scope-section
  */
 
+import { t } from '../../../js/i18n/index.js';
 import {
   GITIGNORE_DISABLED_KEY,
   conversationGitignoreDisabled,
@@ -44,7 +45,7 @@ export function buildGitignoreSection(messageThread) {
     section.innerHTML = `
       <button class="search-scope-btn ${respected ? 'allowed' : 'ask'}"
               role="switch" aria-checked="${respected}"
-              title="When on, file search tools (grep, glob, tree) skip files matched by .gitignore.">
+              title="${t('When on, file search tools (grep, glob, tree) skip files matched by .gitignore.')}">
         <span class="search-scope-icon">${respected ? TICK_SVG : CROSS_SVG}</span>
         <span class="search-scope-label">${respected ? 'Respecting .gitignore in file searches' : 'Searching all files (.gitignore off)'}</span>
       </button>

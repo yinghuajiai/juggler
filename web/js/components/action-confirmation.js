@@ -187,14 +187,14 @@ class ActionConfirmation extends HTMLElement {
           // height as any other. A span (not a nested <button>, which is invalid
           // HTML) that the delegated click handler routes to edit mode.
           const pencil = editable
-            ? `<span class="pattern-edit-btn" data-edit-index="${index}" role="button" title="Edit pattern" aria-label="Edit pattern">${PENCIL_ICON_SVG}</span>`
+            ? `<span class="pattern-edit-btn" data-edit-index="${index}" role="button" title="${t('Edit pattern')}" aria-label="${t('Edit pattern')}">${PENCIL_ICON_SVG}</span>`
             : '';
           // The editor occupies the SAME slot as the button (only one is shown
           // at a time — see the `.editing` CSS), so entering edit mode swaps the
           // button for the input in place without changing the dialog's height.
           const editField = editable
             ? `<div class="pattern-edit-field" hidden>
-                 <input type="text" class="pattern-edit-input" data-edit-index="${index}" value="${escapeHtml(this._currentPattern(opt))}" aria-label="Edit approval pattern" />
+                 <input type="text" class="pattern-edit-input" data-edit-index="${index}" value="${escapeHtml(this._currentPattern(opt))}" aria-label="${t('Edit approval pattern')}" />
                  <div class="pattern-edit-notice" hidden></div>
                </div>`
             : '';

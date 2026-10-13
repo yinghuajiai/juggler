@@ -21,6 +21,7 @@
  * @module components/empty-hint-stack
  */
 
+import { t } from '../i18n/index.js';
 import { formatBindingForPlatform, isMac } from '../services/key-shortcut-manager.js';
 import './empty-hint-tips.js';
 
@@ -43,22 +44,22 @@ export function emptyHintStackMarkup() {
   const newline = formatBindingForPlatform({ key: 'Enter', shift: true }, mac);
   return `
     <div class="empty-hint-stack">
-      <p class="empty-hint-lead">Type your message below</p>
+      <p class="empty-hint-lead">${t('Type your message below')}</p>
       <div class="empty-hint-keys">
         <div class="empty-hint-row empty-hint-pointer">
-          <span class="empty-hint-key">${send}</span><span>Send</span>
+          <span class="empty-hint-key">${send}</span><span>${t('Send')}</span>
         </div>
         <div class="empty-hint-row empty-hint-pointer">
-          <span class="empty-hint-key">${newline}</span><span>New line</span>
+          <span class="empty-hint-key">${newline}</span><span>${t('New line')}</span>
         </div>
         <div class="empty-hint-row">
-          <span class="empty-hint-key">@</span><span>Reference a file</span>
+          <span class="empty-hint-key">@</span><span>${t('Reference a file')}</span>
         </div>
         <div class="empty-hint-row">
-          <span class="empty-hint-key">/</span><span>Run a command</span>
+          <span class="empty-hint-key">/</span><span>${t('Run a command')}</span>
         </div>
       </div>
-      <p class="empty-hint-lead empty-hint-pointer">Drag-and-drop a file or image to attach it</p>
+      <p class="empty-hint-lead empty-hint-pointer">${t('Drag-and-drop a file or image to attach it')}</p>
       <empty-hint-tips class="empty-hint-tips"></empty-hint-tips>
     </div>
   `;

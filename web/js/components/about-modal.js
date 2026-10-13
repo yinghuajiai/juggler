@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t as _t } from '../i18n/index.js';
 import { markPopupOpen } from '../utils/popup-manager.js';
 import { focusWhenShown } from '../utils/focus.js';
 import { fetchJson } from '../services/http.js';
@@ -149,7 +150,7 @@ class AboutModal extends JugglerElement {
                         A plugin-powered visual AI coding agent.
                     </p>
                     <p class="about-description">
-                        Created in a moment of madness by <a href="https://github.com/julianstorer" target="_blank" rel="noopener noreferrer" style="white-space: nowrap">Julian Storer</a>
+                        Created in a moment of madness by <a href="https://github.com/julianstorer" target="_blank" rel="noopener noreferrer" style="white-space: nowrap">${_t('Julian Storer')}</a>
                     </p>
                     <p class="about-description">
                       Juggler is still very new, and I'd love to hear people's opinions about it -
@@ -159,7 +160,7 @@ class AboutModal extends JugglerElement {
                         <a href="https://juggler.studio" target="_blank" rel="noopener noreferrer">https://juggler.studio</a>
                     </p>
                     <p class="about-link">
-                        <a href="https://discord.gg/HyqZwKvSMd" target="_blank" rel="noopener noreferrer">Click here to join the discord server</a>
+                        <a href="https://discord.gg/HyqZwKvSMd" target="_blank" rel="noopener noreferrer">${_t('Click here to join the discord server')}</a>
                     </p>
                 </main>
 

@@ -58,7 +58,7 @@ class McpCommandType extends CommandType {
             return { handled: true, message: log ? `MCP "${name}" recent output:\n\n${log}` : `No recent output for "${name}".` };
           }
         default:
-          return { handled: true, message: `Unknown subcommand "${sub}". Try: /mcp, /mcp start|stop|restart <server>, /mcp reload, /mcp logs <server>` };
+          return { handled: true, message: `Unknown subcommand "${sub}". Try: /mcp, /mcp start|stop|restart <server>${t(', /mcp reload, /mcp logs')} <server>` };
       }
     } catch (err) {
       return { handled: true, message: `MCP command failed: ${extractErrorMessage(err)}` };

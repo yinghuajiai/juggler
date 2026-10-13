@@ -535,19 +535,19 @@ export function openNewProjectPanel(recents = []) {
   panel.className = 'pp-panel pp-panel-popup';
   panel.innerHTML = `
     <div class="pp-header">
-      <span class="pp-title">New project folder</span>
-      <span class="pp-subtitle">Creates an empty folder and opens it.</span>
+      <span class="pp-title">${t('New project folder')}</span>
+      <span class="pp-subtitle">${t('Creates an empty folder and opens it.')}</span>
     </div>
     <div class="pp-body">
       <div class="pp-input-row">
-        <path-input dirs-only placeholder="Where to create it…" value="${parentValue.replace(/"/g, '&quot;')}" class="pp-path-input"></path-input>
+        <path-input dirs-only placeholder="${t('Where to create it…')}" value="${parentValue.replace(/"/g, '&quot;')}" class="pp-path-input"></path-input>
         ${hasNativeHost() ? '<button class="pp-btn pp-btn-browse" type="button">Browse…</button>' : ''}
       </div>
-      <input type="text" class="pp-name-input" placeholder="Folder name" spellcheck="false" autocomplete="off">
+      <input type="text" class="pp-name-input" placeholder="${t('Folder name')}" spellcheck="false" autocomplete="off">
       <div class="pp-status" aria-live="polite"></div>
     </div>
     <div class="pp-footer">
-      <button class="pp-btn pp-btn-open" disabled>Create</button>
+      <button class="pp-btn pp-btn-open" disabled>${t('Create')}</button>
     </div>
   `;
 

@@ -615,11 +615,11 @@ class DiffViewer extends HTMLElement {
     const why = this._wide ? '' : ` title="${escapeAttr(SPLIT_TOO_NARROW)}"`;
 
     return '<div class="diff-controls">'
-      + `<span class="diff-view-switch" role="group" aria-label="Diff layout"${why}>`
+      + `<span class="diff-view-switch" role="group" aria-label="${t('Diff layout')}"${why}>`
       + button('inline', 'Unified') + button('split', 'Split')
       + '</span>'
       + '<label class="diff-context-picker">Context'
-      + `<select class="diff-context-select" aria-label="Unchanged lines to show around each change">${options}</select>`
+      + `<select class="diff-context-select" aria-label="${t('Unchanged lines to show around each change')}">${options}</select>`
       + '</label>'
       + '</div>';
   }
@@ -879,8 +879,8 @@ class DiffViewer extends HTMLElement {
       ? `<pre class="diff-comment-quote">${escapeHtml(annotation.lineText.join('\n'))}</pre>`
       : '';
     const actions = this._readOnly ? '' : '<div class="diff-comment-actions">'
-      + `<button type="button" class="diff-comment-edit" aria-label="${escapeAttr(`Edit comment on ${about}`)}">Edit</button>`
-      + `<button type="button" class="diff-comment-delete" aria-label="${escapeAttr(`Delete comment on ${about}`)}">Delete</button>`
+      + `<button type="button" class="diff-comment-edit" aria-label="${escapeAttr(`Edit comment on ${about}`)}">${t('Edit')}</button>`
+      + `<button type="button" class="diff-comment-delete" aria-label="${escapeAttr(`Delete comment on ${about}`)}">${t('Delete')}</button>`
       + '</div>';
     const id = typeof annotation.id === 'string' ? annotation.id : '';
     const body = typeof annotation.body === 'string' ? annotation.body : '';

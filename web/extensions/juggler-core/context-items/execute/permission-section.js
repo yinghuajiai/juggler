@@ -95,21 +95,21 @@ export function renderExecutePermissionSection(messageThread) {
       row.innerHTML = `
         <span class="pattern-text" data-rule-id="${d.key}"></span>
         <button class="permission-scope-btn rule-scope-btn" data-rule-id="${d.key}" data-scope=""></button>
-        <button class="pattern-delete-btn icon-btn" data-rule-id="${d.key}" title="Delete"><span class="icon-trashcan"></span></button>`;
+        <button class="pattern-delete-btn icon-btn" data-rule-id="${d.key}" title="${t('Delete')}"><span class="icon-trashcan"></span></button>`;
       updateRow(row, d);
     } else if (d.mode === 'edit') {
       row.className = 'pattern-row editing';
       row.innerHTML = `
         <input type="text" class="pattern-edit-input" data-rule-id="${d.key}" autocorrect="off" autocapitalize="off" spellcheck="false">
-        <button class="pattern-save-btn" data-rule-id="${d.key}" title="Save">Save</button>
-        <button class="pattern-cancel-btn" title="Cancel">Cancel</button>`;
+        <button class="pattern-save-btn" data-rule-id="${d.key}" title="${t('Save')}">${t('Save')}</button>
+        <button class="pattern-cancel-btn" title="${t('Cancel')}">${t('Cancel')}</button>`;
       /** @type {HTMLInputElement} */ (row.querySelector('.pattern-edit-input')).value = d.value || '';
     } else {
       row.className = 'pattern-row editing';
       row.innerHTML = `
-        <input type="text" class="pattern-edit-input" placeholder="e.g., npm *" data-rule-id="" autocorrect="off" autocapitalize="off" spellcheck="false">
-        <button class="pattern-save-btn" data-rule-id="" title="Save">Save</button>
-        <button class="pattern-cancel-btn" title="Cancel">Cancel</button>`;
+        <input type="text" class="pattern-edit-input" placeholder="${t('e.g., npm *')}" data-rule-id="" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button class="pattern-save-btn" data-rule-id="" title="${t('Save')}">${t('Save')}</button>
+        <button class="pattern-cancel-btn" title="${t('Cancel')}">${t('Cancel')}</button>`;
     }
     return row;
   }
@@ -193,7 +193,7 @@ export function renderExecutePermissionSection(messageThread) {
     section.innerHTML = `
       <div class="patterns-list"></div>
       <div class="add-pattern-row">
-        <button class="add-pattern-btn">+ Add pattern</button>
+        <button class="add-pattern-btn">${t('+ Add pattern')}</button>
       </div>
     `;
     const listEl = /** @type {HTMLElement} */ (section.querySelector('.patterns-list'));

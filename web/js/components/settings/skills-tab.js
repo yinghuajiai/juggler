@@ -108,10 +108,10 @@ export class SkillsTab {
     root.innerHTML = `
       <div class="skills-header">
         <div class="skills-modeswitch" role="tablist">
-          <button class="skills-mode active" data-mode="discover" role="tab">Discover</button>
-          <button class="skills-mode" data-mode="manage" role="tab">Installed</button>
+          <button class="skills-mode active" data-mode="discover" role="tab">${_t('Discover')}</button>
+          <button class="skills-mode" data-mode="manage" role="tab">${_t('Installed')}</button>
         </div>
-        <button class="btn-ghost skills-refresh" data-action="refresh" title="Refresh" aria-label="Refresh">${REFRESH_SVG}</button>
+        <button class="btn-ghost skills-refresh" data-action="refresh" title="${_t('Refresh')}" aria-label="${_t('Refresh')}">${REFRESH_SVG}</button>
       </div>
       <div class="skills-body" id="skills-body"></div>
       <div class="skills-drawer" id="skills-drawer" hidden></div>
@@ -304,7 +304,7 @@ export class SkillsTab {
     // all equally). The remove × is a SIBLING of the [data-source-chip] button,
     // not a child: _onClick tests [data-source-chip] first with closest(), so a
     // nested × would select the source instead of removing it.
-    const allChip = `<button class="skills-chip ${this.activeSource === 'all' ? 'active' : ''}" data-source-chip="all">All</button>`;
+    const allChip = `<button class="skills-chip ${this.activeSource === 'all' ? 'active' : ''}" data-source-chip="all">${_t('All')}</button>`;
     const sourceChips =
       allChip +
       sources
@@ -322,23 +322,23 @@ export class SkillsTab {
       .join('');
 
     const staleNote = sources.some((s) => s.stale || s.error)
-      ? `<div class="skills-stale">Showing cached results — some sources couldn't be refreshed.</div>`
+      ? `<div class="skills-stale">${_t("Showing cached results — some sources couldn't be refreshed.")}</div>`
       : '';
 
     const cards = entries.length
       ? entries.map((e) => this._cardHtml(e)).join('')
-      : `<div class="skills-empty">No skills match your filters.</div>`;
+      : `<div class="skills-empty">${_t('No skills match your filters.')}</div>`;
 
     return `
       <div class="skills-toolbar">
-        <input type="text" id="skills-search" class="skills-search" placeholder="Search skills…  ( / )" value="${escapeHtml(this.query)}" />
-        <button class="skills-btn" data-action="add-source" title="Add a GitHub repository (owner/repo) as a skills source">Add source ${DROPDOWN_ARROW_SVG}</button>
+        <input type="text" id="skills-search" class="skills-search" placeholder="${_t('Search skills…  ( / )')}" value="${escapeHtml(this.query)}" />
+        <button class="skills-btn" data-action="add-source" title="${_t('Add a GitHub repository (owner/repo) as a skills source')}">Add source ${DROPDOWN_ARROW_SVG}</button>
       </div>
       <div class="skills-chiprow">${sourceChips}</div>
       ${catChips ? `<div class="skills-chiprow skills-catrow">${catChips}</div>` : ''}
       <div class="skills-togglerow">
-        <label><input type="checkbox" data-toggle="hideScripts" ${this.hideScripts ? 'checked' : ''}/> Hide skills that run scripts</label>
-        <label><input type="checkbox" data-toggle="showDeprecated" ${this.showDeprecated ? 'checked' : ''}/> Show deprecated / in-progress</label>
+        <label><input type="checkbox" data-toggle="hideScripts" ${this.hideScripts ? 'checked' : ''}/> ${_t('Hide skills that run scripts')}</label>
+        <label><input type="checkbox" data-toggle="showDeprecated" ${this.showDeprecated ? 'checked' : ''}/> ${_t('Show deprecated / in-progress')}</label>
       </div>
       ${staleNote}
       <div class="skills-grid">${cards}</div>
@@ -354,17 +354,17 @@ export class SkillsTab {
   _cardHtml(e) {
     const cat = e.category?.length ? escapeHtml(e.category.join(' / ')) : '';
     const sourceLabel = this._sourceLabel(e.source);
-    const scripts = e.hasScripts ? `<span class="skills-badge scripts" title="Contains scripts that can run">scripts</span>` : '';
-    const err = e.error ? `<span class="skills-badge error" title="${escapeHtml(e.error)}">⚠ error</span>` : '';
+    const scripts = e.hasScripts ? `<span class="skills-badge scripts" title="${_t('Contains scripts that can run')}">scripts</span>` : '';
+    const err = e.error ? `<span class="skills-badge error" title="${escapeHtml(e.error)}">${_t('⚠ error')}</span>` : '';
     const meta = [sourceLabel, cat].filter(Boolean).join(' · ');
 
     let installBtn;
     if (e.installed && !e.installed.upToDate) {
-      installBtn = `<button class="skills-btn install update" data-install="${escapeHtml(e.id)}">Update</button>`;
+      installBtn = `<button class="skills-btn install update" data-install="${escapeHtml(e.id)}">${_t('Update')}</button>`;
     } else if (e.installed) {
       installBtn = `<span class="skills-installed">${CHECK_SVG} Installed</span>`;
     } else {
-      installBtn = `<button class="skills-btn install" data-install="${escapeHtml(e.id)}">Install</button>`;
+      installBtn = `<button class="skills-btn install" data-install="${escapeHtml(e.id)}">${_t('Install')}</button>`;
     }
 
     return `
@@ -376,7 +376,7 @@ export class SkillsTab {
         <div class="skills-card-meta">${escapeHtml(meta)}</div>
         <div class="skills-card-desc">${escapeHtml(e.description || 'No description.')}</div>
         <div class="skills-card-actions">
-          <button class="skills-btn" data-preview="${escapeHtml(e.id)}" title="View this skill's SKILL.md and files before installing">Details</button>
+          <button class="skills-btn" data-preview="${escapeHtml(e.id)}" title="${_t("View this skill's SKILL.md and files before installing")}">${_t('Details')}</button>
           ${installBtn}
         </div>
       </div>
@@ -391,7 +391,7 @@ export class SkillsTab {
   _manageHtml() {
     const skills = [...this.installed].sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
     if (!skills.length) {
-      return `<div class="skills-empty">No skills installed yet. Switch to <b>Discover</b> to add some.</div>`;
+      return `<div class="skills-empty">${_t('No skills installed yet. Switch to')} <b>${_t('Discover')}</b> ${_t('to add some.')}</div>`;
     }
     const rows = skills
       .map((s) => {
@@ -417,8 +417,8 @@ export class SkillsTab {
               ${pathRow}
             </div>
             <div class="skills-manage-actions">
-              <button class="skills-btn" data-preview-installed="${ref}" title="View this skill's SKILL.md and files">Details</button>
-              <button class="skills-btn danger" data-uninstall="${ref}">Uninstall</button>
+              <button class="skills-btn" data-preview-installed="${ref}" title="${_t("View this skill's SKILL.md and files")}">${_t('Details')}</button>
+              <button class="skills-btn danger" data-uninstall="${ref}">${_t('Uninstall')}</button>
             </div>
           </div>
         `;
@@ -521,7 +521,7 @@ export class SkillsTab {
     const entries = this._filteredEntries();
     grid.innerHTML = entries.length
       ? entries.map((e) => this._cardHtml(e)).join('')
-      : `<div class="skills-empty">No skills match your filters.</div>`;
+      : `<div class="skills-empty">${_t('No skills match your filters.')}</div>`;
   }
 
   /**
@@ -653,10 +653,10 @@ export class SkillsTab {
           <header class="skills-scope-dialog-header">
             <h2 class="skills-scope-dialog-title">Install “${escapeHtml(entry.name || 'skill')}”</h2>
           </header>
-          <p class="skills-scope-dialog-sub">Choose where to install this skill:</p>
+          <p class="skills-scope-dialog-sub">${_t('Choose where to install this skill:')}</p>
           <div class="skills-scope-actions">${options}</div>
           <div class="skills-scope-dialog-footer">
-            <button class="skills-btn" data-scope-cancel>Cancel</button>
+            <button class="skills-btn" data-scope-cancel>${_t('Cancel')}</button>
           </div>
         </modal-panel>
       `;
@@ -782,7 +782,7 @@ export class SkillsTab {
     const runs = detail.files.filter((f) => f.runs);
     const runsHtml = runs.length
       ? `<div class="skills-runs">
-           <div class="skills-runs-title">Files that run</div>
+           <div class="skills-runs-title">${_t('Files that run')}</div>
            ${runs.map((f) => `<div class="skills-run-file">${escapeHtml(f.path)} <span class="skills-file-size">${formatBytes(f.size)}</span></div>`).join('')}
          </div>`
       : '';
@@ -813,7 +813,7 @@ export class SkillsTab {
       : '';
 
     const slugNote = entry.slugged
-      ? `<div class="skills-slug-note">Will install as <code>${escapeHtml(entry.name)}</code> (renamed to a valid skill name).</div>`
+      ? `<div class="skills-slug-note">${_t('Will install as')} <code>${escapeHtml(entry.name)}</code> ${_t('(renamed to a valid skill name).')}</div>`
       : '';
     const meta = [
       escapeHtml(this._sourceLabel(entry.source)),
