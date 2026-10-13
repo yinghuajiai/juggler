@@ -654,7 +654,7 @@ class DiffViewer extends HTMLElement {
   diffLabel() {
     const path = this.filePath || 'this file';
     const from = this.patch?.oldPath;
-    return from && from !== this.filePath ? `Diff of ${path}, renamed from ${from}` : `Diff of ${path}`;
+    return from && from !== this.filePath ? `${t('Diff of')} ${path}${t(', renamed from')} ${from}` : `${t('Diff of')} ${path}`;
   }
 
   /**
@@ -812,7 +812,7 @@ class DiffViewer extends HTMLElement {
   renderAnchor(side, number) {
     if (this._readOnly || number === null) return '';
     const where = this.filePath ? ` in ${this.filePath}` : '';
-    const label = `Add comment to ${side} line ${number}${where}`;
+    const label = `${t('Add comment to')} ${side} line ${number}${where}`;
     return `<button type="button" class="diff-comment-btn" data-side="${side}" data-line="${number}"`
       + ` title="${escapeAttr(label)}" aria-label="${escapeAttr(label)}">+</button>`;
   }
@@ -879,8 +879,8 @@ class DiffViewer extends HTMLElement {
       ? `<pre class="diff-comment-quote">${escapeHtml(annotation.lineText.join('\n'))}</pre>`
       : '';
     const actions = this._readOnly ? '' : '<div class="diff-comment-actions">'
-      + `<button type="button" class="diff-comment-edit" aria-label="${escapeAttr(`Edit comment on ${about}`)}">${t('Edit')}</button>`
-      + `<button type="button" class="diff-comment-delete" aria-label="${escapeAttr(`Delete comment on ${about}`)}">${t('Delete')}</button>`
+      + `<button type="button" class="diff-comment-edit" aria-label="${escapeAttr(`${t('Edit comment on')} ${about}`)}">${t('Edit')}</button>`
+      + `<button type="button" class="diff-comment-delete" aria-label="${escapeAttr(`${t('Delete comment on')} ${about}`)}">${t('Delete')}</button>`
       + '</div>';
     const id = typeof annotation.id === 'string' ? annotation.id : '';
     const body = typeof annotation.body === 'string' ? annotation.body : '';

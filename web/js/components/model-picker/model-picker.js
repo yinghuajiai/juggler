@@ -807,7 +807,7 @@ class ModelPicker extends JugglerElement {
       && (entry.providerContextWindow === undefined || entry.providerContextWindow === null);
     const assumedHTML = assumed
       ? ` · <button type="button" class="model-window-assumed" data-provider="${escapeHtml(cfg.provider)}" data-model="${escapeHtml(cfg.model)}"
-                    title="${escapeHtml(`The server didn't report this model's context window, so Juggler assumed ${formatTokens(ctx)}. Click to set the real size in Settings.`)}">assumed</button>`
+                    title="${escapeHtml(`${_t("The server didn't report this model's context window, so Juggler assumed")} ${formatTokens(ctx)}${_t('. Click to set the real size in Settings.')}`)}">assumed</button>`
       : '';
 
     return `

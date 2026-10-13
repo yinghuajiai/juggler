@@ -173,7 +173,7 @@ class WriteFileContextItem extends EditBase {
     } catch (err) {
       return {
         valid: false,
-        error: `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
+        error: `${t('Error:')} ${err instanceof Error ? err.message : 'Unknown error'}`
       };
     }
 
@@ -198,7 +198,7 @@ class WriteFileContextItem extends EditBase {
     // title (not `./`-prefixed, which reads as project-relative) plus a warning.
     const outOfRoot = path && !this._isPathAllowed(path);
     const title = outOfRoot ? path : formatDisplayPath(path);
-    const message = outOfRoot ? `⚠ Write outside the project folder: ${path}` : '';
+    const message = outOfRoot ? `${t('⚠ Write outside the project folder:')} ${path}` : '';
 
     if (existingContent !== undefined) {
       // File exists - show diff
@@ -324,9 +324,9 @@ class WriteFileContextItem extends EditBase {
     // Handle non-success cases (check !success first for type narrowing)
     if (!outcome.success) {
       if (outcome.cancelled) {
-        return this.failureSummary(`Write file cancelled: ${prepPath}`);
+        return this.failureSummary(`${t('Write file cancelled:')} ${prepPath}`);
       }
-      return this.failureSummary(`Write file failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Write file failed:')} ${outcome.error}`);
     }
 
     // Success case

@@ -370,11 +370,11 @@ function strandedLead(workspace) {
     // what this conversation's position now is: nothing refuses a message typed
     // here, and the turn would die in the server.
     const closedBy = typeof workspace.meta?.closedBy === 'string' ? workspace.meta.closedBy : '';
-    return `The workspace ${label} was finished with${closedBy ? ` by ${closedBy}` : ''}.`
+    return `${t('The workspace')} ${label} was finished with${closedBy ? ` by ${closedBy}` : ''}.`
       + ' This conversation has nowhere to work until you choose.';
   }
   return workspace.available === false
-    ? `The workspace ${label} is not where it was.`
+    ? `${t('The workspace')} ${label} ${t('is not where it was.')}`
     : '';
 }
 

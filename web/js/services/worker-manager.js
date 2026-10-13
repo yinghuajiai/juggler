@@ -428,7 +428,7 @@ export class WorkerManager {
     // graph behind it — parked for the life of the process.
     this._rejectThreadRequests(
       (pending) => pending.conversationId === conversationId,
-      `Conversation ${conversationId} was closed while its thread was running`
+      `${t('Conversation')} ${conversationId} was closed while its thread was running`
     );
   }
 
@@ -1240,7 +1240,7 @@ export class WorkerManager {
     const timeout = timeoutMs;
     const entry = this._workers.get(conversationId);
     if (!entry) {
-      throw new Error(`Worker not found: ${conversationId}`);
+      throw new Error(`${t('Worker not found:')} ${conversationId}`);
     }
     if (entry.ready) {
       return entry.metadata || null;  // Already ready
@@ -1248,7 +1248,7 @@ export class WorkerManager {
 
     return new Promise((resolve, reject) => {
       const timer = setTimeout(() => {
-        reject(new Error(`Worker ${conversationId} not ready after ${timeout}ms`));
+        reject(new Error(`${t('Worker')} ${conversationId} not ready after ${timeout}ms`));
       }, timeout);
 
       entry.readyCallbacks.push((/** @type {object|null} */ metadata) => {

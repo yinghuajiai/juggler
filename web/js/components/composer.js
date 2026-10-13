@@ -1423,8 +1423,8 @@ class Composer extends HTMLElement {
     // the model at it instead.
     if (message.length > MAX_MESSAGE_CHARS) {
       this.showWarning(
-        `Message is too large (${message.length.toLocaleString()} characters, ` +
-        `max ${MAX_MESSAGE_CHARS.toLocaleString()}). Save it to a file and ` +
+        `${_t('Message is too large (')}${message.length.toLocaleString()} characters, ` +
+        `max ${MAX_MESSAGE_CHARS.toLocaleString()}${_t('). Save it to a file and')} ` +
         `reference the path instead.`
       );
       return 'message too large';

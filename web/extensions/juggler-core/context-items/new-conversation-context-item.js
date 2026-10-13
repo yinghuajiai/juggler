@@ -193,8 +193,8 @@ class NewConversationContextItem extends ContextItem {
     const result = /** @type {{name?: string, autostart?: boolean}} */ (outcome.result) || {};
     const label = result.name ? `"${result.name}"` : 'a new conversation';
     return this.successSummary(result.autostart
-      ? `Created ${label} and started it working on your message. It runs independently in its own tab and does not report back here.`
-      : `Created ${label} with your message ready to send (not started). It opens in its own tab for the user to review.`);
+      ? `${t('Created')} ${label} ${t('and started it working on your message. It runs independently in its own tab and does not report back here.')}`
+      : `${t('Created')} ${label} ${t('with your message ready to send (not started). It opens in its own tab for the user to review.')}`);
   }
 
   /**

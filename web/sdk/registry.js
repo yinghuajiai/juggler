@@ -11,6 +11,7 @@
  * plan item. That is the narrow **`createItem`** named export below.
  */
 
+import { t } from '../js/i18n/index.js';
 import contextItemRegistry from '../js/registries/context-item-registry.js';
 import fileViewerRegistry from '../js/registries/file-viewer-registry.js';
 import { toDescriptor } from './file-source.js';
@@ -49,7 +50,7 @@ export async function extractFileSource(source, ctx = {}) {
   const ViewerClass = fileViewerRegistry.resolve(toDescriptor(source));
   if (!ViewerClass) {
     const kind = source.mime || (source.isBinary ? 'binary' : 'this');
-    return { warning: `No viewer is available for ${kind} content, so it cannot be read as text.` };
+    return { warning: `${t('No viewer is available for')} ${kind} ${t('content, so it cannot be read as text.')}` };
   }
   const viewer = new (/** @type {any} */ (ViewerClass))();
   return viewer.extract(source, ctx);

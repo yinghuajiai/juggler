@@ -46,7 +46,7 @@ injectStylesOnce('task-list-pin-styles', `
  */
 function sourceLine(source) {
   if (!source?.inherited) return '';
-  return source.label ? `From ${source.label}` : t('From a parent thread');
+  return source.label ? `${t('From')} ${source.label}` : t('From a parent thread');
 }
 
 /**

@@ -73,7 +73,7 @@ async function confirmStoppingTurn(commandName) {
     return true;
   }
   const answer = await showConfirm(
-    `/${commandName} can't run while a turn is in flight. Running it now stops the turn.`,
+    `/${commandName} ${t("can't run while a turn is in flight. Running it now stops the turn.")}`,
     t('Stop the current turn?'),
     { confirmText: t('Stop turn'), cancelText: t('Leave it running'), danger: true }
   );
@@ -121,7 +121,7 @@ class SlashCommandHandler {
     if (!CommandClass) {
       return {
         handled: true,
-        message: `Unknown command: /${commandName}`,
+        message: `${t('Unknown command: /')}${commandName}`,
         error: true
       };
     }

@@ -143,21 +143,21 @@ export class TextSectionRenderer {
 
         if (isUserMessage(msg)) {
           messageContent = `\nUser: ${msg.content || ''}\n`;
-          addSection('conversation-message', `Message ${index + 1} (user)`, messageContent, 'user');
+          addSection('conversation-message', `${t('Message')} ${index + 1} (user)`, messageContent, 'user');
         } else if (isAssistantMessage(msg)) {
           messageContent = `\nAssistant: ${msg.content || ''}\n`;
-          addSection('conversation-message', `Message ${index + 1} (assistant)`, messageContent, 'assistant');
+          addSection('conversation-message', `${t('Message')} ${index + 1} (assistant)`, messageContent, 'assistant');
         } else if (isThinkingMessage(msg)) {
           messageContent = `\n<thinking>${msg.content || ''}</thinking>\n`;
-          addSection('conversation-message', `Message ${index + 1} (thinking)`, messageContent, 'assistant');
+          addSection('conversation-message', `${t('Message')} ${index + 1} (thinking)`, messageContent, 'assistant');
         } else if (isToolUseMessage(msg)) {
           const toolInput = JSON.stringify(msg.toolInput, null, 2);
           messageContent = `\n<tool_use name="${msg.toolName}">\n${toolInput}\n</tool_use>\n`;
-          addSection('conversation-message', `Message ${index + 1} (tool-use: ${msg.toolName})`, messageContent, 'assistant');
+          addSection('conversation-message', `${t('Message')} ${index + 1} (tool-use: ${msg.toolName})`, messageContent, 'assistant');
         } else if (isToolResultMessage(msg)) {
           const resultType = msg.isError ? 'error' : 'result';
           messageContent = `\n<tool_result type="${resultType}">\n${msg.content || ''}\n</tool_result>\n`;
-          addSection('conversation-message', `Message ${index + 1} (tool-result)`, messageContent, 'tool-result');
+          addSection('conversation-message', `${t('Message')} ${index + 1} (tool-result)`, messageContent, 'tool-result');
         }
       });
     }

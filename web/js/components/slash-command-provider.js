@@ -116,7 +116,7 @@ export const slashCommandProvider = {
       li.dataset.command = '__new__';
       const code = document.createElement('code');
       code.className = 'menu-item-command';
-      code.textContent = cmd.query ? `New command “/${cmd.query}”…` : t('New command…');
+      code.textContent = cmd.query ? `${t('New command “/')}${cmd.query}”…` : t('New command…');
       li.appendChild(code);
       return li;
     }

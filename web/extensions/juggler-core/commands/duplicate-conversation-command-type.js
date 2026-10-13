@@ -56,7 +56,7 @@ class DuplicateConversationCommandType extends CommandType {
     } catch (error) {
       return {
         handled: true,
-        message: `Duplication failed: ${extractErrorMessage(error)}`,
+        message: `${t('Duplication failed:')} ${extractErrorMessage(error)}`,
         error: true
       };
     }

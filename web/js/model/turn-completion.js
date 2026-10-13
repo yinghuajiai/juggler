@@ -23,6 +23,7 @@
  * @module model/turn-completion
  */
 
+import { t } from '../i18n/index.js';
 import { TOOL_STATES } from '../../sdk/lib/message.js';
 import { isRestingStatus } from './processing-status.js';
 
@@ -122,7 +123,7 @@ export function observeUntil(conversation, predicate, { timeoutMs = 5000, signal
 
   return new Promise((resolve, reject) => {
     if (signal?.aborted) {
-      reject(new Error(`Aborted waiting for condition${suffix}`));
+      reject(new Error(`${t('Aborted waiting for condition')}${suffix}`));
       return;
     }
 
@@ -135,12 +136,12 @@ export function observeUntil(conversation, predicate, { timeoutMs = 5000, signal
 
     const onAbort = () => {
       cleanup();
-      reject(new Error(`Aborted waiting for condition${suffix}`));
+      reject(new Error(`${t('Aborted waiting for condition')}${suffix}`));
     };
 
     const timer = setTimeout(() => {
       cleanup();
-      reject(new Error(`Timeout waiting for condition${suffix}`));
+      reject(new Error(`${t('Timeout waiting for condition')}${suffix}`));
     }, timeoutMs);
 
     const check = () => {

@@ -293,7 +293,7 @@ class SkillContextItem extends ContextItem {
     const skill = (await this._effectiveSkills()).find((s) => s.name === name) || null;
     if (!skill) {
       throw new Error(
-        `No skill named "${name}" is available. Use an exact name from the "## Skills" list in the system prompt.`
+        `${t('No skill named "')}${name}${t('" is available. Use an exact name from the "## Skills" list in the system prompt.')}`
       );
     }
     if (this._loadedSet().has(name)) {
@@ -328,7 +328,7 @@ class SkillContextItem extends ContextItem {
     );
     if (r.alreadyLoaded) {
       return this.successSummary(
-        `Skill "${r.name}" is already loaded in this conversation — its instructions are already in context.`
+        `${t('Skill "')}${r.name}${t('" is already loaded in this conversation — its instructions are already in context.')}`
       );
     }
     // The body is embedded in a formatted block, so no truncation note: it
@@ -375,7 +375,7 @@ class SkillContextItem extends ContextItem {
       lines.join('\n');
     const overflow = skills.slice(SkillContextItem.MAX_LISTED);
     if (overflow.length > 0) {
-      block += `\n- …and ${overflow.length} more, loadable by exact name: ${overflow.map((s) => s.name).join(', ')}`;
+      block += `\n- …and ${overflow.length} ${t('more, loadable by exact name:')} ${overflow.map((s) => s.name).join(', ')}`;
     }
     return block;
   }
@@ -390,7 +390,7 @@ class SkillContextItem extends ContextItem {
    */
   static _formatLoaded(r) {
     const origin = r.scope && r.source ? ` (${r.scope}/${r.source})` : '';
-    const parts = [`Skill: ${r.name}${origin}`, '', r.body || ''];
+    const parts = [`${t('Skill:')} ${r.name}${origin}`, '', r.body || ''];
     // SKILL.md itself is what we just injected — list only the other resources.
     const files = (r.files || []).filter((f) => f && f.path && f.path !== 'SKILL.md');
     if (files.length > 0) {
@@ -453,7 +453,7 @@ class SkillContextItem extends ContextItem {
 
     container.appendChild(SkillContextItem._explainer());
 
-    const heading = skills.length ? `Available skills (${skills.length})` : t('Available skills');
+    const heading = skills.length ? `${t('Available skills (')}${skills.length})` : t('Available skills');
     container.appendChild(createElement('div', 'skill-panel-heading', heading));
 
     if (!Array.isArray(skills) || skills.length === 0) {
@@ -674,7 +674,7 @@ class SkillContextItem extends ContextItem {
     // SKILL.md itself is the body we render below — list only the other resources.
     const resources = (files || []).filter((f) => f && f.path && f.path !== 'SKILL.md');
     if (resources.length > 0) {
-      host.appendChild(SkillContextItem._sectionTitle(`Files (${resources.length})`));
+      host.appendChild(SkillContextItem._sectionTitle(`${t('Files (')}${resources.length})`));
       const list = createElement('div', 'skills-files-list');
       for (const f of resources) {
         const fileEl = createElement('div', 'skills-file');

@@ -27,6 +27,7 @@
  * @module components/pinboard-shell
  */
 
+import { t } from '../i18n/index.js';
 import JugglerElement from './juggler-element.js';
 import pinboardStore from '../services/pinboard-store.js';
 import pinboardView from '../services/pinboard-view.js';
@@ -291,7 +292,7 @@ class PinboardShell extends JugglerElement {
     if (hasProject && !this._loadStarted) {
       this._loadStarted = true;
       this._loaded = pinboardStore.load().catch((err) => {
-        pinboardView.setStatus(`Couldn't load the pinboard. ${extractErrorMessage(err)}`);
+        pinboardView.setStatus(`${t("Couldn't load the pinboard.")} ${extractErrorMessage(err)}`);
       });
     }
     const enabled = pinboardItemRegistry.getEnabledTypes();

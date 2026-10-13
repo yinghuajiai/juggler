@@ -121,9 +121,9 @@ class TaskStopContextItem extends ContextItem {
     }
     const result = /** @type {{shell_id?: string, killed?: boolean, error?: string}} */ (outcome.result);
     if (result.killed) {
-      return this.successSummary(`Stopped task ${result.shell_id || ''}.`);
+      return this.successSummary(`${t('Stopped task')} ${result.shell_id || ''}.`);
     }
-    return this.successSummary(`Task ${result.shell_id || ''} was not stopped: ${result.error || 'not running'}.`);
+    return this.successSummary(`${t('Task')} ${result.shell_id || ''} ${t('was not stopped:')} ${result.error || 'not running'}.`);
   }
 
   /**
@@ -136,8 +136,8 @@ class TaskStopContextItem extends ContextItem {
     const taskId = String(toolInput?.task_id || toolInput?.shell_id || '');
     return this.buildStatusUI(actionStatus, {
       typeName: TaskStopContextItem.getTypeName(),
-      pending: `Stopping ${taskId}...`,
-      success: `Stopped ${taskId}`,
+      pending: `${t('Stopping')} ${taskId}...`,
+      success: `${t('Stopped')} ${taskId}`,
       failurePrefix: t('Failed to stop task')
     });
   }

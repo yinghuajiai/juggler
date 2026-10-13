@@ -279,13 +279,13 @@ class ReadFileContextItem extends ContextItem {
     const path = result?.path || prepParams.path || 'unknown';
 
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Failed to read ${path}`);
+      return this.failureSummary(outcome.error || `${t('Failed to read')} ${path}`);
     }
 
     // Handle file doesn't exist - put full message in summary for tool_result
     if (result && result.exists === false) {
       return this.successSummary(
-        `File does not exist: ${path}. Do not attempt to read it again.`,
+        `${t('File does not exist:')} ${path}${t('. Do not attempt to read it again.')}`,
         { icon: '✗' }
       );
     }
@@ -298,7 +298,7 @@ class ReadFileContextItem extends ContextItem {
       const dims = (ref.width && ref.height) ? `${ref.width}\u00d7${ref.height}` : 'image';
       const size = ref.bytes ? `, ${formatFileSize(ref.bytes)}` : '';
       return this.successSummary(
-        `Read image ${formatDisplayPath(path)} (${dims}${size}). The image is attached below.`,
+        `${t('Read image')} ${formatDisplayPath(path)} (${dims}${size}${t('). The image is attached below.')}`,
         { attachments: [ref] }
       );
     }
@@ -411,7 +411,7 @@ class ReadFileContextItem extends ContextItem {
         // A missing file is a successful call with a failed read — the only
         // success branch that styles itself as an error.
         if (result.exists === false) {
-          return { summary: `File not found: ${filename}`, status: /** @type {const} */ ('error') };
+          return { summary: `${t('File not found:')} ${filename}`, status: /** @type {const} */ ('error') };
         }
         if (result.attachment) {
           const ref = result.attachment;

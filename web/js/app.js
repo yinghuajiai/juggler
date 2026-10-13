@@ -109,8 +109,8 @@ function reportNewlyFailedModules() {
     .map(({ path, error }) => `${path.split('/').pop() || path} — ${error}`)
     .join('\n');
   const message = fresh.length === 1
-    ? `Couldn't load ${detail}`
-    : `Couldn't load ${fresh.length} capability modules\n${detail}`;
+    ? `${t("Couldn't load")} ${detail}`
+    : `${t("Couldn't load")} ${fresh.length} capability modules\n${detail}`;
   showNotice(message, { duration: RELOAD_FAILURE_NOTICE_MS });
 }
 

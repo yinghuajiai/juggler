@@ -139,7 +139,7 @@ class MediaFileViewer extends FileViewer {
         objectURL = URL.createObjectURL(new Blob([bytes], { type: source.mime || 'application/octet-stream' }));
         src = objectURL;
       } catch (err) {
-        host.appendChild(note(`Couldn’t load this file: ${/** @type {any} */ (err)?.message || err}`));
+        host.appendChild(note(`${t('Couldn’t load this file:')} ${/** @type {any} */ (err)?.message || err}`));
         return;
       }
     }
@@ -169,7 +169,7 @@ class MediaFileViewer extends FileViewer {
     el.addEventListener('error', () => {
       el.replaceWith(note(kind === 'image'
         ? t('This image format can’t be displayed here.')
-        : `This ${kind} format can’t be played here.`));
+        : `${t('This')} ${kind} ${t('format can’t be played here.')}`));
     }, { once: true });
     host.appendChild(el);
 
@@ -197,9 +197,9 @@ class MediaFileViewer extends FileViewer {
       .filter(Boolean).join(', ');
     const detail = what ? ` (${what})` : '';
     if (kind === 'image') {
-      return { warning: `This image${detail} cannot be attached for viewing (unsupported format or too large), and cannot be read as text.` };
+      return { warning: `${t('This image')}${detail} ${t('cannot be attached for viewing (unsupported format or too large), and cannot be read as text.')}` };
     }
-    return { warning: `This is ${kind} content${detail}, which cannot be read as text.` };
+    return { warning: `${t('This is')} ${kind} content${detail}${t(', which cannot be read as text.')}` };
   }
 }
 

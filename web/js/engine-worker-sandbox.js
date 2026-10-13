@@ -110,7 +110,7 @@ export function createSandboxBridge({ post, graceMs = SANDBOX_DELEGATE_GRACE_MS 
       return new Promise((resolve, reject) => {
         const timer = setTimeout(
           () => settle(id, false, new Error(
-            `query_code: the sandbox host never answered within ${timeoutMs + graceMs}ms`)),
+            `${t('query_code: the sandbox host never answered within')} ${timeoutMs + graceMs}ms`)),
           timeoutMs + graceMs
         );
         // The run's Worker lives on the host, so stopping it takes a message.
@@ -155,7 +155,7 @@ export function createSandboxBridge({ post, graceMs = SANDBOX_DELEGATE_GRACE_MS 
       try {
         if (!entry) throw new Error(`no pending sandbox ${data.id}`);
         const cap = entry.capabilities[data.name];
-        if (cap === undefined) throw new Error(`unknown capability: ${data.name}`);
+        if (cap === undefined) throw new Error(`${t('unknown capability:')} ${data.name}`);
         const value = typeof cap === 'function'
           ? await cap(...(data.args || []))
           : await cap[data.method](...(data.args || []));

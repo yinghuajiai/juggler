@@ -21,6 +21,7 @@
  * @module components/project-opening
  */
 
+import { t } from '../i18n/index.js';
 import LoadingOverlay from './loading-overlay.js';
 
 /**
@@ -77,7 +78,7 @@ export async function openProjectInWindow(label, request, currentPath = '') {
   if (overlay) return null;
 
   overlay = new LoadingOverlay({ variant: 'opening-project' });
-  overlay.setLine(`Opening ${folderName(label)}…`);
+  overlay.setLine(`${t('Opening')} ${folderName(label)}…`);
   overlay.show();
 
   let resp;

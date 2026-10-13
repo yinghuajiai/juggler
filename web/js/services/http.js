@@ -99,7 +99,7 @@ async function decodeErrorBody(response) {
  */
 export async function extractHttpErrorDetail(response) {
   const { detail } = await decodeErrorBody(response);
-  return detail || `HTTP ${response.status}`;
+  return detail || `${t('HTTP')} ${response.status}`;
 }
 
 /**
@@ -181,7 +181,7 @@ export async function fetchJson(url, options = {}) {
     const response = await fetch(url, init);
     if (!response.ok) {
       const { detail, body: errorBody } = await decodeErrorBody(response);
-      const status = `HTTP ${response.status}`;
+      const status = `${t('HTTP')} ${response.status}`;
       let message;
       if (errorPrefix) message = detail ? `${errorPrefix}: ${detail}` : `${errorPrefix} (${status})`;
       else message = detail ? `${status}: ${detail}` : status;
@@ -198,7 +198,7 @@ export async function fetchJson(url, options = {}) {
     // reads as the request failing (which it did) and honours the fallback.
     if (timedOut) {
       const timeout = new Error(
-        errorPrefix ? `${errorPrefix}: timed out after ${timeoutMs}ms` : `Request timed out after ${timeoutMs}ms`
+        errorPrefix ? `${errorPrefix}${t(': timed out after')} ${timeoutMs}ms` : `${t('Request timed out after')} ${timeoutMs}ms`
       );
       if (!usesFallback) throw timeout;
       if (errorPrefix) console.warn(`${errorPrefix}:`, timeout.message);

@@ -17,6 +17,7 @@
  * @module lib/live-file
  */
 
+import { t } from '../../../js/i18n/index.js';
 import { readFile, getTree, stat } from 'juggler/ops';
 import { formatFileSize, injectFileContentStyles } from 'juggler/item-utils';
 import { fileSourceFromReadResult } from 'juggler/file-source';
@@ -219,8 +220,8 @@ export function renderLiveFileBody(container, result, options = {}) {
     // Only a read that found nothing there is "not found". Anything else names
     // its reason, or the user goes looking for a file that is plainly on disk.
     container.appendChild(createElement('div', 'file-content-not-found', result.error
-      ? `Couldn't read ${absolutePath}: ${result.error}`
-      : `File not found: ${absolutePath}`));
+      ? `${t("Couldn't read")} ${absolutePath}: ${result.error}`
+      : `${t('File not found:')} ${absolutePath}`));
     return;
   }
 

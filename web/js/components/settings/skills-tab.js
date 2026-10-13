@@ -595,7 +595,7 @@ export class SkillsTab {
     } catch (err) {
       if (/** @type {any} */ (err).collision) {
         const existing = /** @type {any} */ (err).existing || entry.name;
-        const ok = await this._confirm(`A skill named "${existing}" already exists here. Overwrite it?`);
+        const ok = await this._confirm(`${_t('A skill named "')}${existing}${_t('" already exists here. Overwrite it?')}`);
         if (ok) {
           await this._install(entry, scope, target, 'overwrite');
         }
@@ -675,7 +675,7 @@ export class SkillsTab {
    * @private
    */
   async _uninstall(scope, source, name) {
-    const ok = await this._confirm(`Uninstall "${name}" (${scope}-${source})? This deletes its files.`);
+    const ok = await this._confirm(`${_t('Uninstall "')}${name}" (${scope}-${source}${_t(')? This deletes its files.')}`);
     if (!ok) return;
     try {
       await uninstallSkill(/** @type {any} */ (scope), /** @type {any} */ (source), name);
@@ -818,7 +818,7 @@ export class SkillsTab {
     const meta = [
       escapeHtml(this._sourceLabel(entry.source)),
       entry.category?.length ? escapeHtml(entry.category.join(' / ')) : '',
-      entry.license ? `License: ${escapeHtml(entry.license)}` : '',
+      entry.license ? `${_t('License:')} ${escapeHtml(entry.license)}` : '',
     ]
       .filter(Boolean)
       .join(' · ');

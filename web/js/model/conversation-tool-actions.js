@@ -44,7 +44,7 @@ function reviewLabelFor(strategy) {
   const override = strategy?.constructor?.REVIEW_LABEL;
   if (override) return override;
   const name = strategy?.constructor?.MANIFEST?.name;
-  return name ? `${name} reviewing…` : 'Reviewing…';
+  return name ? `${name} ${_t('reviewing…')}` : 'Reviewing…';
 }
 
 /**
@@ -113,7 +113,7 @@ function closingReviewStatus(result) {
  * @returns {string} The line
  */
 function hookHoldNote(record) {
-  return `Held for you by hook "${record.name}"` + (record.reason ? `: ${record.reason}` : '');
+  return `${_t('Held for you by hook "')}${record.name}"` + (record.reason ? `: ${record.reason}` : '');
 }
 
 /**
@@ -150,7 +150,7 @@ export async function executeToolAction(messageThread, toolUseId, conversation) 
     const errorMessage = extractErrorMessage(error);
     console.error(`[ToolExec] Error: ${toolName} (${toolUseId}): ${errorMessage}`);
     messageThread.completeToolAction(toolUseId, {
-      content: `Tool execution failed: ${errorMessage}`,
+      content: `${_t('Tool execution failed:')} ${errorMessage}`,
       isError: true,
       resultType: 'action',
       fullResult: { state: 'error', success: false, error: errorMessage }
@@ -206,10 +206,10 @@ async function evaluateNewToolAction(messageThread, toolUseId, conversation, exi
   const ActionClass = contextItemRegistry.getByToolName(toolName);
   if (!ActionClass) {
     messageThread.completeToolAction(toolUseId, {
-      content: `Unknown tool: ${toolName}`,
+      content: `${_t('Unknown tool:')} ${toolName}`,
       isError: true,
       resultType: 'action',
-      fullResult: { state: 'error', success: false, error: `Unknown tool: ${toolName}` }
+      fullResult: { state: 'error', success: false, error: `${_t('Unknown tool:')} ${toolName}` }
     });
     return;
   }
@@ -261,7 +261,7 @@ async function evaluateNewToolAction(messageThread, toolUseId, conversation, exi
   } catch (err) {
     const errorMessage = extractErrorMessage(err);
     messageThread.completeToolAction(toolUseId, {
-      content: `Action preparation failed: ${errorMessage}`,
+      content: `${_t('Action preparation failed:')} ${errorMessage}`,
       isError: true,
       resultType: 'action',
       fullResult: { state: 'error', success: false, error: errorMessage }
@@ -310,7 +310,7 @@ async function evaluateNewToolAction(messageThread, toolUseId, conversation, exi
   if (hookOutcome.records.length && (toolAction.get('state') || '') !== '') return;
   if (hookOutcome.verdict === 'deny') {
     const denier = /** @type {import('../services/hook-runtime.js').HookRecord} */ (hookOutcome.decidedBy);
-    const errorMessage = `Blocked by hook "${denier.name}"` + (denier.reason ? `: ${denier.reason}` : '.');
+    const errorMessage = `${_t('Blocked by hook "')}${denier.name}"` + (denier.reason ? `: ${denier.reason}` : '.');
     messageThread.completeToolAction(toolUseId, {
       content: errorMessage,
       isError: true,

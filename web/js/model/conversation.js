@@ -1882,7 +1882,7 @@ class Conversation {
     const strandedProvider = this._providerNeedingALocalWorkspace(messageThread);
     if (strandedProvider) {
       this.showWarning(
-        `Can't send: ${strandedProvider.displayName || strandedProvider.name} runs on this machine, and this conversation works in ${this.workspaceRoot || 'another workspace'}. Pick a model that runs over the network.`,
+        `${_t("Can't send:")} ${strandedProvider.displayName || strandedProvider.name} ${_t('runs on this machine, and this conversation works in')} ${this.workspaceRoot || 'another workspace'}${_t('. Pick a model that runs over the network.')}`,
         8000);
       return 'provider cannot reach this workspace';
     }
@@ -1897,7 +1897,7 @@ class Conversation {
     const unusable = this._unusableWorkspace();
     if (unusable) {
       this.showWarning(
-        `Can't send: ${unusable}. Use the banner above the transcript to say where this conversation should work.`,
+        `${_t("Can't send:")} ${unusable}${_t('. Use the banner above the transcript to say where this conversation should work.')}`,
         8000);
       return 'workspace cannot be worked in';
     }
@@ -2711,8 +2711,8 @@ class Conversation {
     const label = provider.displayName || provider.name;
     const hint = (provider.authHint || '').trim();
     const message = hint
-      ? `Can't send: ${label} is not available — ${hint}. Re-enable it in Provider Settings or pick another model.`
-      : `Can't send: ${label} is not available. Re-enable it in Provider Settings or pick another model.`;
+      ? `${_t("Can't send:")} ${label} ${_t('is not available —')} ${hint}${_t('. Re-enable it in Provider Settings or pick another model.')}`
+      : `${_t("Can't send:")} ${label} ${_t('is not available. Re-enable it in Provider Settings or pick another model.')}`;
     await this._offerProviderSettings(message, _t('Model unavailable'));
   }
 

@@ -220,19 +220,19 @@ class AskUserQuestionContextItem extends ContextItem {
     // Validate each question
     for (const [i, q] of params.questions.entries()) {
       if (!q.question || typeof q.question !== 'string') {
-        return { valid: false, error: `Question ${i + 1}: missing question text` };
+        return { valid: false, error: `${t('Question')} ${i + 1}${t(': missing question text')}` };
       }
       if (!q.header || typeof q.header !== 'string') {
-        return { valid: false, error: `Question ${i + 1}: missing header` };
+        return { valid: false, error: `${t('Question')} ${i + 1}${t(': missing header')}` };
       }
       if (q.header.length > AskUserQuestionContextItem.MAX_HEADER_LENGTH) {
-        return { valid: false, error: `Question ${i + 1}: header must be max ${AskUserQuestionContextItem.MAX_HEADER_LENGTH} characters` };
+        return { valid: false, error: `${t('Question')} ${i + 1}${t(': header must be max')} ${AskUserQuestionContextItem.MAX_HEADER_LENGTH} characters` };
       }
       if (!q.options || !Array.isArray(q.options) || q.options.length < 2) {
-        return { valid: false, error: `Question ${i + 1}: at least 2 options required` };
+        return { valid: false, error: `${t('Question')} ${i + 1}${t(': at least 2 options required')}` };
       }
       if (q.options.length > 4) {
-        return { valid: false, error: `Question ${i + 1}: maximum 4 options allowed` };
+        return { valid: false, error: `${t('Question')} ${i + 1}${t(': maximum 4 options allowed')}` };
       }
     }
 
@@ -354,7 +354,7 @@ class AskUserQuestionContextItem extends ContextItem {
         // would duplicate it.
         summary: questions.length === 1
           ? (questions[0]?.header || t('Waiting for user response...'))
-          : `Answering ${questions.length} questions...`,
+          : `${t('Answering')} ${questions.length} ${t('questions...')}`,
         customFormElement: context ? this._buildMultiQuestionForm(questions, context) : undefined
       }),
       success: () => {
@@ -365,7 +365,7 @@ class AskUserQuestionContextItem extends ContextItem {
           return `${header}: ${Array.isArray(answer) ? answer.join(', ') : answer}`;
         }
         return answerEntries.length > 1
-          ? `Answered ${answerEntries.length} questions`
+          ? `${t('Answered')} ${answerEntries.length} questions`
           : t('No answer provided');
       }
     });

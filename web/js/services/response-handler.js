@@ -177,7 +177,7 @@ class ResponseHandler {
         if (itemId) {
           const contextItem = messageThread.getContextItem(itemId);
           if (!contextItem) {
-            throw new Error(`Context item ${itemId} not found in message thread after tool result`);
+            throw new Error(`${t('Context item')} ${itemId} not found in message thread after tool result`);
           }
           // Get rendered content from context item
           const contextParams = {
@@ -212,7 +212,7 @@ class ResponseHandler {
       };
     } catch (error) {
       const { message, stack } = extractErrorInfo(error);
-      const errorContent = `Error: ${message}`;
+      const errorContent = `${t('Error:')} ${message}`;
       if (stack) console.error(`[ResponseHandler] Tool error stack:\n${stack}`);
       return actions.failToolAction(messageThread, toolCall, {
         content: errorContent,
@@ -295,7 +295,7 @@ class ResponseHandler {
       return {
         success: true,
         resultStatus: /** @type {ResultStatus} */ ('success'),
-        content: `Successfully dropped ${itemCount} context item${itemCount !== 1 ? 's' : ''}.`,
+        content: `${t('Successfully dropped')} ${itemCount} context item${itemCount !== 1 ? 's' : ''}.`,
         metadata: {
           resultType: RESULT_TYPES.DROP,
           itemIds: itemIds
@@ -308,13 +308,13 @@ class ResponseHandler {
     return {
       success: false,
       resultStatus: /** @type {ResultStatus} */ ('error'),
-      content: `Unknown meta tool: ${toolCall.name}`,
+      content: `${t('Unknown meta tool:')} ${toolCall.name}`,
       metadata: {
         resultType: RESULT_TYPES.META_TOOL,
         toolName: toolCall.name,
-        fullResult: { success: false, error: `Unknown meta tool: ${toolCall.name}` }
+        fullResult: { success: false, error: `${t('Unknown meta tool:')} ${toolCall.name}` }
       },
-      data: { error: `Unknown meta tool: ${toolCall.name}` }
+      data: { error: `${t('Unknown meta tool:')} ${toolCall.name}` }
     };
   }
 
@@ -329,7 +329,7 @@ class ResponseHandler {
     // An `mcp__*` name that misses here has three quite different causes, and
     // the model will keep calling the tool until it is told which one.
     const errorMsg = await withMcpToolMissReason(
-      `Unknown tool: "${toolCall.name}". This tool is not registered with any handler.`,
+      `${t('Unknown tool: "')}${toolCall.name}${t('". This tool is not registered with any handler.')}`,
       toolCall.name
     );
     return actions.failToolAction(messageThread, toolCall, {
@@ -409,7 +409,7 @@ class ResponseHandler {
     // Get the context item instance (either newly created or reused)
     const targetItem = messageThread.getContextItem(/** @type {string} */ (result.id));
     if (!targetItem) {
-      throw new Error(`Context item ${result.id} not found after executeContextItem`);
+      throw new Error(`${t('Context item')} ${result.id} ${t('not found after executeContextItem')}`);
     }
 
     // Return result - executeContextItem already called handleToolCall for new items
@@ -418,7 +418,7 @@ class ResponseHandler {
       success: true,
       shouldContinue: true,
       includeInConversation: false,
-      message: targetItem.getBriefSummary?.() || `Updated ${targetItem.getTitle?.() || result.id}`,
+      message: targetItem.getBriefSummary?.() || `${t('Updated')} ${targetItem.getTitle?.() || result.id}`,
       itemId: result.id || undefined,
       result: targetItem.getToolResult?.() || {}
     };

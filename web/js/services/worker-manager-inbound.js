@@ -22,6 +22,7 @@
  * @module services/worker-manager-inbound
  */
 
+import { t } from '../i18n/index.js';
 import * as protocols from './worker-manager-protocols.js';
 import { bytesToBase64, base64ToBytes } from '../utils/base64.js';
 import { isEngine } from '../../sdk/lib/client-role.js';
@@ -176,7 +177,7 @@ function onError(wm, conversationId, data) {
   // the waiters now so the panel offers Retry, instead of leaving them to
   // time out a minute later on a spinner that was never going to end.
   // After ready, the conversation carries its own errors through Yjs.
-  wm.failPendingReady(conversationId, data.message ? String(data.message) : `Worker error for ${conversationId}`);
+  wm.failPendingReady(conversationId, data.message ? String(data.message) : `${t('Worker error for')} ${conversationId}`);
 }
 
 /** @type {InboundHandler} */

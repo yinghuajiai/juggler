@@ -492,7 +492,7 @@ class ProjectFilesPin extends PinboardItemType {
         // plain-English lead goes above it rather than in place of it.
         settle({
           items: null,
-          error: `Couldn't read this folder. ${extractErrorMessage(err)}`,
+          error: `${t("Couldn't read this folder.")} ${extractErrorMessage(err)}`,
           loading: false,
           slow: false,
           token,
@@ -522,7 +522,7 @@ class ProjectFilesPin extends PinboardItemType {
         await openPath({ path });
         statusText = '';
       } catch (err) {
-        statusText = `Couldn't open that file. ${extractErrorMessage(err)}`;
+        statusText = `${t("Couldn't open that file.")} ${extractErrorMessage(err)}`;
       }
       render();
     };

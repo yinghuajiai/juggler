@@ -183,7 +183,7 @@ class DefineCommandContextItem extends ContextItem {
     if (!res.ok) {
       const msg = res.data?.errors
         ? Object.values(res.data.errors).join('; ')
-        : (res.data?.error || `write failed (${res.status})`);
+        : (res.data?.error || `${t('write failed (')}${res.status})`);
       throw new Error(msg);
     }
     return { name, scope: res.data?.scope || scope, path: res.data?.path || '', run: body.run };
@@ -197,11 +197,11 @@ class DefineCommandContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(`Could not create command: ${outcome.error}`);
+      return this.failureSummary(`${t('Could not create command:')} ${outcome.error}`);
     }
     const r = /** @type {{name?: string, scope?: string}} */ (outcome.result || {});
     const where = r.scope === 'user' ? 'all projects' : 'this project';
-    return this.successSummary(`Created /${r.name} (${where}). Invoke it with /${r.name}.`);
+    return this.successSummary(`${t('Created /')}${r.name} (${where}${t('). Invoke it with /')}${r.name}.`);
   }
 
   /**
@@ -215,8 +215,8 @@ class DefineCommandContextItem extends ContextItem {
     const name = String(toolInput?.name || 'command');
     return this.buildStatusUI(actionStatus, {
       typeName: t('Define Command'),
-      pending: `Creating /${name}…`,
-      success: `Created /${name}`
+      pending: `${t('Creating /')}${name}…`,
+      success: `${t('Created /')}${name}`
     });
   }
 }

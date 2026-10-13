@@ -51,7 +51,7 @@ function describeTaskStatus(state) {
       return 'Running';
     case 'completed':
     case 'failed': {
-      const exit = `Exit ${Number(state.exitCode ?? 0)}`;
+      const exit = `${t('Exit')} ${Number(state.exitCode ?? 0)}`;
       return state.error ? `${exit} — ${state.error}` : exit;
     }
     case 'not_found':
@@ -316,7 +316,7 @@ class ExecuteContextItem extends ContextItem {
         },
         timeout: {
           type: 'number',
-          description: `Optional timeout in milliseconds (max ${MAX_EXEC_TIMEOUT_MS}). Default: ${DEFAULT_EXEC_TIMEOUT_MS} (${prettyTimeout(DEFAULT_EXEC_TIMEOUT_MS)}).`
+          description: `${t('Optional timeout in milliseconds (max')} ${MAX_EXEC_TIMEOUT_MS}${t('). Default:')} ${DEFAULT_EXEC_TIMEOUT_MS} (${prettyTimeout(DEFAULT_EXEC_TIMEOUT_MS)}).`
         },
         run_in_background: {
           type: 'boolean',
@@ -724,7 +724,7 @@ class ExecuteContextItem extends ContextItem {
     if (params.timeout !== undefined) {
       const timeout = Number(params.timeout);
       if (isNaN(timeout) || timeout < 0 || timeout > MAX_EXEC_TIMEOUT_MS) {
-        return { valid: false, error: `Parameter "timeout" must be a number between 0 and ${MAX_EXEC_TIMEOUT_MS}` };
+        return { valid: false, error: `${t('Parameter "timeout" must be a number between 0 and')} ${MAX_EXEC_TIMEOUT_MS}` };
       }
     }
 
@@ -742,7 +742,7 @@ class ExecuteContextItem extends ContextItem {
     const description = params.description ? ` (${params.description})` : '';
 
     return {
-      message: `Execute command${description}:\n\n${command}\n\nThis will run in the project directory.`
+      message: `${t('Execute command')}${description}:\n\n${command}\n\nThis will run in the project directory.`
     };
   }
 
@@ -782,7 +782,7 @@ class ExecuteContextItem extends ContextItem {
       return {
         command,
         task_id: result.task_id,
-        stdout: `Background task started with ID: ${result.task_id}\nUse TaskOutput to check status and retrieve output.`,
+        stdout: `${t('Background task started with ID:')} ${result.task_id}\nUse TaskOutput to check status and retrieve output.`,
         stderr: '',
         exitCode: 0,
         success: true,
@@ -795,7 +795,7 @@ class ExecuteContextItem extends ContextItem {
     if (this.onProgress) {
       this.onProgress({
         type: 'status',
-        message: `Executing: ${command}`
+        message: `${t('Executing:')} ${command}`
       });
     }
 
@@ -960,11 +960,11 @@ class ExecuteContextItem extends ContextItem {
 
     // Handle non-success cases
     if (outcome.cancelled) {
-      const summary = truncatedCmd ? `Command cancelled: ${truncatedCmd}` : t('Command execution cancelled');
+      const summary = truncatedCmd ? `${t('Command cancelled:')} ${truncatedCmd}` : t('Command execution cancelled');
       return this.failureSummary(summary, { details: prepCommand ? `$ ${prepCommand}` : '' });
     }
     if (!outcome.success) {
-      return this.failureSummary(`Command execution failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Command execution failed:')} ${outcome.error}`);
     }
 
     // Success case - format command result
@@ -1035,15 +1035,15 @@ class ExecuteContextItem extends ContextItem {
     // same one again.
     if (runError) {
       return blocked
-        ? `Juggler blocked this command before running it: ${runError}. Retrying it unchanged will be blocked again — rewrite it or ask the user to run it.`
-        : `The command did not run to completion: ${runError}`;
+        ? `${t('Juggler blocked this command before running it:')} ${runError}${t('. Retrying it unchanged will be blocked again — rewrite it or ask the user to run it.')}`
+        : `${t('The command did not run to completion:')} ${runError}`;
     }
 
     // Only provide feedback for failed commands
     if (exitCode === 0) {
       return undefined;
     }
-    return `Command failed with exit code ${exitCode}`;
+    return `${t('Command failed with exit code')} ${exitCode}`;
   }
 
   /**
@@ -1129,7 +1129,7 @@ class ExecuteContextItem extends ContextItem {
         : createSummaryWithSubtitle(createHighlightedCode(tileCommand, 'bash'), description);
       status = 'running';
     } else if (result?.cancelled) {
-      summary = `Command cancelled: ${tileCommand}`;
+      summary = `${t('Command cancelled:')} ${tileCommand}`;
       status = 'cancelled';
     } else if (result?.success) {
       const rawResult = result.result || {};

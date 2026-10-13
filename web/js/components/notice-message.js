@@ -87,7 +87,7 @@ class NoticeMessage extends BaseMessage {
       button.type = 'button';
       button.className = 'message-action-btn notice-settings-btn';
       button.textContent = t('Set context window');
-      button.title = `Open ${target.model}'s Context window field in Settings → Providers`;
+      button.title = `${t('Open')} ${target.model}${t("'s Context window field in Settings → Providers")}`;
       button.addEventListener('click', (event) => {
         // The row is selectable; opening settings is not a selection.
         event.preventDefault();

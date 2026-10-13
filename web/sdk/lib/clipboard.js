@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * Clipboard helpers that work in BOTH secure and insecure contexts.
  *
@@ -36,10 +38,10 @@ export function clipboardUnavailableMessage() {
   if (insecure) {
     return `Couldn't copy: browsers only allow clipboard access on secure (https://) pages, `
             + `localhost, or the Juggler desktop app — and this page is served over plain http `
-            + `(${host}). Open Juggler in the desktop app, or browse over https/localhost, to copy.`;
+            + `(${host}${t('). Open Juggler in the desktop app, or browse over https/localhost, to copy.')}`;
   }
   return `Couldn't copy: this browser blocked clipboard access. Make sure the page has focus and `
-        + `that clipboard permissions aren't denied for ${host}.`;
+        + `${t("that clipboard permissions aren't denied for")} ${host}.`;
 }
 
 /**

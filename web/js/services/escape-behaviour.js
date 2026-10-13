@@ -284,7 +284,7 @@ function showCue() {
   const el = document.createElement('div');
   el.className = 'escape-arm-cue';
   el.setAttribute('role', 'status');
-  el.textContent = `Press ${formatBindingForPlatform({ key: 'Escape' }, mac)} again to stop`;
+  el.textContent = `${t('Press')} ${formatBindingForPlatform({ key: 'Escape' }, mac)} again to stop`;
   document.body.appendChild(el);
   cueEl = el;
 }

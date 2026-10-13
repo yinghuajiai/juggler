@@ -392,7 +392,7 @@ class NoProjectOverlay extends HTMLElement {
     host.classList.remove('np-provider--none');
     const named = names.slice(0, PROVIDERS_NAMED).join(', ');
     const rest = names.length - PROVIDERS_NAMED;
-    text.textContent = rest > 0 ? `Connected: ${named} and ${rest} more` : `Connected: ${named}`;
+    text.textContent = rest > 0 ? `${t('Connected:')} ${named} and ${rest} more` : `${t('Connected:')} ${named}`;
     host.appendChild(text);
   }
 

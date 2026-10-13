@@ -138,8 +138,8 @@ function buildRecommendations(provider) {
 
   // A fragment on its own is not a sentence, and the frame is what makes each of
   // them read as advice rather than as a claim about this particular workspace.
-  if (advice.bestFor) line('setup-recommend-for', `Best for ${advice.bestFor}.`);
-  if (advice.avoidFor) line('setup-recommend-against', `Not for ${advice.avoidFor}.`);
+  if (advice.bestFor) line('setup-recommend-for', `${t('Best for')} ${advice.bestFor}.`);
+  if (advice.avoidFor) line('setup-recommend-against', `${t('Not for')} ${advice.avoidFor}.`);
   for (const note of notes) line('setup-recommend-note', String(note));
 
   return block;

@@ -358,7 +358,7 @@ class ConnectionManager {
     // for good, so reporting that now is the difference between a caller being
     // told what went wrong and being told what noticed.
     if (loadError) {
-      this._markSessionUnusable(new Error(`the engine could not load its session: ${loadError}`));
+      this._markSessionUnusable(new Error(`${t('the engine could not load its session:')} ${loadError}`));
     } else {
       this._sessionLoaded = true;
       this._markSessionReady();
@@ -387,7 +387,7 @@ class ConnectionManager {
       // available as the recovery path. Viewer-only — the engine worker
       // has no alert UI.
       /** @type {any} */ (window).showAlert?.(
-        `Couldn't load the session: ${loadError}\n\nPick a project to try again.`,
+        `${t("Couldn't load the session:")} ${loadError}\n\nPick a project to try again.`,
         t('Session load failed')
       );
     }

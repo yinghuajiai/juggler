@@ -73,7 +73,7 @@ class HandoffCommandType extends CommandType {
       // waits for a settled source rather than forking one mid-turn.
       newId = await session.duplicateConversation(source.id, { nameSuffix: 'continued', refuseWhileActive: true });
     } catch (error) {
-      return { handled: true, message: `Handoff failed: ${extractErrorMessage(error)}`, error: true };
+      return { handled: true, message: `${t('Handoff failed:')} ${extractErrorMessage(error)}`, error: true };
     }
     if (!newId) {
       // Null clone is duplicateConversation's mid-turn refusal (or a missing
@@ -110,7 +110,7 @@ class HandoffCommandType extends CommandType {
       // finished result into the parked first user message of the continued conversation.
       const { folded, error } = await compactConversation(cloneMt.conversationId, { handoffPromote: true });
       if (error) {
-        return { handled: true, message: `Handoff failed: ${error}`, error: true };
+        return { handled: true, message: `${t('Handoff failed:')} ${error}`, error: true };
       }
       if (!folded) {
         // Empty source — nothing to summarise. Leave the (empty) continued conversation
@@ -118,7 +118,7 @@ class HandoffCommandType extends CommandType {
         return { handled: true, message: t('Nothing to hand off — continuing in a fresh conversation'), error: true };
       }
     } catch (error) {
-      return { handled: true, message: `Handoff failed: ${extractErrorMessage(error)}`, error: true };
+      return { handled: true, message: `${t('Handoff failed:')} ${extractErrorMessage(error)}`, error: true };
     }
 
     return { handled: true };

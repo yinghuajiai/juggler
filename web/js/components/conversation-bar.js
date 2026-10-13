@@ -1051,8 +1051,8 @@ class ConversationBar extends JugglerElement {
     if (count > 0) {
       const items = `${count} ${count === 1 ? 'conversation' : 'conversations'}`;
       binTitle = sizeBytes > 0
-        ? `View binned conversations — ${items} (${formatBytes(sizeBytes)})`
-        : `View binned conversations — ${items}`;
+        ? `${t('View binned conversations —')} ${items} (${formatBytes(sizeBytes)})`
+        : `${t('View binned conversations —')} ${items}`;
     }
     if (binBtn.title !== binTitle) binBtn.title = binTitle;
 
@@ -1715,7 +1715,7 @@ class ConversationBar extends JugglerElement {
       // The tooltip-manager appends the platform-correct combo (e.g. " (⌘⌫)")
       // from this shortcut id — no hard-coded key text in the markup.
       binButton.setAttribute('data-shortcut-id', 'bin-conversation');
-      binButton.setAttribute('aria-label', `Move ${name} to bin`);
+      binButton.setAttribute('aria-label', `${t('Move')} ${name} to bin`);
       binButton.innerHTML = BIN_ICON_SVG;
       tab.appendChild(binButton);
 
@@ -1725,7 +1725,7 @@ class ConversationBar extends JugglerElement {
       });
     } else {
       // Only when it changed — an attribute write invalidates on every render.
-      const binLabel = `Move ${name} to bin`;
+      const binLabel = `${t('Move')} ${name} to bin`;
       if (binButton.getAttribute('aria-label') !== binLabel) {
         binButton.setAttribute('aria-label', binLabel);
       }
@@ -2058,7 +2058,7 @@ class ConversationBar extends JugglerElement {
     } catch (e) {
       console.error('[ConversationBar] restore from bin failed:', e);
       await showAlert(
-        `Couldn’t restore it from the bin: ${/** @type {any} */ (e)?.message || e}`,
+        `${t('Couldn’t restore it from the bin:')} ${/** @type {any} */ (e)?.message || e}`,
         t('Restore failed')
       );
     }
@@ -2316,11 +2316,11 @@ class ConversationBar extends JugglerElement {
           // invalid closes it: the editor has nothing to add that the empty
           // result doesn't already say.
           if (code === 'COLLISION') {
-            return `“${newName}” is already used by another conversation.`;
+            return `“${newName}${t('” is already used by another conversation.')}`;
           }
           if (code !== 'INVALID') {
             await showAlert(
-              `Couldn't rename the conversation: ${/** @type {any} */ (e)?.message || e}`,
+              `${t("Couldn't rename the conversation:")} ${/** @type {any} */ (e)?.message || e}`,
               t('Rename failed')
             );
           }
@@ -2423,7 +2423,7 @@ class ConversationBar extends JugglerElement {
           // the editor was open, a label longer than it stores — the name is
           // still in the field to be fixed or abandoned, so the editor stays
           // open and says what happened.
-          return `Couldn't rename it: ${/** @type {any} */ (e)?.message || e}`;
+          return `${t("Couldn't rename it:")} ${/** @type {any} */ (e)?.message || e}`;
         }
       },
     });

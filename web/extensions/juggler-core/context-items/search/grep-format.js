@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
+
 /**
  * How a grep result is rendered for the LLM, for every tool that runs one.
  *
@@ -35,7 +37,7 @@ export function formatGrepResults(result, params) {
   const offset = /** @type {number|undefined} */ (params.offset) || 0;
 
   if (matches.length === 0) {
-    return `No matches found for pattern: ${pattern}`;
+    return `${t('No matches found for pattern:')} ${pattern}`;
   }
 
   // Group by file for better readability
@@ -60,7 +62,7 @@ export function formatGrepResults(result, params) {
     }
 
     if (headLimit && shownCount < totalFiles - offset) {
-      results += `\n(Showing ${shownCount} of ${totalFiles} files. Use offset=${offset + shownCount} to see more.)`;
+      results += `\n(Showing ${shownCount} of ${totalFiles} ${t('files. Use offset=')}${offset + shownCount} ${t('to see more.)')}`;
     }
 
     return results.trim();
@@ -84,7 +86,7 @@ export function formatGrepResults(result, params) {
     let results = outputFiles.join('\n');
 
     if (headLimit && shownCount < totalFiles - offset) {
-      results += `\n\n(Showing ${shownCount} of ${totalFiles} files. Use offset=${offset + shownCount} to see more.)`;
+      results += `\n\n(Showing ${shownCount} of ${totalFiles} ${t('files. Use offset=')}${offset + shownCount} ${t('to see more.)')}`;
     }
 
     return results;
@@ -118,7 +120,7 @@ export function formatGrepResults(result, params) {
   }
 
   if (headLimit && shownCount < totalMatches - offset) {
-    results += `(Showing ${shownCount} of ${totalMatches} matches. Use offset=${offset + shownCount} to see more.)`;
+    results += `(Showing ${shownCount} of ${totalMatches} ${t('matches. Use offset=')}${offset + shownCount} ${t('to see more.)')}`;
   }
 
   return results.trim();

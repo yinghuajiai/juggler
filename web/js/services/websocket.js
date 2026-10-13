@@ -1326,7 +1326,7 @@ class WebSocketService {
       this._settleOpen(this._heldOpenEvent);
       return false;
     }
-    const reason = `server instance changed (was ${this.serverBootId || 'unknown'}, now ${bootId || 'unknown'})`;
+    const reason = `${t('server instance changed (was')} ${this.serverBootId || 'unknown'}, now ${bootId || 'unknown'})`;
     if (this._reloadStalePage(reason)) return true;
     // Throttled — the server is restarting repeatedly, and one reload per
     // restart is a reload loop. Drop this connection rather than carry on
@@ -1552,7 +1552,7 @@ class WebSocketService {
     if (this.connected) {
       const quiet = Date.now() - this._lastInboundAt;
       if (this._lastInboundAt && quiet > WAKE_STALE_MS) {
-        this._dropLink(`${reason}, but nothing has arrived for ${Math.round(quiet / 1000)}s`);
+        this._dropLink(`${reason}${t(', but nothing has arrived for')} ${Math.round(quiet / 1000)}s`);
       }
       return;
     }
@@ -1592,7 +1592,7 @@ class WebSocketService {
       // waiting out, so the announcement this call makes is the only one.
       this._announceReconnect = false;
       try {
-        this._dropLink(`${reason}, and the attempt under way is ${Math.round(age / 1000)}s old`);
+        this._dropLink(`${reason}${t(', and the attempt under way is')} ${Math.round(age / 1000)}s old`);
       } finally {
         this._announceReconnect = true;
       }

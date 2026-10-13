@@ -57,7 +57,7 @@ class CompactCommandType extends CommandType {
       // fold; `error` carries a worker-side failure reason.
       const { folded, error } = await compactConversation(mt.conversationId);
       if (error) {
-        return { handled: true, message: `Compaction failed: ${error}`, error: true };
+        return { handled: true, message: `${t('Compaction failed:')} ${error}`, error: true };
       }
       if (!folded) {
         return { handled: true, message: t('Nothing to compact'), error: true };
@@ -68,7 +68,7 @@ class CompactCommandType extends CommandType {
       const { extractErrorMessage: extractErr } = await import('juggler/ui');
       return {
         handled: true,
-        message: `Compaction failed: ${extractErr(error)}`,
+        message: `${t('Compaction failed:')} ${extractErr(error)}`,
         error: true
       };
     } finally {

@@ -19,12 +19,12 @@ export function decodeExtensionSettingValue(setting, rawValue) {
   if (setting.type === 'boolean') return !!rawValue;
   const value = String(rawValue);
   if (setting.required && value.trim() === '') {
-    throw new Error(`${setting.label} is required.`);
+    throw new Error(`${setting.label} ${t('is required.')}`);
   }
   if (setting.type === 'number') {
     if (value.trim() === '') return null;
     const number = Number(value);
-    if (!Number.isFinite(number)) throw new Error(`${setting.label} must be a finite number.`);
+    if (!Number.isFinite(number)) throw new Error(`${setting.label} ${t('must be a finite number.')}`);
     return number;
   }
   if (setting.type === 'url') {
@@ -33,13 +33,13 @@ export function decodeExtensionSettingValue(setting, rawValue) {
       const url = new URL(value);
       if (!url.protocol || !url.host) throw new Error();
     } catch {
-      throw new Error(`${setting.label} must be an absolute URL.`);
+      throw new Error(`${setting.label} ${t('must be an absolute URL.')}`);
     }
   }
   if (setting.type === 'enum') {
     if (value === '') return null;
     if (!setting.options?.includes(value)) {
-      throw new Error(`${setting.label} must be one of the available options.`);
+      throw new Error(`${setting.label} ${t('must be one of the available options.')}`);
     }
   }
   return value;
@@ -117,7 +117,7 @@ export class ExtensionSettingsEditor {
     const explanation = document.createElement('div');
     explanation.className = 'plugin-section-explanation';
     explanation.textContent = this.capability
-      ? `Global settings, stored with the ${this.manifest.name || this.manifest.id} extension's settings under ~/.juggler/extension-config.`
+      ? `${t('Global settings, stored with the')} ${this.manifest.name || this.manifest.id} ${t("extension's settings under ~/.juggler/extension-config.")}`
       : 'Global settings for this extension. Non-secret values are stored under ~/.juggler/extension-config; secrets are stored masked in ~/.juggler/credentials.json and are never shown here.';
     header.append(title, explanation);
     section.appendChild(header);
@@ -185,7 +185,7 @@ export class ExtensionSettingsEditor {
     if (Object.hasOwn(setting, 'default')) {
       const defaultText = document.createElement('div');
       defaultText.className = 'extension-setting-default';
-      defaultText.textContent = `Default: ${String(setting.default)}`;
+      defaultText.textContent = `${t('Default:')} ${String(setting.default)}`;
       info.appendChild(defaultText);
     }
     row.appendChild(info);
@@ -434,18 +434,18 @@ export class ExtensionSettingsEditor {
    */
   async _saveSecret(setting, value) {
     if (value === '' && !this.secretPresence[setting.key]) {
-      this._message(`${setting.label} is not set.`, true);
+      this._message(`${setting.label} ${t('is not set.')}`, true);
       return;
     }
     if (value === '' && setting.required) {
-      this._message(`${setting.label} is required and cannot be cleared.`, true);
+      this._message(`${setting.label} ${t('is required and cannot be cleared.')}`, true);
       return;
     }
     if (value === '') {
-      const confirmed = await showConfirm(`Clear ${setting.label}?`, t('Clear extension secret'), { danger: true });
+      const confirmed = await showConfirm(`${t('Clear')} ${setting.label}?`, t('Clear extension secret'), { danger: true });
       if (!confirmed) return;
     }
-    await this._save({ [setting.key]: value }, value ? `${setting.label} saved.` : `${setting.label} cleared.`);
+    await this._save({ [setting.key]: value }, value ? `${setting.label} ${t('saved.')}` : `${setting.label} ${t('cleared.')}`);
   }
 
   /**

@@ -55,13 +55,13 @@ class McpCommandType extends CommandType {
           if (!name) return { handled: true, message: t('Usage: /mcp logs <server>') };
           {
             const { log } = await mcpGetLog({ server: name });
-            return { handled: true, message: log ? `MCP "${name}" recent output:\n\n${log}` : `No recent output for "${name}".` };
+            return { handled: true, message: log ? `${t('MCP "')}${name}" recent output:\n\n${log}` : `${t('No recent output for "')}${name}".` };
           }
         default:
           return { handled: true, message: `Unknown subcommand "${sub}". Try: /mcp, /mcp start|stop|restart <server>${t(', /mcp reload, /mcp logs')} <server>` };
       }
     } catch (err) {
-      return { handled: true, message: `MCP command failed: ${extractErrorMessage(err)}` };
+      return { handled: true, message: `${t('MCP command failed:')} ${extractErrorMessage(err)}` };
     }
   }
 

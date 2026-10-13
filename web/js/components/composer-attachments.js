@@ -167,8 +167,8 @@ export function handleFiles(composer, fileList) {
   for (const file of files) {
     if (file.size > maxPerImage) {
       composer.showWarning(
-        `"${file.name}" is too large (${(file.size / 1024 / 1024).toFixed(1)} MB, ` +
-        `max ${maxPerImage / 1024 / 1024} MB per image for the current model).`
+        `"${file.name}${_t('" is too large (')}${(file.size / 1024 / 1024).toFixed(1)} ${_t('MB,')} ` +
+        `max ${maxPerImage / 1024 / 1024} ${_t('MB per image for the current model).')}`
       );
       continue;
     }
@@ -176,7 +176,7 @@ export function handleFiles(composer, fileList) {
       (/** @type {number} */ sum, /** @type {any} */ a) => sum + (a.bytes || 0), 0);
     if (pendingTotal + file.size > MAX_TURN_ATTACHMENT_BYTES) {
       composer.showWarning(
-        `Attachments exceed the ${MAX_TURN_ATTACHMENT_BYTES / 1024 / 1024} MB ` +
+        `${_t('Attachments exceed the')} ${MAX_TURN_ATTACHMENT_BYTES / 1024 / 1024} ${_t('MB')} ` +
         `per-message limit.`
       );
       break;
@@ -206,9 +206,9 @@ export function handleTextFiles(composer, fileList) {
     // Gate 1: size, on metadata, before reading a single byte.
     if (file.size > MAX_TEXT_DROP_BYTES) {
       composer.showWarning(
-        `"${file.name}" is too large to attach as text ` +
-        `(${(file.size / 1024 / 1024).toFixed(1)} MB, ` +
-        `max ${MAX_TEXT_DROP_BYTES / 1024} KB).`
+        `"${file.name}${_t('" is too large to attach as text')} ` +
+        `(${(file.size / 1024 / 1024).toFixed(1)} ${_t('MB,')} ` +
+        `max ${MAX_TEXT_DROP_BYTES / 1024} ${_t('KB).')}`
       );
       continue;
     }
@@ -217,7 +217,7 @@ export function handleTextFiles(composer, fileList) {
       (/** @type {number} */ sum, /** @type {any} */ t) => sum + (t.bytes || 0), 0);
     if (stagedTotal + file.size > MAX_TEXT_DROP_TURN_BYTES) {
       composer.showWarning(
-        `Dropped text files exceed the ${MAX_TEXT_DROP_TURN_BYTES / 1024 / 1024} MB ` +
+        `${_t('Dropped text files exceed the')} ${MAX_TEXT_DROP_TURN_BYTES / 1024 / 1024} ${_t('MB')} ` +
         `per-message limit.`
       );
       break;
@@ -229,7 +229,7 @@ export function handleTextFiles(composer, fileList) {
       const content = typeof reader.result === 'string' ? reader.result : '';
       // Gate 3: binary check (file is already known-small, so this is cheap).
       if (looksBinary(content)) {
-        composer.showWarning(`"${file.name}" doesn't look like a text file.`);
+        composer.showWarning(`"${file.name}${_t("\" doesn't look like a text file.")}`);
         return;
       }
       composer._pendingTextFiles.push({ filename: file.name, content, bytes: file.size });
@@ -237,7 +237,7 @@ export function handleTextFiles(composer, fileList) {
       // Persist so the staged file survives a reload alongside the text.
       composer._persistDraft();
     };
-    reader.onerror = () => composer.showWarning(`Couldn't read "${file.name}".`);
+    reader.onerror = () => composer.showWarning(`${_t("Couldn't read \"")}${file.name}".`);
     reader.readAsText(file);
   }
 }
@@ -297,7 +297,7 @@ export async function uploadAndAdd(composer, file) {
     if (idx !== -1) composer._pendingAttachments.splice(idx, 1);
     if (placeholder._previewURL) URL.revokeObjectURL(placeholder._previewURL);
     renderAttachmentChips(composer);
-    composer.showWarning(`Image upload failed: ${extractErrorMessage(err)}`);
+    composer.showWarning(`${_t('Image upload failed:')} ${extractErrorMessage(err)}`);
   }
 }
 

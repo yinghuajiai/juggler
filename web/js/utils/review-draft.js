@@ -185,12 +185,12 @@ export function reviewDraftBoundsError(draft) {
     return t('A review draft\'s comments must be a list.');
   }
   if (Array.isArray(comments) && comments.length > REVIEW_DRAFT_LIMITS.comments) {
-    return `A review holds at most ${REVIEW_DRAFT_LIMITS.comments} comments; this one has ${comments.length}.`;
+    return `${t('A review holds at most')} ${REVIEW_DRAFT_LIMITS.comments} comments; this one has ${comments.length}.`;
   }
   for (const comment of comments || []) {
     const body = comment && typeof comment.body === 'string' ? comment.body : '';
     if (body.length > REVIEW_DRAFT_LIMITS.body) {
-      return `A comment holds at most ${REVIEW_DRAFT_LIMITS.body} characters; this one has ${body.length}.`;
+      return `${t('A comment holds at most')} ${REVIEW_DRAFT_LIMITS.body} characters; this one has ${body.length}.`;
     }
   }
   return '';

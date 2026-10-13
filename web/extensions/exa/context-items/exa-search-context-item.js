@@ -130,7 +130,7 @@ class ExaSearchContextItem extends ContextItem {
             type: 'integer',
             minimum: 1,
             maximum: MAX_RESULT_CHARS,
-            description: `Characters of content per result (defaults to a share of the context budget, at most ${MAX_RESULT_CHARS})`
+            description: `${t('Characters of content per result (defaults to a share of the context budget, at most')} ${MAX_RESULT_CHARS})`
           }
         },
         required: ['query']
@@ -158,7 +158,7 @@ class ExaSearchContextItem extends ContextItem {
       const domains = params[key];
       if (domains !== undefined &&
           (!Array.isArray(domains) || domains.some(domain => typeof domain !== 'string' || domain.trim() === ''))) {
-        return { valid: false, error: `Parameter "${key}" must be an array of non-empty strings` };
+        return { valid: false, error: `${t('Parameter "')}${key}${t('" must be an array of non-empty strings')}` };
       }
     }
     if (params.contents !== undefined && !CONTENTS_MODES.has(params.contents)) {
@@ -166,7 +166,7 @@ class ExaSearchContextItem extends ContextItem {
     }
     if (params.maxCharacters !== undefined &&
         (!Number.isInteger(params.maxCharacters) || params.maxCharacters < 1 || params.maxCharacters > MAX_RESULT_CHARS)) {
-      return { valid: false, error: `Parameter "maxCharacters" must be an integer from 1 to ${MAX_RESULT_CHARS}` };
+      return { valid: false, error: `${t('Parameter "maxCharacters" must be an integer from 1 to')} ${MAX_RESULT_CHARS}` };
     }
     return { valid: true, params: { ...toolInput, query: params.query.trim() } };
   }
@@ -217,13 +217,13 @@ class ExaSearchContextItem extends ContextItem {
     } catch {
       if (response.status < 200 || response.status >= 300) {
         const message = response.body.trim() || response.statusText || t('Unknown error');
-        throw new Error(`Exa request failed (HTTP ${response.status}): ${message}`);
+        throw new Error(`${t('Exa request failed (HTTP')} ${response.status}): ${message}`);
       }
-      throw new Error(`Exa returned invalid JSON (HTTP ${response.status})`);
+      throw new Error(`${t('Exa returned invalid JSON (HTTP')} ${response.status})`);
     }
     if (response.status < 200 || response.status >= 300) {
       const message = payload?.error?.message || payload?.error || payload?.message || response.statusText;
-      throw new Error(`Exa request failed (HTTP ${response.status}): ${String(message || 'Unknown error')}`);
+      throw new Error(`${t('Exa request failed (HTTP')} ${response.status}): ${String(message || 'Unknown error')}`);
     }
     if (!Array.isArray(payload?.results)) {
       throw new Error('Exa response is missing a results array');
@@ -245,15 +245,15 @@ class ExaSearchContextItem extends ContextItem {
   getSummary(outcome) {
     const query = String(outcome.prepared?.params?.query || 'unknown');
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Exa search failed for "${query}"`);
+      return this.failureSummary(outcome.error || `${t('Exa search failed for "')}${query}"`);
     }
 
     const result = /** @type {ExaSearchResult} */ (outcome.result);
     if (!result.results?.length) {
-      return this.successSummary(`No Exa results found for "${query}"`, { icon: '○' });
+      return this.successSummary(`${t('No Exa results found for "')}${query}"`, { icon: '○' });
     }
 
-    const lines = [`Exa search results for "${query}":\n`];
+    const lines = [`${t('Exa search results for "')}${query}":\n`];
     for (const item of result.results) {
       lines.push(`- [${item.title || item.url}](${item.url})`);
       const metadata = [item.author, item.publishedDate].filter(Boolean).join(' — ');
@@ -276,11 +276,11 @@ class ExaSearchContextItem extends ContextItem {
 
     return this.buildStatusUI(actionStatus, {
       typeName: t('Exa Search'),
-      pending: `Searching Exa for "${displayQuery}"...`,
+      pending: `${t('Searching Exa for "')}${displayQuery}"...`,
       success: () => {
         const result = /** @type {ExaSearchResult} */ (actionStatus?.result);
         const count = result.count ?? result.results?.length ?? 0;
-        return `Found ${count} Exa result${count === 1 ? '' : 's'} for "${displayQuery}"`;
+        return `${t('Found')} ${count} ${t('Exa result')}${count === 1 ? '' : 's'} for "${displayQuery}"`;
       }
     });
   }

@@ -32,6 +32,7 @@
  * @module services/conversation-loader
  */
 
+import { t } from '../i18n/index.js';
 import { base64ToBytes } from '../utils/base64.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
 import { fetchJson } from './http.js';
@@ -384,7 +385,7 @@ export class ConversationLoader {
       // 4. Wait for ready and get metadata from backend
       const metadata = await this._wm.waitForWorkerReady(conversationId);
       if (!metadata) {
-        throw new Error(`Worker did not provide metadata for existing conversation ${conversationId}`);
+        throw new Error(`${t('Worker did not provide metadata for existing conversation')} ${conversationId}`);
       }
 
       // 5. Populate stub with metadata (properties are mutable). The name

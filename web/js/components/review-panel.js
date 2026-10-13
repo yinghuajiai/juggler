@@ -726,7 +726,7 @@ class ReviewPanel {
     try {
       await this._review.save({ comments: rest });
     } catch (error) {
-      this._footerError = `Couldn't delete that comment. ${reason(error)}`;
+      this._footerError = `${t("Couldn't delete that comment.")} ${reason(error)}`;
       this._renderFooter();
     }
   }
@@ -740,11 +740,11 @@ class ReviewPanel {
    */
   _editorLabel(anchor) {
     const path = anchor.path.length > LABEL_PATH_MAX ? `…${anchor.path.slice(-LABEL_PATH_MAX)}` : anchor.path;
-    if (anchor.side === 'file') return `Comment on ${path}`;
+    if (anchor.side === 'file') return `${t('Comment on')} ${path}`;
     const span = anchor.endLine > anchor.startLine
       ? `${anchor.side} lines ${anchor.startLine} to ${anchor.endLine}`
       : `${anchor.side} line ${anchor.startLine}`;
-    return `Comment on ${span} in ${path}`;
+    return `${t('Comment on')} ${span} in ${path}`;
   }
 
   /**
@@ -885,7 +885,7 @@ class ReviewPanel {
     } catch (error) {
       // The words are the user's own and are still in the box, which is the
       // whole reason the save refuses rather than trimming to fit.
-      this._showEditorError(`Couldn't save that comment. ${reason(error)}`);
+      this._showEditorError(`${t("Couldn't save that comment.")} ${reason(error)}`);
     }
   }
 
@@ -950,7 +950,7 @@ class ReviewPanel {
       this._footerError = '';
       await this._review.clear();
     } catch (error) {
-      this._footerError = `Couldn't discard. ${reason(error)}`;
+      this._footerError = `${t("Couldn't discard.")} ${reason(error)}`;
       this._renderFooter();
     }
   }
@@ -967,7 +967,7 @@ class ReviewPanel {
     } catch (error) {
       // The comments are still here either way — handing them over does not
       // spend them — so this reports what went wrong and changes nothing else.
-      this._footerError = `Couldn't put the feedback in the prompt. ${reason(error)}`;
+      this._footerError = `${t("Couldn't put the feedback in the prompt.")} ${reason(error)}`;
       this._renderFooter();
     }
   }

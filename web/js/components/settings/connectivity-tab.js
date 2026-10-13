@@ -55,7 +55,7 @@ const CONNECTIVITY_POLL_MS = 2000;
 function clientOriginLabel(c) {
   switch (c.origin) {
     case 'local': return t('Same machine');
-    case 'lan': return c.detail ? `LAN · ${c.detail}` : 'LAN';
+    case 'lan': return c.detail ? `${t('LAN ·')} ${c.detail}` : 'LAN';
     case 'remote': return c.detail || 'Remote';
     default: return 'Connected';
   }
@@ -593,7 +593,7 @@ export class ConnectivityTab {
         mode: mode.mode,
         title: mode.title,
         description: mode.description,
-        startLabel: mode.startLabel || `Start ${mode.title}`,
+        startLabel: mode.startLabel || `${t('Start')} ${mode.title}`,
         available: !!mode.available,
         isActive: activeMode === mode.mode,
         url: activeMode === mode.mode ? c.tunnelURL : '',
@@ -682,7 +682,7 @@ export class ConnectivityTab {
       });
       ctrl.appendChild(startBtn);
     } else {
-      ctrl.appendChild(this._buildWANUnavailableHint(opts.unavailableHint || `${opts.title} is not available on this machine.`));
+      ctrl.appendChild(this._buildWANUnavailableHint(opts.unavailableHint || `${opts.title} ${t('is not available on this machine.')}`));
     }
 
     // "Start on launch" preference for this mode — radio-style across the WAN

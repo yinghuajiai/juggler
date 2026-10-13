@@ -211,9 +211,9 @@ function fillTaskRow(row, task, now) {
   // without the task list in front of it.
   if (row.dataset.at !== String(task.at)) row.dataset.at = String(task.at);
 
-  const reveals = `Reveal the action that started ${name}`;
+  const reveals = `${t('Reveal the action that started')} ${name}`;
   if (open.getAttribute('aria-label') !== reveals) open.setAttribute('aria-label', reveals);
-  const stops = `Stop ${name}`;
+  const stops = `${t('Stop')} ${name}`;
   if (stopBtn.getAttribute('aria-label') !== stops) stopBtn.setAttribute('aria-label', stops);
 
   setText(
@@ -388,14 +388,14 @@ class TasksPin extends PinboardItemType {
         parts.push({
           key: 'error',
           build: () => createElement('div', 'tasks-pin__error'),
-          fill: (el) => setText(el, `Couldn't check what's running. ${error}`),
+          fill: (el) => setText(el, `${t("Couldn't check what's running.")} ${error}`),
         });
       }
       if (stopError) {
         parts.push({
           key: 'stop-error',
           build: () => createElement('div', 'tasks-pin__error'),
-          fill: (el) => setText(el, `Couldn't stop it. ${stopError}`),
+          fill: (el) => setText(el, `${t("Couldn't stop it.")} ${stopError}`),
         });
       }
 

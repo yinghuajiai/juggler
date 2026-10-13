@@ -110,7 +110,7 @@ class RevealButton extends HTMLElement {
     // unless it says. The op's own text carries which of the operational
     // reasons it was: the path has gone, or there is no file manager to ask.
     void osRevealPath({ path }).catch((err) => {
-      showNotice(`Couldn't show that file. ${extractErrorMessage(err)}`);
+      showNotice(`${t("Couldn't show that file.")} ${extractErrorMessage(err)}`);
     });
   }
 }

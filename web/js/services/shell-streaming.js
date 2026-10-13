@@ -16,6 +16,7 @@
  * is a client of the socket, not of the ops endpoint.
  */
 
+import { t } from '../i18n/index.js';
 import wsService from './websocket.js';
 import { MAX_EXEC_TIMEOUT_MS } from './ops-api.js';
 
@@ -211,7 +212,7 @@ export async function shellExecuteStreaming(params, onOutput, signal, workspaceI
         stdout: stdout.trimEnd(),
         exitCode: -1,
         success: false,
-        error: `shellExecuteStreaming hit client-side safety timeout after ${timeoutMs}ms (worker never sent done)`
+        error: `${t('shellExecuteStreaming hit client-side safety timeout after')} ${timeoutMs}${t('ms (worker never sent done)')}`
       });
     }, timeoutMs);
 

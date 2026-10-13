@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../../../../js/i18n/index.js';
 import StrategyType, { APPROVAL_POLICY } from 'juggler/strategy-type';
 import { INTERACTION_KIND } from 'juggler/context-item';
 
@@ -127,7 +128,7 @@ export default class SubagentStrategyType extends StrategyType {
    */
   onToolPending({ toolUseId, toolName }) {
     this.messageThread.refuseApproval(toolUseId,
-      `Refused: ${toolName} needed approval, and a sub-agent has nobody to ask. `
+      `${_t('Refused:')} ${toolName} ${_t('needed approval, and a sub-agent has nobody to ask.')} `
       + 'Find another way, or report what you could not check.');
   }
 }

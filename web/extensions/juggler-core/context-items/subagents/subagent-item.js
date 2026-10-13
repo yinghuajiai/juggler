@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../../../js/i18n/index.js';
 import ContextItem from 'juggler/context-item';
 import { effortInstruction, thoroughnessSchema } from './thoroughness.js';
 import strategyRegistry from '../../../../js/registries/strategy-registry.js';
@@ -63,7 +64,7 @@ export default class SubagentContextItem extends ContextItem {
   static descriptor() {
     const descriptor = this.SUBAGENT;
     if (!descriptor) {
-      throw new Error(`${this.name} extends SubagentContextItem but defines no static SUBAGENT descriptor`);
+      throw new Error(`${this.name} ${t('extends SubagentContextItem but defines no static SUBAGENT descriptor')}`);
     }
     return descriptor;
   }
@@ -106,7 +107,7 @@ export default class SubagentContextItem extends ContextItem {
           properties: {
             goal: {
               type: 'string',
-              description: `Very short, single-line, user-facing label (for example, "${goalExample}"). Not the task or the return requirements.`
+              description: `${t('Very short, single-line, user-facing label (for example, "')}${goalExample}"). Not the task or the return requirements.`
             },
             task: {
               type: 'string',
@@ -114,7 +115,7 @@ export default class SubagentContextItem extends ContextItem {
             },
             session: {
               type: 'string',
-              description: `Optional ${tool} session name from an earlier call — continues that same ${continues}; omit it to start fresh.`
+              description: `${t('Optional')} ${tool} ${t('session name from an earlier call — continues that same')} ${continues}; omit it to start fresh.`
             },
             thoroughness: thoroughnessSchema()
           },
@@ -134,7 +135,7 @@ export default class SubagentContextItem extends ContextItem {
     for (const key of ['goal', 'task']) {
       const value = toolInput[key];
       if (typeof value !== 'string' || !value.trim()) {
-        return { valid: false, error: `Missing required parameter: ${key}` };
+        return { valid: false, error: `${t('Missing required parameter:')} ${key}` };
       }
     }
     return { valid: true, params: toolInput };
@@ -186,7 +187,7 @@ export default class SubagentContextItem extends ContextItem {
    */
   async execute() {
     const { tool, fallback } = /** @type {typeof SubagentContextItem} */ (this.constructor).descriptor();
-    throw new Error(`${tool} couldn't start a sub-agent, so no work was done. ${fallback}`);
+    throw new Error(`${tool} ${t("couldn't start a sub-agent, so no work was done.")} ${fallback}`);
   }
 
   /**

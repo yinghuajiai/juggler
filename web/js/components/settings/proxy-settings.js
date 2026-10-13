@@ -281,7 +281,7 @@ export class ProxySettings {
       this._mode = prevMode;
       this._url = prevURL;
       this._reflect();
-      this._setStatus(`Couldn't save the proxy setting (${extractErrorMessage(err)}).`);
+      this._setStatus(`${t("Couldn't save the proxy setting (")}${extractErrorMessage(err)}).`);
     }
   }
 

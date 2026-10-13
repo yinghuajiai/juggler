@@ -165,7 +165,7 @@ class BinModal extends JugglerElement {
       // the user how much they're about to reclaim.
       const sizeBytes = this._session.bin.sizeBytes || 0;
       emptyBtn.textContent = binned.length > 0 && sizeBytes > 0
-        ? `Empty Bin (${formatBytes(sizeBytes)})`
+        ? `${_t('Empty Bin (')}${formatBytes(sizeBytes)})`
         : _t('Empty Bin');
     }
     if (binned.length === 0) {
@@ -185,7 +185,7 @@ class BinModal extends JugglerElement {
     // user cannot infer — that it will sit there until they act.
     const noticeBytes = this._session.bin.sizeBytes || 0;
     if (notice && noticeBytes >= BIN_LARGE_BYTES) {
-      notice.textContent = `The bin is holding ${formatBytes(noticeBytes)}. Nothing here is deleted automatically.`;
+      notice.textContent = `${_t('The bin is holding')} ${formatBytes(noticeBytes)}${_t('. Nothing here is deleted automatically.')}`;
       notice.classList.remove('hidden');
     }
 
@@ -230,7 +230,7 @@ class BinModal extends JugglerElement {
     } catch (e) {
       console.error('[BinModal] restore failed:', e);
       await showAlert(
-        `Couldn’t restore: ${/** @type {any} */ (e)?.message || e}`,
+        `${_t('Couldn’t restore:')} ${/** @type {any} */ (e)?.message || e}`,
         _t('Restore failed')
       );
     }
@@ -244,7 +244,7 @@ class BinModal extends JugglerElement {
   async _onDelete(row) {
     if (!this._session) return;
     const confirmed = await showConfirm(
-      `Permanently delete "${row.name || UNTITLED_BASE}"?\n\nThis cannot be undone.`,
+      `${_t('Permanently delete "')}${row.name || UNTITLED_BASE}"?\n\nThis cannot be undone.`,
       _t('Delete Conversation'),
       { confirmText: _t('Delete'), cancelText: _t('Cancel'), danger: true }
     );
@@ -254,7 +254,7 @@ class BinModal extends JugglerElement {
     } catch (e) {
       console.error('[BinModal] delete failed:', e);
       await showAlert(
-        `Couldn’t delete: ${/** @type {any} */ (e)?.message || e}`,
+        `${_t('Couldn’t delete:')} ${/** @type {any} */ (e)?.message || e}`,
         _t('Delete failed')
       );
     }
@@ -341,7 +341,7 @@ class BinModal extends JugglerElement {
       const row = document.createElement('li');
       row.className = matches > 0 ? 'menu-item' : 'menu-item unavailable';
       row.setAttribute('role', 'menuitem');
-      row.textContent = `Older than ${days} days`;
+      row.textContent = `${_t('Older than')} ${days} days`;
       if (matches > 0) {
         row.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -383,7 +383,7 @@ class BinModal extends JugglerElement {
     if (doomed && doomed.length === 0) return;
     const confirmed = await showConfirm(
       doomed
-        ? `Permanently delete ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
+        ? `${_t('Permanently delete')} ${doomed.length} conversation${doomed.length === 1 ? '' : 's'} last active over ${olderThanDays} days ago?\n\nThis cannot be undone.`
         : _t('Permanently delete every conversation in the bin?\n\nThis cannot be undone.'),
       _t('Empty Bin'),
       { confirmText: doomed ? _t('Delete') : _t('Empty Bin'), cancelText: _t('Cancel'), danger: true }
@@ -419,7 +419,7 @@ class BinModal extends JugglerElement {
     } catch (e) {
       console.error('[BinModal] empty bin failed:', e);
       await showAlert(
-        `Couldn’t empty the bin: ${/** @type {any} */ (e)?.message || e}`,
+        `${_t('Couldn’t empty the bin:')} ${/** @type {any} */ (e)?.message || e}`,
         _t('Empty Bin failed')
       );
     }

@@ -111,7 +111,7 @@ class DroppedFileContextItem extends ContextItem {
 
   /** @returns {string} Brief summary for transaction display */
   getBriefSummary() {
-    return this.data.filename ? `Dropped file: ${this.data.filename}` : t('Dropped file');
+    return this.data.filename ? `${t('Dropped file:')} ${this.data.filename}` : t('Dropped file');
   }
 
   /**

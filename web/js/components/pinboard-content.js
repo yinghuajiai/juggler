@@ -175,7 +175,7 @@ export async function composeForThread(thread, text) {
     text, thread.threadItemId ?? null, thread,
     { consumeComposer: false, interpretCommands: false }
   );
-  if (reason) throw new Error(`Couldn't send the review: ${reason}`);
+  if (reason) throw new Error(`${t("Couldn't send the review:")} ${reason}`);
 }
 
 /**
@@ -1026,7 +1026,7 @@ class PinboardContent extends JugglerElement {
    * @private
    */
   _runAction(action) {
-    const lead = `Couldn't ${action.label.charAt(0).toLowerCase()}${action.label.slice(1)}.`;
+    const lead = `${t("Couldn't")} ${action.label.charAt(0).toLowerCase()}${action.label.slice(1)}.`;
     /** @param {any} err - What the action threw or rejected with. */
     const failed = (err) => {
       console.error('[Pinboard] Item action failed:', err);
@@ -1989,7 +1989,7 @@ class PinboardContent extends JugglerElement {
     missing.className = 'pinboard-placeholder';
     const line = document.createElement('p');
     line.className = 'pinboard-placeholder__line';
-    line.textContent = `Nothing provides "${pin.type}".`;
+    line.textContent = `${t('Nothing provides "')}${pin.type}".`;
     const note = document.createElement('p');
     note.className = 'pinboard-placeholder__note';
     note.textContent = t('The pin keeps its settings until you remove it.');

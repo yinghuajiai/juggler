@@ -238,7 +238,7 @@ export class StatusMessageBuilder {
    */
   static buildUploadingStatus(data) {
     const sizeKB = Math.ceil(data.payloadSize / 1024);
-    return this._withElapsed(`Uploading context ${sizeKB.toLocaleString()}${NBSP}KB`, data);
+    return this._withElapsed(`${t('Uploading context')} ${sizeKB.toLocaleString()}${NBSP}${t('KB')}`, data);
   }
 
   /**
@@ -271,7 +271,7 @@ export class StatusMessageBuilder {
    * @returns {string} Formatted status message
    */
   static buildRetryStatus(data) {
-    return this._withElapsed(`Retrying attempt${NBSP}${data.attempt}/${data.maxRetries}`, data);
+    return this._withElapsed(`${t('Retrying attempt')}${NBSP}${data.attempt}/${data.maxRetries}`, data);
   }
 
   /**
@@ -280,7 +280,7 @@ export class StatusMessageBuilder {
    * @returns {string} Formatted error status message
    */
   static buildErrorStatus(message) {
-    return `Error: ${message}`;
+    return `${t('Error:')} ${message}`;
   }
 
   /**

@@ -549,8 +549,8 @@ export class ProvidersTab {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'settings-btn icon';
-    btn.title = `Re-check ${subject}`;
-    btn.setAttribute('aria-label', `Re-check ${provider.displayName} ${subject}`);
+    btn.title = `${_t('Re-check')} ${subject}`;
+    btn.setAttribute('aria-label', `${_t('Re-check')} ${provider.displayName} ${subject}`);
     btn.innerHTML = REFRESH_SVG;
     btn.addEventListener('click', () => this._refreshOAuthProvider(provider, btn, subject));
     return btn;
@@ -574,7 +574,7 @@ export class ProvidersTab {
     const originalStatus = status ? status.textContent : '';
     button.disabled = true;
     button.classList.add('spinning');
-    if (status) status.textContent = `Checking ${subject}\u2026`;
+    if (status) status.textContent = `${_t('Checking')} ${subject}\u2026`;
     try {
       const fresh = await this._recheckOAuthProvider(provider.name);
       if (fresh) {
@@ -724,7 +724,7 @@ export class ProvidersTab {
       try { await navigator.clipboard.writeText(userCode); } catch { /* clipboard is best-effort */ }
       if (verificationUri) openExternalURL(verificationUri);
       button.textContent = _t('Waiting\u2026');
-      setStatus(`Enter code ${userCode} at ${verificationUri} (opened in your browser, copied to clipboard). Waiting for authorization\u2026`);
+      setStatus(`${_t('Enter code')} ${userCode} at ${verificationUri} (opened in your browser, copied to clipboard). Waiting for authorization\u2026`);
 
       await this._pollCopilotLogin(deviceCode, Number(interval) || 5, host);
       setStatus(_t('Signed in with GitHub'));
@@ -969,14 +969,14 @@ export class ProvidersTab {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'settings-btn primary small';
-    button.textContent = `Switch to ${target.displayName}`;
+    button.textContent = `${_t('Switch to')} ${target.displayName}`;
     notice.appendChild(button);
 
     const effect = document.createElement('div');
     effect.className = 'provider-switch-effect';
-    effect.textContent = `Turns ${provider.displayName} off and ${target.displayName} on at the same address, `
+    effect.textContent = `${_t('Turns')} ${provider.displayName} off and ${target.displayName} ${_t('on at the same address,')} `
       + 'bringing your context-window settings and hidden models with it. Conversations already using '
-      + `${provider.displayName} keep it until you pick their model again.`;
+      + `${provider.displayName} ${_t('keep it until you pick their model again.')}`;
     notice.appendChild(effect);
 
     const status = document.createElement('div');
@@ -990,7 +990,7 @@ export class ProvidersTab {
         list.some((p) => p.name === provider.name && !p.credentialed));
       try {
         await providersCache.switchProvider(provider.name);
-        status.textContent = `Switched. ${target.displayName} is on.`;
+        status.textContent = `${_t('Switched.')} ${target.displayName} ${_t('is on.')}`;
         this.providers = await next;
         this.renderProviderFields();
         this.updateAllButtons();
@@ -1206,7 +1206,7 @@ export class ProvidersTab {
     filter.autocomplete = 'off';
     filter.setAttribute('autocorrect', 'off');
     filter.setAttribute('autocapitalize', 'off');
-    filter.setAttribute('aria-label', `Filter ${provider.displayName} models`);
+    filter.setAttribute('aria-label', `${_t('Filter')} ${provider.displayName} models`);
     filter.spellcheck = false;
 
     const list = document.createElement('div');
@@ -1298,15 +1298,15 @@ export class ProvidersTab {
       // context window only; a guessed window's output cap is worked out from it.
       const who = provider.displayName;
       if (overridden) {
-        input.title = `You set this. Clear the field to go back to ${reported}.`;
+        input.title = `${_t('You set this. Clear the field to go back to')} ${reported}.`;
       } else if (model.fromAPI && !(field === 'contextWindow' && model.windowAssumed)) {
-        input.title = `${reported} tokens, as reported by ${who} for this model.`;
+        input.title = `${reported} ${_t('tokens, as reported by')} ${who} ${_t('for this model.')}`;
       } else if (model.windowAssumed) {
         input.title = field === 'contextWindow'
-          ? `${reported} tokens is a guess. The server didn't say how large this model's context window is, so Juggler assumed a small, safe size. Enter the size the model is loaded with.`
+          ? `${reported} ${_t("tokens is a guess. The server didn't say how large this model's context window is, so Juggler assumed a small, safe size. Enter the size the model is loaded with.")}`
           : _t('Worked out from the guessed context window. Type a number to set it yourself.');
       } else {
-        input.title = `${reported} tokens, from Juggler's list of ${who}'s models. ${who} doesn't report limits itself — if it's out of date, type the right figure.`;
+        input.title = `${reported} ${_t("tokens, from Juggler's list of")} ${who}${_t("'s models.")} ${who} ${_t("doesn't report limits itself — if it's out of date, type the right figure.")}`;
       }
 
       input.addEventListener('change', async () => {
@@ -1337,7 +1337,7 @@ export class ProvidersTab {
           // Nothing was stored, so leaving the number on screen would misreport
           // the window every later turn is admitted against.
           restore();
-          status.textContent = `Couldn't save the token limits. ${httpErrorText(err)}`;
+          status.textContent = `${_t("Couldn't save the token limits.")} ${httpErrorText(err)}`;
           status.style.display = '';
         }
       });
@@ -1395,7 +1395,7 @@ export class ProvidersTab {
           box.checked = !show;
           updateSummary();
           applyRowState();
-          status.textContent = `Couldn't save which models to show. ${httpErrorText(err)}`;
+          status.textContent = `${_t("Couldn't save which models to show.")} ${httpErrorText(err)}`;
           status.style.display = '';
         }
       });
@@ -1422,7 +1422,7 @@ export class ProvidersTab {
         marker.className = 'model-window-assumed';
         marker.textContent = _t('assumed');
         const guess = published.providerContextWindow ?? published.contextWindow ?? 0;
-        marker.title = `The server didn't report this model's context window, so Juggler assumed ${formatTokens(guess)}. Enter the real size in the Context window field.`;
+        marker.title = `${_t("The server didn't report this model's context window, so Juggler assumed")} ${formatTokens(guess)}${_t('. Enter the real size in the Context window field.')}`;
         marker.hidden = !assumed.has(model.id);
         marker.addEventListener('click', () => contextInput.focus());
         row.appendChild(marker);
@@ -1561,8 +1561,8 @@ export class ProvidersTab {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { [configKey]: value } });
         /** @type {any} */ (this.config)[configField] = value;
         status.textContent = value
-          ? `Saved. Pointing at ${value}.`
-          : `Saved. Using default (${defaultLabel}).`;
+          ? `${_t('Saved. Pointing at')} ${value}.`
+          : `${_t('Saved. Using default (')}${defaultLabel}).`;
       } catch (err) {
         console.error(`[SettingsPanel] Failed to save host for ${configField}:`, err);
         status.textContent = _t('Failed to save.');
@@ -1633,7 +1633,7 @@ export class ProvidersTab {
             toggle.checked = true;
             await this.toggleProviderEnabled(provider, true);
           }
-          status.textContent = `Saved. Using ${value}.`;
+          status.textContent = `${_t('Saved. Using')} ${value}.`;
         } else {
           status.textContent = _t('Saved. Auto-detecting the claude CLI.');
         }
@@ -1722,7 +1722,7 @@ export class ProvidersTab {
       // Update source hint
       if (sourceHint) {
         if (provider.keySource === 'env') {
-          sourceHint.textContent = `Using environment variable $${provider.envVarName}`;
+          sourceHint.textContent = `${_t('Using environment variable $')}${provider.envVarName}`;
           sourceHint.style.display = 'block';
         } else {
           sourceHint.textContent = '';

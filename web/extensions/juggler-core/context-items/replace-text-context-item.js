@@ -195,7 +195,7 @@ class ReplaceTextContextItem extends EditBase {
       // Ambiguous matches, a missing file, and the rest.
       return {
         valid: false,
-        error: `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
+        error: `${t('Error:')} ${err instanceof Error ? err.message : 'Unknown error'}`
       };
     }
 
@@ -249,7 +249,7 @@ class ReplaceTextContextItem extends EditBase {
     const MAX_LINES = 40;
     const MAX_CHARS = 4000;
     if (oldContentLines > MAX_LINES || oldContentChars > MAX_CHARS) {
-      return `The old_str is very large (${oldContentLines} lines, ${oldContentChars} characters) and did not match. ` +
+      return `${t('The old_str is very large (')}${oldContentLines} lines, ${oldContentChars} ${t('characters) and did not match.')} ` +
         `For a block this big, the write tool is usually more reliable than reproducing it exactly. ` +
         `Otherwise re-read the file and copy the exact text (including whitespace) for a smaller, unique old_str.`;
     }
@@ -390,23 +390,23 @@ class ReplaceTextContextItem extends EditBase {
 
     // Handle non-success cases
     if (outcome.cancelled) {
-      return this.failureSummary(`Replace text cancelled: ${prepPath}`);
+      return this.failureSummary(`${t('Replace text cancelled:')} ${prepPath}`);
     }
     if (!outcome.success) {
       // A failed match carries the file and an explanation (execute's SearchNotFoundResult)
       const result = /** @type {SearchNotFoundResult|undefined} */ (outcome.result);
       if (result && result.path) {
         const { userMessage, llmMessage } = this.formatError(result, 'edit');
-        return this.failureSummary(`Replace text failed: ${userMessage}`, { feedbackForLLM: llmMessage });
+        return this.failureSummary(`${t('Replace text failed:')} ${userMessage}`, { feedbackForLLM: llmMessage });
       }
-      return this.failureSummary(`Replace text failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Replace text failed:')} ${outcome.error}`);
     }
 
     // Success case
     const result = /** @type {ReplaceTextResult} */ (outcome.result);
     return this._formatEditResult(
       result.path,
-      `Modified ${result.path} using ${result.method || 'edit'}`
+      `${t('Modified')} ${result.path} using ${result.method || 'edit'}`
     );
   }
 

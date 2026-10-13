@@ -118,7 +118,7 @@ function slug(branch) {
  */
 function shellSafe(value, what) {
   if (UNQUOTABLE.test(value)) {
-    throw new Error(`Couldn't use that ${what}: ${JSON.stringify(value)} contains a character that cannot appear in a command.`);
+    throw new Error(`${t("Couldn't use that")} ${what}: ${JSON.stringify(value)} ${t('contains a character that cannot appear in a command.')}`);
   }
   return value;
 }
@@ -497,12 +497,12 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     const form = this._form;
     if (!form?.scopeNote) return;
     if (form.scopeWanted === 'repo') {
-      showNote(form.scopeNote, `Only ${form.repoRel}. Nothing of the project around it comes with it.`);
+      showNote(form.scopeNote, `${t('Only')} ${form.repoRel}${t('. Nothing of the project around it comes with it.')}`);
       return;
     }
     showNote(form.scopeNote, form.hasSetupHook
-      ? `${form.repoRel} starts uninitialised; ${SETUP_HOOK} runs in the new tree.`
-      : `${form.repoRel} starts uninitialised — there is no ${SETUP_HOOK} to fill it in.`);
+      ? `${form.repoRel} starts uninitialised; ${SETUP_HOOK} ${t('runs in the new tree.')}`
+      : `${form.repoRel} ${t('starts uninitialised — there is no')} ${SETUP_HOOK} ${t('to fill it in.')}`);
   }
 
   /**
@@ -817,7 +817,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     const location = String(values?.location ?? '').trim() || defaultLocation(repoRoot, branch, beside);
     const treeRel = relativePath(repoRoot, location);
     if (!treeRel) {
-      throw new Error(`Couldn't make a worktree at ${location}: it is not on the same drive as ${repoRoot}.`);
+      throw new Error(`${t("Couldn't make a worktree at")} ${location}${t(': it is not on the same drive as')} ${repoRoot}.`);
     }
     // The relative path is what the commands below are given, and so it is the
     // one that has to survive being quoted. The absolute location is checked by
@@ -919,7 +919,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
 
     const isRepo = await this._inRepo(ctx, repoRel, t('git rev-parse --git-dir'));
     if (!isRepo?.success) {
-      throw new Error(`Couldn't make a worktree: ${repoRoot} is not a git repository.`);
+      throw new Error(`${t("Couldn't make a worktree:")} ${repoRoot} ${t('is not a git repository.')}`);
     }
 
     // Refuse rather than write into something that is already there. This is
@@ -928,7 +928,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // somebody else made and we merely failed to add to.
     const occupied = await this._inRepo(ctx, repoRel, `test -e "${treeRel}"`);
     if (occupied?.success) {
-      throw new Error(`Couldn't make a worktree at ${location}: there is already something there.`);
+      throw new Error(`${t("Couldn't make a worktree at")} ${location}${t(': there is already something there.')}`);
     }
 
     // A branch that already exists is checked out rather than created, and is
@@ -1130,7 +1130,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         id: 'commit',
         label: t('Commit the changes'),
         keepsWorkspace: true,
-        description: `Commits everything here onto ${branch || 'its branch'}. You carry on working in this workspace.`,
+        description: `${t('Commits everything here onto')} ${branch || 'its branch'}${t('. You carry on working in this workspace.')}`,
         prompt: {
           label: t('Message'),
           placeholder: t('What this work does'),
@@ -1146,21 +1146,21 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
       },
       {
         id: 'land',
-        label: `Fast-forward ${repo} to ${branch || 'this branch'}`,
+        label: `${t('Fast-forward')} ${repo} to ${branch || 'this branch'}`,
         keepsWorkspace: true,
-        description: `Runs git merge --ff-only ${branch || 'this branch'} in ${repo}, moving the branch it has checked out to this one. Git refuses it if that branch has diverged. The worktree is untouched.`
+        description: `${t('Runs git merge --ff-only')} ${branch || 'this branch'} in ${repo}${t(', moving the branch it has checked out to this one. Git refuses it if that branch has diverged. The worktree is untouched.')}`
       },
       {
         id: 'unbind',
         label: t('Close the workspace, keep the worktree'),
-        description: `The worktree and ${branch || 'its branch'} stay on disk, ready to be adopted again. Conversations here go to the bin, which they can be restored from.`
+        description: `${t('The worktree and')} ${branch || 'its branch'} ${t('stay on disk, ready to be adopted again. Conversations here go to the bin, which they can be restored from.')}`
       },
       {
         id: 'discard',
         label: t('Close the workspace and delete the worktree'),
         danger: true,
         description: meta.branchCreatedByUs && branch
-          ? `Deletes the worktree and the branch ${branch}, with every commit on it. Conversations here go to the bin, which they can be restored from.`
+          ? `${t('Deletes the worktree and the branch')} ${branch}${t(', with every commit on it. Conversations here go to the bin, which they can be restored from.')}`
           : t('Deletes the worktree and everything in it, committed or not. The branch was not ours to make, so it stays. Conversations here go to the bin, which they can be restored from.')
       }
     ];
@@ -1186,13 +1186,13 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         // What happened to the tree. Where the conversations that were working
         // in it have gone is the host's to say — it is the host that moves
         // them, and how many there were is not a thing a provider knows.
-        message: `Stopped using ${meta.dir ?? 'the worktree'}. It and ${branch || 'its branch'} are still there.`
+        message: `${t('Stopped using')} ${meta.dir ?? 'the worktree'}${t('. It and')} ${branch || 'its branch'} ${t('are still there.')}`
       };
     }
     if (actionId === 'commit') return this._commit(workspace, ctx);
     if (actionId === 'land') return this._land(workspace, ctx);
     if (actionId === 'discard') return this._discard(workspace, ctx);
-    return { done: false, message: `${this.getManifest().name} has no action "${actionId}".` };
+    return { done: false, message: `${this.getManifest().name} ${t('has no action "')}${actionId}".` };
   }
 
   /**
@@ -1217,7 +1217,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         return { done: false, message: t('There is no message to commit under, and nobody here to write one.') };
       }
       await conversation.sendMessage(
-        `Commit the work in this worktree${branch ? ` (branch ${branch})` : ''}, with a message describing it.`,
+        `${t('Commit the work in this worktree')}${branch ? ` (branch ${branch})` : ''}${t(', with a message describing it.')}`,
         null,
         conversation.rootMessageThread,
         { consumeComposer: false }
@@ -1248,7 +1248,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // Never `done`: a commit is not a way of being finished with the place it
     // was made in. The workspace stays in use, which is what the menu promised
     // when it put this row outside the endings.
-    return { done: false, message: `Committed on ${branch || 'its branch'}.` };
+    return { done: false, message: `${t('Committed on')} ${branch || 'its branch'}.` };
   }
 
   /**
@@ -1328,7 +1328,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     if (uncommitted.length) {
       return {
         done: false,
-        message: `This worktree has ${uncommitted.length === 1 ? 'an uncommitted change' : `${uncommitted.length} uncommitted changes`}. Commit them first — a fast-forward moves commits, and these would be left behind.`
+        message: `${t('This worktree has')} ${uncommitted.length === 1 ? 'an uncommitted change' : `${uncommitted.length} uncommitted changes`}${t('. Commit them first — a fast-forward moves commits, and these would be left behind.')}`
       };
     }
 
@@ -1340,7 +1340,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     if (!into || into === 'HEAD') {
       return {
         done: false,
-        message: `${baseName(String(meta.repoDir))} has a detached HEAD, so there is no branch to fast-forward to ${branch}.`
+        message: `${baseName(String(meta.repoDir))} ${t('has a detached HEAD, so there is no branch to fast-forward to')} ${branch}.`
       };
     }
 
@@ -1348,13 +1348,13 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     if (!merged?.success) {
       return {
         done: false,
-        message: gitSaid(`${into} has moved on since this worktree was made, so it cannot be fast-forwarded to ${branch}. A merge or a rebase is a job for you and git.`, merged)
+        message: gitSaid(`${into} ${t('has moved on since this worktree was made, so it cannot be fast-forwarded to')} ${branch}${t('. A merge or a rebase is a job for you and git.')}`, merged)
       };
     }
     if (/already up to date/i.test(String(merged?.stdout ?? ''))) {
       return { done: false, message: `${into} is already up to date with ${branch}.` };
     }
-    return { done: false, message: `Fast-forwarded ${into} to ${branch}.` };
+    return { done: false, message: `${t('Fast-forwarded')} ${into} to ${branch}.` };
   }
 
   /**
@@ -1407,7 +1407,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     if (/REMOVED/.test(String(result?.stdout ?? ''))) {
       return {
         done: true,
-        message: `Removed ${meta.dir}${meta.branchCreatedByUs && branch ? ` and ${branch}` : ''}.`
+        message: `${t('Removed')} ${meta.dir}${meta.branchCreatedByUs && branch ? ` and ${branch}` : ''}.`
       };
     }
     // Why git could not remove it matters more than the fact, and the shell op
@@ -1416,7 +1416,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // field that is always empty and report the bare fallback every time.
     return {
       done: false,
-      message: String(result?.stderr || result?.stdout || '').trim() || `${meta.dir} is still there.`
+      message: String(result?.stderr || result?.stdout || '').trim() || `${meta.dir} ${t('is still there.')}`
     };
   }
 
@@ -1488,7 +1488,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         if (!tree) {
           orphanedWorkspaces.push({
             ...workspace,
-            reason: `${workspace.meta?.dir ?? workspace.root} is not a worktree of ${repoDir} any more.`
+            reason: `${workspace.meta?.dir ?? workspace.root} is not a worktree of ${repoDir} ${t('any more.')}`
           });
           continue;
         }
@@ -1498,7 +1498,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
           orphanedWorkspaces.push({
             ...workspace,
             tombstone: true,
-            reason: `${workspace.meta?.dir ?? workspace.root} is on ${tree.branch || 'no branch'} now, not ${expected}.`
+            reason: `${workspace.meta?.dir ?? workspace.root} is on ${tree.branch || 'no branch'} ${t('now, not')} ${expected}.`
           });
           continue;
         }
@@ -1513,7 +1513,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
         orphanedArtifacts.push({
           id: `${repoDir}\u0000${rel}`,
           label: tree.branch || baseName(dir),
-          detail: `${dir} — a worktree of ${baseName(repoDir)} with no workspace`,
+          detail: `${dir} ${t('— a worktree of')} ${baseName(repoDir)} with no workspace`,
           workspace: {
             root: dir,
             label: tree.branch || baseName(dir),
@@ -1574,8 +1574,8 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
     // question the host has — is there anything left to worry about.
     const left = await this._inRepo(ctx, repoRel, `test -e "${treeRel}"`);
     return left?.success
-      ? { removed: false, message: `${meta.dir} is still there and could not be removed.` }
-      : { removed: true, message: `Removed ${meta.dir}.` };
+      ? { removed: false, message: `${meta.dir} ${t('is still there and could not be removed.')}` }
+      : { removed: true, message: `${t('Removed')} ${meta.dir}.` };
   }
 }
 

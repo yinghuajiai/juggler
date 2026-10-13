@@ -37,6 +37,7 @@
  * @module context-items/read-history
  */
 
+import { t } from '../../../js/i18n/index.js';
 import { toolInputPath, absolutePathKey } from './path-approval.js';
 import { itemField } from '../../../sdk/lib/message.js';
 
@@ -440,7 +441,7 @@ export function checkFileFreshness(conversation, session, path, currentHash) {
   if (!state.seen && !(written && written.size > 0)) {
     return {
       ok: false,
-      error: `Refusing to edit '${path}': it has not been read this session. Read the file first, then retry using its exact current text.`
+      error: `${t("Refusing to edit '")}${path}${t("': it has not been read this session. Read the file first, then retry using its exact current text.")}`
     };
   }
   if (state.pinned || state.unverified || !currentHash) return { ok: true };
@@ -452,6 +453,6 @@ export function checkFileFreshness(conversation, session, path, currentHash) {
   if (written && written.has(currentHash)) return { ok: true };
   return {
     ok: false,
-    error: `Refusing to edit '${path}': the file has changed on disk since it was last read. Re-read the file, then retry against its current content.`
+    error: `${t("Refusing to edit '")}${path}${t("': the file has changed on disk since it was last read. Re-read the file, then retry against its current content.")}`
   };
 }

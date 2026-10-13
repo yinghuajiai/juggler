@@ -7,6 +7,7 @@
  * @module fs
  */
 
+import { t } from '../i18n/index.js';
 import { readFileLoad, writeFileOp, statOp, mkdirOp } from './ops-api.js';
 import { treeExpandDirectory } from './ops-api.js';
 
@@ -122,7 +123,7 @@ export class FileSystem {
     }
     const result = await readFileLoad(/** @type {any} */ (params), undefined, this._allowedPaths, this._workspaceId);
     if (!result.exists) {
-      throw new FileSystemError('ENOENT', `no such file or directory: ${filePath}`);
+      throw new FileSystemError('ENOENT', `${t('no such file or directory:')} ${filePath}`);
     }
     if (this.filesRead.size < FileSystem.MAX_FILES_READ || this.filesRead.has(filePath)) {
       this.filesRead.set(filePath, typeof result.contentHash === 'string' ? result.contentHash : null);
@@ -163,7 +164,7 @@ export class FileSystem {
   async stat(filePath) {
     const result = await statOp({ path: filePath }, this._allowedPaths, this._workspaceId);
     if (!result.exists) {
-      throw new FileSystemError('ENOENT', `no such file or directory: ${filePath}`);
+      throw new FileSystemError('ENOENT', `${t('no such file or directory:')} ${filePath}`);
     }
     return new Stats(result);
   }
@@ -176,7 +177,7 @@ export class FileSystem {
   async access(filePath) {
     const result = await statOp({ path: filePath }, this._allowedPaths, this._workspaceId);
     if (!result.exists) {
-      throw new FileSystemError('ENOENT', `no such file or directory: ${filePath}`);
+      throw new FileSystemError('ENOENT', `${t('no such file or directory:')} ${filePath}`);
     }
   }
 

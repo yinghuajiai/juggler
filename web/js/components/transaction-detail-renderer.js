@@ -113,7 +113,7 @@ function _buildMetadataBar(blob) {
     bar.appendChild(span);
   };
   if (blob.inputTokens || blob.outputTokens) {
-    add(`Tokens: ${blob.inputTokensApproximate ? '~' : ''}${formatNumber(blob.inputTokens ?? 0)} in \u2192 ${formatNumber(blob.outputTokens ?? 0)} out`);
+    add(`${i18nT('Tokens:')} ${blob.inputTokensApproximate ? '~' : ''}${formatNumber(blob.inputTokens ?? 0)} in \u2192 ${formatNumber(blob.outputTokens ?? 0)} out`);
   }
   if (blob.cachedTokens !== undefined || blob.cacheWriteTokens !== undefined) {
     // A key that is present but 0 is a provider-reported zero; format it as a
@@ -121,21 +121,21 @@ function _buildMetadataBar(blob) {
     // cache usage at all.
     const read = blob.cachedTokens !== undefined ? formatNumber(blob.cachedTokens) : '?';
     const write = blob.cacheWriteTokens !== undefined ? formatNumber(blob.cacheWriteTokens) : '?';
-    add(`Cache: ${read} read / ${write} written`);
+    add(`${i18nT('Cache:')} ${read} read / ${write} written`);
   } else if (blob.inputTokens) {
     add('Cache: not reported');
   }
   if (blob.duration) {
-    add(`Duration: ${(blob.duration / 1000).toFixed(2)}s`);
+    add(`${i18nT('Duration:')} ${(blob.duration / 1000).toFixed(2)}s`);
   }
   if (blob.stopReason) {
-    add(`Stop: ${blob.stopReason}`);
+    add(`${i18nT('Stop:')} ${blob.stopReason}`);
   }
   if (blob.timestamp) {
-    add(`Time: ${new Date(blob.timestamp).toLocaleTimeString()}`);
+    add(`${i18nT('Time:')} ${new Date(blob.timestamp).toLocaleTimeString()}`);
   }
   if (blob.modelConfig?.model) {
-    add(`Model: ${blob.modelConfig.model}`);
+    add(`${i18nT('Model:')} ${blob.modelConfig.model}`);
   }
   return bar;
 }
@@ -374,7 +374,7 @@ function _buildToolsRow(tools, blob, messageThread) {
   const groups = groupToolsByOrigin(tools);
   const mcpCount = groups.reduce((n, g) => n + (g.server === null ? 0 : g.tools.length), 0);
   const label = mcpCount
-    ? `${tools.length} tools · ${mcpCount} from MCP`
+    ? `${tools.length} tools · ${mcpCount} ${i18nT('from MCP')}`
     : `${tools.length} tools`;
   return _row('tools', label, tools, { body: () => _buildToolList(groups, tools, blob, messageThread) });
 }
@@ -432,7 +432,7 @@ function _buildToolsHeader(tools, blob, messageThread) {
   const sent = document.createElement('div');
   sent.className = 'tx-tools-sent';
   const when = blob?.timestamp ? ` at ${new Date(blob.timestamp).toLocaleTimeString()}` : '';
-  sent.textContent = `${tools.length} ${tools.length === 1 ? 'tool' : 'tools'}, as sent${when} — not the live list.`;
+  sent.textContent = `${tools.length} ${tools.length === 1 ? 'tool' : 'tools'}${i18nT(', as sent')}${when} ${i18nT('— not the live list.')}`;
   header.appendChild(sent);
 
   if (messageThread) void _appendToolDrift(header, tools, messageThread);
@@ -461,7 +461,7 @@ async function _appendToolDrift(header, tools, messageThread) {
 
     const line = document.createElement('div');
     line.className = 'tx-tools-drift';
-    line.textContent = `${changes} since this turn — the model has not been offered the current list yet.`;
+    line.textContent = `${changes} ${i18nT('since this turn — the model has not been offered the current list yet.')}`;
     line.title = toolDriftDetail(drift);
     header.appendChild(line);
   } catch {

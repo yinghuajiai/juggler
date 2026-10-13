@@ -131,7 +131,7 @@ class FileView extends HTMLElement {
     }
 
     if (source.exists === false) {
-      this._appendState('file-content-not-found', `File not found: ${source.path}`);
+      this._appendState('file-content-not-found', `${t('File not found:')} ${source.path}`);
       return;
     }
 
@@ -182,7 +182,7 @@ class FileView extends HTMLElement {
       console.error('[file-view] viewer render failed:', err);
       host.remove();
       this._appendState('file-content-warning',
-        `Could not display this file: ${/** @type {any} */ (err)?.message || err}`);
+        `${t('Could not display this file:')} ${/** @type {any} */ (err)?.message || err}`);
     }
   }
 
@@ -193,7 +193,7 @@ class FileView extends HTMLElement {
    */
   _noViewerMessage(source) {
     const kind = source.mime || (source.isBinary ? 'binary' : 'this');
-    return `No viewer available for ${kind} content.`;
+    return `${t('No viewer available for')} ${kind} ${t('content.')}`;
   }
 
   /**

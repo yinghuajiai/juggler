@@ -158,7 +158,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
     return {
       customPolicy: {
         preview: body,
-        note: `The ${level} policy, read-only. Choose custom to write your own; it starts from this text.`
+        note: `${t('The')} ${level} policy, read-only. Choose custom to write your own; it starts from this text.`
       }
     };
   }
@@ -246,7 +246,7 @@ export default class AutoApproveStrategyType extends DefaultStrategyType {
         // reasonless answer yields no reason, so say only what we know.
         return {
           note: reason
-            ? `Auto-approve declined: ${reason}`
+            ? `${t('Auto-approve declined:')} ${reason}`
             : t('Auto-approve declined — over to you')
         };
       } catch (err) {

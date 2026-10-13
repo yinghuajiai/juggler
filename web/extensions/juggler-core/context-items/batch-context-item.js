@@ -312,15 +312,15 @@ class BatchContextItem extends ContextItem {
     const parts = [];
     for (const r of results) {
       if (!r.success) {
-        parts.push(`=== file: ${r.file} ===`);
-        parts.push(`Error: ${r.error}`);
+        parts.push(`${t('=== file:')} ${r.file} ===`);
+        parts.push(`${t('Error:')} ${r.error}`);
       } else if (r.result.exists === false) {
         // Worded as read_file words it: the trailing instruction is what stops
         // the model re-reading a path that will not appear.
-        parts.push(`=== file: ${r.file} ===`);
-        parts.push(`File does not exist: ${r.file}. Do not attempt to read it again.`);
+        parts.push(`${t('=== file:')} ${r.file} ===`);
+        parts.push(`${t('File does not exist:')} ${r.file}${t('. Do not attempt to read it again.')}`);
       } else if (r.result.warning) {
-        parts.push(`=== file: ${r.file} ===`);
+        parts.push(`${t('=== file:')} ${r.file} ===`);
         parts.push(r.result.warning);
       } else {
         // The shared helper supplies the <file> wrapper and its own path, so
@@ -349,9 +349,9 @@ class BatchContextItem extends ContextItem {
     /** @type {string[]} */
     const parts = [];
     for (const r of results) {
-      parts.push(`=== grep: ${r.pattern} ===`);
+      parts.push(`${t('=== grep:')} ${r.pattern} ===`);
       if (!r.success) {
-        parts.push(`Error: ${r.error}`);
+        parts.push(`${t('Error:')} ${r.error}`);
       } else {
         // The same renderer the search tool uses. batch passes no
         // head_limit/offset (its schema has neither), so the pagination

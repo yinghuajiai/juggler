@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
 import Conversation from './conversation.js';
 import {
@@ -190,7 +191,7 @@ export function normalizeHistoryEntry(entry) {
  * @type {string}
  */
 export const CONVERSATION_LIMIT_MESSAGE =
-  `You can have at most ${MAX_CONVERSATIONS} conversations open at once. ` +
+  `${t('You can have at most')} ${MAX_CONVERSATIONS} ${t('conversations open at once.')} ` +
   'Bin some tabs to make room for new ones.';
 
 class Session {
@@ -2449,7 +2450,7 @@ class Session {
   async renameConversation(conversationId, newName) {
     const conv = this.conversations.get(conversationId);
     if (!conv) {
-      const err = new Error(`Conversation not found: ${conversationId}`);
+      const err = new Error(`${t('Conversation not found:')} ${conversationId}`);
       /** @type {any} */ (err).code = 'NOT_FOUND';
       throw err;
     }
@@ -2464,7 +2465,7 @@ class Session {
     // silently truncate the folder name to its filesystem-safety limit.
     if (newName.trim().length > MAX_CONVERSATION_NAME_LENGTH) {
       const err = new Error(
-        `Conversation name exceeds ${MAX_CONVERSATION_NAME_LENGTH} characters`
+        `${t('Conversation name exceeds')} ${MAX_CONVERSATION_NAME_LENGTH} characters`
       );
       /** @type {any} */ (err).code = 'INVALID';
       throw err;

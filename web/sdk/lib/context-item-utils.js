@@ -10,6 +10,7 @@
  * Shared across all context item types.
  */
 
+import { t } from '../../js/i18n/index.js';
 import { createCopyButton } from './copy-button.js';
 import { renderMarkdown, decorateCodeBlocks } from './markdown.js';
 import { highlightCode } from './syntax-highlight.js';
@@ -244,7 +245,7 @@ function linesWithinBudget(lines, opts) {
   // Reserve the longest footer this block could end up carrying, so choosing
   // fewer lines can never make the result overflow.
   const lastPossible = lineOffset + lines.length - 1;
-  const footer = `(Showing lines ${lineOffset}-${lastPossible} of ${effectiveTotal}. Use offset=${lastPossible + 1} to read more.)`;
+  const footer = `(Showing lines ${lineOffset}-${lastPossible} of ${effectiveTotal}${t('. Use offset=')}${lastPossible + 1} ${t('to read more.)')}`;
   let used = `<file path="${path}">\n`.length + '\n</file>\n'.length + footer.length;
 
   for (let i = 0; i < lines.length; i++) {
@@ -299,12 +300,12 @@ export function formatFileContentForLLM(params) {
   // Something is still unread - say what arrived and where to pick it up
   if (deliveredEnd < effectiveTotal) {
     return fileTag + '\n' +
-      `(Showing lines ${lineOffset}-${deliveredEnd} of ${effectiveTotal}. Use offset=${deliveredEnd + 1} to read more.)`;
+      `(Showing lines ${lineOffset}-${deliveredEnd} of ${effectiveTotal}${t('. Use offset=')}${deliveredEnd + 1} ${t('to read more.)')}`;
   }
 
   // Full file or single chunk - show total
   if (totalLines) {
-    return fileTag + '\n' + `(${effectiveTotal} lines total)`;
+    return fileTag + '\n' + `(${effectiveTotal} ${t('lines total)')}`;
   }
 
   return fileTag;

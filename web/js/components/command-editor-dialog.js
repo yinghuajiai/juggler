@@ -256,7 +256,7 @@ export function openCommandEditor(options = {}) {
       let msg = '';
       if (!v) msg = '';
       else if (!USER_COMMAND_NAME_RE.test(v)) msg = 'Lowercase letters, digits, and hyphens; must start with a letter.';
-      else if (reserved.has(v)) msg = `"/${v}" already exists as a built-in command.`;
+      else if (reserved.has(v)) msg = `"/${v}${t('" already exists as a built-in command.')}`;
       nameError.textContent = msg;
       const ok = !!v && !msg;
       saveBtn.disabled = !ok;
@@ -290,7 +290,7 @@ export function openCommandEditor(options = {}) {
       del.classList.remove('hidden');
       del.addEventListener('click', async () => {
         const ok = await showConfirm(
-          `Delete the /${def?.name} command?`, t('Delete command'), { danger: true, confirmText: t('Delete') });
+          `${t('Delete the /')}${def?.name} ${t('command?')}`, t('Delete command'), { danger: true, confirmText: t('Delete') });
         if (!ok) return;
         await deleteUserCommand(/** @type {any} */ (def?.scope), /** @type {any} */ (def?.name));
         refreshRegistries();
@@ -465,11 +465,11 @@ function userGroup(title, defs, refresh) {
     const del = document.createElement('button');
     del.className = 'command-manager-delete';
     del.title = t('Delete');
-    del.setAttribute('aria-label', `Delete /${def.name}`);
+    del.setAttribute('aria-label', `${t('Delete /')}${def.name}`);
     del.appendChild(Object.assign(document.createElement('span'), { className: 'icon-trashcan' }));
     del.addEventListener('click', async () => {
       const ok = await showConfirm(
-        `Delete the /${def.name} command?`, t('Delete command'), { danger: true, confirmText: t('Delete') });
+        `${t('Delete the /')}${def.name} ${t('command?')}`, t('Delete command'), { danger: true, confirmText: t('Delete') });
       if (!ok) return;
       await deleteUserCommand(/** @type {any} */ (def.scope), def.name);
       refreshRegistries();

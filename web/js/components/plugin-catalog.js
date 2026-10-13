@@ -572,7 +572,7 @@ class PluginCatalog extends JugglerElement {
 
     const count = health.conversationIds.length || 1;
     const confirmed = await showConfirm(
-      `${count} conversation${count === 1 ? '' : 's'} ${count === 1 ? 'is' : 'are'} running. ` +
+      `${count} conversation${count === 1 ? '' : 's'} ${count === 1 ? 'is' : 'are'} ${t('running.')} ` +
       'Changing extensions will stop them so the capability set can be safely rebuilt.',
       t('Stop conversations and apply extension change?'),
       { confirmText: t('Stop & apply'), cancelText: t('Cancel'), danger: true }
@@ -636,7 +636,7 @@ class PluginCatalog extends JugglerElement {
       this._refreshCards();
     } catch (err) {
       console.error('[PluginCatalog] Failed to apply toggle:', err);
-      showNotice(`Couldn't apply the extension change. ${httpErrorText(err)}`);
+      showNotice(`${t("Couldn't apply the extension change.")} ${httpErrorText(err)}`);
     } finally {
       this._busy = false;
     }
@@ -738,7 +738,7 @@ class PluginCatalog extends JugglerElement {
     try {
       await fetchJson(apiUrl('/extensions/reload'), { method: 'POST' });
     } catch (err) {
-      showNotice(`Couldn't reload extensions. ${httpErrorText(err)}`);
+      showNotice(`${t("Couldn't reload extensions.")} ${httpErrorText(err)}`);
     } finally {
       button.disabled = false;
     }
@@ -1146,7 +1146,7 @@ class PluginCatalog extends JugglerElement {
   _renderFailedBanner() {
     const banner = this._createElement('div', 'catalog-failed-banner');
     banner.appendChild(this._createElement('div', 'catalog-failed-title',
-      `${this._failedModules.length} capability module(s) failed to load`));
+      `${this._failedModules.length} ${t('capability module(s) failed to load')}`));
     for (const { path, error } of this._failedModules) {
       const entry = this._createElement('div', 'catalog-failed-entry');
       entry.appendChild(this._createElement('code', 'catalog-failed-path', path));

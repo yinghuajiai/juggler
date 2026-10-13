@@ -71,16 +71,16 @@ export async function isMcpExtensionDisabled() {
  */
 export function mcpToolMissReason({ server, tool, disabled, status }) {
   if (disabled) return MCP_DISABLED_NOTICE;
-  if (!status) return `No MCP server named "${server}" is configured.`;
-  if (status.enabled === false) return `The MCP server "${server}" is turned off in Settings › MCP servers.`;
+  if (!status) return `${t('No MCP server named "')}${server}${t('" is configured.')}`;
+  if (status.enabled === false) return `${t('The MCP server "')}${server}${t('" is turned off in Settings › MCP servers.')}`;
   if (status.status && status.status !== 'running') {
     // The server's own first error line, verbatim — a plain-English lead never
     // replaces it. No trailing full stop after it: the error supplies its own.
     return status.error
-      ? `The MCP server "${server}" is ${status.status}: ${String(status.error).split('\n')[0]}`
-      : `The MCP server "${server}" is ${status.status}.`;
+      ? `${t('The MCP server "')}${server}" is ${status.status}: ${String(status.error).split('\n')[0]}`
+      : `${t('The MCP server "')}${server}" is ${status.status}.`;
   }
-  return `The MCP server "${server}" is running, but "${tool}" was not in this turn's tool list — either that server's tool filter hides it, or it arrived after the turn was sent.`;
+  return `${t('The MCP server "')}${server}${t('" is running, but "')}${tool}${t("\" was not in this turn's tool list — either that server's tool filter hides it, or it arrived after the turn was sent.")}`;
 }
 
 /**

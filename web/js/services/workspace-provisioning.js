@@ -519,7 +519,7 @@ export function workspaceFinishWarning(session, workspace, options = {}) {
 
   return {
     refusal: busy.length
-      ? `${busy.join(', ')} ${busy.length === 1 ? 'is' : 'are'} in the middle of a turn.`
+      ? `${busy.join(', ')} ${busy.length === 1 ? 'is' : 'are'} ${t('in the middle of a turn.')}`
       : '',
     warning: action?.danger && status?.dirty
       ? t('This workspace holds uncommitted work, which goes with it.')
@@ -676,11 +676,11 @@ export async function finishWorkspace(request) {
       if (returning) {
         const rebound = await rebindConversation(bound, home);
         if (rebound.done) moved++;
-        else stuck.push(rebound.message ? `${name}: ${rebound.message}` : `${name} couldn't be moved.`);
+        else stuck.push(rebound.message ? `${name}: ${rebound.message}` : `${name} ${t("couldn't be moved.")}`);
       } else if (await session.binConversation(bound.id)) {
         moved++;
       } else {
-        stuck.push(`${name} couldn't be binned.`);
+        stuck.push(`${name} ${t("couldn't be binned.")}`);
       }
     } catch (error) {
       stuck.push(`${name}: ${extractErrorMessage(error)}`);
@@ -692,7 +692,7 @@ export async function finishWorkspace(request) {
   const where = returning ? (home ? 'back in the workspace it came from' : 'back in the project') : 'in the bin';
   const wentWithIt = moved === 0
     ? ''
-    : `${moved === 1 ? 'Its conversation is' : `Its ${moved} conversations are`} ${where}.`;
+    : `${moved === 1 ? 'Its conversation is' : `${t('Its')} ${moved} conversations are`} ${where}.`;
 
   const closed = await patchWorkspace(workspace.id, {
     state: 'closed',
@@ -747,7 +747,7 @@ async function unwind(compensations) {
  */
 function leftBehindSentence(failures) {
   if (!failures.length) return '';
-  return `Couldn't undo all of it: ${failures.map(failure => extractErrorMessage(failure)).join('; ')}`;
+  return `${t("Couldn't undo all of it:")} ${failures.map(failure => extractErrorMessage(failure)).join('; ')}`;
 }
 
 /**
@@ -827,7 +827,7 @@ export async function provisionWorkspace(request) {
 
   const provider = workspaceProviderRegistry.createProvider(providerId, session);
   if (!provider) {
-    throw new Error(`Couldn't provision a workspace: no provider "${providerId}" is loaded.`);
+    throw new Error(`${t("Couldn't provision a workspace: no provider \"")}${providerId}${t('" is loaded.')}`);
   }
 
   const effectiveSignal = signal ?? new AbortController().signal;

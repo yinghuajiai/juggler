@@ -46,6 +46,7 @@
  * @module components/info-rail
  */
 
+import { t } from '../i18n/index.js';
 import { providers, isHidden, hideCard, INFO_CARDS_CHANGED_EVENT } from '../services/info-cards-manager.js';
 import './info-cards-button.js';
 import JugglerElement from './juggler-element.js';
@@ -366,8 +367,8 @@ class InfoRail extends JugglerElement {
     const close = document.createElement('button');
     close.type = 'button';
     close.className = 'info-card__close';
-    close.setAttribute('aria-label', `Hide ${provider.name}`);
-    close.title = `Hide ${provider.name}`;
+    close.setAttribute('aria-label', `${t('Hide')} ${provider.name}`);
+    close.title = `${t('Hide')} ${provider.name}`;
     close.textContent = '×';
     close.addEventListener('click', (e) => { e.stopPropagation(); hideCard(provider.id); });
     header.appendChild(close);

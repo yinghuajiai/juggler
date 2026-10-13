@@ -742,7 +742,7 @@ class UIEventManager {
     // menu item.
     showNotice(addedCount === 0
       ? t('No assistant files to add — they are already in context, or this project has none.')
-      : `Added ${addedCount} assistant file${addedCount === 1 ? '' : 's'} to context.`);
+      : `${t('Added')} ${addedCount} assistant file${addedCount === 1 ? '' : 's'} ${t('to context.')}`);
   }
 
   /**

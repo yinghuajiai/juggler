@@ -51,7 +51,7 @@ export async function executeContextItem(mt, conv, itemTypeId, params, options =
   /** @type {any} */
   const ItemClass = contextItemRegistry.get(itemTypeId);
   if (!ItemClass) {
-    return { id: null, type: itemTypeId, created: false, error: `Unknown context item type: ${itemTypeId}` };
+    return { id: null, type: itemTypeId, created: false, error: `${t('Unknown context item type:')} ${itemTypeId}` };
   }
 
   // Each user-driven context-item action is its own logical undo step.
@@ -97,7 +97,7 @@ export async function executeContextItem(mt, conv, itemTypeId, params, options =
     if (existingItem) {
       if (existingItem.type !== itemTypeId) {
         return { id: null, type: itemTypeId, created: false,
-          error: `Cannot replace context item ${customId}: type mismatch (${existingItem.type} vs ${itemTypeId})` };
+          error: `${t('Cannot replace context item')} ${customId}${t(': type mismatch (')}${existingItem.type} vs ${itemTypeId})` };
       }
       mt.removeContextItem(customId);
     }
@@ -178,7 +178,7 @@ export async function executeContextItemIntoPending(mt, conv, itemTypeId, params
   /** @type {any} */
   const ItemClass = contextItemRegistry.get(itemTypeId);
   if (!ItemClass) {
-    return { id: null, type: itemTypeId, created: false, error: `Unknown context item type: ${itemTypeId}` };
+    return { id: null, type: itemTypeId, created: false, error: `${t('Unknown context item type:')} ${itemTypeId}` };
   }
 
   // Each user-driven context-item action is its own logical undo step.

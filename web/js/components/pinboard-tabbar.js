@@ -217,7 +217,7 @@ class PinboardTabbar extends JugglerElement {
     // The label is for anything that cannot see a bin. A tooltip would only put
     // the same words under the pointer, on a control whose glyph has never
     // needed them.
-    remove.setAttribute('aria-label', `Remove ${tab.title} from Pinboard`);
+    remove.setAttribute('aria-label', `${_t('Remove')} ${tab.title} ${_t('from Pinboard')}`);
   }
 
   /**

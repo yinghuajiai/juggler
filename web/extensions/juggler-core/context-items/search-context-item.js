@@ -324,7 +324,7 @@ class SearchContextItem extends ContextItem {
     const pattern = /** @type {string} */ (prepParams.pattern) || 'unknown';
 
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Search failed for ${pattern}`);
+      return this.failureSummary(outcome.error || `${t('Search failed for')} ${pattern}`);
     }
 
     const result = /** @type {SearchResult} */ (outcome.result);

@@ -501,12 +501,12 @@ async function callOp(toolId, operation, params, signal, allowedPaths, workspace
 
     // Check HTTP status
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${await extractHttpErrorDetail(response)}`);
+      throw new Error(`${t('HTTP')} ${response.status}: ${await extractHttpErrorDetail(response)}`);
     }
     result = await response.json();
   } catch (err) {
     if (expired) {
-      throw new OpsError(`Couldn't finish ${toolId}.${operation}: the backend never answered, so it was given up on after ${Math.round(timeoutMs / 1000)}s.`);
+      throw new OpsError(`${t("Couldn't finish")} ${toolId}.${operation}${t(': the backend never answered, so it was given up on after')} ${Math.round(timeoutMs / 1000)}${t('s.')}`);
     }
     throw err;
   } finally {
@@ -581,7 +581,7 @@ export async function uploadAssetBase64(convId, base64, mime, signal) {
   );
   if (!response.ok) {
     const detail = await extractHttpErrorDetail(response);
-    throw new OpsError(`Failed to upload image (HTTP ${response.status}): ${detail}`);
+    throw new OpsError(`${t('Failed to upload image (HTTP')} ${response.status}): ${detail}`);
   }
   return /** @type {Promise<AssetRef>} */ (response.json());
 }
@@ -921,7 +921,7 @@ export async function shellExecute(params, workspaceId, signal) {
   // Validate timeout if provided
   if (params.timeout !== undefined) {
     if (typeof params.timeout !== 'number' || params.timeout < 0 || params.timeout > MAX_EXEC_TIMEOUT_MS) {
-      throw new TypeError(`timeout must be a number between 0 and ${MAX_EXEC_TIMEOUT_MS}`);
+      throw new TypeError(`${t('timeout must be a number between 0 and')} ${MAX_EXEC_TIMEOUT_MS}`);
     }
   }
   // This op carries its own server-side budget, and at the ceiling that budget

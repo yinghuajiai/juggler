@@ -291,7 +291,7 @@ class TodoContextItem extends ContextItem {
     for (const [i, item] of todos.entries()) {
       const content = TodoContextItem._resolveContent(item);
       if (!content) {
-        return { valid: false, error: `Todo ${i} is missing content` };
+        return { valid: false, error: `${_t('Todo')} ${i} is missing content` };
       }
       normalized.push({ content, status: TodoContextItem._resolveStatus(item) });
     }
@@ -364,7 +364,7 @@ class TodoContextItem extends ContextItem {
 
     const TodoClass = /** @type {new (ctx: object) => TodoContextItem} */ (this.constructor);
     const contextItem = new TodoClass({
-      id: `TODO_${Date.now()}`,
+      id: `${_t('TODO_')}${Date.now()}`,
       type: 'todo',
       session: this.session,
       conversation: this.conversation,
@@ -387,14 +387,14 @@ class TodoContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(`Todo update failed: ${outcome.error}`);
+      return this.failureSummary(`${_t('Todo update failed:')} ${outcome.error}`);
     }
 
     const result = /** @type {TodoResult} */ (outcome.result);
     const inProgressNote = result.inProgress ? `, ${result.inProgress} in progress` : '';
-    return this.successSummary(`Todos: ${result.completed}/${result.total} completed`, {
+    return this.successSummary(`${_t('Todos:')} ${result.completed}/${result.total} completed`, {
       details: result.inProgress ? `${result.inProgress} in progress` : '',
-      feedbackForLLM: `Todo list updated: ${result.completed}/${result.total} completed${inProgressNote}.`
+      feedbackForLLM: `${_t('Todo list updated:')} ${result.completed}/${result.total} completed${inProgressNote}.`
     });
   }
 

@@ -336,7 +336,7 @@ class UpdateNotice extends HTMLElement {
   _title(vm) {
     if (vm.upToDate) return t("You're up to date");
     if (vm.notice && vm.notice.title) return vm.notice.title;
-    if (vm.targetVersion) return `Version ${vm.targetVersion} is available`;
+    if (vm.targetVersion) return `${t('Version')} ${vm.targetVersion} is available`;
     return DEFAULT_TITLE;
   }
 
@@ -352,7 +352,7 @@ class UpdateNotice extends HTMLElement {
     if (vm.upToDate) {
       const p = document.createElement('p');
       p.textContent = vm.currentVersion
-        ? `You're on the latest version (${vm.currentVersion}).`
+        ? `${t("You're on the latest version (")}${vm.currentVersion}).`
         : t("You're on the latest version.");
       body.appendChild(p);
       return body;
@@ -363,7 +363,7 @@ class UpdateNotice extends HTMLElement {
     } else {
       const p = document.createElement('p');
       p.textContent = vm.targetVersion
-        ? `Version ${vm.targetVersion} is now available.`
+        ? `${t('Version')} ${vm.targetVersion} ${t('is now available.')}`
         : t('A newer version is now available.');
       body.appendChild(p);
     }
@@ -375,7 +375,7 @@ class UpdateNotice extends HTMLElement {
       const warn = document.createElement('p');
       warn.className = 'update-notice__skew';
       warn.textContent = `You're connected to a Juggler server started outside the app`
-        + ` (v${vm.currentVersion}). Updating the app won't update that server —`
+        + ` (v${vm.currentVersion}${t("). Updating the app won't update that server —")}`
         + ` restart it to update.`;
       body.appendChild(warn);
     }
@@ -469,7 +469,7 @@ class UpdateNotice extends HTMLElement {
       } else if (vm.updaterState === 'downloading') {
         text.textContent = vm.pct === null
           ? t('Downloading update…')
-          : `Downloading update… ${Math.round(vm.pct)}%`;
+          : `${t('Downloading update…')} ${Math.round(vm.pct)}%`;
       } else {
         text.textContent = t('Preparing update…');
       }

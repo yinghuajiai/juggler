@@ -12,6 +12,14 @@
          mismatch". Captured here, those errors fail tests fast with the real
          cause (see runOneTest) and are spliced into failure blocks. -->
     <script nonce="{{.CSPNonce}}">
+        // The harness asserts on English UI text, so its language is pinned
+        // rather than left to the machine. The i18n layer reads this global at
+        // load (index.html gets the same one injected, filled from the stored
+        // preference), and without it a Chinese-locale dev machine or runner
+        // would render the Chinese catalogue and fail every English assertion —
+        // while reporting the correct translation as the failure. The i18n
+        // suites set the language explicitly when they mean to exercise Chinese.
+        window.__jugglerLanguage = 'en';
         window.__earlyErrors = [];
         window.addEventListener('error', (e) => {
             const msg = e.message || (e.error && e.error.message) || 'script error';

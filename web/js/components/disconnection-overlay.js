@@ -95,7 +95,7 @@ class DisconnectionOverlay extends LoadingOverlay {
     // Only show a number when there's an actual multi-second wait; anything
     // imminent leaves the line blank rather than flashing "1s".
     const updateCountdown = () => {
-      this.setDetail(secondsRemaining > 1 ? `Retrying in ${secondsRemaining}s` : '');
+      this.setDetail(secondsRemaining > 1 ? `${t('Retrying in')} ${secondsRemaining}s` : '');
     };
 
     // Show initial countdown

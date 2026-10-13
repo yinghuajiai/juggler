@@ -209,7 +209,7 @@ class MemoryPin extends PinboardItemType {
             if (context.signal.aborted) return;
             del.disabled = false;
             body.querySelector('.memory-pin__error')?.remove();
-            body.prepend(createElement('div', 'memory-pin__error', `Couldn't delete it. ${extractErrorMessage(error)}`));
+            body.prepend(createElement('div', 'memory-pin__error', `${t("Couldn't delete it.")} ${extractErrorMessage(error)}`));
           }
         });
         li.appendChild(del);

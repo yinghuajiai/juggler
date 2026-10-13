@@ -256,10 +256,10 @@ class ModelChip extends HTMLElement {
     // Cite the switch-thinking shortcut (⌥⌘T / Ctrl+Alt+T) live from the central
     // table, so the hint stays correct if it's ever rebound or left unbound.
     const cycleKey = keyShortcutManager.formatBinding('cycle-thinking');
-    const keyHint = cycleKey ? ` (${cycleKey}, hold for menu)` : '';
+    const keyHint = cycleKey ? ` (${cycleKey}${_t(', hold for menu)')}` : '';
     const title = level
-      ? `Thinking: ${level} — click to change${keyHint}`
-      : `Thinking: ${declaredDefault ? `${declaredDefault} (default)` : 'default'} — click to change${keyHint}`;
+      ? `${_t('Thinking:')} ${level} ${_t('— click to change')}${keyHint}`
+      : `${_t('Thinking:')} ${declaredDefault ? `${declaredDefault} (default)` : 'default'} ${_t('— click to change')}${keyHint}`;
     // A <span> (not <button>): the chip nests inside the model button, and a
     // button inside a button is invalid HTML the parser would eject.
     return `<span class="thinking-chip${level ? '' : ' default'}" role="button" title="${escapeHtml(title)}">${escapeHtml(shown)}</span>`;

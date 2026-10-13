@@ -785,7 +785,7 @@ class PinboardPanel extends JugglerElement {
     const line = document.createElement('p');
     line.className = 'pinboard-placeholder__line';
     if (!gone) line.textContent = t('Opening the conversation.');
-    else if (this._boardTitle) line.textContent = `“${this._boardTitle}” has gone.`;
+    else if (this._boardTitle) line.textContent = `“${this._boardTitle}${t('” has gone.')}`;
     else line.textContent = t('This conversation is no longer available');
     placeholder.replaceChildren(line);
     return true;
@@ -872,7 +872,7 @@ class PinboardPanel extends JugglerElement {
     try {
       config = await type.configure({ active: this._activeContext(), signal: abort.signal });
     } catch (err) {
-      pinboardView.setStatus(`Couldn't add that pin. ${extractErrorMessage(err)}`);
+      pinboardView.setStatus(`${t("Couldn't add that pin.")} ${extractErrorMessage(err)}`);
       return;
     }
     if (config === null) return;

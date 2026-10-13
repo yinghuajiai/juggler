@@ -241,7 +241,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     if (!baseRoot) throw new Error("Couldn't make a copy: the workspace it would be a copy of has no root.");
     const places = sandboxPlaces(baseRoot, values?.name ?? '');
     if (!places.name) {
-      throw new Error(`Couldn't make a copy: ${JSON.stringify(String(values?.name ?? ''))} leaves nothing that can be a directory name.`);
+      throw new Error(`${t("Couldn't make a copy:")} ${JSON.stringify(String(values?.name ?? ''))} ${t('leaves nothing that can be a directory name.')}`);
     }
     return { baseRoot, places };
   }
@@ -271,7 +271,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     // somebody else left in the way.
     const occupied = await ctx.ops.stat({ path: places.rel });
     if (occupied?.exists) {
-      throw new Error(`Couldn't make a copy at ${places.dir}: there is already something there.`);
+      throw new Error(`${t("Couldn't make a copy at")} ${places.dir}${t(': there is already something there.')}`);
     }
 
     const meta = {
@@ -426,7 +426,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       {
         id: 'apply',
         label: t('Apply the changes'),
-        description: `Copies what changed here back into ${tree}, then removes the copy. Anything ${tree} has changed since is refused by name, and nothing is applied.`
+        description: `${t('Copies what changed here back into')} ${tree}${t(', then removes the copy. Anything')} ${tree} ${t('has changed since is refused by name, and nothing is applied.')}`
       },
       {
         id: 'keep',
@@ -437,7 +437,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
         id: 'apply-anyway',
         label: t('Apply, overwriting'),
         danger: true,
-        description: `Copies the changes back even over files ${tree} has changed since. What is in ${tree} is lost.`
+        description: `${t('Copies the changes back even over files')} ${tree} ${t('has changed since. What is in')} ${tree} ${t('is lost.')}`
       },
       {
         id: 'discard',
@@ -472,13 +472,13 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     const ops = ctx.baseOps ?? ctx.ops;
 
     if (actionId === 'keep') {
-      return { done: true, message: `Left ${places.dir} where it is.` };
+      return { done: true, message: `${t('Left')} ${places.dir} ${t('where it is.')}` };
     }
     if (actionId === 'discard') return this._discard(places, ops, ctx);
     if (actionId === 'apply' || actionId === 'apply-anyway') {
       return this._apply(places, ops, ctx, actionId === 'apply-anyway');
     }
-    return { done: false, message: `${this.getManifest().name} has no action "${actionId}".` };
+    return { done: false, message: `${this.getManifest().name} ${t('has no action "')}${actionId}".` };
   }
 
   /**
@@ -518,7 +518,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       if (conflicts.length) {
         return {
           done: false,
-          message: `${baseName(places.dir)} could not be applied: ${namedFiles(conflicts)} changed since the copy was taken. Nothing was applied.`
+          message: `${baseName(places.dir)} ${t('could not be applied:')} ${namedFiles(conflicts)} ${t('changed since the copy was taken. Nothing was applied.')}`
         };
       }
     }
@@ -530,7 +530,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     await ops.copyTree({ to: '.', delete: [places.rel] }, ctx.signal);
     return {
       done: true,
-      message: `Applied ${countOf(written.length + removed.length)} and removed ${places.dir}.`
+      message: `${t('Applied')} ${countOf(written.length + removed.length)} and removed ${places.dir}.`
     };
   }
 
@@ -575,8 +575,8 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     await ops.copyTree({ to: '.', delete: [places.rel] }, ctx.signal);
     const left = await ops.stat({ path: places.rel });
     return left?.exists
-      ? { done: false, message: `${places.dir} is still there and could not be removed.` }
-      : { done: true, message: `Removed ${places.dir}.` };
+      ? { done: false, message: `${places.dir} ${t('is still there and could not be removed.')}` }
+      : { done: true, message: `${t('Removed')} ${places.dir}.` };
   }
 
   /**
@@ -634,7 +634,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       }
       orphanedWorkspaces.push({
         ...workspace,
-        reason: `${meta.dir ?? workspace.root} is not there any more.`
+        reason: `${meta.dir ?? workspace.root} ${t('is not there any more.')}`
       });
     }
 
@@ -644,7 +644,7 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
       orphanedArtifacts.push({
         id: places.dir,
         label: named,
-        detail: `${places.dir} — a copy with no conversation`,
+        detail: `${places.dir} ${t('— a copy with no conversation')}`,
         workspace: {
           root: places.work,
           label: named,
@@ -693,8 +693,8 @@ class ScratchCopyWorkspaceProvider extends WorkspaceProvider {
     // one question the host has.
     const left = await ops.stat({ path: places.rel });
     return left?.exists
-      ? { removed: false, message: `${places.dir} is still there and could not be removed.` }
-      : { removed: true, message: `Removed ${places.dir}.` };
+      ? { removed: false, message: `${places.dir} ${t('is still there and could not be removed.')}` }
+      : { removed: true, message: `${t('Removed')} ${places.dir}.` };
   }
 }
 

@@ -44,7 +44,7 @@ const SCOPE_LABEL = t('Working tree against HEAD');
  * @returns {string} e.g. 'Working tree of feat/tunnels against HEAD'.
  */
 function scopeLabel(review) {
-  return review.workspace ? `Working tree of ${review.workspace} against HEAD` : SCOPE_LABEL;
+  return review.workspace ? `${t('Working tree of')} ${review.workspace} ${t('against HEAD')}` : SCOPE_LABEL;
 }
 
 /**
@@ -247,7 +247,7 @@ class GitPin extends PinboardItemType {
         // wrong one of those is worse than saying neither.
         const parts = [createElement('div', 'git-pin__quiet', 'Checking…')];
         if (error) {
-          parts.push(createElement('div', 'git-pin__error', `Couldn't read the working tree. ${error}`));
+          parts.push(createElement('div', 'git-pin__error', `${t("Couldn't read the working tree.")} ${error}`));
         }
         body.replaceChildren(...parts);
         return;
@@ -256,7 +256,7 @@ class GitPin extends PinboardItemType {
       if ((review.repos || []).length === 0) {
         // Already the whole answer: the tab says what the pin is for, and this
         // says why there is none of it. Centred like every other empty card.
-        body.replaceChildren(pinEmpty(review.workspace ? `No git repository in ${review.workspace}.` : t('No git repository.')));
+        body.replaceChildren(pinEmpty(review.workspace ? `${t('No git repository in')} ${review.workspace}.` : t('No git repository.')));
         return;
       }
 
@@ -267,7 +267,7 @@ class GitPin extends PinboardItemType {
       }
       // A failed refresh keeps the last good review on screen and says so
       // underneath: blanking the panel loses more than the staleness costs.
-      panel.setError(error ? `Couldn't refresh. ${error}` : '');
+      panel.setError(error ? `${t("Couldn't refresh.")} ${error}` : '');
     };
 
     const refresh = async () => {

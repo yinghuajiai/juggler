@@ -94,10 +94,10 @@ class TaskOutputContextItem extends ContextItem {
     const result = /** @type {{task_id?: string, status?: string, output?: string, exitCode?: number, error?: string}} */ (outcome.result);
 
     if (result.status === 'not_found') {
-      return this.failureSummary(`Task ${result.task_id || ''} not found (it may have already finished and been reaped).`);
+      return this.failureSummary(`${t('Task')} ${result.task_id || ''} ${t('not found (it may have already finished and been reaped).')}`);
     }
 
-    let summary = `Status: ${result.status || 'unknown'}`;
+    let summary = `${t('Status:')} ${result.status || 'unknown'}`;
     if (result.exitCode !== undefined) summary += ` (exit code ${result.exitCode})`;
     summary += '\n\n' + (result.output || t('(no new output since last read)'));
     if (result.error) summary += `\n\n${result.error}`;
@@ -115,8 +115,8 @@ class TaskOutputContextItem extends ContextItem {
     const taskId = String(toolInput?.task_id || '');
     return this.buildStatusUI(actionStatus, {
       typeName: TaskOutputContextItem.getTypeName(),
-      pending: `Reading output of ${taskId}...`,
-      success: `Read output of ${taskId}`,
+      pending: `${t('Reading output of')} ${taskId}...`,
+      success: `${t('Read output of')} ${taskId}`,
       failurePrefix: t('Failed to read task output')
     });
   }

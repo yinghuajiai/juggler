@@ -146,7 +146,7 @@ class BinaryFileViewer extends FileViewer {
    */
   async extract(source) {
     const kind = source.mime || (source.isBinary ? 'binary' : 'this');
-    return { warning: `No viewer is available for ${kind} content, so it cannot be read as text.` };
+    return { warning: `${t('No viewer is available for')} ${kind} ${t('content, so it cannot be read as text.')}` };
   }
 }
 

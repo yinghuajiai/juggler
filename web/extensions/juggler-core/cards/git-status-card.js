@@ -86,7 +86,7 @@ function inTree(workspace, nodes) {
   const badge = document.createElement('span');
   badge.className = 'info-card__git-repo';
   badge.textContent = workspace;
-  badge.title = `Workspace: ${workspace}`;
+  badge.title = `${t('Workspace:')} ${workspace}`;
   row.appendChild(badge);
   return [row, ...nodes];
 }

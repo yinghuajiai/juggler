@@ -122,7 +122,7 @@ export function renderLiveTaskOutput(wrapper, {
           await stopTask();
         } catch (err) {
           stopError.hidden = false;
-          stopError.textContent = `Couldn't stop the task — ${extractErrorMessage(err)}`;
+          stopError.textContent = `${t("Couldn't stop the task —")} ${extractErrorMessage(err)}`;
           stopBtn.disabled = false;
           return;
         }
@@ -189,7 +189,7 @@ export function renderLiveTaskOutput(wrapper, {
     if (statusEl && describeStatus) statusEl.textContent = describeStatus(state);
     if (state.truncated && state.outputFile) {
       spillNote.hidden = false;
-      spillNote.textContent = `Middle dropped — the complete output is in ${state.outputFile}`;
+      spillNote.textContent = `${t('Middle dropped — the complete output is in')} ${state.outputFile}`;
     }
   };
 

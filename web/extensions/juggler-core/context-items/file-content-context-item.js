@@ -474,7 +474,7 @@ class FileContentContextItem extends ContextItem {
       return t('Empty file content');
     }
     if (this.data.isDirectory) {
-      return `Directory listing: ${this.data.path}`;
+      return `${t('Directory listing:')} ${this.data.path}`;
     }
     return formatDisplayPath(this.data.path);
   }
@@ -553,7 +553,7 @@ class FileContentContextItem extends ContextItem {
     }).catch(err => {
       console.error('[FileContentContextItem] properties panel fetch failed:', err);
       body.replaceChildren(createElement('div', 'file-content-not-found',
-        `Failed to load: ${this.data.path}`));
+        `${t('Failed to load:')} ${this.data.path}`));
     });
 
     return container;
@@ -682,15 +682,15 @@ class FileContentContextItem extends ContextItem {
     const r = await this._fetchLive();
 
     if (!r.exists) {
-      return `File does not exist: ${r.path || this.data.path}`;
+      return `${t('File does not exist:')} ${r.path || this.data.path}`;
     }
 
     if (r.isDirectory) {
-      return `Directory listing of ${r.path}:\n${r.content || '(empty)'}`;
+      return `${t('Directory listing of')} ${r.path}:\n${r.content || '(empty)'}`;
     }
 
     if (r.warning) {
-      return `File ${r.path}: ${r.warning}`;
+      return `${t('File')} ${r.path}: ${r.warning}`;
     }
 
     // A file whose bytes are not text carries no `content` of its own — its
@@ -706,7 +706,7 @@ class FileContentContextItem extends ContextItem {
         conversationId: this.conversation?.id,
       });
       if (extracted.text) return extracted.text;
-      if (extracted.warning) return `File ${r.path}: ${extracted.warning}`;
+      if (extracted.warning) return `${t('File')} ${r.path}: ${extracted.warning}`;
     }
 
     const formatted = formatFileContentForLLM({
@@ -722,7 +722,7 @@ class FileContentContextItem extends ContextItem {
     // transaction view and the wire identical.
     const { content: bounded, truncated } = smartTruncate(formatted, { maxChars: MAX_PINNED_FILE_CHARS });
     return truncated
-      ? bounded + `\n\n(File content truncated from ${formatted.length} to ${bounded.length} chars to fit the request)`
+      ? bounded + `\n\n(File content truncated from ${formatted.length} to ${bounded.length} ${t('chars to fit the request)')}`
       : formatted;
   }
 

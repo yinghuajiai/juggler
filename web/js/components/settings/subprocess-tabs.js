@@ -183,7 +183,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
       const enabled = names.filter((n) => f.toolChecked[n]).length;
       const summary = document.createElement('div');
       summary.className = 'mcp-field-hint';
-      summary.textContent = `${enabled} / ${names.length} tools enabled. Unchecked tools are hidden from the model and cannot be called.`;
+      summary.textContent = `${enabled} / ${names.length} ${_t('tools enabled. Unchecked tools are hidden from the model and cannot be called.')}`;
       toolsField.appendChild(summary);
 
       const list = document.createElement('div');
@@ -197,7 +197,7 @@ function renderMcpFormExtra(f, wrap, ctrl) {
       const configured = [...(f.toolAllow || []), ...(f.toolDeny || [])];
       const unknown = configured.filter((n) => !names.includes(n));
       if (unknown.length) {
-        toolsField.appendChild(mcpHint(`Config references tools not offered by this server: ${unknown.join(', ')}. They will be dropped on save.`));
+        toolsField.appendChild(mcpHint(`${_t('Config references tools not offered by this server:')} ${unknown.join(', ')}${_t('. They will be dropped on save.')}`));
       }
     }
   } else {
@@ -381,7 +381,7 @@ const MCP_SPEC = {
   describe: (s) => formatMcpTokenCost(s),
   rowError: (s) => (s.status === 'failed' && s.error) ? (String(s.error).split('\n')[0] || '') : '',
   deleteConfirm: (name) => ({
-    message: `Remove the MCP server "${name}"? Its tools will disappear from conversations.`,
+    message: `${_t('Remove the MCP server "')}${name}${_t('"? Its tools will disappear from conversations.')}`,
     title: _t('Remove server'),
   }),
   formAddTitle: _t('Add MCP server'),
@@ -431,7 +431,7 @@ const ACP_SPEC = {
   describe: (s) => s.command || '(no command)',
   rowError: (s) => (s.status === 'unavailable' && s.error) ? s.error : '',
   deleteConfirm: (name) => ({
-    message: `Remove the ACP agent "${name}"? It will disappear from the model picker.`,
+    message: `${_t('Remove the ACP agent "')}${name}${_t('"? It will disappear from the model picker.')}`,
     title: _t('Remove agent'),
   }),
   formAddTitle: _t('Add ACP agent'),

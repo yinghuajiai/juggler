@@ -16,6 +16,7 @@
  * @module juggler-core/context-items/execute/command-handlers
  */
 
+import { t } from '../../../../js/i18n/index.js';
 import { isPathInsideAllowedRoots, resolveAgainstCwd } from 'juggler/utils/path-containment';
 import { checkedAt } from './shell-tokenizer.js';
 
@@ -2956,9 +2957,9 @@ function registerHandlers(handlers) {
   const byName = new Map();
   for (const handler of handlers) {
     const name = handler.commandName;
-    if (!name) throw new Error(`${handler.name} has no commandName`);
+    if (!name) throw new Error(`${handler.name} ${t('has no commandName')}`);
     const taken = byName.get(name);
-    if (taken) throw new Error(`${taken.name} and ${handler.name} both claim "${name}"`);
+    if (taken) throw new Error(`${taken.name} and ${handler.name} ${t('both claim "')}${name}"`);
     byName.set(name, handler);
   }
   return byName;

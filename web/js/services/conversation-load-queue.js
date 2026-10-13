@@ -2,6 +2,8 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
+
 /**
  * Concurrency-limited orchestrator for lazy conversation hydration.
  *
@@ -111,7 +113,7 @@ class ConversationLoadQueue {
     this._errored.delete(id);
     const waiters = this._waiters.get(id);
     if (waiters) {
-      const err = new Error(`Conversation ${id} load cancelled`);
+      const err = new Error(`${t('Conversation')} ${id} load cancelled`);
       for (const w of waiters) w.reject(err);
       this._waiters.delete(id);
     }
@@ -126,10 +128,10 @@ class ConversationLoadQueue {
   whenLoaded(id) {
     if (this._loaded.has(id)) return Promise.resolve();
     if (this._errored.has(id)) {
-      return Promise.reject(new Error(`Conversation ${id} failed to load`));
+      return Promise.reject(new Error(`${t('Conversation')} ${id} failed to load`));
     }
     if (!this._inflight.has(id) && !this._pending.includes(id)) {
-      return Promise.reject(new Error(`Conversation ${id} not in queue`));
+      return Promise.reject(new Error(`${t('Conversation')} ${id} not in queue`));
     }
     return new Promise((resolve, reject) => {
       let arr = this._waiters.get(id);

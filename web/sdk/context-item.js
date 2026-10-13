@@ -260,16 +260,16 @@ class ContextItem {
     const className = this.constructor.name;
 
     if (!context.id) {
-      throw new Error(`${className}: id is required`);
+      throw new Error(`${className}${t(': id is required')}`);
     }
     if (!context.session) {
-      throw new Error(`${className}: session is required`);
+      throw new Error(`${className}${t(': session is required')}`);
     }
     if (!context.conversation) {
-      throw new Error(`${className}: conversation is required`);
+      throw new Error(`${className}${t(': conversation is required')}`);
     }
     if (!context.messageThread) {
-      throw new Error(`${className}: messageThread is required`);
+      throw new Error(`${className}${t(': messageThread is required')}`);
     }
 
     /** @type {string} */
@@ -352,9 +352,9 @@ class ContextItem {
         if (typeof self[method] !== 'function') continue;
         const name = method;
         if (ctx === 'engine' && isViewer()) {
-          self[method] = () => { throw new Error(`${name}() is engine-only — cannot call in viewer`); };
+          self[method] = () => { throw new Error(`${name}${t('() is engine-only — cannot call in viewer')}`); };
         } else if (ctx === 'viewer' && isEngine()) {
-          self[method] = () => { throw new Error(`${name}() is viewer-only — cannot call in engine`); };
+          self[method] = () => { throw new Error(`${name}${t('() is viewer-only — cannot call in engine')}`); };
         }
       }
     }
@@ -614,7 +614,7 @@ class ContextItem {
       if (outcome.cancelled) {
         return this.failureSummary(t('Action cancelled'));
       }
-      return this.failureSummary(`Action failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Action failed:')} ${outcome.error}`);
     }
     return this.successSummary(t('Action completed'));
   }

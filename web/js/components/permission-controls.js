@@ -351,8 +351,8 @@ class PermissionControls extends HTMLElement {
     const cmdCount = mt.getRulesFor('execute').filter((/** @type {any} */ r) => r.kind === 'glob').length;
     const pathCount = mt.getAllowedPaths().length;
     const head = allowed
-      ? `${CHECK_ICON} Edits on`
-      : `${LOCK_ICON} Edits off`;
+      ? `${CHECK_ICON} ${t('Edits on')}`
+      : `${LOCK_ICON} ${t('Edits off')}`;
     // Counts live in a span so the touch composer can drop them (keeping just
     // "✓ Edits on") to fit the single-line control row; desktop shows them all.
     const detail = [];

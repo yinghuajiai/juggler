@@ -23,6 +23,7 @@
  * @module services/hook-runtime
  */
 
+import { t as _t } from '../i18n/index.js';
 import hookRegistry from '../registries/hook-registry.js';
 import { resolveToolName } from './tool-generator.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
@@ -329,7 +330,7 @@ export async function runBeforeToolHooks(call) {
         event: 'beforeTool', error: message, ms: Date.now() - started };
       if (hook.manifest.onError === 'closed') {
         record.verdict = 'ask';
-        record.reason = `The hook failed (${message}), and it is set to hold the call for you when it does.`;
+        record.reason = `${_t('The hook failed (')}${message}${_t('), and it is set to hold the call for you when it does.')}`;
       }
       return record;
     }

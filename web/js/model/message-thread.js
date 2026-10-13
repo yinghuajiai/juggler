@@ -785,7 +785,7 @@ export default class MessageThread {
       // literal SYSTEM_1, which is root-only (cloning with a fresh id is what
       // avoids duplicate-id collisions across threads).
       if (this.findByItemId('SYSTEM_1') !== null)
-        throw new Error(`[${this.threadItemId}] sub-thread must not own SYSTEM_1`);
+        throw new Error(`[${this.threadItemId}${t('] sub-thread must not own SYSTEM_1')}`);
     } else if (this.findByItemId('SYSTEM_1') === null) {
       // The root thread owns exactly one SYSTEM_1 system-prompt placeholder.
       throw new Error('[root] SYSTEM_1 missing');
@@ -795,7 +795,7 @@ export default class MessageThread {
     const seen = new Set();
     for (const item of arr.toArray()) {
       const id = item?.get?.('itemId');
-      if (id && seen.has(id)) throw new Error(`Duplicate itemId: ${id}`);
+      if (id && seen.has(id)) throw new Error(`${t('Duplicate itemId:')} ${id}`);
       if (id) seen.add(id);
     }
   }
@@ -865,7 +865,7 @@ export default class MessageThread {
       const itemId = /** @type {any} */ (message).itemId;
       const existing = this.items.find(item => item.get('itemId') === itemId);
       if (existing) {
-        throw new Error(`[BUG] Duplicate itemId ${itemId}! Type: ${message.type}`);
+        throw new Error(`[BUG] Duplicate itemId ${itemId}${t('! Type:')} ${message.type}`);
       }
     }
 
@@ -876,7 +876,7 @@ export default class MessageThread {
         isToolActionMessage(/** @type {Message} */ (item)) && item.get('toolUseId') === toolUseId
       );
       if (existing) {
-        throw new Error(`[BUG] Duplicate toolUseId ${toolUseId}! Type: ${message.type}`);
+        throw new Error(`[BUG] Duplicate toolUseId ${toolUseId}${t('! Type:')} ${message.type}`);
       }
     }
 
@@ -1762,7 +1762,7 @@ export default class MessageThread {
  */
 export function createMessageThread(conversation, container, threadItemId) {
   if (!container || !threadItemId) {
-    throw new Error(`createMessageThread requires both container and threadItemId (got container=${!!container}, threadItemId=${!!threadItemId})`);
+    throw new Error(`${t('createMessageThread requires both container and threadItemId (got container=')}${!!container}, threadItemId=${!!threadItemId})`);
   }
   return new MessageThread(conversation, container, threadItemId);
 }

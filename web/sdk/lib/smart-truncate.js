@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * Smart output truncation for context-efficient tool results.
  *
@@ -129,7 +131,7 @@ function _keywordTruncate(lines, keywords, windowSize, maxChars) {
   // Trailing omission
   if (prevEnd < lines.length - 1) {
     const omitted = lines.length - 1 - prevEnd;
-    parts.push(`\n... (${omitted} lines omitted) ...`);
+    parts.push(`\n... (${omitted} ${t('lines omitted) ...')}`);
   }
 
   const result = parts.join('');

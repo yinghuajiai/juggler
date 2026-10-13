@@ -181,7 +181,7 @@ class GlobContextItem extends ContextItem {
     const pattern = prepParams.pattern || 'unknown';
 
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Failed to glob ${pattern}`);
+      return this.failureSummary(outcome.error || `${t('Failed to glob')} ${pattern}`);
     }
 
     const result = /** @type {GlobResult} */ (outcome.result);
@@ -206,7 +206,7 @@ class GlobContextItem extends ContextItem {
     const truncated = result.truncated || false;
 
     if (files.length === 0) {
-      return `No files found matching pattern: ${result.pattern}`;
+      return `${t('No files found matching pattern:')} ${result.pattern}`;
     }
 
     let content = files.join('\n');

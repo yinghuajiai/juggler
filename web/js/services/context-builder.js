@@ -14,6 +14,7 @@
  * Go providers handle all API-specific transformation (message merging, SDK conversion).
  */
 
+import { t } from '../i18n/index.js';
 import { TextSectionRenderer } from './renderers/text-section-renderer.js';
 import { FormattingHelpers } from '../../sdk/lib/formatting-helpers.js';
 import { assembleSystemPrompt } from './system-prompt-builder.js';
@@ -56,7 +57,7 @@ import {
 function runContextEntry(goal, sessionName, record) {
   if (!sessionName) return `[Completed Thread: ${goal}]\n${record.result}`;
   let head = record.call > 1
-    ? `${sessionName} · resumed, call ${record.call}`
+    ? `${sessionName} ${t('· resumed, call')} ${record.call}`
     : `${sessionName} · new`;
   if (record.status && record.status !== 'rest') head += ` · ${record.status}`;
   return `${head}\n\n${record.result}`;
@@ -95,7 +96,7 @@ function threadContextEntries(msg) {
   if (msg.get('runItemId')) {
     const record = itemRunRecord(msg);
     const label = sessionName || itemGoal(msg) || goal;
-    let head = `${label} · continued in the thread`;
+    let head = `${label} ${t('· continued in the thread')}`;
     if (record?.status && record.status !== 'rest') head += ` · ${record.status}`;
     return [`${head}\n\n${record?.result || 'That run\'s reply is no longer in the conversation.'}`];
   }
@@ -157,7 +158,7 @@ export class ContextBuilder {
         const ids = incompleteActions.map(a =>
         /** @type {import('../../sdk/lib/message.js').ToolActionMessage} */ (a).get('toolUseId')
         ).join(', ');
-        throw new Error(`Cannot build context with incomplete tool-actions: ${ids}`);
+        throw new Error(`${t('Cannot build context with incomplete tool-actions:')} ${ids}`);
       }
     }
 

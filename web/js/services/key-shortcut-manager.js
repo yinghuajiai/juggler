@@ -148,8 +148,8 @@ export function eventMatchesBinding(binding, e) {
   // already been remapped away from anything a binding could name.
   if (binding.alt && typeof e.code === 'string') {
     const k = normalizeKey(binding.key);
-    if (/^[a-z]$/.test(k) && e.code === `Key${k.toUpperCase()}`) return true;
-    if (/^[0-9]$/.test(k) && e.code === `Digit${k}`) return true;
+    if (/^[a-z]$/.test(k) && e.code === `${t('Key')}${k.toUpperCase()}`) return true;
+    if (/^[0-9]$/.test(k) && e.code === `${t('Digit')}${k}`) return true;
   }
   return false;
 }

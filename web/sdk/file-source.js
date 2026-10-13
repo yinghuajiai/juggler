@@ -11,6 +11,7 @@
  * @module sdk/file-source
  */
 
+import { t } from '../js/i18n/index.js';
 import { apiUrl } from '../js/utils/api-url.js';
 
 /**
@@ -182,7 +183,7 @@ export async function fetchFileBytes(absPath, signal, access = {}) {
     body: JSON.stringify({ path: absPath, ...access }),
   });
   if (!response.ok) {
-    throw new Error(`Failed to read ${absPath} (HTTP ${response.status})`);
+    throw new Error(`${t('Failed to read')} ${absPath} (HTTP ${response.status})`);
   }
   return new Uint8Array(await response.arrayBuffer());
 }

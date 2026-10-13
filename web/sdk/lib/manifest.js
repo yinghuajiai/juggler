@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * Capability manifest validation.
  *
@@ -46,14 +48,14 @@ export function validateManifest(ctor, requiredFields = REQUIRED_MANIFEST_FIELDS
   const manifest = ctor?.MANIFEST;
 
   if (!manifest) {
-    throw new Error(`${className} must define a static MANIFEST`);
+    throw new Error(`${className} ${t('must define a static MANIFEST')}`);
   }
 
   const missingFields = requiredFields.filter(field => !manifest[field]);
 
   if (missingFields.length > 0) {
     throw new Error(
-      `${className}.MANIFEST is missing required fields: ${missingFields.join(', ')}`
+      `${className}${t('.MANIFEST is missing required fields:')} ${missingFields.join(', ')}`
     );
   }
 }

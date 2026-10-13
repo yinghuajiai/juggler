@@ -47,7 +47,7 @@ class NewConversationCommandType extends CommandType {
     } catch (error) {
       return {
         handled: true,
-        message: `Failed to create conversation: ${extractErrorMessage(error)}`,
+        message: `${t('Failed to create conversation:')} ${extractErrorMessage(error)}`,
         error: true
       };
     }

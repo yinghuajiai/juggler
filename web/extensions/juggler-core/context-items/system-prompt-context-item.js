@@ -440,7 +440,7 @@ class SystemPromptContextItem extends ContextItem {
     if (this.data.selectedPresetId && !this.data.isModified) {
       const preset = systemPromptRegistry.getPreset(this.data.selectedPresetId);
       if (preset && preset.id !== 'default') {
-        return `System Prompt (${preset.name})`;
+        return `${t('System Prompt (')}${preset.name})`;
       }
     }
     if (this.data.isModified) {
@@ -781,14 +781,14 @@ class SystemPromptContextItem extends ContextItem {
     const tokens = groups.reduce((sum, group) => sum + group.tokens, 0);
     const count = createElement('div', 'system-prompt-tools-count');
     count.textContent = inventory.offered.length === 1
-      ? `1 tool available to the model · ~${formatTokens(tokens)} tokens`
-      : `${inventory.offered.length} tools available to the model · ~${formatTokens(tokens)} tokens`;
+      ? `${t('1 tool available to the model · ~')}${formatTokens(tokens)} tokens`
+      : `${inventory.offered.length} ${t('tools available to the model · ~')}${formatTokens(tokens)} tokens`;
     count.title = t('Estimated tokens (~4 characters per token), sent on every turn.');
     wrap.appendChild(count);
 
     if (drift?.changes) {
       const line = createElement('div', 'system-prompt-tools-drift');
-      line.textContent = `${drift.changes} since the last turn — the model has not been offered this list yet.`;
+      line.textContent = `${drift.changes} ${t('since the last turn — the model has not been offered this list yet.')}`;
       line.title = drift.detail;
       wrap.appendChild(line);
     }
@@ -831,7 +831,7 @@ class SystemPromptContextItem extends ContextItem {
       const detail = status?.error ? String(status.error).split('\n')[0] : '';
       const state = status?.status || 'not running';
       const unreached = state === 'running' ? t(', tools not offered') : '';
-      row.textContent = `MCP · ${name} — ${state}${unreached}${detail ? `: ${detail}` : ''}`;
+      row.textContent = `${t('MCP ·')} ${name} — ${state}${unreached}${detail ? `: ${detail}` : ''}`;
       wrap.appendChild(row);
     }
 
@@ -844,7 +844,7 @@ class SystemPromptContextItem extends ContextItem {
       const by = inventory.strategyName ? ` by ${inventory.strategyName}` : '';
       const block = createElement('div', 'system-prompt-tools-withheld');
       const heading = createElement('div', 'system-prompt-tools-group');
-      heading.textContent = `Withheld${by} — not offered to the model`;
+      heading.textContent = `${t('Withheld')}${by} ${t('— not offered to the model')}`;
       block.appendChild(heading);
       for (const tool of inventory.withheld) {
         const name = String(tool?.name || '');
@@ -853,7 +853,7 @@ class SystemPromptContextItem extends ContextItem {
           name,
           String(tool?.description || ''),
           parseMcp(name)?.server ?? null,
-          `Withheld${by} — the model cannot call this.`
+          `${t('Withheld')}${by} ${t('— the model cannot call this.')}`
         );
         row.classList.add('system-prompt-tool-withheld');
         block.appendChild(row);
@@ -881,7 +881,7 @@ class SystemPromptContextItem extends ContextItem {
     const row = createElement('button', 'system-prompt-tool');
     /** @type {HTMLButtonElement} */ (row).type = 'button';
     row.textContent = label;
-    const where = server ? `Configure "${server}"` : t('Show where this tool is defined');
+    const where = server ? `${t('Configure "')}${server}"` : t('Show where this tool is defined');
     row.title = [note, description, where].filter(Boolean).join('\n\n');
     row.addEventListener('click', () => { void this._openToolDefinition(toolName, server); });
     return row;

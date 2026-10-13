@@ -98,7 +98,7 @@ function paintTokenChip(chip, text) {
     return;
   }
   paintChip(chip, tokens, `~${formatTokens(tokens)}`,
-    `Estimated ${tokens.toLocaleString()} tokens from ${text.length.toLocaleString()} characters `
+    `${t('Estimated')} ${tokens.toLocaleString()} tokens from ${text.length.toLocaleString()} characters `
     + '(~4 characters per token). Provider-reported counts cover a whole round-trip \u2014 open the '
     + 'transaction to see those.');
 }
@@ -111,7 +111,7 @@ function paintTokenChip(chip, text) {
  */
 function paintReportedChip(chip, tokens) {
   paintChip(chip, tokens, formatTokens(tokens),
-    `${tokens.toLocaleString()} output tokens, reported by the provider. This round-trip `
+    `${tokens.toLocaleString()} ${t('output tokens, reported by the provider. This round-trip')} `
     + "produced nothing else, so the count is this item's alone.");
 }
 
@@ -590,7 +590,7 @@ class PropertiesPanel extends HTMLElement {
       const startMs = Number(/** @type {HTMLElement} */ (el).dataset.elapsedSince);
       if (!Number.isFinite(startMs)) return;
       const seconds = Math.max(0, Math.round((now - startMs) / 1000));
-      el.textContent = `Running… ${formatDuration(seconds)}`;
+      el.textContent = `${t('Running…')} ${formatDuration(seconds)}`;
     });
   }
 
@@ -703,7 +703,7 @@ class PropertiesPanel extends HTMLElement {
     badgeGroup.classList.add('badge-catalog-link');
     badgeGroup.tabIndex = 0;
     badgeGroup.setAttribute('role', 'button');
-    const label = `Show "${title}" in the Extensions settings`;
+    const label = `${t('Show "')}${title}${t('" in the Extensions settings')}`;
     badgeGroup.title = label;
     badgeGroup.setAttribute('aria-label', label);
 
@@ -942,7 +942,7 @@ class PropertiesPanel extends HTMLElement {
           rollbackBtn.className = 'properties-panel-btn';
           rollbackBtn.innerHTML = `
                         ${UNDO_SVG}
-                        Rewind to this message
+                        ${t('Rewind to this message')}
                     `;
           rollbackBtn.addEventListener('click', () => this._rollbackFromItem(messageItemId));
           controls.appendChild(rollbackBtn);
@@ -951,7 +951,7 @@ class PropertiesPanel extends HTMLElement {
           branchBtn.className = 'properties-panel-btn';
           branchBtn.innerHTML = `
                         ${FORK_SVG}
-                        Fork a new conversation from here
+                        ${t('Fork a new conversation from here')}
                     `;
           branchBtn.addEventListener('click', () => this._branchFromItem(messageItemId));
           controls.appendChild(branchBtn);
@@ -985,7 +985,7 @@ class PropertiesPanel extends HTMLElement {
       refreshBtn.className = 'properties-panel-btn';
       refreshBtn.innerHTML = `
                 ${RETRY_SVG}
-                Refresh
+                ${t('Refresh')}
             `;
       refreshBtn.addEventListener('click', () => this._refreshContextItem(contextItem));
       controls.appendChild(refreshBtn);
@@ -1035,7 +1035,7 @@ class PropertiesPanel extends HTMLElement {
       retryBtn.className = 'properties-panel-btn';
       retryBtn.innerHTML = `
                 ${UNDO_SVG}
-                Re-run command
+                ${t('Re-run command')}
             `;
       retryBtn.addEventListener('click', () => this._retryToolAction(toolAction));
       controls.appendChild(retryBtn);

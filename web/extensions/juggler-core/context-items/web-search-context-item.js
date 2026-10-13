@@ -237,18 +237,18 @@ class WebSearchContextItem extends ContextItem {
     const query = prepParams.query || 'unknown';
 
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Search failed for "${query}"`);
+      return this.failureSummary(outcome.error || `${t('Search failed for "')}${query}"`);
     }
 
     const result = /** @type {WebSearchResult} */ (outcome.result);
     const results = result.results || [];
 
     if (results.length === 0) {
-      return this.successSummary(`No results found for "${query}"`, { icon: '○' });
+      return this.successSummary(`${t('No results found for "')}${query}"`, { icon: '○' });
     }
 
     // Format results for LLM - include markdown links
-    const lines = [`Search results for "${query}" (via ${result.provider}):\n`];
+    const lines = [`${t('Search results for "')}${query}" (via ${result.provider}):\n`];
     for (const item of results) {
       lines.push(`- [${item.title}](${item.url})`);
       if (item.description) {
@@ -273,12 +273,12 @@ class WebSearchContextItem extends ContextItem {
 
     return this.buildStatusUI(actionStatus, {
       typeName: t('Web Search'),
-      pending: `Searching for "${displayQuery}"...`,
+      pending: `${t('Searching for "')}${displayQuery}"...`,
       success: () => {
         const result = /** @type {WebSearchResult} */ (actionStatus?.result);
         const count = result.count || result.results?.length || 0;
         const provider = result.provider || 'search';
-        return `Found ${count} result${count === 1 ? '' : 's'} for "${displayQuery}" (${provider})`;
+        return `${t('Found')} ${count} result${count === 1 ? '' : 's'} for "${displayQuery}" (${provider})`;
       }
     });
   }

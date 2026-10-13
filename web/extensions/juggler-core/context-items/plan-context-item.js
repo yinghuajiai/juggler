@@ -251,7 +251,7 @@ class PlanContextItem extends ContextItem {
    */
   getTitle() {
     if (this.data.title) {
-      return `Plan: ${this.data.title}`;
+      return `${t('Plan:')} ${this.data.title}`;
     }
     return 'Plan';
   }
@@ -399,7 +399,7 @@ class PlanContextItem extends ContextItem {
       return this._validateStepAction(toolInput, 'skip_step');
     }
 
-    return { valid: false, error: `Unknown action: ${action}. Must be one of: submit, start_step, complete_step, fail_step, skip_step.` };
+    return { valid: false, error: `${t('Unknown action:')} ${action}. Must be one of: submit, start_step, complete_step, fail_step, skip_step.` };
   }
 
   /**
@@ -441,7 +441,7 @@ class PlanContextItem extends ContextItem {
     for (const [i, item] of items.entries()) {
       const content = PlanContextItem._resolveStepContent(item);
       if (!content) {
-        return { valid: false, error: `Step ${i} is missing content` };
+        return { valid: false, error: `${t('Step')} ${i} is missing content` };
       }
       normalizedSteps.push({
         content,
@@ -501,7 +501,7 @@ class PlanContextItem extends ContextItem {
     }
 
     if (!Number.isInteger(rawIndex) || /** @type {number} */ (rawIndex) < 1) {
-      return { valid: false, error: `index must be a positive integer (1-based), got: ${rawIndex}` };
+      return { valid: false, error: `${t('index must be a positive integer (1-based), got:')} ${rawIndex}` };
     }
 
     /** @type {Record<string, unknown>} */
@@ -540,8 +540,8 @@ class PlanContextItem extends ContextItem {
     };
 
     return {
-      title: `Plan: ${planParams.title}`,
-      message: `${planParams.items.length} step${planParams.items.length !== 1 ? 's' : ''} - Review and approve to begin execution`,
+      title: `${t('Plan:')} ${planParams.title}`,
+      message: `${planParams.items.length} step${planParams.items.length !== 1 ? 's' : ''} ${t('- Review and approve to begin execution')}`,
       options: [
         { label: t('Approve'), value: 'yes', style: 'primary' },
         { label: t('Discuss further'), value: 'no', style: 'secondary' }
@@ -652,7 +652,7 @@ class PlanContextItem extends ContextItem {
       case 'skip_step':
         return this._executeSkipStep(params);
       default:
-        throw new Error(`Unknown action: ${params.action}`);
+        throw new Error(`${t('Unknown action:')} ${params.action}`);
     }
   }
 
@@ -770,7 +770,7 @@ class PlanContextItem extends ContextItem {
 
     const steps = planContextItem.data.steps || [];
     if (oneBasedIndex > steps.length) {
-      throw new Error(`Invalid index: ${oneBasedIndex}. Plan has ${steps.length} steps (1-${steps.length}).`);
+      throw new Error(`${t('Invalid index:')} ${oneBasedIndex}${t('. Plan has')} ${steps.length} steps (1-${steps.length}).`);
     }
     const index = oneBasedIndex - 1; // Convert to 0-based
 
@@ -810,7 +810,7 @@ class PlanContextItem extends ContextItem {
 
     // Surface the step transition via the conversation's status spinner.
     this.conversation.setStatusMessage(
-      `Step ${oneBasedIndex} \u2192 ${newStatus} (${completed}/${total} completed)`
+      `${t('Step')} ${oneBasedIndex} \u2192 ${newStatus} (${completed}/${total} completed)`
     );
 
     return {
@@ -853,7 +853,7 @@ class PlanContextItem extends ContextItem {
     // plan class, so `this.constructor` is always present and reset-proof.
     const PlanClass = /** @type {new (ctx: object) => PlanContextItem} */ (this.constructor);
     const contextItem = new PlanClass({
-      id: `PLAN_${Date.now()}`,
+      id: `${t('PLAN_')}${Date.now()}`,
       type: 'plan',
       session: this.session,
       conversation: this.conversation,
@@ -888,21 +888,21 @@ class PlanContextItem extends ContextItem {
     const prepTitle = prepParams.title || 'Plan';
 
     if (outcome.cancelled) {
-      return this.failureSummary(`Plan cancelled: ${prepTitle}`, {
+      return this.failureSummary(`${t('Plan cancelled:')} ${prepTitle}`, {
         details: t('You can revise the plan and resubmit.'),
         feedbackForLLM: t('The user wants to discuss the plan further. Ask them what changes they would like, then revise and resubmit.')
       });
     }
 
     if (!outcome.success) {
-      return this.failureSummary(`Plan submission failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Plan submission failed:')} ${outcome.error}`);
     }
 
     const result = /** @type {SubmitPlanResult} */ (outcome.result);
 
-    return this.successSummary(`Plan approved: ${result.title}`, {
-      details: `${result.stepCount} steps - Execution will begin automatically`,
-      feedbackForLLM: `Plan "${result.title}" was approved with ${result.stepCount} steps. Execution will begin automatically. Use plan(action: 'start_step', index: N) before working on each step, then plan(action: 'complete_step', index: N, result: '...') when done. Use create_thread for complex steps, or work inline for simple ones.`
+    return this.successSummary(`${t('Plan approved:')} ${result.title}`, {
+      details: `${result.stepCount} ${t('steps - Execution will begin automatically')}`,
+      feedbackForLLM: `${t('Plan "')}${result.title}${t('" was approved with')} ${result.stepCount} steps. Execution will begin automatically. Use plan(action: 'start_step', index: N) before working on each step, then plan(action: 'complete_step', index: N, result: '...') when done. Use create_thread for complex steps, or work inline for simple ones.`
     });
   }
 
@@ -914,12 +914,12 @@ class PlanContextItem extends ContextItem {
    */
   _getStepActionSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(`Step update failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Step update failed:')} ${outcome.error}`);
     }
 
     const result = /** @type {StepActionResult} */ (outcome.result);
     return this.successSummary(
-      `Step ${result.index + 1}: ${result.oldStatus} \u2192 ${result.newStatus} (${result.completed}/${result.total} completed)`,
+      `${t('Step')} ${result.index + 1}: ${result.oldStatus} \u2192 ${result.newStatus} (${result.completed}/${result.total} completed)`,
       {
         details: result.result || '',
         // The plan is contextPosition:'none' \u2014 it is NOT re-rendered into the
@@ -1000,7 +1000,7 @@ class PlanContextItem extends ContextItem {
         const result = /** @type {StepActionResult} */ (actionStatus.result);
         return {
           typeName,
-          summary: `Step ${(result?.index ?? 0) + 1}: ${result?.oldStatus} \u2192 ${result?.newStatus} (${result?.completed}/${result?.total})`,
+          summary: `${t('Step')} ${(result?.index ?? 0) + 1}: ${result?.oldStatus} \u2192 ${result?.newStatus} (${result?.completed}/${result?.total})`,
           status: /** @type {import('juggler/context-item').ResultStatus} */ ('success')
         };
       }
@@ -1015,7 +1015,7 @@ class PlanContextItem extends ContextItem {
     // For error state
     if (actionStatus?.error) {
       const errorSummary = isStepAction
-        ? `Step ${toolInput?.index || '?'} failed: ${actionStatus.error}`
+        ? `${t('Step')} ${toolInput?.index || '?'} failed: ${actionStatus.error}`
         : actionStatus.error;
       return {
         typeName,
@@ -1038,11 +1038,11 @@ class PlanContextItem extends ContextItem {
   _stepActionSummary(action, index) {
     const n = index ? ` ${index}` : '';
     switch (action) {
-      case 'start_step': return `Starting step${n}`;
-      case 'complete_step': return `Completing step${n}`;
-      case 'fail_step': return `Failing step${n}`;
-      case 'skip_step': return `Skipping step${n}`;
-      default: return `Updating step${n}`;
+      case 'start_step': return `${t('Starting step')}${n}`;
+      case 'complete_step': return `${t('Completing step')}${n}`;
+      case 'fail_step': return `${t('Failing step')}${n}`;
+      case 'skip_step': return `${t('Skipping step')}${n}`;
+      default: return `${t('Updating step')}${n}`;
     }
   }
 

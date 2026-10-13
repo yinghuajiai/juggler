@@ -121,7 +121,7 @@ export async function handleApprovalRequest(session, request, conversationId) {
     if (!ActionClass) {
       console.warn(`[Session] No action class for tool ${req.toolName}`);
       updateToolActionApprovalOptions(conv, req.toolUseId, {
-        title: `Approve: ${req.toolName}`,
+        title: `${_t('Approve:')} ${req.toolName}`,
         message: JSON.stringify(req.toolInput),
         options: allowDenyOptions()
       });
@@ -149,7 +149,7 @@ export async function handleApprovalRequest(session, request, conversationId) {
     const validation = await action.validate(toolInput);
     if (!validation.valid) {
       updateToolActionApprovalOptions(conv, req.toolUseId, {
-        title: `Invalid: ${action.getTitle()}`,
+        title: `${_t('Invalid:')} ${action.getTitle()}`,
         message: validation.error || _t('Invalid parameters'),
         options: [{ label: _t('Cancel'), value: 'cancel', style: 'secondary' }]
       });

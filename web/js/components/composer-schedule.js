@@ -259,7 +259,7 @@ export function updateScheduleButton(composer) {
   const turnEnd = composer._scheduledSendMode === 'turn-end';
   btn.setAttribute('title', turnEnd
     ? t('Sending when this turn ends — click to cancel')
-    : `Sending at ${formatClockTime(composer._scheduledSendAt)} — click to change or cancel`);
+    : `${t('Sending at')} ${formatClockTime(composer._scheduledSendAt)} ${t('— click to change or cancel')}`);
   if (label) {
     /** @type {HTMLElement} */ (label).hidden = false;
     // A turn-end wait has no countdown — it ends when the turn does — so the
@@ -337,7 +337,7 @@ function openSchedulePicker(composer) {
     targetLine.className = 'schedule-armed-target';
     targetLine.textContent = composer._scheduledSendMode === 'turn-end'
       ? t('Sending when this turn ends')
-      : `Sending at ${formatClockTime(composer._scheduledSendAt)}`;
+      : `${t('Sending at')} ${formatClockTime(composer._scheduledSendAt)}`;
     menu.appendChild(targetLine);
 
     const cancelBtn = document.createElement('button');
@@ -388,7 +388,7 @@ function openSchedulePicker(composer) {
     dec.type = 'button';
     dec.className = 'schedule-stepper-btn';
     dec.textContent = '\u2212'; // minus
-    dec.setAttribute('aria-label', `Fewer ${unitLabel}`);
+    dec.setAttribute('aria-label', `${t('Fewer')} ${unitLabel}`);
     const val = document.createElement('span');
     val.className = 'schedule-stepper-value';
     const unit = document.createElement('span');
@@ -398,7 +398,7 @@ function openSchedulePicker(composer) {
     inc.type = 'button';
     inc.className = 'schedule-stepper-btn';
     inc.textContent = '+';
-    inc.setAttribute('aria-label', `More ${unitLabel}`);
+    inc.setAttribute('aria-label', `${t('More')} ${unitLabel}`);
     dec.addEventListener('click', () => { set(Math.max(min, get() - step)); refresh(); });
     inc.addEventListener('click', () => { set(Math.min(max, get() + step)); refresh(); });
     wrap.append(dec, val, unit, inc);
@@ -429,7 +429,7 @@ function openSchedulePicker(composer) {
       scheduleBtn.disabled = true;
     } else {
       scheduleBtn.disabled = false;
-      scheduleBtn.textContent = `Schedule to send at ${formatClockTime(Date.now() + totalMin * 60000)}`;
+      scheduleBtn.textContent = `${t('Schedule to send at')} ${formatClockTime(Date.now() + totalMin * 60000)}`;
     }
   };
 

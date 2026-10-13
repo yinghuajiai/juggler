@@ -3,6 +3,7 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t as _t } from '../js/i18n/index.js';
 import { validateManifest } from './lib/manifest.js';
 
 // ============================================================================
@@ -138,40 +139,40 @@ export function validateHookManifest(ctor) {
   const manifest = ctor.MANIFEST;
   const events = manifest.events;
   if (!Array.isArray(events) || events.length === 0) {
-    throw new Error(`${className}.MANIFEST.events must list at least one of: ${HOOK_EVENTS.join(', ')}`);
+    throw new Error(`${className}${_t('.MANIFEST.events must list at least one of:')} ${HOOK_EVENTS.join(', ')}`);
   }
   for (const event of events) {
     if (!HOOK_EVENTS.includes(/** @type {HookEvent} */ (event))) {
-      throw new Error(`${className}.MANIFEST.events has unknown event "${event}" (known: ${HOOK_EVENTS.join(', ')})`);
+      throw new Error(`${className}${_t('.MANIFEST.events has unknown event "')}${event}" (known: ${HOOK_EVENTS.join(', ')})`);
     }
     const method = /** @type {HookEvent} */ (event);
     if (typeof ctor.prototype[method] !== 'function' || ctor.prototype[method] === HookType.prototype[method]) {
-      throw new Error(`${className} declares the "${event}" event but does not implement ${event}()`);
+      throw new Error(`${className} ${_t('declares the "')}${event}${_t('" event but does not implement')} ${event}()`);
     }
   }
   const match = manifest.match || {};
   if (match.tools !== undefined && (!Array.isArray(match.tools) || match.tools.some(t => typeof t !== 'string' || !t))) {
-    throw new Error(`${className}.MANIFEST.match.tools must be an array of tool names`);
+    throw new Error(`${className}${_t('.MANIFEST.match.tools must be an array of tool names')}`);
   }
   for (const key of /** @type {const} */ (['input', 'result'])) {
     if (match[key] === undefined) continue;
     try {
       new RegExp(String(match[key]), 'i');
     } catch (err) {
-      throw new Error(`${className}.MANIFEST.match.${key} is not a valid regular expression: ${/** @type {Error} */ (err).message}`, { cause: err });
+      throw new Error(`${className}.MANIFEST.match.${key} ${_t('is not a valid regular expression:')} ${/** @type {Error} */ (err).message}`, { cause: err });
     }
   }
   if ((match.result !== undefined || match.isError !== undefined) && !events.includes('afterTool')) {
-    throw new Error(`${className}.MANIFEST.match.result and match.isError apply only to the afterTool event`);
+    throw new Error(`${className}${_t('.MANIFEST.match.result and match.isError apply only to the afterTool event')}`);
   }
   if (manifest.repeat !== undefined && manifest.repeat !== 'always' && manifest.repeat !== 'once-per-thread') {
-    throw new Error(`${className}.MANIFEST.repeat must be "always" or "once-per-thread"`);
+    throw new Error(`${className}${_t('.MANIFEST.repeat must be "always" or "once-per-thread"')}`);
   }
   if (manifest.onError !== undefined && manifest.onError !== 'open' && manifest.onError !== 'closed') {
-    throw new Error(`${className}.MANIFEST.onError must be "open" or "closed"`);
+    throw new Error(`${className}${_t('.MANIFEST.onError must be "open" or "closed"')}`);
   }
   if (manifest.timeoutMs !== undefined && !(Number.isFinite(manifest.timeoutMs) && manifest.timeoutMs > 0)) {
-    throw new Error(`${className}.MANIFEST.timeoutMs must be a positive number of milliseconds`);
+    throw new Error(`${className}${_t('.MANIFEST.timeoutMs must be a positive number of milliseconds')}`);
   }
 }
 

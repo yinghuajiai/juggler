@@ -360,7 +360,7 @@ class ToolActionMessage extends HTMLElement {
     const result = item.get('result');
     if (result !== null && result !== undefined) return null;
     const toolName = item.get('toolName') || 'tool';
-    return { message: `Running ${toolName}...`, spinner: true };
+    return { message: `${_t('Running')} ${toolName}...`, spinner: true };
   }
 
   /**
@@ -451,7 +451,7 @@ class ToolActionMessage extends HTMLElement {
     // Default fallback
     const label = document.createElement('div');
     label.className = 'pending-approval-label';
-    label.textContent = `${actionId}: Waiting for approval…`;
+    label.textContent = `${actionId}${_t(': Waiting for approval…')}`;
 
     this._appendApprovalRow(article, label, item);
     this.appendChild(article);
@@ -510,7 +510,7 @@ class ToolActionMessage extends HTMLElement {
 
     const label = document.createElement('div');
     label.className = 'running-label';
-    label.textContent = `${actionId}: Running...`;
+    label.textContent = `${actionId}${_t(': Running...')}`;
     container.appendChild(label);
 
     article.appendChild(this._wrapWithIcon(container));
@@ -620,7 +620,7 @@ class ToolActionMessage extends HTMLElement {
 
     if (!actionId) {
       const resultContent = resultMap?.get ? resultMap.get('content') : resultMap?.content;
-      const errorMessage = resultContent || result?.error || `Unknown tool: ${itemToolName}`;
+      const errorMessage = resultContent || result?.error || `${_t('Unknown tool:')} ${itemToolName}`;
       this.appendChild(createErrorArticle(errorMessage));
       return;
     }

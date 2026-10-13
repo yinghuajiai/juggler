@@ -74,7 +74,7 @@ export function bindNetworkClients(button, { events = wsService, seed = fetchCli
     const others = Math.max(0, (total || 1) - 1);
     const label = others === 0
       ? t('Network settings')
-      : `Network settings — ${others} other client${others === 1 ? '' : 's'} connected`;
+      : `${t('Network settings —')} ${others} other client${others === 1 ? '' : 's'} connected`;
     button.title = label;
     button.setAttribute('aria-label', label);
     if (count) count.textContent = String(others);
@@ -196,9 +196,9 @@ export function setupHeaderControls(session) {
         // server the app did not start, it switches in place (each folder
         // carries its own tabs).
         pathChip.title = projectsOpenInNewWindow()
-          ? `Current project folder: ${projectPath}\n`
+          ? `${t('Current project folder:')} ${projectPath}\n`
             + 'Click to open another project in a new window — this one stays put.'
-          : `Current project folder: ${projectPath}\n`
+          : `${t('Current project folder:')} ${projectPath}\n`
             + 'Click to switch to a different project folder';
       }
       pathDisplay.classList.remove('is-empty');

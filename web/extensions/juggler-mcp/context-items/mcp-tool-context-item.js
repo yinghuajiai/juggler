@@ -89,7 +89,7 @@ export function buildToolDefinition(t) {
       ? t.inputSchema
       : { type: 'object', properties: {} }
   );
-  let description = t.description || `${t.title || t.name} (via MCP server "${t.server}")`;
+  let description = t.description || `${t.title || t.name} ${_t('(via MCP server "')}${t.server}")`;
   if (description.length > MAX_DESC_CHARS) {
     description = description.slice(0, MAX_DESC_CHARS) + '…';
   }
@@ -125,9 +125,9 @@ export function mcpApprovalSuggestions(t) {
     { itemType: ITEM_TYPE, rules: [{ kind: 'glob', value: rv.exact }], patterns: [`${t.server}/${t.tool}`] }
   ];
   if (t.readOnly) {
-    out.push({ itemType: ITEM_TYPE, rules: [{ kind: 'glob', value: rv.readonly }], label: `all read-only tools on "${t.server}"` });
+    out.push({ itemType: ITEM_TYPE, rules: [{ kind: 'glob', value: rv.readonly }], label: `${_t('all read-only tools on "')}${t.server}"` });
   }
-  out.push({ itemType: ITEM_TYPE, rules: [{ kind: 'glob', value: rv.all }], label: `all tools on "${t.server}" (trust this server)` });
+  out.push({ itemType: ITEM_TYPE, rules: [{ kind: 'glob', value: rv.all }], label: `${_t('all tools on "')}${t.server}${_t('" (trust this server)')}` });
   return out;
 }
 
@@ -301,7 +301,7 @@ class McpToolContextItem extends ContextItem {
   async validate(toolInput) {
     const { info, llm } = this._target();
     if (!info) {
-      return { valid: false, error: `Unknown MCP tool "${llm}" (its server may be stopped or reconfigured)` };
+      return { valid: false, error: `${_t('Unknown MCP tool "')}${llm}${_t('" (its server may be stopped or reconfigured)')}` };
     }
     return { valid: true, params: toolInput };
   }
@@ -357,7 +357,7 @@ class McpToolContextItem extends ContextItem {
    */
   async getApprovalConfig(params) {
     const { server, info } = this._target();
-    const title = `MCP: ${server} / ${info?.title || info?.name || 'tool'}`;
+    const title = `${_t('MCP:')} ${server} / ${info?.title || info?.name || 'tool'}`;
     const desc = info?.description ? `${info.description}\n\n` : '';
     let argStr = '';
     try {
@@ -376,7 +376,7 @@ class McpToolContextItem extends ContextItem {
   async execute(params) {
     const { server, tool, info, llm } = this._target();
     if (!info) {
-      throw new Error(`Unknown MCP tool "${llm}"`);
+      throw new Error(`${_t('Unknown MCP tool "')}${llm}"`);
     }
     const result = await mcpCallTool({ server, tool, args: /** @type {object} */ (params) }, this.signal);
     const blocks = Array.isArray(result?.content) ? result.content : [];
@@ -450,12 +450,12 @@ class McpToolContextItem extends ContextItem {
 
     return this.buildStatusUI(actionStatus, {
       typeName: 'MCP',
-      pending: `Calling ${label}…`,
+      pending: `${_t('Calling')} ${label}…`,
       success: () => {
         const result = /** @type {{isError?: boolean}} */ (actionStatus?.result || {});
         // A completed call whose result the server flagged as an error.
         return result.isError
-          ? { summary: `${label} — tool reported an error`, status: /** @type {const} */ ('error') }
+          ? { summary: `${label} ${_t('— tool reported an error')}`, status: /** @type {const} */ ('error') }
           : label;
       },
       failurePrefix: `${label} failed`

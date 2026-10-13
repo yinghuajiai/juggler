@@ -104,7 +104,7 @@ class ImageFileViewer extends FileViewer {
     } catch (err) {
       // The read itself succeeded — degrade to a note rather than failing it.
       return {
-        warning: `Image could not be attached for viewing: ${/** @type {any} */ (err)?.message || err}`,
+        warning: `${t('Image could not be attached for viewing:')} ${/** @type {any} */ (err)?.message || err}`,
       };
     }
   }

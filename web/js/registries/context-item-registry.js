@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import BaseRegistry from './base-registry.js';
 import { getExtensionCapabilities } from '../services/extensions.js';
 import { resolveToolName } from '../services/tool-generator.js';
@@ -150,14 +151,14 @@ class ContextItemRegistry extends BaseRegistry {
     }
 
     if (!json.id || typeof json.id !== 'string') {
-      throw new Error(`Invalid item data: missing or invalid id (type: ${json.type})`);
+      throw new Error(`${t('Invalid item data: missing or invalid id (type:')} ${json.type})`);
     }
 
     const itemId = json.type;
     const ItemClass = this.get(itemId);
 
     if (!ItemClass) {
-      throw new Error(`No context item found for type: ${itemId}`);
+      throw new Error(`${t('No context item found for type:')} ${itemId}`);
     }
 
     // Create item instance with context object

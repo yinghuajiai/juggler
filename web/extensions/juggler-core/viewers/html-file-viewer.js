@@ -89,9 +89,9 @@ async function probe(url, signal) {
   try {
     const res = await fetch(url, { headers: { Range: 'bytes=0-0' }, signal });
     void res.body?.cancel();
-    return res.ok ? '' : `Couldn’t load the page (HTTP ${res.status}), so shown as source.`;
+    return res.ok ? '' : `${t('Couldn’t load the page (HTTP')} ${res.status}${t('), so shown as source.')}`;
   } catch (err) {
-    return `Couldn’t load the page (${/** @type {any} */ (err)?.message || err}), so shown as source.`;
+    return `${t('Couldn’t load the page (')}${/** @type {any} */ (err)?.message || err}${t('), so shown as source.')}`;
   }
 }
 

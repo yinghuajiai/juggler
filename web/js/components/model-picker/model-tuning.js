@@ -164,7 +164,7 @@ class ModelTuning extends HTMLElement {
 
     const active = this._activeLevel();
     const def = this._modelEntry?.defaultThinkingLevel;
-    const defaultLabel = def ? `Default (${thinkingLabel(def)})` : 'Default';
+    const defaultLabel = def ? `${_t('Default (')}${thinkingLabel(def)})` : 'Default';
 
     const seg = (/** @type {string} */ level, /** @type {string} */ label) => {
       const isActive = level === active;

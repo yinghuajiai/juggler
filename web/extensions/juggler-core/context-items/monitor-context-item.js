@@ -70,7 +70,7 @@ class MonitorContextItem extends ContextItem {
         },
         timeout_ms: {
           type: 'number',
-          description: `Kill the monitor after this many milliseconds. Larger values are capped at ${MAX_EXEC_TIMEOUT_MS}. Ignored when persistent is true.`
+          description: `${_t('Kill the monitor after this many milliseconds. Larger values are capped at')} ${MAX_EXEC_TIMEOUT_MS}${_t('. Ignored when persistent is true.')}`
         }
       },
       required: ['command', 'description']
@@ -145,7 +145,7 @@ class MonitorContextItem extends ContextItem {
     const command = /** @type {string} */ (params.command);
     const description = params.description ? ` (${params.description})` : '';
     return {
-      message: `Start monitor${description}:\n\n${command}\n\nThis runs in the background; its output streams into the conversation.`
+      message: `${_t('Start monitor')}${description}:\n\n${command}\n\nThis runs in the background; its output streams into the conversation.`
     };
   }
 
@@ -229,7 +229,7 @@ class MonitorContextItem extends ContextItem {
       return this.failureSummary(_t('Monitor cancelled'), { details: command ? `$ ${command}` : '' });
     }
     if (!outcome.success) {
-      return this.failureSummary(`Failed to start monitor: ${outcome.error}`);
+      return this.failureSummary(`${_t('Failed to start monitor:')} ${outcome.error}`);
     }
 
     const result = /** @type {{task_id?: string, persistent?: boolean}} */ (outcome.result);
@@ -237,7 +237,7 @@ class MonitorContextItem extends ContextItem {
     const persistentNote = result.persistent
       ? _t(' It is persistent and runs until you call TaskStop or the session ends.')
       : '';
-    const summary = `Monitor started (task ${taskId}). Matching output lines will be delivered into this conversation as they arrive — you keep working and they surface when you next yield, so don't wait for them.${persistentNote} Read full output with TaskOutput(${taskId}); stop it with TaskStop(${taskId}).`;
+    const summary = `${_t('Monitor started (task')} ${taskId}${_t("). Matching output lines will be delivered into this conversation as they arrive — you keep working and they surface when you next yield, so don't wait for them.")}${persistentNote} ${_t('Read full output with TaskOutput(')}${taskId}); stop it with TaskStop(${taskId}).`;
 
     return this.successSummary(summary, { details: `$ ${command}` });
   }

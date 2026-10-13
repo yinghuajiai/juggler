@@ -210,7 +210,7 @@ class ContextPreviewModal extends HTMLElement {
     const sizeEl = this.querySelector('#size-readout');
     if (sizeEl) {
       const kb = this._contextText.length / 1024;
-      sizeEl.textContent = kb >= 10 ? `${kb.toFixed(0)} KB` : `${kb.toFixed(1)} KB`;
+      sizeEl.textContent = kb >= 10 ? `${kb.toFixed(0)} ${t('KB')}` : `${kb.toFixed(1)} ${t('KB')}`;
     }
 
     this.renderContextWithAnchors();
@@ -432,7 +432,7 @@ class ContextPreviewModal extends HTMLElement {
         // 20px, the size of the copy icon it stands in for.
         copyButton.innerHTML = `
           ${withAttrs(CHECK_SVG, { width: '20px', height: '20px' })}
-          Copied!
+          ${t('Copied!')}
         `;
         copyButton.classList.add('copied');
 

@@ -2036,7 +2036,7 @@ class ConversationArea extends HTMLElement {
 
     requestAnimationFrame(() => {
       for (const node of touched) {
-        node.style.transition = `transform ${INSERT_ANIM_MS}ms ease, opacity ${INSERT_ANIM_MS}ms ease`;
+        node.style.transition = `transform ${INSERT_ANIM_MS}${_t('ms ease, opacity')} ${INSERT_ANIM_MS}ms ease`;
         node.style.transform = '';
         node.style.opacity = '';
         const done = (/** @type {Event} */ e) => {

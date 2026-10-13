@@ -19,11 +19,11 @@ export function formatResetIn(resetsAt) {
   if (!Number.isFinite(ms)) return '';
   if (ms <= 0) return t('Resets now');
   const mins = Math.floor(ms / 60000);
-  if (mins < 60) return `Resets in ${Math.max(1, mins)}m`;
+  if (mins < 60) return `${t('Resets in')} ${Math.max(1, mins)}m`;
   const hours = Math.floor(mins / 60);
-  if (hours < 24) return `Resets in ${hours}h ${mins % 60}m`;
+  if (hours < 24) return `${t('Resets in')} ${hours}h ${mins % 60}m`;
   const days = Math.floor(hours / 24);
-  return `Resets in ${days}d ${hours % 24}h`;
+  return `${t('Resets in')} ${days}d ${hours % 24}h`;
 }
 
 /**

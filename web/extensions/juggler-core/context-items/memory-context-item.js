@@ -417,7 +417,7 @@ class MemoryContextItem extends ContextItem {
       return { action: 'forget', match, removed, entryCount: parseMemory(content).entries.length };
     }
 
-    throw new Error(`Unknown memory action: ${params.action}`);
+    throw new Error(`${t('Unknown memory action:')} ${params.action}`);
   }
 
   /**
@@ -428,17 +428,17 @@ class MemoryContextItem extends ContextItem {
    */
   getSummary(outcome) {
     if (!outcome.success) {
-      return this.failureSummary(`Memory update failed: ${outcome.error}`);
+      return this.failureSummary(`${t('Memory update failed:')} ${outcome.error}`);
     }
     const r = /** @type {{action?: string, fact?: string, match?: string, removed?: string[]}} */ (outcome.result || {});
     if (r.action === 'forget') {
       if (!r.removed || r.removed.length === 0) {
-        return this.successSummary(`No memory entry matched "${r.match}"`);
+        return this.successSummary(`${t('No memory entry matched "')}${r.match}"`);
       }
       const noun = r.removed.length === 1 ? 'entry' : 'entries';
-      return this.successSummary(`Forgot ${r.removed.length} memory ${noun}: ${r.removed.join('; ')}`);
+      return this.successSummary(`${t('Forgot')} ${r.removed.length} memory ${noun}: ${r.removed.join('; ')}`);
     }
-    return this.successSummary(`Remembered: ${r.fact}`);
+    return this.successSummary(`${t('Remembered:')} ${r.fact}`);
   }
 
   /**
@@ -482,7 +482,7 @@ class MemoryContextItem extends ContextItem {
     if (actionStatus.success) {
       const r = /** @type {{action?: string, fact?: string, match?: string, removed?: string[]}} */ (actionStatus.result || {});
       if (r.action === 'forget') {
-        const summary = r.removed && r.removed.length ? r.removed.join('; ') : `No match for “${r.match}”`;
+        const summary = r.removed && r.removed.length ? r.removed.join('; ') : `${t('No match for “')}${r.match}”`;
         return { typeName: 'Forget', summary, status: /** @type {const} */ ('success') };
       }
       return { typeName: 'Remember', summary: `${r.fact}`, status: /** @type {const} */ ('success') };
@@ -548,7 +548,7 @@ class MemoryContextItem extends ContextItem {
 
       if (removedCount === 0) {
         panel.appendChild(verbChip(t('No change'), 'remove'));
-        panel.appendChild(factBlock(`No memory entry matched “${match}”.`, 'muted'));
+        panel.appendChild(factBlock(`${t('No memory entry matched “')}${match}”.`, 'muted'));
       } else {
         panel.appendChild(verbChip('Forgot', 'remove'));
         if (removed) {
@@ -557,7 +557,7 @@ class MemoryContextItem extends ContextItem {
           panel.appendChild(ul);
         } else {
           const n = removedCount ?? 0;
-          panel.appendChild(factBlock(`Removed ${n} ${n === 1 ? 'entry' : 'entries'} matching “${match}”.`));
+          panel.appendChild(factBlock(`${t('Removed')} ${n} ${n === 1 ? 'entry' : 'entries'} matching “${match}”.`));
         }
       }
     } else {
@@ -569,7 +569,7 @@ class MemoryContextItem extends ContextItem {
     const entryCount = typeof data.entryCount === 'number' ? data.entryCount : null;
     const note = entryCount === null
       ? t('Project memory is carried into every new conversation.')
-      : `Project memory now holds ${entryCount} ${entryCount === 1 ? 'fact' : 'facts'}. New conversations start with all of them.`;
+      : `${t('Project memory now holds')} ${entryCount} ${entryCount === 1 ? 'fact' : 'facts'}${t('. New conversations start with all of them.')}`;
     panel.appendChild(createElement('div', 'memory-action-note', note));
 
     wrapper.appendChild(panel);

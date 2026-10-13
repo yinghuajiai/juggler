@@ -133,8 +133,8 @@ export function formatToolDrift(drift) {
  */
 export function toolDriftDetail(drift) {
   return [
-    drift?.added.length ? `Added: ${drift.added.join(', ')}` : '',
-    drift?.removed.length ? `Gone: ${drift.removed.join(', ')}` : ''
+    drift?.added.length ? `${_t('Added:')} ${drift.added.join(', ')}` : '',
+    drift?.removed.length ? `${_t('Gone:')} ${drift.removed.join(', ')}` : ''
   ].filter(Boolean).join('\n');
 }
 
@@ -166,7 +166,7 @@ export function groupToolsByOrigin(tools) {
     const group = (buckets.get(key) || []).slice()
       .sort((a, b) => estimateValueTokens(b) - estimateValueTokens(a));
     return {
-      title: key === null ? _t('Juggler tools') : `MCP · ${key}`,
+      title: key === null ? _t('Juggler tools') : `${_t('MCP ·')} ${key}`,
       server: key,
       tools: group,
       tokens: group.reduce((sum, t) => sum + estimateValueTokens(t), 0)

@@ -266,7 +266,7 @@ export function buildEndpointCard(endpoint, ctx) {
       refresh({ remodel });
       return true;
     } catch (error) {
-      setStatus(`Couldn’t save. ${extractErrorMessage(error)}`, 'error');
+      setStatus(`${t('Couldn’t save.')} ${extractErrorMessage(error)}`, 'error');
       return false;
     }
   };
@@ -433,14 +433,14 @@ function buildHeadersField(endpoint, saveFields) {
       value: key, placeholder: t('X-Tenant'), ariaLabel: t('Header name'), className: 'custom-endpoint-header-name',
     });
     const val = wrappedInput({
-      value, placeholder: t('value'), ariaLabel: `Value for header ${key || 'being added'}`, className: 'custom-endpoint-header-value',
+      value, placeholder: t('value'), ariaLabel: `${t('Value for header')} ${key || 'being added'}`, className: 'custom-endpoint-header-value',
     });
 
     const drop = document.createElement('button');
     drop.type = 'button';
     drop.className = 'settings-btn small custom-endpoint-header-remove';
     drop.textContent = '\u00d7';
-    drop.setAttribute('aria-label', `Remove header ${key || 'being added'}`);
+    drop.setAttribute('aria-label', `${t('Remove header')} ${key || 'being added'}`);
     drop.addEventListener('click', () => {
       row.remove();
       save();
@@ -561,7 +561,7 @@ function buildKeyField(endpoint, ctx) {
       refresh();
       ctx.applyEndpoints(endpoints);
     } catch (error) {
-      field.setStatus(`Couldn’t save the key. ${extractErrorMessage(error)}`, 'error');
+      field.setStatus(`${t('Couldn’t save the key.')} ${extractErrorMessage(error)}`, 'error');
     }
   };
 
@@ -578,7 +578,7 @@ function buildKeyField(endpoint, ctx) {
   if (fromEnv) {
     const hint = document.createElement('div');
     hint.className = 'key-source-hint';
-    hint.textContent = `Using environment variable $${endpoint.envVarName}`;
+    hint.textContent = `${t('Using environment variable $')}${endpoint.envVarName}`;
     field.body.appendChild(hint);
   }
 
@@ -603,7 +603,7 @@ function buildRemoveRow(endpoint, ctx) {
   remove.addEventListener('click', async () => {
     const label = endpoint.displayName || endpoint.id;
     const confirmed = await showConfirm(
-      `Remove “${label}”? Its models leave the picker, and the limits and hidden models set for them are forgotten. Its API key stays in the credentials store.`,
+      `${t('Remove “')}${label}${t('”? Its models leave the picker, and the limits and hidden models set for them are forgotten. Its API key stays in the credentials store.')}`,
       t('Remove endpoint'),
       { confirmText: t('Remove'), danger: true },
     );
@@ -615,7 +615,7 @@ function buildRemoveRow(endpoint, ctx) {
       ctx.onRemoved(endpoints);
     } catch (error) {
       remove.disabled = false;
-      ctx.reportError(`Couldn’t remove “${label}”. ${extractErrorMessage(error)}`);
+      ctx.reportError(`${t('Couldn’t remove “')}${label}”. ${extractErrorMessage(error)}`);
     }
   });
 
@@ -668,7 +668,7 @@ export function buildAddEndpointForm(ctx) {
   const showID = () => {
     const derived = deriveEndpointId(name.input.value, ctx.takenIds);
     idNote.textContent = name.input.value.trim()
-      ? `Registers as custom-${derived}`
+      ? `${t('Registers as custom-')}${derived}`
       : '';
   };
   name.input.addEventListener('input', showID);
@@ -708,7 +708,7 @@ export function buildAddEndpointForm(ctx) {
       ctx.onAdded(endpoints);
     } catch (error) {
       add.disabled = false;
-      urlField.setStatus(`Couldn’t add it. ${extractErrorMessage(error)}`, 'error');
+      urlField.setStatus(`${t('Couldn’t add it.')} ${extractErrorMessage(error)}`, 'error');
     }
   });
 

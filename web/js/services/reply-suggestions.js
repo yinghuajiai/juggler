@@ -31,6 +31,7 @@
  * @module services/reply-suggestions
  */
 
+import { t } from '../i18n/index.js';
 import { isUserMessage, isAssistantMessage, isToolActionMessage, itemField } from '../../sdk/lib/message.js';
 import { generateText } from './ops-api.js';
 
@@ -170,7 +171,7 @@ export function buildSuggestionsPrompt(items) {
   for (let i = earlier.length - 1; i >= 0 && users.length < PROMPT_CAPS.userMessages; i--) {
     if (!isUserMessage(earlier[i])) continue;
     const text = textOf(earlier[i]);
-    if (text) users.unshift(`USER: ${keepHead(text, PROMPT_CAPS.userChars)}`);
+    if (text) users.unshift(`${t('USER:')} ${keepHead(text, PROMPT_CAPS.userChars)}`);
   }
 
   /** @type {string[]} */
@@ -186,8 +187,8 @@ export function buildSuggestionsPrompt(items) {
 
   /** @type {string[]} */
   const lines = [...users];
-  if (recentTools.length) lines.push(`AGENT RAN: ${recentTools.join(', ')}`);
-  lines.push(`AGENT: ${keepTail(textOf(list[lastAssistantIndex]), PROMPT_CAPS.assistantChars)}`);
+  if (recentTools.length) lines.push(`${t('AGENT RAN:')} ${recentTools.join(', ')}`);
+  lines.push(`${t('AGENT:')} ${keepTail(textOf(list[lastAssistantIndex]), PROMPT_CAPS.assistantChars)}`);
 
   // Total guard: drop from the front (the oldest user message first), never
   // from the agent's reply, which is the only line the task cannot be done

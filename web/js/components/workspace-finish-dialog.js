@@ -118,7 +118,7 @@ function workList(status) {
   if (hidden > 0) {
     const rest = document.createElement('div');
     rest.className = 'workspace-finish-work-rest';
-    rest.textContent = `…and ${hidden} more.`;
+    rest.textContent = `…and ${hidden} ${t('more.')}`;
     list.appendChild(rest);
   }
 

@@ -182,17 +182,17 @@ export class UpdatesTab {
     if (!el) return;
     const current = status.currentVersion || (updater && updater.appVersion) || 'unknown';
     const latest = status.latestVersion || '';
-    const parts = [`Current version ${current}.`];
+    const parts = [`${t('Current version')} ${current}.`];
     if (status.updateAvailable && latest) {
-      parts.push(`Version ${latest} is available.`);
+      parts.push(`${t('Version')} ${latest} ${t('is available.')}`);
     } else if (status.unpublished) {
       // No comparison was made, and latest is usually newer than this build —
       // so it is reported as what it is, never as the version being run.
       parts.push(latest
-        ? `Latest release is ${latest}; a build from source is never offered updates.`
+        ? `${t('Latest release is')} ${latest}; a build from source is never offered updates.`
         : t('A build from source is never offered updates.'));
     } else if (latest) {
-      parts.push(`This is the latest version (${latest}).`);
+      parts.push(`${t('This is the latest version (')}${latest}).`);
     } else {
       parts.push(t('No update information yet.'));
     }
@@ -201,7 +201,7 @@ export class UpdatesTab {
     // update-notice.js's _hasServerSkew. Updating the app won't touch that server.
     if (updater && updater.present && updater.appVersion && status.currentVersion
       && updater.appVersion !== status.currentVersion) {
-      parts.push(`The app bundle is v${updater.appVersion}, but this server is ${status.currentVersion};`
+      parts.push(`${t('The app bundle is v')}${updater.appVersion}${t(', but this server is')} ${status.currentVersion};`
         + ` updating the app won't update a server started outside it.`);
     }
     el.textContent = parts.join(' ');
@@ -255,7 +255,7 @@ export class UpdatesTab {
       // Revert the UI to the last-known-good mode.
       this._mode = prev;
       this._reflectMode(prev);
-      this._setStatus(`Couldn't save the update setting (${extractErrorMessage(err)}).`);
+      this._setStatus(`${t("Couldn't save the update setting (")}${extractErrorMessage(err)}).`);
     }
   }
 
@@ -279,12 +279,12 @@ export class UpdatesTab {
       if (status.error) {
         this._setStatus(t('Couldn’t reach the update server. Try again later.'));
       } else if (status.updateAvailable) {
-        this._setStatus(`Version ${status.latestVersion || ''} is available.`.trim());
+        this._setStatus(`${t('Version')} ${status.latestVersion || ''} ${t('is available.')}`.trim());
         // Surface the full dialog (with download/install affordances).
         window.dispatchEvent(new CustomEvent('juggler:open-update-dialog'));
       } else if (status.unpublished) {
         this._setStatus(status.latestVersion
-          ? `Latest release is ${status.latestVersion}; a build from source is never offered updates.`
+          ? `${t('Latest release is')} ${status.latestVersion}; a build from source is never offered updates.`
           : t('A build from source is never offered updates.'));
       } else {
         this._setStatus(t('You’re on the latest version.'));
@@ -292,7 +292,7 @@ export class UpdatesTab {
       const updater = await getUpdaterState();
       this._renderVersion(status, updater);
     } catch (err) {
-      this._setStatus(`Check failed (${extractErrorMessage(err)}).`);
+      this._setStatus(`${t('Check failed (')}${extractErrorMessage(err)}).`);
     } finally {
       if (btn) btn.disabled = false;
     }

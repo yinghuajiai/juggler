@@ -99,7 +99,7 @@ function describeParameters(schema) {
     const kind = [property.type, required.has(name) ? 'required' : null].filter(Boolean).join(', ');
     return `\`${name}\`${kind ? ` (${kind})` : ''}${property.description ? ` — ${property.description}` : ''}`;
   });
-  return `Parameters: ${parts.join(' ')}`;
+  return `${t('Parameters:')} ${parts.join(' ')}`;
 }
 
 /**
@@ -280,7 +280,7 @@ class PinToPinboardContextItem extends ContextItem {
     }
     const result = /** @type {{type?: string, parameters?: Record<string, any>}} */ (outcome.result) || {};
     const label = result.type ? pinLabel(result.type, result.parameters) : '';
-    return this.successSummary(`Pinned ${label || 'the item'} and asked the user’s Pinboard to show it.`);
+    return this.successSummary(`${t('Pinned')} ${label || 'the item'} ${t('and asked the user’s Pinboard to show it.')}`);
   }
 
   /**

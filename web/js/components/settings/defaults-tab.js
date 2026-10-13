@@ -424,7 +424,7 @@ export class DefaultsTab {
       save: async (value) => {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { stream_idle_timeout: value } });
         /** @type {any} */ (this.config).streamIdleTimeout = value;
-        return value ? `Saved. Waiting up to ${value}s.` : t('Saved. Using default (180s).');
+        return value ? `${t('Saved. Waiting up to')} ${value}${t('s.')}` : t('Saved. Using default (180s).');
       },
       failureLog: 'stream idle timeout',
     });
@@ -453,7 +453,7 @@ export class DefaultsTab {
         await fetchJson(apiUrl('/config'), { method: 'PUT', body: { spend_limit_tokens: tokens } });
         /** @type {any} */ (this.config).spendLimitTokens = tokens;
         if (value === '') return t('Saved. Using the default (10M).');
-        return value === '0' ? t('Saved. No ceiling.') : `Saved. Stopping delegated work past ${value}M.`;
+        return value === '0' ? t('Saved. No ceiling.') : `${t('Saved. Stopping delegated work past')} ${value}${t('M.')}`;
       },
       failureLog: 'spend ceiling',
     });
@@ -878,7 +878,7 @@ export class DefaultsTab {
   _defaultModelStatusText(ref) {
     if (!ref || !ref.explicit) {
       if (ref && ref.provider && ref.model) {
-        return `Auto — currently ${modelLabelFromList(this.providers, ref.provider, ref.model)}.`;
+        return `${t('Auto — currently')} ${modelLabelFromList(this.providers, ref.provider, ref.model)}.`;
       }
       return t('Auto — no provider is configured yet.');
     }
@@ -900,7 +900,7 @@ export class DefaultsTab {
     if (!ref || !ref.explicit) {
       const auto = ref && ref.autoResolved;
       if (auto && auto.provider && auto.model) {
-        return `Auto — currently ${modelLabelFromList(this.providers, auto.provider, auto.model)}.`;
+        return `${t('Auto — currently')} ${modelLabelFromList(this.providers, auto.provider, auto.model)}.`;
       }
       return t('Auto — nothing available for this provider.');
     }

@@ -24,6 +24,7 @@
  * @module services/skills
  */
 
+import { t } from '../i18n/index.js';
 import { fetchJson } from './http.js';
 import { SEND_LOOKUP_TIMEOUT_MS } from '../utils/constants.js';
 import { apiUrl } from '../utils/api-url.js';
@@ -120,7 +121,7 @@ export async function getAvailableSkills() {
  */
 export async function fetchSkillBody(scope, source, name) {
   const url = apiUrl(`/skills/${encodeURIComponent(scope)}/${encodeURIComponent(source)}/${encodeURIComponent(name)}`);
-  return await fetchJson(url, { errorPrefix: `Failed to load skill "${name}"` });
+  return await fetchJson(url, { errorPrefix: `${t('Failed to load skill "')}${name}"` });
 }
 
 /**

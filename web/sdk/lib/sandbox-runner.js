@@ -216,7 +216,7 @@ export async function runInSandbox(code, { capabilities = {}, timeoutMs = 30000,
       const { kind, method, args, id } = msg;
       try {
         const cap = /** @type {any} */ (capabilities)[kind];
-        if (cap === undefined) throw new Error(`unknown capability: ${kind}`);
+        if (cap === undefined) throw new Error(`${t('unknown capability:')} ${kind}`);
         let value;
         if (typeof cap === 'function') {
           value = await cap(...(args || []));
@@ -232,7 +232,7 @@ export async function runInSandbox(code, { capabilities = {}, timeoutMs = 30000,
   });
 
   const timer = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error(`Script timed out after ${timeoutMs}ms`)), timeoutMs)
+    setTimeout(() => reject(new Error(`${t('Script timed out after')} ${timeoutMs}ms`)), timeoutMs)
   );
 
   const contentWindow = iframe.contentWindow;

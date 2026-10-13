@@ -181,9 +181,9 @@ class TokenDisplay extends HTMLElement {
     // the news, and a warning repeated on every hover of a state the user chose
     // is not.
     if (hasBudget && truePct > 100) {
-      this.title = `${fmtTokens(this.total - this.budget)} over the window.`;
+      this.title = `${fmtTokens(this.total - this.budget)} ${t('over the window.')}`;
     } else if (hasBudget && totalPct >= NEARLY_FULL_PCT) {
-      this.title = `${Math.round(totalPct)}% full. Something’s got to give.`;
+      this.title = `${Math.round(totalPct)}${t('% full. Something’s got to give.')}`;
     } else if (!this.processing && this.cached === null) {
       this.title = t('Cache use not reported for this turn.');
     } else {

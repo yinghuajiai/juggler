@@ -97,7 +97,7 @@ export async function executeAction(rh, toolCall, messageThread, outerOptions = 
   } catch (error) {
     // Catch any uncaught errors and return a result that continues the loop
     const { message, stack } = extractErrorInfo(error);
-    const errorContent = `Error: ${message}`;
+    const errorContent = `${_t('Error:')} ${message}`;
     if (stack) console.error(`[ResponseHandler] Action error stack:\n${stack}`);
     return failToolAction(messageThread, toolCall, {
       content: errorContent,
@@ -139,7 +139,7 @@ export function buildApprovalOptions(action, prepared) {
   const options = approval.options || buildApprovalButtons(action, prepared.params || {});
 
   return {
-    title: approval.title || `Approve: ${manifest.name}`,
+    title: approval.title || `${_t('Approve:')} ${manifest.name}`,
     message: approval.message || '',
     options,
     ...approval.display // Extra display data (diffs, previews, etc.)
@@ -230,8 +230,8 @@ async function prepareAction(rh, toolCall, toolInput, messageThread) {
     await resolveAndPrepare(rh, toolCall, toolInput, messageThread);
   if (!ActionClass) {
     const errorMessage = blockedReason
-      ? `Tool "${toolCall.name}" is not available: ${blockedReason}`
-      : await withMcpToolMissReason(`Unknown action: ${toolCall.name}`, toolCall.name);
+      ? `${_t('Tool "')}${toolCall.name}${_t('" is not available:')} ${blockedReason}`
+      : await withMcpToolMissReason(`${_t('Unknown action:')} ${toolCall.name}`, toolCall.name);
 
     return {
       result: failToolAction(messageThread, toolCall, {
@@ -607,7 +607,7 @@ async function runActionAndComplete(rh, toolCall, actionId, toolInput, messageTh
     };
   } catch (error) {
     const { message, stack } = extractErrorInfo(error);
-    const errorContent = `Error: ${message}`;
+    const errorContent = `${_t('Error:')} ${message}`;
     if (stack) console.error(`[ResponseHandler] Action error stack:\n${stack}`);
     return failToolAction(messageThread, toolCall, {
       content: errorContent,

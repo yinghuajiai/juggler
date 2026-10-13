@@ -178,7 +178,7 @@ async function openPath(path) {
   try {
     await osOpenPath({ path });
   } catch (err) {
-    showNotice(`Couldn't open that file. ${extractErrorMessage(err)}`);
+    showNotice(`${t("Couldn't open that file.")} ${extractErrorMessage(err)}`);
   }
 }
 
@@ -191,7 +191,7 @@ async function showPath(path) {
   try {
     await osRevealPath({ path });
   } catch (err) {
-    showNotice(`Couldn't show that file. ${extractErrorMessage(err)}`);
+    showNotice(`${t("Couldn't show that file.")} ${extractErrorMessage(err)}`);
   }
 }
 
@@ -433,7 +433,7 @@ registerContextMenuProvider({
         // browser refused would otherwise look exactly like one that worked.
         onClick: () => {
           void copyToClipboard(path).catch((err) => {
-            showNotice(`Couldn't copy the path. ${extractErrorMessage(err)}`);
+            showNotice(`${t("Couldn't copy the path.")} ${extractErrorMessage(err)}`);
           });
         },
       },

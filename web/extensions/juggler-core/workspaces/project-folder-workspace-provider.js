@@ -257,8 +257,8 @@ class ProjectFolderWorkspaceProvider extends WorkspaceProvider {
     const { rel, dir } = this._places(values, ctx);
 
     const found = await ctx.ops.stat({ path: dir });
-    if (!found?.exists) throw new Error(`Couldn't use ${dir}: there is no such folder.`);
-    if (!found.isDirectory) throw new Error(`Couldn't use ${dir}: that is a file, not a folder.`);
+    if (!found?.exists) throw new Error(`${t("Couldn't use")} ${dir}${t(': there is no such folder.')}`);
+    if (!found.isDirectory) throw new Error(`${t("Couldn't use")} ${dir}${t(': that is a file, not a folder.')}`);
 
     return { workspace: { root: dir, label: rel, meta: { folder: rel } } };
   }

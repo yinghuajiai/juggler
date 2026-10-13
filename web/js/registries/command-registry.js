@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import BaseRegistry from './base-registry.js';
 import { getExtensionCapabilities } from '../services/extensions.js';
 import { getRegisterableUserCommands } from '../services/user-commands.js';
@@ -76,8 +77,8 @@ class CommandRegistry extends BaseRegistry {
    * @protected
    */
   collisionMessage(id) {
-    return `A command named /${id} already exists (built-in or from an extension), ` +
-      `so your custom /${id} was skipped. Rename your command to a name that isn't taken.`;
+    return `${t('A command named /')}${id} ${t('already exists (built-in or from an extension),')} ` +
+      `${t('so your custom /')}${id} ${t("was skipped. Rename your command to a name that isn't taken.")}`;
   }
 
   /**

@@ -257,7 +257,7 @@ class EditBase extends ContextItem {
         itemType: EDIT_ITEM_TYPE,
         rules: [allowRule],
         allowedPaths: [folder],
-        label: `file edits + allow ${EditBase._tildeify(folder, home)}`
+        label: `${_t('file edits + allow')} ${EditBase._tildeify(folder, home)}`
       });
     }
     suggestions.push({
@@ -295,7 +295,7 @@ class EditBase extends ContextItem {
     const outOfRoot = path && !this._isPathAllowed(path);
     return {
       title: outOfRoot ? path : formatDisplayPath(path),
-      message: outOfRoot ? `⚠ Write outside the project folder: ${path}` : '',
+      message: outOfRoot ? `${_t('⚠ Write outside the project folder:')} ${path}` : '',
       display: {
         diffData: {
           oldContent: diffData.oldContent,
@@ -315,7 +315,7 @@ class EditBase extends ContextItem {
    * @returns {import('juggler/context-item').ItemSummary} Formatted result object for display
    */
   _formatEditResult(path, details) {
-    return this.successSummary(`Edited file: ${path}`, { details });
+    return this.successSummary(`${_t('Edited file:')} ${path}`, { details });
   }
 
   /**

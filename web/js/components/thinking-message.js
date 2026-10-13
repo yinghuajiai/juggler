@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import BaseMessage from './base-message.js';
 import { stripThinkingTags } from '../utils/content-utils.js';
 import { wrapWithIcon } from '../utils/icon-message-renderer.js';
@@ -68,7 +69,7 @@ class ThinkingMessage extends BaseMessage {
    */
   _tokenLabel(clean) {
     if (!clean.length) return 'Thinking';
-    return `Thinking · ${formatTokens(estimateTokens(clean))} tokens`;
+    return `${t('Thinking ·')} ${formatTokens(estimateTokens(clean))} tokens`;
   }
 
   render() {

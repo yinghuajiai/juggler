@@ -161,8 +161,8 @@ export function makeNameValidator({ article, noun, reserved, reservedMsg }) {
     if (!trimmed) return t('Name is required.');
     if (/\s/.test(trimmed)) return t('Name cannot contain spaces.');
     if (trimmed.includes('/')) return t('Name cannot contain "/".');
-    if (reserved && trimmed === reserved) return reservedMsg || `"${reserved}" is reserved.`;
-    if ((existingNames || []).includes(trimmed)) return `${article} ${noun} named "${trimmed}" already exists in this scope.`;
+    if (reserved && trimmed === reserved) return reservedMsg || `"${reserved}${t('" is reserved.')}`;
+    if ((existingNames || []).includes(trimmed)) return `${article} ${noun} named "${trimmed}${t('" already exists in this scope.')}`;
     return '';
   };
 }
@@ -540,7 +540,7 @@ export class ConfigTabController {
     try {
       await restart(name);
     } catch (e) {
-      this.error = e instanceof Error ? e.message : `Failed to restart "${name}".`;
+      this.error = e instanceof Error ? e.message : `${t('Failed to restart "')}${name}".`;
     }
     await this.refresh();
   }
@@ -597,7 +597,7 @@ export class ConfigTabController {
         await this.spec.onAfterSave({ entry: nextMap[name] || {}, enabled, scope, name });
       }
     } catch (e) {
-      this.error = e instanceof Error ? e.message : `Failed to update "${name}".`;
+      this.error = e instanceof Error ? e.message : `${t('Failed to update "')}${name}".`;
     }
     await this.refresh();
   }
@@ -616,7 +616,7 @@ export class ConfigTabController {
     try {
       await this.spec.ops.setConfig(scope, deleteConfigEntry(src, name));
     } catch (e) {
-      this.error = e instanceof Error ? e.message : `Failed to remove "${name}".`;
+      this.error = e instanceof Error ? e.message : `${t('Failed to remove "')}${name}".`;
     }
     if (this.logFor === name) { this.logFor = ''; this.logText = null; }
     await this.refresh();
@@ -682,7 +682,7 @@ export class ConfigTabController {
 
     const title = document.createElement('div');
     title.className = 'settings-section-heading';
-    title.textContent = f.mode === 'edit' ? `Edit “${f.name}”` : spec.formAddTitle;
+    title.textContent = f.mode === 'edit' ? `${t('Edit “')}${f.name}”` : spec.formAddTitle;
     wrap.appendChild(title);
 
     // Name
@@ -710,7 +710,7 @@ export class ConfigTabController {
     scopeSelect.value = f.scope;
     if (f.mode === 'edit') scopeSelect.disabled = true;
     wrap.appendChild(this._formField('Scope', scopeSelect,
-      f.mode === 'edit' ? `Moving scope means deleting and re-adding the ${spec.noun}.` : ''));
+      f.mode === 'edit' ? `${t('Moving scope means deleting and re-adding the')} ${spec.noun}.` : ''));
 
     // Transport (transport-capable tabs only): switches between the stdio field
     // group (command/args/env) and the remote field group (url/headers).

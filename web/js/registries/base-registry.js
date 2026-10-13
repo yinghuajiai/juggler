@@ -2,6 +2,7 @@
 //     ██ ██ ██ ██ ▄▄ ██ ▄▄ ██    ██▄▄  ██▄█▄   Copyright (c) 2026 Julian Storer
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   AGPL-3.0-or-later - see LICENSE
 
+import { t } from '../i18n/index.js';
 import { resolveAssetUrl, importModuleUrl } from '../utils/asset-url.js';
 import { extractErrorMessage } from '../../sdk/lib/error-utils.js';
 import { REQUIRED_MANIFEST_FIELDS, validateManifest } from '../../sdk/lib/manifest.js';
@@ -253,7 +254,7 @@ class BaseRegistry {
       for (let i = 1; i < group.length; i++) {
         const candidate = /** @type {LoadedEntry} */ (group[i]); // bounded by i < group.length
         this._failedModules.set(candidate.modulePath,
-          `duplicate capability id "${id}" already provided by "${winner.extensionId}"`);
+          `${t('duplicate capability id "')}${id}${t('" already provided by "')}${winner.extensionId}"`);
         console.error(
           `[${this.name}] Duplicate capability id "${id}" from ${candidate.modulePath} ` +
           `(extension "${candidate.extensionId}") collides with "${winner.extensionId}"; ignoring`
@@ -362,7 +363,7 @@ class BaseRegistry {
     const id = ItemClassWithManifest.MANIFEST.id;
 
     if (!id) {
-      throw new Error(`${this.name} class in ${modulePath} has no MANIFEST.id`);
+      throw new Error(`${this.name} class in ${modulePath} ${t('has no MANIFEST.id')}`);
     }
 
     return { id, ItemClass, modulePath, extensionId };
@@ -435,7 +436,7 @@ class BaseRegistry {
    * @protected
    */
   collisionMessage(id) {
-    return `A capability with the id "${id}" is already registered (built-in or from an extension), so this one was skipped.`;
+    return `${t('A capability with the id "')}${id}${t('" is already registered (built-in or from an extension), so this one was skipped.')}`;
   }
 
   /**

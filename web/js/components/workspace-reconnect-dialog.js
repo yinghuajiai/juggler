@@ -155,7 +155,7 @@ export function openWorkspaceReconnect(conversation) {
       const lead = document.createElement('div');
       lead.className = 'workspace-move-work-lead';
       lead.textContent = bound > 1
-        ? `${bound} conversations work in a workspace this session has no record of. Naming where it was puts it back for all of them.`
+        ? `${bound} ${t('conversations work in a workspace this session has no record of. Naming where it was puts it back for all of them.')}`
         : t('This session has no record of the workspace this conversation works in. Naming where it was puts it back.');
       explains.appendChild(lead);
       dialog.appendChild(explains);

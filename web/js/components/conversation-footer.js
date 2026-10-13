@@ -985,8 +985,8 @@ class ConversationFooter extends HTMLElement {
       const at = (state.isProcessing || this._statusOnly) ? 0 : (state.lastActivityAt || 0);
       if (at) {
         const { short, full } = formatRelativeDateTime(at);
-        setText(lastActivity, `Updated ${short}`);
-        const title = `Last updated ${full}`;
+        setText(lastActivity, `${t('Updated')} ${short}`);
+        const title = `${t('Last updated')} ${full}`;
         if (lastActivity.title !== title) lastActivity.title = title;
       } else {
         setText(lastActivity, '');

@@ -311,7 +311,7 @@ function renderMessageAttachments(host, wrapper, message) {
   if (attachments.length === 0) return;
 
   const section = panelHelpers.labeledSubsection(
-    attachments.length === 1 ? 'Attachment' : `Attachments (${attachments.length})`
+    attachments.length === 1 ? 'Attachment' : `${t('Attachments (')}${attachments.length})`
   );
 
   const list = document.createElement('div');
@@ -413,7 +413,7 @@ export function renderContextItem(host, container, contextItem) {
   } else {
     const info = document.createElement('p');
     info.className = 'properties-panel-text';
-    info.textContent = `Item ID: ${itemMsg.get('itemId') || 'Unknown'}`;
+    info.textContent = `${t('Item ID:')} ${itemMsg.get('itemId') || 'Unknown'}`;
     body.appendChild(info);
   }
   wrapper.appendChild(body);
@@ -461,7 +461,7 @@ export function renderToolAction(host, container, toolAction) {
       if (Number.isFinite(startMs) && startMs > 0) {
         span.dataset.elapsedSince = String(startMs);
         const seconds = Math.max(0, Math.round((Date.now() - startMs) / 1000));
-        span.textContent = `Running… ${formatDuration(seconds)}`;
+        span.textContent = `${t('Running…')} ${formatDuration(seconds)}`;
       } else {
         span.textContent = t('Running…');
       }

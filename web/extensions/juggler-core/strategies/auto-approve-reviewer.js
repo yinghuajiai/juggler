@@ -100,9 +100,7 @@ ${BOUNDARY_RULES}`,
 
   relaxed: `${JUDGE_IMPACT}
 
-Authorization is relaxed. The user has chosen to trust the agent's judgement for ordinary development work inside the project, so an action does not need to have been specifically requested to be allowed. Routine work that stays inside the project and plausibly serves the user's request may be allowed: reading files, building, testing, linting, formatting, running the project's own scripts, local version control (status, diff, add, commit, creating or switching branches), and creating, editing, moving, or deleting the files the agent is working on.
-
-Still require human approval (do NOT auto-approve), however plausible the action looks, when — absent clear user authorization — it would:
+${t("Authorization is relaxed. The user has chosen to trust the agent's judgement for ordinary development work inside the project, so an action does not need to have been specifically requested to be allowed. Routine work that stays inside the project and plausibly serves the user's request may be allowed: reading files, building, testing, linting, formatting, running the project's own scripts, local version control (status, diff, add, commit, creating or switching branches), and creating, editing, moving, or deleting the files the agent is working on.\n\nStill require human approval (do NOT auto-approve), however plausible the action looks, when — absent clear user authorization — it would:")}
 ${HARD_CATEGORIES}
 
 ${BOUNDARY_RULES}`
@@ -264,7 +262,7 @@ function formatGrantList(label, values) {
  * @returns {string} A single `TOOL_CALL <name>: <json>` line
  */
 function formatAction(action) {
-  return `TOOL_CALL ${action?.toolName ?? ''}: ${compactJson(action?.toolInput)}`;
+  return `${t('TOOL_CALL')} ${action?.toolName ?? ''}: ${compactJson(action?.toolInput)}`;
 }
 
 /**
@@ -310,10 +308,10 @@ export function buildReviewerPrompt(items, action, opts = {}) {
   const entries = [];
   for (const item of list) {
     if (isUserMessage(item)) {
-      entries.push(`USER: ${itemField(item, 'content') ?? ''}`);
+      entries.push(`${t('USER:')} ${itemField(item, 'content') ?? ''}`);
     } else if (isToolActionMessage(item)) {
       const name = itemField(item, 'toolName') ?? '';
-      entries.push(`TOOL_CALL ${name}: ${compactJson(itemField(item, 'toolInput'))}`);
+      entries.push(`${t('TOOL_CALL')} ${name}: ${compactJson(itemField(item, 'toolInput'))}`);
     }
     // Everything else is deliberately stripped (assistant prose, tool results,
     // thinking, reminders): the reviewer only ever sees user words + tool calls.
@@ -336,14 +334,14 @@ export function buildReviewerPrompt(items, action, opts = {}) {
   const context = opts.context || {};
   /** @type {string[]} */
   const envLines = [];
-  if (context.projectRoot) envLines.push(`PROJECT ROOT: ${context.projectRoot}`);
-  if (context.home) envLines.push(`HOME: ${context.home}`);
+  if (context.projectRoot) envLines.push(`${t('PROJECT ROOT:')} ${context.projectRoot}`);
+  if (context.home) envLines.push(`${t('HOME:')} ${context.home}`);
   // Both states are signal, so only an absent flag (a caller that cannot read
   // the permission model) omits the line: `false` actively tells the reviewer
   // the user wants to see every write, and denying a file-touching command is
   // then the correct answer rather than an over-cautious one.
   if (context.fileEdits !== undefined) {
-    envLines.push(`FILE EDITS: ${context.fileEdits
+    envLines.push(`${t('FILE EDITS:')} ${context.fileEdits
       ? 'allowed by the user anywhere inside ALLOWED PATHS'
       : 'must be approved individually by the user'}`);
   }

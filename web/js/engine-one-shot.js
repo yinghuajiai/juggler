@@ -19,6 +19,7 @@
  * @module engine-one-shot
  */
 
+import { t } from './i18n/index.js';
 import { extractErrorMessage } from '../sdk/lib/error-utils.js';
 import { waitForTurnOutcome } from './model/turn-completion.js';
 import wsService from './services/websocket.js';
@@ -91,7 +92,7 @@ export async function runOneShot(session, request, ready) {
     const sinceTurn = conversation.completedTurns;
 
     const dropped = await conversation.sendMessage(prompt, null, conversation.rootMessageThread);
-    if (dropped) throw new Error(`the prompt was not delivered: ${dropped}`);
+    if (dropped) throw new Error(`${t('the prompt was not delivered:')} ${dropped}`);
 
     const { parked, parkedTool } = await waitForTurnOutcome(conversation, {
       sinceTurn,

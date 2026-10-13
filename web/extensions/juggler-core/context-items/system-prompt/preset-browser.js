@@ -166,7 +166,7 @@ function buildPresetMenuItem(item, preset, defaultId, selectedId, dropdown, cont
     const setBtn = document.createElement('button');
     setBtn.className = 'sp-preset-setdefault-btn';
     setBtn.textContent = t('Set default');
-    setBtn.title = `Make "${preset.name}" the default for new conversations`;
+    setBtn.title = `${t('Make "')}${preset.name}${t('" the default for new conversations')}`;
     setBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
       try {
@@ -257,7 +257,7 @@ async function saveCurrentAsPreset(item, dropdown, container) {
       const showChoice = /** @type {any} */ (window).showChoice;
       if (showChoice) {
         const choice = await showChoice(
-          `"${existing.name}" is already a preset.`,
+          `"${existing.name}${t('" is already a preset.')}`,
           ['Update', t('Save as new\u2026'), 'Cancel'],
           t('Save preset'),
           false
@@ -315,7 +315,7 @@ function selectPreset(item, presetId) {
 async function reportPresetFailure(err, verb, logPrefix) {
   console.error(logPrefix, err);
   const showConfirm = /** @type {any} */ (window).showConfirm;
-  if (showConfirm) await showConfirm(extractErrorMessage(err), `Couldn't ${verb} preset`, { confirmText: 'OK' });
+  if (showConfirm) await showConfirm(extractErrorMessage(err), `${t("Couldn't")} ${verb} preset`, { confirmText: 'OK' });
 }
 
 /**
@@ -393,7 +393,7 @@ function buildManageRow(item, preset, container, rerender) {
     e.stopPropagation();
     const showConfirm = /** @type {any} */ (window).showConfirm;
     const ok = showConfirm
-      ? await showConfirm(`Delete preset "${preset.name}"? This cannot be undone.`, t('Delete preset'), { confirmText: t('Delete'), cancelText: t('Cancel'), danger: true })
+      ? await showConfirm(`${t('Delete preset "')}${preset.name}${t('"? This cannot be undone.')}`, t('Delete preset'), { confirmText: t('Delete'), cancelText: t('Cancel'), danger: true })
       : true;
     if (!ok) return;
     try {

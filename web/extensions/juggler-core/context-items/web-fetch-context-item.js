@@ -193,7 +193,7 @@ class WebFetchContextItem extends ContextItem {
         'You have been given the full text of a web page below. Using ONLY that text, ' +
         'answer the request. Do NOT fetch anything — the page content is already here.\n\n' +
         `# Request\n${prompt}\n\n` +
-        `# Page: ${url}\n${page.content}`,
+        `${t('# Page:')} ${url}\n${page.content}`,
       resultSpec: t('the answer in markdown, quoting the page where relevant, or "not found in page" if the content does not answer the request'),
       sessionName: toolInput.session ? String(toolInput.session).trim() : undefined
     };
@@ -226,7 +226,7 @@ class WebFetchContextItem extends ContextItem {
     const url = prepParams.url || 'unknown';
 
     if (!outcome.success) {
-      return this.failureSummary(outcome.error || `Failed to fetch ${url}`);
+      return this.failureSummary(outcome.error || `${t('Failed to fetch')} ${url}`);
     }
 
     const result = /** @type {WebFetchResult} */ (outcome.result);
@@ -234,7 +234,7 @@ class WebFetchContextItem extends ContextItem {
     // Handle redirect case
     if (result.redirect) {
       return this.successSummary(
-        `Redirect detected: ${result.redirect_url}\n${result.error || ''}`,
+        `${t('Redirect detected:')} ${result.redirect_url}\n${result.error || ''}`,
         { icon: '→' }
       );
     }
@@ -265,10 +265,10 @@ class WebFetchContextItem extends ContextItem {
 
     return this.buildStatusUI(actionStatus, {
       typeName: t('Web Fetch'),
-      pending: `Fetching ${displayUrl}...`,
+      pending: `${t('Fetching')} ${displayUrl}...`,
       success: () => {
         const result = /** @type {WebFetchResult} */ (actionStatus?.result);
-        if (result.redirect) return `Redirect to: ${result.redirect_url}`;
+        if (result.redirect) return `${t('Redirect to:')} ${result.redirect_url}`;
         const cacheStr = result.cached ? ' (cached)' : '';
         const truncStr = result.truncated ? ' (truncated)' : '';
         return `${displayUrl}${cacheStr}${truncStr}`;

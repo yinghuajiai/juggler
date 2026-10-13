@@ -9,6 +9,7 @@
  * @module model/message-thread-context-items
  */
 
+import { t } from '../i18n/index.js';
 import { plainToYMap, convertToYType, yGet } from './item-accessor.js';
 import { createContextItemMessage } from '../../sdk/lib/message.js';
 import contextItemRegistry from '../registries/context-item-registry.js';
@@ -152,10 +153,10 @@ export function addContextItem(mt, contextItem) {
 export function removeContextItem(mt, itemId) {
   const contextItem = getContextItem(mt, itemId);
   if (!contextItem) {
-    throw new Error(`Context item not found: ${itemId}`);
+    throw new Error(`${t('Context item not found:')} ${itemId}`);
   }
   if (contextItem.preventUserDeletion()) {
-    throw new Error(`Cannot delete context item: ${contextItem.type}`);
+    throw new Error(`${t('Cannot delete context item:')} ${contextItem.type}`);
   }
   // User-deleting a context item is its own logical undo step. Force a
   // fresh undo group on the worker so undo doesn't unexpectedly reverse

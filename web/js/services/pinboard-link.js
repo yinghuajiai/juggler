@@ -303,7 +303,7 @@ export const ownerLink = {
     try {
       await pinboardStore.createBoard(board, conversationId, pins);
     } catch (err) {
-      return `Couldn't detach the board. ${extractErrorMessage(err)}`;
+      return `${t("Couldn't detach the board.")} ${extractErrorMessage(err)}`;
     }
     return this.openBoardWindow(board, pinId, conversationId, frame);
   },

@@ -111,7 +111,7 @@ export function fileStatusWords(file) {
     (letter && letter !== '.' ? STATUS_WORDS.get(letter) || '' : '');
   const staged = word(file.index);
   const worktree = word(file.worktree);
-  if (staged && worktree) return `${staged} and staged, then ${worktree.toLowerCase()} again`;
+  if (staged && worktree) return `${staged} ${t('and staged, then')} ${worktree.toLowerCase()} again`;
   if (staged) return `${staged} and staged`;
   return worktree || 'Unchanged';
 }
@@ -142,5 +142,5 @@ export function fileTone(file) {
  */
 export function truncationNote(repo) {
   if (!repo.truncated) return '';
-  return `First ${repo.files.length} of ${repo.total} files.`;
+  return `${t('First')} ${repo.files.length} of ${repo.total} ${t('files.')}`;
 }

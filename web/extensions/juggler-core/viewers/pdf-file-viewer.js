@@ -301,11 +301,11 @@ class PdfFileViewer extends FileViewer {
       }
 
       const text = `<file path="${source.path}">\n${parts.join('\n\n')}\n</file>` +
-        (truncated ? `\n(Showing ${parts.length} of ${doc.numPages} pages.)` : `\n(${doc.numPages} pages total)`);
+        (truncated ? `\n(Showing ${parts.length} of ${doc.numPages} pages.)` : `\n(${doc.numPages} ${t('pages total)')}`);
       return { text, truncated };
     } catch (err) {
       return {
-        warning: `PDF text extraction is not available: ${/** @type {any} */ (err)?.message || err}`,
+        warning: `${t('PDF text extraction is not available:')} ${/** @type {any} */ (err)?.message || err}`,
       };
     } finally {
       // Always tear the worker down — an extraction that threw halfway would

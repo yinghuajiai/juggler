@@ -631,8 +631,8 @@ class ModelSelector extends HTMLElement {
     const label = modelLabel(modelEntry?.displayName, modelName);
     const hint = (provider.authHint || '').trim();
     await this._offerProviderSettings(hint
-      ? `Can't select ${label} yet: ${hint}`
-      : `There was a problem selecting ${label}.`);
+      ? `${t("Can't select")} ${label} yet: ${hint}`
+      : `${t('There was a problem selecting')} ${label}.`);
   }
 
   /**
@@ -646,7 +646,7 @@ class ModelSelector extends HTMLElement {
    */
   async _showMissingProvider(providerName, modelName) {
     await this._offerProviderSettings(
-      `Can't select ${modelName}: the provider ${providerName} is not configured.`);
+      `${t("Can't select")} ${modelName}${t(': the provider')} ${providerName} ${t('is not configured.')}`);
   }
 
   /**
@@ -934,7 +934,7 @@ class ModelSelector extends HTMLElement {
     // Cite the switch-model shortcut (⌥⌘M / Ctrl+Alt+M) live from the central
     // table, so the tooltip stays correct if it's ever rebound or left unbound.
     const cycleModelKey = keyShortcutManager.formatBinding('cycle-model');
-    const modelTitle = cycleModelKey ? `LLM Model (${cycleModelKey}, hold for menu)` : t('LLM Model');
+    const modelTitle = cycleModelKey ? `${t('LLM Model (')}${cycleModelKey}${t(', hold for menu)')}` : t('LLM Model');
 
     this.innerHTML = '<model-chip></model-chip>';
     const chip = this._chip;

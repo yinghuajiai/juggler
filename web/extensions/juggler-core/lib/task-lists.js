@@ -123,7 +123,7 @@ export function renderPlanMarkdown(planData, opts = {}) {
   const { completed } = taskProgress(steps);
   const lines = [
     `# Plan${planData.title ? ': ' + planData.title : ''}`,
-    `Status: ${planData.status || 'planning'} | Progress: ${completed}/${steps.length} completed`,
+    `${t('Status:')} ${planData.status || 'planning'} | Progress: ${completed}/${steps.length} completed`,
     ''
   ];
 
@@ -139,7 +139,7 @@ export function renderPlanMarkdown(planData, opts = {}) {
     }
     lines.push(line);
     if (step.result) {
-      lines.push(`${indent}Result: ${indentContinuation(step.result, indent)}`);
+      lines.push(`${indent}${t('Result:')} ${indentContinuation(step.result, indent)}`);
     }
   }
 
@@ -161,7 +161,7 @@ export function renderTodoMarkdown(todos, opts = {}) {
   const { completed } = taskProgress(list);
   const lines = [
     t('# Todo list'),
-    `Progress: ${completed}/${list.length} completed`,
+    `${t('Progress:')} ${completed}/${list.length} completed`,
     ''
   ];
 

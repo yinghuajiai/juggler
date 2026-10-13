@@ -513,7 +513,7 @@ export function wakeContext(ac) {
     // Stays parked until the next attempt/gesture. A rejection handler (not a
     // bare .catch) so a stuck `interrupted`/`closed` session lands in the app log,
     // while still never surfacing as an unhandled rejection.
-    () => areport('error', `resume() from ${from} rejected — still ${ac.state}`),
+    () => areport('error', `${t('resume() from')} ${from} ${t('rejected — still')} ${ac.state}`),
   );
 }
 
@@ -665,7 +665,7 @@ export function unlockAudio() {
   // (that's handled by the media-element sink — see audioSink). It's the
   // state-machine reset playChime's play-time resume() path can't perform alone.
   if (isContextWedged(ac)) {
-    areport('info', `unlockAudio: context wedged (${ac.state}) — rebuilding to reset stuck state`);
+    areport('info', `${t('unlockAudio: context wedged (')}${ac.state}${t(') — rebuilding to reset stuck state')}`);
     recreateContext();
     ac = audioContext();
     if (!ac) { areport('error', t('unlockAudio: rebuild failed — Web Audio unavailable')); return; }
@@ -739,7 +739,7 @@ export function recoverThenSchedule(ac, schedule, rebuild, { retries = RECOVER_R
     // starts `suspended` → resume). This does not re-route wedged output (the
     // media-element sink handles that — see audioSink); it only clears a bad state.
     if (!rebuilt && isContextWedged(context)) {
-      areport('info', `playChime: context wedged (${context.state}) — rebuilding`);
+      areport('info', `${t('playChime: context wedged (')}${context.state}) — rebuilding`);
       const fresh = rebuild();
       if (!fresh) { areport('error', t('playChime: rebuild failed — Web Audio unavailable')); return; }
       attempt(fresh, triesLeft, true);
@@ -749,11 +749,11 @@ export function recoverThenSchedule(ac, schedule, rebuild, { retries = RECOVER_R
       () => {
         if (context.state === 'running') schedule(context);
         else if (triesLeft > 0) defer(() => attempt(context, triesLeft - 1, rebuilt));
-        else areport('error', `playChime: gave up after ${retries} tries — state=${context.state}`);
+        else areport('error', `${t('playChime: gave up after')} ${retries} ${t('tries — state=')}${context.state}`);
       },
       () => {
         if (triesLeft > 0) defer(() => attempt(context, triesLeft - 1, rebuilt));
-        else areport('error', `playChime: resume() rejected, gave up after ${retries} tries — state=${context.state}`);
+        else areport('error', `${t('playChime: resume() rejected, gave up after')} ${retries} ${t('tries — state=')}${context.state}`);
       },
     );
   };

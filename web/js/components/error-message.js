@@ -106,7 +106,7 @@ class ErrorMessage extends BaseMessage {
         modelBtn.type = 'button';
         modelBtn.className = 'message-action-btn error-model-btn';
         modelBtn.title = t('Pick a model from another provider');
-        modelBtn.innerHTML = `${SWAP_ICON}Choose another model`;
+        modelBtn.innerHTML = `${SWAP_ICON}${t('Choose another model')}`;
         modelBtn.addEventListener('click', (event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -122,7 +122,7 @@ class ErrorMessage extends BaseMessage {
         settingsBtn.type = 'button';
         settingsBtn.className = 'message-action-btn error-settings-btn';
         settingsBtn.title = t('Open provider settings');
-        settingsBtn.innerHTML = `${SETTINGS_ICON}Provider settings`;
+        settingsBtn.innerHTML = `${SETTINGS_ICON}${t('Provider settings')}`;
         settingsBtn.addEventListener('click', (event) => {
           event.preventDefault();
           event.stopPropagation();
@@ -138,7 +138,7 @@ class ErrorMessage extends BaseMessage {
         retryBtn.title = t('Delete this error and continue the conversation');
         // A circular arrow, distinct from the footer's Continue "play" glyph so
         // the affordance reads as "try that turn again".
-        retryBtn.innerHTML = `${RETRY_SVG}Retry`;
+        retryBtn.innerHTML = `${RETRY_SVG}${t('Retry')}`;
         retryBtn.addEventListener('click', (event) => {
           event.preventDefault();
           event.stopPropagation();

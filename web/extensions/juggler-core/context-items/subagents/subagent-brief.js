@@ -44,7 +44,7 @@ const UNIVERSAL_RULES = Object.freeze([
  */
 export function subagentBrief({ label, scope, rules }) {
   const contract =
-    `${label} SUB-AGENT: you are answering one self-contained question ${scope}, `
+    `${label} ${t('SUB-AGENT: you are answering one self-contained question')} ${scope}, `
     + 'in a context of your own. What you read here never reaches the caller — '
     + 'only your last message does, so the answer has to stand alone.';
 

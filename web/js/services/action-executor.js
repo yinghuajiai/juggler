@@ -35,7 +35,7 @@ function warnOnEmptySuccessSummary(rawSummary, className) {
   if (!empty || _emptySummaryWarned.has(className)) return;
   _emptySummaryWarned.add(className);
   console.warn(
-    `[ContextItem] ${className}.getSummary() returned an empty summary for a ` +
+    `[ContextItem] ${className}${t('.getSummary() returned an empty summary for a')} ` +
     `successful result, so the model receives an empty tool_result. Did you read ` +
     `your data from outcome.result (not outcome directly)? Remember execute() returns ` +
     `RAW data and the framework wraps it as { success, result, prepared, error }. ` +
@@ -223,7 +223,7 @@ class ActionExecutor {
       return {
         actionId,
         success: false,
-        error: `Unknown action: ${actionId}`
+        error: `${t('Unknown action:')} ${actionId}`
       };
     }
 
@@ -253,7 +253,7 @@ class ActionExecutor {
       // If we get here without _approvalHandled and approval is needed, throw an error.
       // This ensures ALL tool execution goes through the proper approval flow.
       if (!context._approvalHandled && action.requiresApproval() && !action.isPermitted(toolInput)) {
-        throw new Error(`Action "${actionId}" requires approval. Run it as a tool-action (toolExecutor.executeToolCall) so it goes through the approval flow.`);
+        throw new Error(`${t('Action "')}${actionId}${t('" requires approval. Run it as a tool-action (toolExecutor.executeToolCall) so it goes through the approval flow.')}`);
       }
 
       // Step 3: Execute - plugin handles its own recovery internally if desired
@@ -321,7 +321,7 @@ class ActionExecutor {
         const marker = records.find(r => r.markError);
         const failed = /** @type {any} */ (actionResult);
         failed.success = false;
-        failed.error = `Marked as failed by hook "${marker?.name}"`;
+        failed.error = `${t('Marked as failed by hook "')}${marker?.name}"`;
       }
       return records;
     } catch (err) {
