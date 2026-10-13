@@ -41,7 +41,7 @@ class McpCommandType extends CommandType {
         case 'start':
         case 'stop':
         case 'restart':
-          if (!name) return { handled: true, message: `Usage: /mcp ${sub} <server>` };
+          if (!name) return { handled: true, message: `${t('Usage: /mcp')} ${sub} <server>` };
           await mcpServerControl({ server: name, action: /** @type {any} */ (sub) });
           return { handled: true, message: await McpCommandType._list() };
         case 'reload': {

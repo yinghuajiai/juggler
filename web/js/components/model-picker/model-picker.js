@@ -832,7 +832,7 @@ class ModelPicker extends JugglerElement {
     if (!target?.provider) return '';
     return `
                 <div class="model-current-switch" title="${escapeHtml(target.reason || '')}">
-                    <span class="model-current-switch-text">${escapeHtml(target.displayName)} reads this server's real context windows.</span>
+                    <span class="model-current-switch-text">${escapeHtml(target.displayName)} ${_t("reads this server's real context windows.")}</span>
                     <button type="button" class="model-provider-switch" data-from="${escapeHtml(providerEntry.name)}" data-to="${escapeHtml(target.provider)}">${_t('Switch')}</button>
                 </div>`;
   }

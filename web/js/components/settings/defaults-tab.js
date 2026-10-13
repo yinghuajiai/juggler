@@ -924,7 +924,7 @@ export class DefaultsTab {
     if (p.modelsWithContext && !hasModel) {
       return t('Model is not in the provider’s current model list.');
     }
-    return 'Active.';
+    return t('Active.');
   }
 
   /**

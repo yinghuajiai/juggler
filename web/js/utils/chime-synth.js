@@ -92,50 +92,50 @@ const A4_HZ = 440;
 const PATTERNS = Object.freeze(/** @type {ReadonlyArray<ChimePattern>} */ ([
   // ── Lone notes, various pitches ──────────────────────────────────────
   { id: 'lone-bell',   name: t('Lone Bell'),   root: 0,   spacing: 0.1,  decay: 0.5,  notes: [{ s: 0 }] },
-  { id: 'droplet',     name: 'Droplet',     root: 5,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }] },
-  { id: 'halo',        name: 'Halo',        root: 9,   spacing: 0.1,  decay: 0.4,  notes: [{ s: 0 }] },
-  { id: 'pip',         name: 'Pip',         root: 14,  spacing: 0.1,  decay: 0.16, notes: [{ s: 0 }] },
+  { id: 'droplet',     name: t('Droplet'),     root: 5,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }] },
+  { id: 'halo',        name: t('Halo'),        root: 9,   spacing: 0.1,  decay: 0.4,  notes: [{ s: 0 }] },
+  { id: 'pip',         name: t('Pip'),         root: 14,  spacing: 0.1,  decay: 0.16, notes: [{ s: 0 }] },
   { id: 'deep-ping',   name: t('Deep Ping'),   root: -12, spacing: 0.1,  decay: 0.45, notes: [{ s: 0 }] },
-  { id: 'needlepoint', name: 'Needlepoint', root: 19,  spacing: 0.1,  decay: 0.13, notes: [{ s: 0 }] },
+  { id: 'needlepoint', name: t('Needlepoint'), root: 19,  spacing: 0.1,  decay: 0.13, notes: [{ s: 0 }] },
   // ── Two notes ────────────────────────────────────────────────────────
-  { id: 'ascend',      name: 'Ascend',      root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 7 }] },
-  { id: 'descend',     name: 'Descend',     root: 7,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: -7 }] },
-  { id: 'leap',        name: 'Leap',        root: 0,   spacing: 0.12, decay: 0.32, notes: [{ s: 0 }, { s: 12 }] },
-  { id: 'doorbell',    name: 'Doorbell',    root: 9,   spacing: 0.16, decay: 0.4,  notes: [{ s: 0 }, { s: -4 }] },
-  { id: 'sigh',        name: 'Sigh',        root: 8,   spacing: 0.13, decay: 0.34, notes: [{ s: 0 }, { s: -3 }] },
-  { id: 'nudge',       name: 'Nudge',       root: 0,   spacing: 0.09, decay: 0.2,  notes: [{ s: 0 }, { s: 2 }] },
+  { id: 'ascend',      name: t('Ascend'),      root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 7 }] },
+  { id: 'descend',     name: t('Descend'),     root: 7,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: -7 }] },
+  { id: 'leap',        name: t('Leap'),        root: 0,   spacing: 0.12, decay: 0.32, notes: [{ s: 0 }, { s: 12 }] },
+  { id: 'doorbell',    name: t('Doorbell'),    root: 9,   spacing: 0.16, decay: 0.4,  notes: [{ s: 0 }, { s: -4 }] },
+  { id: 'sigh',        name: t('Sigh'),        root: 8,   spacing: 0.13, decay: 0.34, notes: [{ s: 0 }, { s: -3 }] },
+  { id: 'nudge',       name: t('Nudge'),       root: 0,   spacing: 0.09, decay: 0.2,  notes: [{ s: 0 }, { s: 2 }] },
   { id: 'knock-knock', name: t('Knock Knock'), root: 4,   spacing: 0.1,  decay: 0.18, notes: [{ s: 0 }, { s: 0 }] },
   { id: 'sixth-sense', name: t('Sixth Sense'), root: 0,   spacing: 0.12, decay: 0.34, notes: [{ s: 0 }, { s: 9 }] },
   // The interval that refuses to settle — halfway up the octave, belonging to no key.
-  { id: 'tritone',     name: 'Tritone',     root: 0,   spacing: 0.12, decay: 0.32, notes: [{ s: 0 }, { s: 6 }] },
+  { id: 'tritone',     name: t('Tritone'),     root: 0,   spacing: 0.12, decay: 0.32, notes: [{ s: 0 }, { s: 6 }] },
   // ── Three notes ──────────────────────────────────────────────────────
   { id: 'major-triad', name: t('Major Triad'), root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }] },
   { id: 'minor-mood',  name: t('Minor Mood'),  root: 0,   spacing: 0.1,  decay: 0.32, notes: [{ s: 0 }, { s: 3 }, { s: 7 }] },
-  { id: 'ta-da',       name: 'Ta-Da',       root: 0,   spacing: 0.13, decay: 0.34, notes: [{ s: 0, a: 0.85 }, { s: 7 }, { s: 12 }] },
-  { id: 'cascade',     name: 'Cascade',     root: 12,  spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: -5 }, { s: -8 }] },
+  { id: 'ta-da',       name: t('Ta-Da'),       root: 0,   spacing: 0.13, decay: 0.34, notes: [{ s: 0, a: 0.85 }, { s: 7 }, { s: 12 }] },
+  { id: 'cascade',     name: t('Cascade'),     root: 12,  spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: -5 }, { s: -8 }] },
   { id: 'little-turn', name: t('Little Turn'), root: 5,   spacing: 0.09, decay: 0.24, notes: [{ s: 0 }, { s: 2 }, { s: 0 }] },
-  { id: 'bounce',      name: 'Bounce',      root: 0,   spacing: 0.1,  decay: 0.26, notes: [{ s: 0 }, { s: 12 }, { s: 0, g: 5 }] },
-  { id: 'question',    name: 'Question?',   root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 5 }] },
-  { id: 'pentatonic',  name: 'Pentatonic',  root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 2 }, { s: 7 }] },
-  { id: 'suspended',   name: 'Suspended',   root: 0,   spacing: 0.11, decay: 0.32, notes: [{ s: 0 }, { s: 5 }, { s: 7 }] },
+  { id: 'bounce',      name: t('Bounce'),      root: 0,   spacing: 0.1,  decay: 0.26, notes: [{ s: 0 }, { s: 12 }, { s: 0, g: 5 }] },
+  { id: 'question',    name: t('Question?'),   root: 0,   spacing: 0.11, decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 5 }] },
+  { id: 'pentatonic',  name: t('Pentatonic'),  root: 0,   spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 2 }, { s: 7 }] },
+  { id: 'suspended',   name: t('Suspended'),   root: 0,   spacing: 0.11, decay: 0.32, notes: [{ s: 0 }, { s: 5 }, { s: 7 }] },
   // Three notes inside a tritone, played fast enough to land as one sour stab.
-  { id: 'cluster',     name: 'Cluster',     root: 0,   spacing: 0.07, decay: 0.3,  notes: [{ s: 0 }, { s: 1 }, { s: 6 }] },
+  { id: 'cluster',     name: t('Cluster'),     root: 0,   spacing: 0.07, decay: 0.3,  notes: [{ s: 0 }, { s: 1 }, { s: 6 }] },
   // ── Four notes ───────────────────────────────────────────────────────
-  { id: 'sparkle',     name: 'Sparkle',     root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 12 }] },
-  { id: 'skip',        name: 'Skip',        root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 7 }] },
+  { id: 'sparkle',     name: t('Sparkle'),     root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 12 }] },
+  { id: 'skip',        name: t('Skip'),        root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 7 }] },
   { id: 'music-box',   name: t('Music Box'),   root: 12,  spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: -5 }, { s: -8 }, { s: -12 }] },
-  { id: 'fountain',    name: 'Fountain',    root: 0,   spacing: 0.08, decay: 0.24, notes: [{ s: 0 }, { s: 7 }, { s: 12 }, { s: 16 }] },
-  { id: 'wander',      name: 'Wander',      root: 0,   spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: 5 }, { s: 3 }, { s: 7 }] },
+  { id: 'fountain',    name: t('Fountain'),    root: 0,   spacing: 0.08, decay: 0.24, notes: [{ s: 0 }, { s: 7 }, { s: 12 }, { s: 16 }] },
+  { id: 'wander',      name: t('Wander'),      root: 0,   spacing: 0.1,  decay: 0.28, notes: [{ s: 0 }, { s: 5 }, { s: 3 }, { s: 7 }] },
   { id: 'pixie-dust',  name: t('Pixie Dust'),  root: 7,   spacing: 0.08, decay: 0.22, notes: [{ s: 0 }, { s: 5 }, { s: 7 }, { s: 12 }] },
-  { id: 'staircase',   name: 'Staircase',   root: -5,  spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 11 }] },
+  { id: 'staircase',   name: t('Staircase'),   root: -5,  spacing: 0.1,  decay: 0.3,  notes: [{ s: 0 }, { s: 4 }, { s: 7 }, { s: 11 }] },
   // Even whole steps — the scale with no leading note, so it never arrives anywhere.
   { id: 'whole-tone',  name: t('Whole Tone'),  root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 2 }, { s: 4 }, { s: 6 }] },
   // Stacked minor thirds: symmetrical, rootless, and faintly ominous.
-  { id: 'diminished',  name: 'Diminished',  root: 0,   spacing: 0.09, decay: 0.28, notes: [{ s: 0 }, { s: 3 }, { s: 6 }, { s: 9 }] },
+  { id: 'diminished',  name: t('Diminished'),  root: 0,   spacing: 0.09, decay: 0.28, notes: [{ s: 0 }, { s: 3 }, { s: 6 }, { s: 9 }] },
   // Wide alternating leaps that cross over themselves instead of climbing.
-  { id: 'zigzag',      name: 'Zigzag',      root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 11 }, { s: 2 }, { s: 9 }] },
+  { id: 'zigzag',      name: t('Zigzag'),      root: 0,   spacing: 0.09, decay: 0.26, notes: [{ s: 0 }, { s: 11 }, { s: 2 }, { s: 9 }] },
   // Chromatic slide apart, the last note dropping an octave on an audible glide.
-  { id: 'unravel',     name: 'Unravel',     root: 12,  spacing: 0.095, decay: 0.26, notes: [{ s: 0 }, { s: -1 }, { s: -4 }, { s: -12, g: 4 }] },
+  { id: 'unravel',     name: t('Unravel'),     root: 12,  spacing: 0.095, decay: 0.26, notes: [{ s: 0 }, { s: -1 }, { s: -4 }, { s: -12, g: 4 }] },
 ]));
 
 /**
@@ -162,38 +162,38 @@ const PATTERNS = Object.freeze(/** @type {ReadonlyArray<ChimePattern>} */ ([
  */
 const SOUNDS = Object.freeze(/** @type {ReadonlyArray<ChimeSound>} */ ([
   // Metallic struck bell — inharmonic partials, the original voice.
-  { id: 'bell',      name: 'Bell',       wave: 'sine',     partials: [[1, 1], [2.76, 0.18], [5.4, 0.08]], gain: 1 },
+  { id: 'bell',      name: t('Bell'),       wave: 'sine',     partials: [[1, 1], [2.76, 0.18], [5.4, 0.08]], gain: 1 },
   // Bright, glassy, quick to fade — a wind-up music box.
   { id: 'music-box', name: t('Music Box'),  wave: 'sine',     partials: [[1, 1], [3, 0.3], [6, 0.14]], attack: 0.004, decayScale: 0.7, gain: 0.85 },
   // Woody mallet — the strong 4th-harmonic bar of a marimba, plucky and dry.
-  { id: 'marimba',   name: 'Marimba',    wave: 'triangle', partials: [[1, 1], [4, 0.25], [10, 0.05]], attack: 0.004, decayScale: 0.8, gain: 0.9 },
+  { id: 'marimba',   name: t('Marimba'),    wave: 'triangle', partials: [[1, 1], [4, 0.25], [10, 0.05]], attack: 0.004, decayScale: 0.8, gain: 0.9 },
   // Icy, shimmering, slightly inharmonic — struck glass with a long tail.
-  { id: 'glass',     name: 'Glass',      wave: 'sine',     partials: [[1, 1], [2.4, 0.2], [3.8, 0.14], [7.2, 0.06]], decayScale: 1.2, gain: 0.85 },
+  { id: 'glass',     name: t('Glass'),      wave: 'sine',     partials: [[1, 1], [2.4, 0.2], [3.8, 0.14], [7.2, 0.06]], decayScale: 1.2, gain: 0.85 },
   // Plucked string — a filtered sawtooth with a short, snappy decay.
-  { id: 'pluck',     name: 'Pluck',      wave: 'sawtooth', partials: [[1, 1]], attack: 0.004, decayScale: 0.55, gain: 0.5, lowpassRatio: 6 },
+  { id: 'pluck',     name: t('Pluck'),      wave: 'sawtooth', partials: [[1, 1]], attack: 0.004, decayScale: 0.55, gain: 0.5, lowpassRatio: 6 },
   // Clean, soft sine — the gentlest, least attention-grabbing voice.
   { id: 'pure',      name: t('Pure Tone'),  wave: 'sine',     partials: [[1, 1]], decayScale: 1.1, gain: 1.1 },
   // Stacked harmonics with a slow swell — a small reed organ.
-  { id: 'organ',     name: 'Organ',      wave: 'sine',     partials: [[1, 1], [2, 0.5], [3, 0.3], [4, 0.15]], attack: 0.02, decayScale: 1.3, gain: 0.5 },
+  { id: 'organ',     name: t('Organ'),      wave: 'sine',     partials: [[1, 1], [2, 0.5], [3, 0.3], [4, 0.15]], attack: 0.02, decayScale: 1.3, gain: 0.5 },
   // Chiptune blip — a rounded square wave, short and retro.
-  { id: 'retro',     name: 'Retro',      wave: 'square',   partials: [[1, 1]], attack: 0.004, decayScale: 0.6, gain: 0.42, lowpassRatio: 8 },
+  { id: 'retro',     name: t('Retro'),      wave: 'square',   partials: [[1, 1]], attack: 0.004, decayScale: 0.6, gain: 0.42, lowpassRatio: 8 },
   // Crystalline — pure fundamental plus high harmonics, bright and delicate.
-  { id: 'crystal',   name: 'Crystal',    wave: 'sine',     partials: [[1, 0.9], [4, 0.4], [9, 0.15]], decayScale: 0.9, gain: 0.8 },
+  { id: 'crystal',   name: t('Crystal'),    wave: 'sine',     partials: [[1, 0.9], [4, 0.4], [9, 0.15]], decayScale: 0.9, gain: 0.8 },
   // Tuned bronze — partials at no whole-number ratio, so the note shimmers
   // against itself the way a struck gong does.
-  { id: 'gamelan',   name: 'Gamelan',    wave: 'sine',     partials: [[1, 1], [3.46, 0.45], [6.7, 0.2]], decayScale: 1.1, gain: 0.72 },
+  { id: 'gamelan',   name: t('Gamelan'),    wave: 'sine',     partials: [[1, 1], [3.46, 0.45], [6.7, 0.2]], decayScale: 1.1, gain: 0.72 },
   // Irrational partials (√2, and two further primes' worth of nothing) beating
   // hard against the fundamental: the least musical voice here, on purpose.
-  { id: 'clang',     name: 'Clang',      wave: 'triangle', partials: [[1, 1], [1.41, 0.6], [2.3, 0.35], [3.72, 0.18]], decayScale: 0.9, gain: 0.55 },
+  { id: 'clang',     name: t('Clang'),      wave: 'triangle', partials: [[1, 1], [1.41, 0.6], [2.3, 0.35], [3.72, 0.18]], decayScale: 0.9, gain: 0.55 },
   // Odd harmonics only, eased in rather than struck — a stopped pipe or a reed.
-  { id: 'hollow',    name: 'Hollow',     wave: 'sine',     partials: [[1, 1], [3, 0.3], [5, 0.18], [7, 0.08]], attack: 0.018, decayScale: 1.25, gain: 0.77 },
+  { id: 'hollow',    name: t('Hollow'),     wave: 'sine',     partials: [[1, 1], [3, 0.3], [5, 0.18], [7, 0.08]], attack: 0.018, decayScale: 1.25, gain: 0.77 },
   // Two partials a whisker apart, beating slowly against each other — the chorus
   // of a detuned pair, moving for the whole length of the note.
-  { id: 'shimmer',   name: 'Shimmer',    wave: 'sine',     partials: [[1, 1], [1.006, 0.9], [2.01, 0.3]], decayScale: 1.3, gain: 0.55 },
+  { id: 'shimmer',   name: t('Shimmer'),    wave: 'sine',     partials: [[1, 1], [1.006, 0.9], [2.01, 0.3]], decayScale: 1.3, gain: 0.55 },
   // An octave below the written note carries the weight; the rest is overtone.
-  { id: 'undertone', name: 'Undertone',  wave: 'sine',     partials: [[0.5, 0.8], [1, 1], [2, 0.2]], decayScale: 1.1, gain: 0.6 },
+  { id: 'undertone', name: t('Undertone'),  wave: 'sine',     partials: [[0.5, 0.8], [1, 1], [2, 0.2]], decayScale: 1.1, gain: 0.6 },
   // Filtered sawtooth with a slow, deliberate swell — drawn rather than struck.
-  { id: 'bowed',     name: 'Bowed',      wave: 'sawtooth', partials: [[1, 1]], attack: 0.05, decayScale: 1.4, gain: 0.4, lowpassRatio: 4 },
+  { id: 'bowed',     name: t('Bowed'),      wave: 'sawtooth', partials: [[1, 1]], attack: 0.05, decayScale: 1.4, gain: 0.4, lowpassRatio: 4 },
 ]));
 
 /** @type {ReadonlyMap<string, ChimePattern>} */

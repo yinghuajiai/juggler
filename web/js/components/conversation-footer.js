@@ -718,7 +718,7 @@ class ConversationFooter extends HTMLElement {
                 <span class="footer-undo-text"></span>
                 <button class="message-action-btn footer-undo-btn" type="button">
                     ${UNDO_SVG}
-                    Undo
+                    ${t('Undo')}
                 </button>
             </div>
             <div class="footer-meta">
@@ -746,7 +746,7 @@ class ConversationFooter extends HTMLElement {
                     <div class="footer-idle-right">
                         <button class="message-action-btn duplicate-to-tab-btn hidden">
                             ${FORK_SVG}
-                            Duplicate as new conversation
+                            ${t('Duplicate as new conversation')}
                         </button>
                         <button class="message-action-btn continue-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-240v-480h66.67v480H240Zm169.33 0 390-240-390-240v480ZM476-363.67v-232.66L665-480 476-363.67ZM476-480Z"/></svg>

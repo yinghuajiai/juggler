@@ -323,9 +323,9 @@ function buildEnvBlock(workingDir, projectPath, platform, today) {
     ? `\nProject directory: ${projectPath}`
     : '';
   return `<env>
-Working directory: ${workingDir || 'unknown'}${project}
-Platform: ${platform || 'unknown'}
-Today's date: ${today}
+${t('Working directory:')} ${workingDir || 'unknown'}${project}
+${t('Platform:')} ${platform || 'unknown'}
+${t("Today's date:")} ${today}
 </env>`;
 }
 

@@ -284,8 +284,7 @@ class SettingsPanel extends HTMLElement {
 
                     <section class="settings-tab-content" id="tab-shortcuts">
                         <p class="settings-description">
-                            Keyboard shortcuts for common actions. Modifier keys are shown
-                            for ${navigator.platform && /mac|iphone|ipad/i.test(navigator.platform) ? 'macOS' : 'this platform'}.
+                            ${t('Keyboard shortcuts for common actions. Modifier keys are shown for')} ${navigator.platform && /mac|iphone|ipad/i.test(navigator.platform) ? 'macOS' : 'this platform'}.
                         </p>
                         <div class="settings-form" id="shortcuts-form"></div>
                     </section>

@@ -712,7 +712,7 @@ class StrategySelector extends HTMLElement {
                         </span>
                     </header>
                     <p class="strategy-item-description">${manifest.description}</p>
-                    <button type="button" class="strategy-info-button btn-ghost" data-strategy-info-id="${id}" title="View strategy details" aria-label="View ${manifest.name} strategy details">${INFO_SVG}</button>
+                    <button type="button" class="strategy-info-button btn-ghost" data-strategy-info-id="${id}" title="${_t('View strategy details')}" aria-label="View ${manifest.name} strategy details">${INFO_SVG}</button>
                 </li>
             `;
     }).join('');
@@ -876,7 +876,7 @@ class StrategySelector extends HTMLElement {
       : '';
 
     this.innerHTML = `
-            <button class="strategy-selector-button input-ctrl-btn ${this._dropdownOpen ? 'open' : ''}" id="strategy-button" tabindex="-1" title="Select Strategy" ${colorStyle} ${hasColorAttr}>
+            <button class="strategy-selector-button input-ctrl-btn ${this._dropdownOpen ? 'open' : ''}" id="strategy-button" tabindex="-1" title="${_t('Select Strategy')}" ${colorStyle} ${hasColorAttr}>
                 ${buttonIconHtml}
                 <span class="strategy-name">${strategyName}</span>
             </button>

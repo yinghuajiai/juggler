@@ -272,7 +272,7 @@ export function formatFileContentForLLM(params) {
 
   // Empty file warning
   if (!content || content.trim() === '') {
-    return `<system-reminder>WARNING: File ${path} exists but is empty. Do not attempt to read it again.</system-reminder>`;
+    return `<system-reminder>${t('WARNING: File')} ${path} ${t('exists but is empty. Do not attempt to read it again.')}</system-reminder>`;
   }
 
   // Add line numbers with cat -n style format (variable-width, right-aligned, tab separator)

@@ -104,7 +104,7 @@ function installedPreviewBody(skill, detail) {
   const files = detail.files || [];
   const fileList = files.length
     ? `<div class="skills-section skills-files">
-         <div class="skills-section-title">Files (${files.length})</div>
+         <div class="skills-section-title">${t('Files (')}${files.length})</div>
          <div class="skills-files-list">
            ${files
               .map(

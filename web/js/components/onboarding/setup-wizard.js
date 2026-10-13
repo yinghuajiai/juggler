@@ -234,7 +234,7 @@ export async function startSetupWizard({
       return {
         title: t('Nearly there'),
         body: `
-          <p>${installed} is installed and signed in, but nothing is serving a model yet. Usually that means the provider is switched off, or the login has lapsed.</p>
+          <p>${installed} ${t('is installed and signed in, but nothing is serving a model yet. Usually that means the provider is switched off, or the login has lapsed.')}</p>
           <p>${t('Provider settings will say which.')}</p>`,
         actions: [settingsAction(), checkAgainAction()],
         note: vainNote(),

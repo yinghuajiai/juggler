@@ -310,7 +310,7 @@ export class SkillsTab {
       sources
         .map((s) => {
           const chip = `<button class="skills-chip ${this.activeSource === s.id ? 'active' : ''}" data-source-chip="${escapeHtml(s.id)}">${escapeHtml(s.label)}</button>`;
-          return `<span class="skills-chip-wrap">${chip}<button class="skills-chip-remove" data-remove-source="${escapeHtml(s.id)}" title="Remove this source" aria-label="Remove source ${escapeHtml(s.label)}">&times;</button></span>`;
+          return `<span class="skills-chip-wrap">${chip}<button class="skills-chip-remove" data-remove-source="${escapeHtml(s.id)}" title="${_t('Remove this source')}" aria-label="Remove source ${escapeHtml(s.label)}">&times;</button></span>`;
         })
         .join('');
 
@@ -362,7 +362,7 @@ export class SkillsTab {
     if (e.installed && !e.installed.upToDate) {
       installBtn = `<button class="skills-btn install update" data-install="${escapeHtml(e.id)}">${_t('Update')}</button>`;
     } else if (e.installed) {
-      installBtn = `<span class="skills-installed">${CHECK_SVG} Installed</span>`;
+      installBtn = `<span class="skills-installed">${CHECK_SVG} ${_t('Installed')}</span>`;
     } else {
       installBtn = `<button class="skills-btn install" data-install="${escapeHtml(e.id)}">${_t('Install')}</button>`;
     }
@@ -651,7 +651,7 @@ export class SkillsTab {
         <modal-backdrop class="skills-scope-backdrop"></modal-backdrop>
         <modal-panel class="skills-scope-panel">
           <header class="skills-scope-dialog-header">
-            <h2 class="skills-scope-dialog-title">Install “${escapeHtml(entry.name || 'skill')}”</h2>
+            <h2 class="skills-scope-dialog-title">${_t('Install “')}${escapeHtml(entry.name || 'skill')}”</h2>
           </header>
           <p class="skills-scope-dialog-sub">${_t('Choose where to install this skill:')}</p>
           <div class="skills-scope-actions">${options}</div>
@@ -800,7 +800,7 @@ export class SkillsTab {
 
     const fileList = detail.files.length
       ? `<div class="skills-section skills-files">
-           <div class="skills-section-title">Files (${detail.files.length})</div>
+           <div class="skills-section-title">${_t('Files (')}${detail.files.length})</div>
            <div class="skills-files-list">
              ${detail.files
                 .map(
@@ -824,7 +824,7 @@ export class SkillsTab {
       .join(' · ');
     const installed = entry.installed
       ? `<div class="skills-section skills-installed-section">
-           <div class="skills-drawer-installed">${CHECK_SVG} Installed${entry.installed.upToDate ? '' : ' — update available'}</div>
+           <div class="skills-drawer-installed">${CHECK_SVG} ${_t('Installed')}${entry.installed.upToDate ? '' : ' — update available'}</div>
            <div class="skills-filepath-mount" data-path="${escapeHtml(entry.installed.path)}"></div>
          </div>`
       : '';
@@ -840,7 +840,7 @@ export class SkillsTab {
       ${slugNote}
     `;
     const footer = `
-      <a class="skills-btn" href="${escapeHtml(entry.sourceUrl)}" target="_blank" rel="noopener noreferrer">${GITHUB_ICON_SVG} View on GitHub</a>
+      <a class="skills-btn" href="${escapeHtml(entry.sourceUrl)}" target="_blank" rel="noopener noreferrer">${GITHUB_ICON_SVG} ${_t('View on GitHub')}</a>
       <button class="skills-btn install primary" data-drawer-install>${entry.installed ? 'Reinstall' : 'Install'}</button>
     `;
     return this._previewShell(escapeHtml(entry.name || '(unnamed)'), body, footer);

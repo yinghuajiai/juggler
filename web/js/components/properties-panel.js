@@ -926,7 +926,7 @@ class PropertiesPanel extends HTMLElement {
     if (messageItemId && this._messageThread && this._resolveItem(messageItemId).isPending) {
       const removeBtn = document.createElement('button');
       removeBtn.className = 'properties-panel-btn danger';
-      removeBtn.innerHTML = `<span class="icon-trashcan"></span> Remove from queue`;
+      removeBtn.innerHTML = `<span class="icon-trashcan"></span> ${t('Remove from queue')}`;
       removeBtn.addEventListener('click', () => this._removePendingItem(messageItemId));
       controls.appendChild(removeBtn);
       return controls;
@@ -1000,7 +1000,7 @@ class PropertiesPanel extends HTMLElement {
       } else {
         const removeBtn = document.createElement('button');
         removeBtn.className = 'properties-panel-btn danger';
-        removeBtn.innerHTML = `<span class="icon-trashcan"></span> Remove`;
+        removeBtn.innerHTML = `<span class="icon-trashcan"></span> ${t('Remove')}`;
         removeBtn.addEventListener('click', () => this._removeContextItem(contextItem));
         controls.appendChild(removeBtn);
       }
