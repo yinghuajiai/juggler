@@ -76,7 +76,7 @@ class GlobContextItem extends ContextItem {
       required: ['pattern']
     };
 
-    const description = 'Fast file pattern matching tool that works with any codebase size. Returns matching file paths sorted by modification time. Results respect nested .gitignore files by default; pass noIgnore to include ignored files.';
+    const description = t('Fast file pattern matching tool that works with any codebase size. Returns matching file paths sorted by modification time. Results respect nested .gitignore files by default; pass noIgnore to include ignored files.');
 
     return [
       {

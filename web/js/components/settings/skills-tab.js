@@ -832,7 +832,7 @@ export class SkillsTab {
     const body = `
       ${meta ? `<div class="skills-preview-meta">${meta}</div>` : ''}
       ${metaTable}
-      <div class="skills-safety">Installing downloads &amp; writes files — it never runs anything. A skill's text still enters the model's context, so review it below before trusting it.</div>
+      <div class="skills-safety">${_t("Installing downloads &amp; writes files — it never runs anything. A skill's text still enters the model's context, so review it below before trusting it.")}</div>
       ${installed}
       ${runsHtml}
       <div class="skills-drawer-body markdown">${renderMarkdown(markdownBody, { escapeXml: true })}</div>

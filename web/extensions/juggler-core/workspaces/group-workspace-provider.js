@@ -60,7 +60,7 @@ class GroupWorkspaceProvider extends WorkspaceProvider {
       avoidFor: t('isolating work from the project — a worktree or a copy does that'),
       notes: [
         t('Nothing is created on disk: conversations in a group work in the project exactly as they would outside it.'),
-        'Ungrouping puts its conversations back in the project; deleting it sends them to the bin.'
+        t('Ungrouping puts its conversations back in the project; deleting it sends them to the bin.')
       ]
     }
   };

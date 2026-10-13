@@ -245,7 +245,7 @@ export async function startSetupWizard({
       title: t('Sign in to Codex'),
       body: `
         <p>${t('The ChatGPT app is on this machine but not signed in to Codex. Open it, switch to')} <strong>${t('Codex')}</strong>${t(', and sign in.')}</p>
-        <p>Nothing else to install — Juggler reads that login directly. Codex is included in every ChatGPT plan, the free one included.</p>`,
+        <p>${t('Nothing else to install — Juggler reads that login directly. Codex is included in every ChatGPT plan, the free one included.')}</p>`,
       actions: [checkAgainAction(), { label: t('Use a different provider'), onSelect: (ctx) => ctx.go('askAccount') }],
       note: vainNote(),
     }),
@@ -265,7 +265,7 @@ export async function startSetupWizard({
       body: `
         <p>${t('The Claude desktop app is installed. It has a Code tab of its own, but Juggler drives the')} <strong>claude</strong> ${t('command-line tool, which is a separate install:')}</p>
         <code class="wiz-command">${claudeInstall}</code>
-        <p><strong>${t('Claude Code needs a paid Claude plan')}</strong> — Pro, Max, Team or Enterprise. The free claude.ai plan does not include it, and no amount of installing will change that.</p>
+        <p><strong>${t('Claude Code needs a paid Claude plan')}</strong> ${t('— Pro, Max, Team or Enterprise. The free claude.ai plan does not include it, and no amount of installing will change that.')}</p>
         <p><a href="${CLAUDE_SETUP_URL}" target="_blank" rel="noreferrer">${t("Anthropic's setup guide")}</a> ${t('covers the other install methods.')}</p>`,
       actions: [checkAgainAction(), { label: t('Use a different provider'), onSelect: (ctx) => ctx.go('askAccount') }],
       note: vainNote(),
@@ -318,14 +318,14 @@ export async function startSetupWizard({
         <p>${t('Juggler drives the')} <strong>claude</strong> ${t('command-line tool. Install it with:')}</p>
         <code class="wiz-command">${claudeInstall}</code>
         <p>${t('Then run')} <strong>claude</strong> ${t('once in a terminal to sign in.')} <a href="${CLAUDE_SETUP_URL}" target="_blank" rel="noreferrer">${t("Anthropic's setup guide")}</a> ${t('has the other install methods.')}</p>
-        <p>This needs a paid plan — Pro, Max, Team or Enterprise. The free claude.ai plan does not include Claude Code.</p>`,
+        <p>${t('This needs a paid plan — Pro, Max, Team or Enterprise. The free claude.ai plan does not include Claude Code.')}</p>`,
       actions: [checkAgainAction()],
       note: vainNote(),
     }),
 
     otherProvider: () => ({
       title: t('Add a key'),
-      body: `<p>Provider settings takes an API key for Anthropic, OpenAI, Gemini, Mistral, OpenRouter and the rest, and finds local models served by Ollama, LM Studio or llama.cpp.</p>`,
+      body: `<p>${t('Provider settings takes an API key for Anthropic, OpenAI, Gemini, Mistral, OpenRouter and the rest, and finds local models served by Ollama, LM Studio or llama.cpp.')}</p>`,
       actions: [{ ...settingsAction(t('Open provider settings')), kind: 'primary' }],
     }),
 
@@ -341,7 +341,7 @@ export async function startSetupWizard({
     copilotAccount: () => ({
       title: t('Use GitHub Copilot'),
       body: `
-        <p>Copilot's free plan costs nothing, and Juggler can sign you in from here — no other app, no key to paste.</p>
+        <p>${t("Copilot's free plan costs nothing, and Juggler can sign you in from here — no other app, no key to paste.")}</p>
         <p>${t('In provider settings, find')} <strong>${t('GitHub Copilot')}</strong> ${t('and choose Sign in.')}</p>
         <p>${t('Model choice is limited on the free plan.')}</p>`,
       actions: [{ ...settingsAction(t('Open provider settings')), kind: 'primary' }],

@@ -147,14 +147,13 @@ class AboutModal extends JugglerElement {
 
                 <main class="about-content">
                     <p class="about-description">
-                        A plugin-powered visual AI coding agent.
+                        ${_t('A plugin-powered visual AI coding agent.')}
                     </p>
                     <p class="about-description">
-                        Created in a moment of madness by <a href="https://github.com/julianstorer" target="_blank" rel="noopener noreferrer" style="white-space: nowrap">${_t('Julian Storer')}</a>
+                        ${_t('Created in a moment of madness by')} <a href="https://github.com/julianstorer" target="_blank" rel="noopener noreferrer" style="white-space: nowrap">${_t('Julian Storer')}</a>
                     </p>
                     <p class="about-description">
-                      Juggler is still very new, and I'd love to hear people's opinions about it -
-                      please visit the discord group to chat or hear more about the roadmap!
+                      ${_t("Juggler is still very new, and I'd love to hear people's opinions about it - please visit the discord group to chat or hear more about the roadmap!")}
                     </p>
                     <p class="about-link">
                         <a href="https://juggler.studio" target="_blank" rel="noopener noreferrer">https://juggler.studio</a>
@@ -166,7 +165,7 @@ class AboutModal extends JugglerElement {
 
                 <footer class="about-footer">
                     <button class="about-button primary" id="about-close">
-                        Close
+                        ${_t('Close')}
                     </button>
                 </footer>
             </modal-panel>

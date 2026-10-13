@@ -8,6 +8,7 @@
  * @module juggler-core/context-items/edit/permission-section
  */
 
+import { t } from '../../../../js/i18n/index.js';
 import {
   WRITE_FILE_ITEM_TYPE as ITEM_TYPE,
   isFileEditingAllowed,
@@ -34,7 +35,7 @@ export function renderWriteFilePermissionSection(messageThread) {
     section.innerHTML = `
       <button class="permission-btn input-ctrl-btn write-file-btn ${allowed ? 'allowed' : 'ask'}"
               role="switch" aria-checked="${allowed}"
-              title="Toggle file write permission for this conversation. Writes outside the project and allowed paths always prompt." data-shortcut-id="toggle-file-editing">
+              title="${t('Toggle file write permission for this conversation. Writes outside the project and allowed paths always prompt.')}" data-shortcut-id="toggle-file-editing">
         <span class="write-file-icon">${allowed ? TICK_SVG : LOCK_SVG}</span>
         <span class="write-file-label">${allowed ? 'File editing allowed in allowed paths' : 'File edits prompt for confirmation'}</span>
       </button>

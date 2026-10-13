@@ -503,8 +503,8 @@ export class DefaultsTab {
     const description = document.createElement('div');
     description.className = 'provider-description';
     description.textContent =
-      'Unchanged lines shown above and below each change, so you can see what it ' +
-      'sits in. More is more to read; the whole file is every line of it.';
+      t('Unchanged lines shown above and below each change, so you can see what it ' +
+      'sits in. More is more to read; the whole file is every line of it.');
     info.appendChild(name);
     info.appendChild(description);
 

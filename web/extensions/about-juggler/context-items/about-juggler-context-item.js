@@ -140,12 +140,12 @@ class AboutJugglerContextItem extends ContextItem {
       required: []
     };
 
-    const description = 'Returns Juggler\'s own reference manual — what Juggler is, '
+    const description = t('Returns Juggler\'s own reference manual — what Juggler is, '
       + 'its tools, strategies, slash-commands, keyboard shortcuts, model providers, '
       + 'configuration and data locations, and extensions — whole, in one call. '
       + 'Call it ONLY when the user asks about Juggler itself (the application, its '
       + 'features, UI, config); NOT for questions about their own code, project, or '
-      + 'general programming.';
+      + 'general programming.');
 
     return [
       {

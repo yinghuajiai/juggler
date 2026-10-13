@@ -109,12 +109,12 @@ class DefineCommandContextItem extends ContextItem {
             },
             goal: {
               type: 'string',
-              description: 'Optional very short user-facing thread label (subthread run mode only); the task belongs in `template`.',
+              description: t('Optional very short user-facing thread label (subthread run mode only); the task belongs in `template`.'),
             },
             scope: {
               type: 'string',
               enum: ['user', 'project'],
-              description: 'Where to store it: "project" (this project, git-shareable; default) or "user" (all your projects)',
+              description: t('Where to store it: "project" (this project, git-shareable; default) or "user" (all your projects)'),
             },
           },
           required: ['name', 'description', 'template'],

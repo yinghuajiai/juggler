@@ -1399,8 +1399,8 @@ class PluginCatalog extends JugglerElement {
     const head = this._createElement('header', 'plugin-section-header');
     head.appendChild(this._createElement('h5', 'plugin-section-title', 'Permissions'));
     head.appendChild(this._createElement('div', 'plugin-section-explanation',
-      'What this extension declares it does with your computer — so you can decide whether to trust it. '
-      + 'This is disclosure, not a limit the app enforces; enabled extensions run with full privileges.'));
+      t('What this extension declares it does with your computer — so you can decide whether to trust it. '
+      + 'This is disclosure, not a limit the app enforces; enabled extensions run with full privileges.')));
     section.appendChild(head);
 
     const list = this._createElement('div', 'permissions-explained');

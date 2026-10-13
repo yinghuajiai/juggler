@@ -87,16 +87,16 @@ class WebFetchContextItem extends ContextItem {
         },
         session: {
           type: 'string',
-          description: 'Optional WebFetch session name returned by an earlier EXTRACT call. Set it to continue that same page-reading session; ignored in RAW mode.'
+          description: t('Optional WebFetch session name returned by an earlier EXTRACT call. Set it to continue that same page-reading session; ignored in RAW mode.')
         }
       },
       required: ['url']
     };
 
-    const description = 'Fetch a URL. Two modes, chosen by whether you pass `prompt`:\n' +
+    const description = t('Fetch a URL. Two modes, chosen by whether you pass `prompt`:\n' +
       '• RAW (omit `prompt`) — the content itself, verbatim (HTML converted to markdown; .md/.txt/JSON/source as-is). Use whenever you want to read the content.\n' +
       '• EXTRACT (pass `prompt`) — a sub-agent reads the page and returns ONLY a lossy answer to your prompt; the page never enters this conversation. Only for large/noisy pages where you want one specific fact.\n' +
-      'Default to RAW. 15-minute cache.';
+      'Default to RAW. 15-minute cache.');
 
     return [
       {

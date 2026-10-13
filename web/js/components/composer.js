@@ -2662,7 +2662,7 @@ class Composer extends HTMLElement {
                     </input-controls-actions>
                     <input-controls-send>
                         <button class="new-thread-btn input-ctrl-btn" title="${_t('Create a new sub-thread')}">
-                            New Thread
+                            ${_t('New Thread')}
                             <span class="new-thread-arrow">${THREAD_ARROW_SVG}</span>
                         </button>
                         <button class="context-cache-warning-btn" id="context-cache-warning" hidden

@@ -118,7 +118,7 @@ export class ExtensionSettingsEditor {
     explanation.className = 'plugin-section-explanation';
     explanation.textContent = this.capability
       ? `${t('Global settings, stored with the')} ${this.manifest.name || this.manifest.id} ${t("extension's settings under ~/.juggler/extension-config.")}`
-      : 'Global settings for this extension. Non-secret values are stored under ~/.juggler/extension-config; secrets are stored masked in ~/.juggler/credentials.json and are never shown here.';
+      : t('Global settings for this extension. Non-secret values are stored under ~/.juggler/extension-config; secrets are stored masked in ~/.juggler/credentials.json and are never shown here.');
     header.append(title, explanation);
     section.appendChild(header);
 

@@ -49,10 +49,10 @@ class ExploreAgentContextItem extends SubagentContextItem {
     strategy: ExploreSubagentStrategyType,
     badge: { color: 'thread', icon: 'icon-grep' },
     description:
-      'Investigate this codebase with a read-only sub-agent and get back only what it found; ' +
+      t('Investigate this codebase with a read-only sub-agent and get back only what it found; ' +
       'the files it opens never enter this conversation, so an open-ended question costs one result instead of thirty tool calls.\n' +
       'For questions that need reading and judgment — "how does auth work here", "what calls this and why". ' +
-      'Use `query_code` instead when the answer is computable exactly in a script; use `Research` when it is on the web (Explore has no network access).',
+      'Use `query_code` instead when the answer is computable exactly in a script; use `Research` when it is on the web (Explore has no network access).'),
     goalExample: t('Trace auth flow'),
     task:
       t('What to find out, stated in full: name the files, symbols, or behaviour you mean ' +
@@ -60,8 +60,8 @@ class ExploreAgentContextItem extends SubagentContextItem {
     continues: 'investigation',
     lead: t('Investigate this codebase and answer the following.'),
     resultSpec:
-      'the answer to the task; the evidence as a list of `file:line — what is there`; ' +
-      'and the paths worth reading next. Say what you looked for and did not find rather than guessing.',
+      t('the answer to the task; the evidence as a list of `file:line — what is there`; ' +
+      'and the paths worth reading next. Say what you looked for and did not find rather than guessing.'),
     verbs: { pending: 'Exploring…', done: 'Explored' },
     fallback: t('Search the code directly with grep, glob and read.')
   };

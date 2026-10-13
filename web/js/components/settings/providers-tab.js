@@ -436,13 +436,13 @@ export class ProvidersTab {
 
     const nameLabel = document.createElement('div');
     nameLabel.className = 'provider-name';
-    nameLabel.textContent = provider.displayName;
+    nameLabel.textContent = _t(provider.displayName || '');
     infoColumn.appendChild(nameLabel);
 
     if (provider.description) {
       const description = document.createElement('div');
       description.className = 'provider-description';
-      description.textContent = provider.description;
+      description.textContent = _t(provider.description || '');
       infoColumn.appendChild(description);
     }
 
@@ -832,13 +832,13 @@ export class ProvidersTab {
 
     const nameLabel = document.createElement('div');
     nameLabel.className = 'provider-name';
-    nameLabel.textContent = provider.displayName;
+    nameLabel.textContent = _t(provider.displayName || '');
     infoColumn.appendChild(nameLabel);
 
     if (provider.description) {
       const description = document.createElement('div');
       description.className = 'provider-description';
-      description.textContent = provider.description;
+      description.textContent = _t(provider.description || '');
       infoColumn.appendChild(description);
     }
 
@@ -858,7 +858,7 @@ export class ProvidersTab {
       status.className = 'key-source-hint';
       status.id = `${provider.name}-oauth-status`;
       status.style.display = 'block';
-      status.textContent = provider.authHint;
+      status.textContent = _t(provider.authHint || '');
       controlColumn.appendChild(status);
 
       const buttonGroup = document.createElement('div');
@@ -1030,7 +1030,7 @@ export class ProvidersTab {
     const nameLabel = document.createElement('label');
     nameLabel.className = 'provider-name';
     nameLabel.setAttribute('for', fieldId);
-    nameLabel.textContent = provider.displayName;
+    nameLabel.textContent = _t(provider.displayName || '');
     infoColumn.appendChild(nameLabel);
 
     // "Get API Key" link
@@ -1503,7 +1503,7 @@ export class ProvidersTab {
 
     const legend = document.createElement('div');
     legend.className = 'model-limit-legend';
-    legend.textContent = 'Token limits. Leave a field blank to use the figure shown in grey; type a number to override it.';
+    legend.textContent = _t('Token limits. Leave a field blank to use the figure shown in grey; type a number to override it.');
 
     details.appendChild(filter);
     details.appendChild(legend);

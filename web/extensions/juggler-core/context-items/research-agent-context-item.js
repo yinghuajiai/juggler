@@ -46,10 +46,10 @@ class ResearchAgentContextItem extends SubagentContextItem {
     strategy: ResearchSubagentStrategyType,
     badge: { color: 'thread', icon: 'icon-search' },
     description:
-      'Answer a question from the web with a sub-agent and get back only the answer. ' +
+      t('Answer a question from the web with a sub-agent and get back only the answer. ' +
       'It searches, reads as many pages as it needs, and checks them against the version actually installed in this project; none of those pages enter this conversation.\n' +
       'Use it when the answer takes several sources — API behaviour, what changed between versions, how a library is meant to be used. ' +
-      'For one page whose URL you know, `WebFetch` with a `prompt` is cheaper; for questions about this codebase, use `Explore`.',
+      'For one page whose URL you know, `WebFetch` with a `prompt` is cheaper; for questions about this codebase, use `Explore`.'),
     goalExample: t('Check React 20 changes'),
     task:
       t('What to find out, stated in full — including the library, version, or platform it concerns.'),

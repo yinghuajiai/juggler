@@ -205,7 +205,7 @@ class SettingsPanel extends HTMLElement {
                 <main class="settings-content">
                     <section class="settings-tab-content active" id="tab-providers">
                         <p class="settings-description">
-                            Provider keys are stored in <code id="credentials-path">${t('~/.juggler/credentials.json')}</code>.
+                            ${t('Provider keys are stored in')} <code id="credentials-path">${t('~/.juggler/credentials.json')}</code>.
                         </p>
 
                         <div class="settings-form" id="provider-form">
@@ -224,8 +224,7 @@ class SettingsPanel extends HTMLElement {
 
                         <div class="settings-section-heading">${t('Cheap model')}</div>
                         <p class="settings-description">
-                            A small, fast model for the background jobs below. Extensions can
-                            use it too. Never used for your conversations.
+                            ${t('A small, fast model for the background jobs below. Extensions can use it too. Never used for your conversations.')}
                         </p>
                         <div class="settings-form" id="cheap-model-form">
                             <div class="settings-card">
@@ -244,33 +243,28 @@ class SettingsPanel extends HTMLElement {
 
                       <section class="settings-tab-content" id="tab-skills">
                           <p class="settings-description">
-                              Discover and install Agent Skills from external registries, or manage
-                              the ones you have. Installing downloads and writes files &mdash; it never
-                              runs anything; a skill's scripts run later only under normal approval.
+                              ${t("Discover and install Agent Skills from external registries, or manage the ones you have. Installing downloads and writes files &mdash; it never runs anything; a skill's scripts run later only under normal approval.")}
                           </p>
                           <div class="skills-tab" id="skills-tab-root"></div>
                       </section>
 
                     <section class="settings-tab-content" id="tab-mcp">
                         <p class="settings-description">
-                            Connect external tools via the Model Context Protocol. Servers run as
-                            local subprocesses; their tools appear to the assistant with approval.
+                            ${t('Connect external tools via the Model Context Protocol. Servers run as local subprocesses; their tools appear to the assistant with approval.')}
                         </p>
                         <div class="settings-form" id="mcp-form"></div>
                     </section>
 
                     <section class="settings-tab-content" id="tab-acp">
                         <p class="settings-description">
-                            Drive external agents that speak the Agent Client Protocol (e.g. Gemini
-                            CLI, Zed agents). Each runs as a local subprocess and appears as a model
-                            in the picker under the ACP provider. The agent runs its own tool loop.
+                            ${t('Drive external agents that speak the Agent Client Protocol (e.g. Gemini CLI, Zed agents). Each runs as a local subprocess and appears as a model in the picker under the ACP provider. The agent runs its own tool loop.')}
                         </p>
                         <div class="settings-form" id="acp-form"></div>
                     </section>
 
                     <section class="settings-tab-content" id="tab-connectivity">
                         <p class="settings-description">
-                            Control who can reach this Juggler instance.
+                            ${t('Control who can reach this Juggler instance.')}
                         </p>
                         <div class="settings-form" id="connectivity-form">
                         </div>
@@ -298,9 +292,7 @@ class SettingsPanel extends HTMLElement {
 
                     <section class="settings-tab-content" id="tab-logs">
                         <p class="settings-description">
-                            Logs for the current session. Pick a file to view it live &mdash; it
-                            updates as the app writes to it. To report a bug, reveal the file and
-                            zip its folder.
+                            ${t('Logs for the current session. Pick a file to view it live &mdash; it updates as the app writes to it. To report a bug, reveal the file and zip its folder.')}
                         </p>
                         <div class="settings-form" id="logs-form">
                             <div class="logs-empty" id="logs-empty">${t('No log files yet.')}</div>
@@ -315,9 +307,7 @@ class SettingsPanel extends HTMLElement {
 
                     <section class="settings-tab-content" id="tab-updates">
                         <p class="settings-description">
-                            Control whether Juggler checks for and downloads new versions, and
-                            check for one now. A check sends this build's version, OS and
-                            architecture, and counts each install once a day.
+                            ${t("Control whether Juggler checks for and downloads new versions, and check for one now. A check sends this build's version, OS and architecture, and counts each install once a day.")}
                         </p>
                         <div class="settings-form" id="updates-form"></div>
                     </section>

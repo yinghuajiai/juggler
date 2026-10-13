@@ -238,8 +238,8 @@ const SHORTCUT_DEFS = [
   {
     id: 'jump-to-attention',
     label: t('Jump to conversation needing attention'),
-    description: 'Switch to the next conversation waiting on you; select its first '
-      + 'pending approval, or scroll to the end if it just needs a look.',
+    description: t('Switch to the next conversation waiting on you; select its first '
+      + 'pending approval, or scroll to the end if it just needs a look.'),
     category: 'Conversations',
     defaultBinding: { mod: true, key: 'j' },
     allowInInput: true,
@@ -489,9 +489,9 @@ const SHORTCUT_DEFS = [
   {
     id: 'prev-pin',
     label: t('Previous pin'),
-    description: 'Show the pinboard tab to the left. Plain \u2190 does the same when the '
+    description: t('Show the pinboard tab to the left. Plain \u2190 does the same when the '
       + 'board has focus and nothing inside the pin wants the key; this chord works '
-      + 'wherever focus is.',
+      + 'wherever focus is.'),
     category: 'View',
     // The pinboard's ⌥⌘←/→ answers the conversation list's ⌥⌘↑/↓, and ships where
     // that one does and for the same reason: Ctrl+Alt+arrow is Intel's screen
@@ -509,9 +509,9 @@ const SHORTCUT_DEFS = [
   {
     id: 'next-pin',
     label: t('Next pin'),
-    description: 'Show the pinboard tab to the right. Plain \u2192 does the same when the '
+    description: t('Show the pinboard tab to the right. Plain \u2192 does the same when the '
       + 'board has focus and nothing inside the pin wants the key; this chord works '
-      + 'wherever focus is.',
+      + 'wherever focus is.'),
     category: 'View',
     defaultBinding: { mod: true, alt: true, key: 'ArrowRight', platform: 'mac' },
     aliasBindings: [{ mod: true, key: 'PageDown' }],
@@ -546,7 +546,7 @@ const SHORTCUT_DEFS = [
   {
     id: 'strategy-switch',
     label: t('Switch strategy'),
-    description: 'Cycle the active strategy; hold to open the strategy menu.',
+    description: t('Cycle the active strategy; hold to open the strategy menu.'),
     category: 'Conversations',
     defaultBinding: { shift: true, key: 'Tab' },
     external: true,
@@ -554,7 +554,7 @@ const SHORTCUT_DEFS = [
   {
     id: 'cycle-model',
     label: t('Switch model'),
-    description: 'Cycle through recently-used models; hold to open the model menu.',
+    description: t('Cycle through recently-used models; hold to open the model menu.'),
     category: 'Conversations',
     // ⌥⌘M / Ctrl+Alt+M — bare ⌘M is macOS minimize, so the Option is load-bearing.
     // Dispatched externally by the hold-to-cycle model controller.
@@ -569,7 +569,7 @@ const SHORTCUT_DEFS = [
   {
     id: 'cycle-thinking',
     label: t('Switch thinking level'),
-    description: 'Cycle the current model\u2019s thinking level; hold to open the level popover.',
+    description: t('Cycle the current model\u2019s thinking level; hold to open the level popover.'),
     category: 'Conversations',
     // ⌥⌘T / Ctrl+Alt+T — bare ⌘T is the browser new-tab key, deliberately avoided.
     // Dispatched externally by the hold-to-cycle thinking controller.

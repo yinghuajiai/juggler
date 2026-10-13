@@ -219,8 +219,7 @@ class NoProjectOverlay extends HTMLElement {
         <div class="onboarding-logo" role="img" aria-label="${t('Juggler')}"></div>
         <h1 class="np-heading">${t('Welcome to Juggler')}</h1>
         <p class="np-lead">
-          Juggler is an AI coding agent designed around transparency, control, and fast iteration.
-          It works inside one project folder at a time.
+          ${t('Juggler is an AI coding agent designed around transparency, control, and fast iteration. It works inside one project folder at a time.')}
         </p>
 
         <div class="np-actions">
@@ -233,15 +232,13 @@ class NoProjectOverlay extends HTMLElement {
         <div class="np-recents" hidden></div>
 
         <p class="np-explainer">
-          A project folder is just a folder on your computer — a codebase, or an empty
-          folder to start something in. Juggler works inside it and nowhere else.
+          ${t('A project folder is just a folder on your computer — a codebase, or an empty folder to start something in. Juggler works inside it and nowhere else.')}
         </p>
 
         <div class="np-provider" aria-live="polite"></div>
 
         <p class="np-footnote">
-          Once a project is open, ask Juggler about itself — it explains its own tools and
-          features. Or browse the
+          ${t('Once a project is open, ask Juggler about itself — it explains its own tools and features. Or browse the')}
           <button type="button" class="onboarding-link np-shortcuts">${t('keyboard shortcuts')}</button>.
         </p>
       </section>

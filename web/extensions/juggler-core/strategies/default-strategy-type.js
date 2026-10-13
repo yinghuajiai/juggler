@@ -48,7 +48,7 @@ export default class DefaultStrategyType extends StrategyType {
         'implement...',
         t('update the...')
       ],
-      approach: 'Iterative agentic loop with the full toolset. Read tools run automatically; writes and shell commands pause for your approval before they run. The loop continues until the task is done — there is no fixed iteration cap.',
+      approach: t('Iterative agentic loop with the full toolset. Read tools run automatically; writes and shell commands pause for your approval before they run. The loop continues until the task is done — there is no fixed iteration cap.'),
       tradeoffs: {
         pros: [
           t('Well-tested, predictable baseline behaviour'),

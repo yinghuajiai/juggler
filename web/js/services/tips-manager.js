@@ -60,8 +60,8 @@ const TIPS_CHANGED_EVENT = 'juggler:tips-changed';
 const TIPS = [
   { kind: 'shortcut', id: 'new-conversation', body: t('Spin up another conversation and switch to it — run several in parallel.') },
   { kind: 'shortcut', id: 'jump-to-attention', body: t('Jump straight to whichever conversation is waiting on you, landing on its pending approval.') },
-  { kind: 'shortcut', id: 'strategy-switch', body: 'Flip the active strategy from the composer; hold to open the full strategy menu.' },
-  { kind: 'shortcut', id: 'cycle-model', body: 'Tap to flip back to your previous model; hold to open the full model menu — no mouse needed.' },
+  { kind: 'shortcut', id: 'strategy-switch', body: t('Flip the active strategy from the composer; hold to open the full strategy menu.') },
+  { kind: 'shortcut', id: 'cycle-model', body: t('Tap to flip back to your previous model; hold to open the full model menu — no mouse needed.') },
   {
     id: 'workspaces',
     kind: 'feature',
@@ -72,8 +72,8 @@ const TIPS = [
   },
   { kind: 'shortcut', id: 'toggle-file-editing', body: t('Flip between letting the agent edit files freely and asking you first.') },
   { kind: 'shortcut', id: 'pause-conversation', body: t('Pause after the current step finishes — a non-destructive stop, instead of a hard cancel.') },
-  { kind: 'shortcut', id: 'next-tab', body: 'Step through your conversation list without leaving the keyboard; Previous conversation steps back.' },
-  { kind: 'shortcut', id: 'cycle-thinking', body: 'Nudge the current model\u2019s thinking level up or down; hold to open the level popover.' },
+  { kind: 'shortcut', id: 'next-tab', body: t('Step through your conversation list without leaving the keyboard; Previous conversation steps back.') },
+  { kind: 'shortcut', id: 'cycle-thinking', body: t('Nudge the current model\u2019s thinking level up or down; hold to open the level popover.') },
   { kind: 'shortcut', id: 'find-in-conversation', body: t('Search the text of whatever you\u2019re reading — the conversation, a properties panel, a pin.') },
   {
     id: 'paste-images',

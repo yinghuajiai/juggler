@@ -3,6 +3,8 @@
 //   ▄▄█▀ ▀███▀ ▀███▀ ▀███▀ ██▄▄▄ ██▄▄▄ ██ ██   Apache-2.0 - see LICENSE
 // SPDX-License-Identifier: Apache-2.0
 
+import { t } from '../../js/i18n/index.js';
+
 /**
  * The "About Juggler" corpus — a self-contained reference manual describing the
  * Juggler application itself. It is returned verbatim by the AboutJuggler tool
@@ -342,13 +344,7 @@ ships with the app.
 
 Fastest start: the Juggler binary has an "ext" subcommand.
 
-- "juggler ext init <name>" scaffolds a complete, working extension (a manifest
-  plus one sample of each capability and a README) that loads and passes
-  validation unedited — edit the samples into what you want.
-- "juggler ext validate <path>" runs the exact admission check the app applies
-  at load: required manifest fields, engineApi compatibility with this host, and
-  that every "provides" glob resolves to real files.
-- "juggler ext link <path>" symlinks your directory into "~/.juggler/extensions/";
+- "juggler ext init <name>${t('" scaffolds a complete, working extension (a manifest plus one sample of each capability and a README) that loads and passes validation unedited — edit the samples into what you want. - "juggler ext validate')} <path>${t('" runs the exact admission check the app applies at load: required manifest fields, engineApi compatibility with this host, and that every "provides" glob resolves to real files. - "juggler ext link')} <path>" symlinks your directory into "~/.juggler/extensions/";
   after that, saving any file hot-reloads the extension in connected viewers with
   no restart.
 - "juggler ext add github.com/owner/repo" clones a published extension.

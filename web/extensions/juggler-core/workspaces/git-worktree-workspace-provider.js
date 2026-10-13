@@ -236,7 +236,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
       bestFor: 'work on a branch that should not disturb the checkout you are looking at',
       avoidFor: 'a quick edit to the branch you are already on',
       notes: [
-        'The files are separate; ports, databases and anything else on this machine are not.',
+        t('The files are separate; ports, databases and anything else on this machine are not.'),
         t('A fresh tree is empty of build output, so the first build is a full one.')
       ]
     }
@@ -1140,7 +1140,7 @@ class GitWorktreeWorkspaceProvider extends WorkspaceProvider {
           hint: t('What changed and why, in the words you would use to someone who has not read it.'),
           alternative: {
             label: t('Let this conversation write it'),
-            hint: 'It has read the work; the commit happens on its next turn.'
+            hint: t('It has read the work; the commit happens on its next turn.')
           }
         }
       },

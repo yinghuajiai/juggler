@@ -17,8 +17,8 @@ export const RESEARCH_GUIDANCE = subagentBrief({
   label: t('RESEARCH'),
   scope: 'from the open web',
   rules: [
-    'Read more than one source. A single page is a claim; agreement across '
-    + 'sources, or the primary docs, is evidence.',
+    t('Read more than one source. A single page is a claim; agreement across '
+    + 'sources, or the primary docs, is evidence.'),
     t('Check what is actually installed here before answering. You have `read`, '
     + '`grep` and `glob` for exactly that — lockfiles, manifests, vendored '
     + 'source. Advice for the wrong version is worse than no advice.'),

@@ -710,7 +710,7 @@ class ConversationFooter extends HTMLElement {
                 </button>
                 <button class="message-action-btn footer-stop-btn" type="button" title="${t('Cancel all pending operations and stop')}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m336-280-56-56 144-144-144-143 56-56 144 144 143-144 56 56-144 143 144 144-56 56-143-144-144 144Z"/></svg>
-                    Stop
+                    ${t('Stop')}
                 </button>
             </footer-processing>
             <div class="llm-next-steps hidden"></div>
@@ -735,12 +735,12 @@ class ConversationFooter extends HTMLElement {
                             <span class="footer-paused-label">${t('Paused')}</span>
                             <button class="message-action-btn footer-resume-btn" type="button" title="${t('Lift the pause and carry on')}">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-240v-480h66.67v480H240Zm169.33 0 390-240-390-240v480ZM476-363.67v-232.66L665-480 476-363.67ZM476-480Z"/></svg>
-                                Resume
+                                ${t('Resume')}
                             </button>
                         </div>
                         <button class="message-action-btn add-context-item-btn hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M440-120v-320H120v-80h320v-320h80v320h320v80H520v320h-80Z"/></svg>
-                            Add Context Item
+                            ${t('Add Context Item')}
                         </button>
                     </div>
                     <div class="footer-idle-right">
@@ -750,7 +750,7 @@ class ConversationFooter extends HTMLElement {
                         </button>
                         <button class="message-action-btn continue-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M240-240v-480h66.67v480H240Zm169.33 0 390-240-390-240v480ZM476-363.67v-232.66L665-480 476-363.67ZM476-480Z"/></svg>
-                            Continue
+                            ${t('Continue')}
                         </button>
                     </div>
                 </div>

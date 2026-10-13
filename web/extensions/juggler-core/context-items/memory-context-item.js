@@ -143,10 +143,10 @@ class MemoryContextItem extends ContextItem {
         name: 'memory',
         category: 'meta', // internal durable state, not a project-source mutation
         description:
-					'Record or remove a durable project fact in long-term memory, injected at the start of ' +
+					t('Record or remove a durable project fact in long-term memory, injected at the start of ' +
 					'every future conversation. "remember" stores one concise durable fact (a build/test ' +
 					'command, a convention, a correction the user made); "forget" removes one now stale or ' +
-					'wrong. NOT for ephemeral within-task state.',
+					'wrong. NOT for ephemeral within-task state.'),
         input_schema: {
           type: 'object',
           properties: {
@@ -601,7 +601,7 @@ class MemoryContextItem extends ContextItem {
     container.textContent = '';
 
     container.appendChild(
-      createElement('div', 'memory-panel-note', 'Durable facts the assistant maintains across conversations. Shown live from .juggler/MEMORY.md; each conversation is given the list as it stood when that conversation began, so changes here reach new conversations. Delete entries here, or edit the file by hand.')
+      createElement('div', 'memory-panel-note', t('Durable facts the assistant maintains across conversations. Shown live from .juggler/MEMORY.md; each conversation is given the list as it stood when that conversation began, so changes here reach new conversations. Delete entries here, or edit the file by hand.'))
     );
 
     if (entries.length === 0) {

@@ -2003,7 +2003,7 @@ class ConversationTab extends JugglerElement {
       overlay.innerHTML = `
         <div class="conversation-tab-loading-content">
           <div class="conversation-tab-loading-message">
-            Failed to load conversation
+            ${t('Failed to load conversation')}
           </div>
           <button type="button" class="conversation-tab-loading-retry">${t('Retry')}</button>
         </div>

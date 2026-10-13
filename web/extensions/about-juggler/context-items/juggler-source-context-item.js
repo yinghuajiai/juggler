@@ -100,13 +100,13 @@ class JugglerSourceContextItem extends ContextItem {
       required: ['path']
     };
 
-    const description = 'Read the source of Juggler\'s extension SDK base classes '
+    const description = t('Read the source of Juggler\'s extension SDK base classes '
       + 'and built-in example extensions, for writing or debugging an extension '
       + 'without the repo checked out: sdk/ holds the base classes (context-item.js, '
       + 'strategy-type.js, command-type.js — each opens with a quickstart and method '
       + 'reference), extensions/ the working examples. Use it when the AboutJuggler '
       + 'manual points at a file and you need its exact API; for anything else about '
-      + 'Juggler, call AboutJuggler.';
+      + 'Juggler, call AboutJuggler.');
 
     return [
       {

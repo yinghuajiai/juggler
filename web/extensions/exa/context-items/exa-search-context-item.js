@@ -88,7 +88,7 @@ class ExaSearchContextItem extends ContextItem {
     return [{
       name: 'exa_search',
       category: 'read',
-      description: 'Search the web with Exa. Returns ranked results with the passages that match the query; ask for full page text only when the surrounding page matters.',
+      description: t('Search the web with Exa. Returns ranked results with the passages that match the query; ask for full page text only when the surrounding page matters.'),
       input_schema: {
         type: 'object',
         properties: {

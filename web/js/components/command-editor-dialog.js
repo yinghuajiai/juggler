@@ -53,7 +53,7 @@ const RUN_MODES = {
 const RUN_MODE_HINTS = {
   send: t('Expands the template and sends it as your next message.'),
   draft: t('Puts the expanded template in the composer so you can edit it first.'),
-  subthread: 'Runs the prompt in a separate thread; the result lands back here.',
+  subthread: t('Runs the prompt in a separate thread; the result lands back here.'),
 };
 
 /** Save destinations, in the order the segmented control offers them. */
@@ -255,7 +255,7 @@ export function openCommandEditor(options = {}) {
       const v = nameInput.value.trim();
       let msg = '';
       if (!v) msg = '';
-      else if (!USER_COMMAND_NAME_RE.test(v)) msg = 'Lowercase letters, digits, and hyphens; must start with a letter.';
+      else if (!USER_COMMAND_NAME_RE.test(v)) msg = t('Lowercase letters, digits, and hyphens; must start with a letter.');
       else if (reserved.has(v)) msg = `"/${v}${t('" already exists as a built-in command.')}`;
       nameError.textContent = msg;
       const ok = !!v && !msg;
@@ -584,25 +584,25 @@ function buildMarkup(v) {
       </header>
       <div class="command-editor-body">
         <div class="command-editor-row">
-          <label class="command-editor-label command-editor-name-field">Name
+          <label class="command-editor-label command-editor-name-field">${t('Name')}
             <div class="command-editor-name-row"><span class="command-editor-slash">/</span>
               <input id="cmd-name" type="text" class="command-editor-input" value="${esc(v.name)}"
                 autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="review-pr" /></div>
           </label>
           <label class="command-editor-label">
             <span class="command-editor-label-text">${t('Args hint')} <span class="command-editor-optional">${t('(optional)')}</span></span>
-            <input id="cmd-argshint" type="text" class="command-editor-input" value="${esc(v.argsHint)}" placeholder="&lt;pr-number&gt;" />
+            <input id="cmd-argshint" type="text" class="command-editor-input" value="${esc(v.argsHint)}" placeholder="${t('&lt;pr-number&gt;')}" />
           </label>
         </div>
         <div id="cmd-name-error" class="command-editor-field-error" data-error-for="name"></div>
 
-        <label class="command-editor-label">Description
+        <label class="command-editor-label">${t('Description')}
           <input id="cmd-description" type="text" class="command-editor-input" value="${esc(v.description)}"
             placeholder="${t('Shown in the slash menu')}" />
           <div class="command-editor-field-error" data-error-for="description"></div>
         </label>
 
-        <label class="command-editor-label">Prompt template
+        <label class="command-editor-label">${t('Prompt template')}
           <textarea id="cmd-template" class="command-editor-textarea" rows="6"
             placeholder="${t('Review PR $1. $ARGUMENTS')}">${esc(v.template)}</textarea>
           <div class="command-editor-field-error" data-error-for="template"></div>
@@ -626,10 +626,10 @@ function buildMarkup(v) {
 
         <div id="cmd-subthread-fields" class="command-editor-subthread hidden">
           <div class="command-editor-hint">${t('Applied to the thread only. Anything left inherited follows this conversation.')}</div>
-          <label class="command-editor-label">Thread goal
+          <label class="command-editor-label">${t('Thread goal')}
             <input id="cmd-goal" type="text" class="command-editor-input" value="${esc(v.goal)}" placeholder="${t('PR review')}" />
           </label>
-          <label class="command-editor-label">Strategy
+          <label class="command-editor-label">${t('Strategy')}
             <select id="cmd-strategy" class="command-editor-select"><option value="">${t('Inherit from parent')}</option></select>
           </label>
           <div class="command-editor-label">

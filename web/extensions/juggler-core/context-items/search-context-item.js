@@ -143,7 +143,7 @@ class SearchContextItem extends ContextItem {
       required: ['pattern']
     };
 
-    const description = 'A powerful search tool built on ripgrep. Supports full regex syntax, file filtering with glob or type, and multiple output modes. Results respect nested .gitignore files by default; pass noIgnore to include ignored files.';
+    const description = t('A powerful search tool built on ripgrep. Supports full regex syntax, file filtering with glob or type, and multiple output modes. Results respect nested .gitignore files by default; pass noIgnore to include ignored files.');
 
     return [
       {

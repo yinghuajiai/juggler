@@ -84,10 +84,10 @@ class SkillContextItem extends ContextItem {
         name: 'skill',
         category: 'meta', // injects instruction text only — no project-source mutation
         description:
-          'Load an Agent Skill: a specialized instruction set for a kind of task, listed under ' +
+          t('Load an Agent Skill: a specialized instruction set for a kind of task, listed under ' +
           '"## Skills" in the system prompt. Call it BEFORE attempting a task a skill covers, so ' +
           'its instructions are in context first. Loading only adds text; any scripts or files it ' +
-          'mentions are read/run with the normal tools under the usual approval rules.',
+          'mentions are read/run with the normal tools under the usual approval rules.'),
         input_schema: {
           type: 'object',
           properties: {

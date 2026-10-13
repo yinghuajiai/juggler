@@ -74,7 +74,7 @@ function remInPx() {
 const STATUS_NOTICES = {
   binary: t('Binary file. No text diff.'),
   conflicted: t('Unresolved merge conflict.'),
-  truncated: 'This patch was cut short; the counts cover the whole file.',
+  truncated: t('This patch was cut short; the counts cover the whole file.'),
   large: t('This file is too large to diff here.'),
 };
 

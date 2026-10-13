@@ -76,7 +76,7 @@ class MonitorContextItem extends ContextItem {
       required: ['command', 'description']
     };
 
-    const description = 'Start a background command whose stdout lines stream into the conversation as events, surfacing when you next yield — they are not replies from the user. Use for "tell me when the build fails / the deploy finishes". Read full output with TaskOutput; stop with TaskStop.';
+    const description = _t('Start a background command whose stdout lines stream into the conversation as events, surfacing when you next yield — they are not replies from the user. Use for "tell me when the build fails / the deploy finishes". Read full output with TaskOutput; stop with TaskStop.');
 
     return [
       {

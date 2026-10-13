@@ -145,7 +145,7 @@ class PlanContextItem extends ContextItem {
       {
         name: 'plan',
         category: 'meta',  // meta = internal state only, doesn't modify files. Ensures MCP ReadOnlyHint=true
-        description: 'Propose an implementation plan for user review and approval, then track its execution. Use ONLY when an approach warrants user sign-off, or when asked to plan — routine progress tracking is the todo tool\'s job. "submit" presents the plan for approval; the *_step actions track execution of the approved plan.',
+        description: t('Propose an implementation plan for user review and approval, then track its execution. Use ONLY when an approach warrants user sign-off, or when asked to plan — routine progress tracking is the todo tool\'s job. "submit" presents the plan for approval; the *_step actions track execution of the approved plan.'),
         input_schema: {
           type: 'object',
           properties: {

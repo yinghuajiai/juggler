@@ -38,6 +38,8 @@ import { assert } from '../utilities/test-helpers.js';
  */
 const IDENTITY = new Set([
   "$ARGUMENTS",
+  "&#x2715;",
+  "&lt;pr-number&gt;",
   ", /mcp reload, /mcp logs",
   "...",
   ".juggler/skills",

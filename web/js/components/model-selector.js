@@ -58,7 +58,7 @@ const RUNNING_TURN_NOTE = t('A turn is running. A change takes effect on its nex
  * subprocess here, in a directory that would not be the one the turn's file
  * operations use — which goes wrong quietly, so it is refused loudly.
  */
-export const WORKSPACE_ELSEWHERE_HINT = 'Runs on this machine; this conversation works elsewhere';
+export const WORKSPACE_ELSEWHERE_HINT = t('Runs on this machine; this conversation works elsewhere');
 
 class ModelSelector extends HTMLElement {
   constructor() {
