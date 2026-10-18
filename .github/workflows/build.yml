@@ -1,0 +1,299 @@
+name: Build
+
+# Build installable artifacts for every desktop platform on GitHub-hosted
+# runners, and attach them to a release when a tag is pushed.
+#
+# This is deliberately SEPARATE from ci.yml. ci.yml is the correctness gate for
+# PRs (and its header notes the public repo publishes no binaries), which is
+# right for upstream but no use to a fork that wants to hand someone a .dmg, a
+# .exe setup, or a tarball to try the translation on. So this workflow does the
+# packaging ci.yml refuses to, on the same hosted runners and with the same
+# toolchain.
+#
+# Unsigned by design: signing needs a paid Developer ID / code-signing
+# certificate and notarization credentials, which are the maintainer's and are
+# not in a fork. macOS will therefore say "unidentified developer" on first
+# launch (right-click → Open, or `xattr -dr com.apple.quarantine`), and Windows
+# SmartScreen will warn. Both are the ordinary cost of an unsigned build.
+on:
+  # Manual runs from the Actions tab: build everything, or one platform.
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Which platform(s) to build
+        type: choice
+        default: all
+        options:
+          - all
+          - macos
+          - windows
+          - linux
+  # A tag builds everything and publishes a GitHub Release with the artifacts.
+  # The fork's tags are independent of upstream's, so pushing e.g. v0.7.6-zh
+  # cannot collide with an upstream release.
+  push:
+    tags:
+      - 'v*'
+
+# Least privilege, widened only for the release job that needs to write one.
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # macOS — assemble Juggler.app and wrap it in a DMG.
+  # ---------------------------------------------------------------------------
+  macos:
+    if: ${{ github.event_name == 'push' || inputs.platform == 'all' || inputs.platform == 'macos' }}
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - name: Configure Git
+        shell: bash
+        # The wails submodule is a large fork whose full-history fetch over
+        # HTTP/2 intermittently dies mid-transfer; HTTP/1.1 + a large buffer is
+        # the documented workaround (same as ci.yml).
+        run: |
+          git config --global core.autocrlf false
+          git config --global http.version HTTP/1.1
+          git config --global http.postBuffer 524288000
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install npm dependencies
+        run: npm install
+        working-directory: tooling
+
+      # mac-dmg-pack calls create-dmg, which the runner image does not carry.
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      # release-build-mac assembles bin/Juggler.app; mac-dmg-pack wraps it. The
+      # app is ad-hoc signed (CODESIGN_IDENTITY is unset), which is enough to
+      # launch locally but not to pass Gatekeeper on a downloaded copy.
+      - name: Build the macOS app and DMG
+        shell: bash
+        run: make mac-dmg
+
+      # Build provenance, so a downloaded artifact can be traced to a commit.
+      - name: Write build info
+        shell: bash
+        run: |
+          {
+            echo "commit: $(git rev-parse HEAD)"
+            echo "version: $(cat VERSION)"
+            echo "ref: ${GITHUB_REF}"
+            echo "run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > bin/BUILD-INFO.txt
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: Juggler-macos-dmg
+          path: |
+            bin/Juggler-*.dmg
+            bin/BUILD-INFO.txt
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # Windows — cross-compiled .exe pair, then an Inno Setup installer.
+  # ---------------------------------------------------------------------------
+  windows:
+    if: ${{ github.event_name == 'push' || inputs.platform == 'all' || inputs.platform == 'windows' }}
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global core.autocrlf false
+          git config --global http.version HTTP/1.1
+          git config --global http.postBuffer 524288000
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26'
+
+      # Every file this job touches is one Defender has to scan. Best-effort:
+      # the job carries on slower if the runner declines the exclusion.
+      - name: Exclude the build from Defender
+        shell: pwsh
+        run: |
+          $paths = @($env:GITHUB_WORKSPACE, $env:RUNNER_TEMP, (go env GOCACHE), (go env GOMODCACHE)) | Where-Object { $_ }
+          try {
+            Add-MpPreference -ExclusionPath $paths -ErrorAction Stop
+            Write-Host 'Defender exclusions set.'
+          } catch {
+            Write-Host "Could not set Defender exclusions, carrying on: $_"
+          }
+
+      # Inno Setup ships on the windows-latest image; the Makefile invokes `iscc`.
+      # Fail here, by name, rather than mid-package if that ever changes.
+      - name: Check for Inno Setup
+        shell: bash
+        run: |
+          command -v iscc >/dev/null 2>&1 || {
+            echo "iscc (Inno Setup) not found on this runner" >&2
+            exit 1
+          }
+          echo "iscc found at $(command -v iscc)"
+
+      - name: Build the Windows binaries and installer
+        shell: bash
+        run: make win-installer
+
+      - name: Write build info
+        shell: bash
+        run: |
+          {
+            echo "commit: $(git rev-parse HEAD)"
+            echo "version: $(cat VERSION)"
+            echo "ref: ${GITHUB_REF}"
+            echo "run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > bin/windows/BUILD-INFO.txt
+
+      # Both the installer and the loose .exe pair: the installer is what a user
+      # wants, the loose pair is what a portable/unpacked run wants.
+      - name: Upload installer and binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: Juggler-windows
+          path: |
+            bin/windows/Juggler-*-setup.exe
+            bin/windows/juggler.exe
+            bin/windows/juggler-app.exe
+            bin/windows/BUILD-INFO.txt
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # Linux — a GTK/WebKitGTK app + server, tarred together.
+  # ---------------------------------------------------------------------------
+  linux:
+    if: ${{ github.event_name == 'push' || inputs.platform == 'all' || inputs.platform == 'linux' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Configure Git
+        shell: bash
+        run: |
+          git config --global core.autocrlf false
+          git config --global http.version HTTP/1.1
+          git config --global http.postBuffer 524288000
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.26'
+
+      # The GTK4/WebKitGTK dev headers the cgo backend links against. -dev is
+      # needed to build; the tarball's README names the runtime packages a user
+      # installs instead.
+      - name: Install Linux build dependencies
+        run: sudo apt-get update && sudo apt-get install -y libgtk-4-dev libwebkitgtk-6.0-dev libsoup-3.0-dev
+
+      - name: Build the Linux binaries and tarball
+        shell: bash
+        run: make linux-tarball
+
+      - name: Write build info
+        shell: bash
+        run: |
+          {
+            echo "commit: $(git rev-parse HEAD)"
+            echo "version: $(cat VERSION)"
+            echo "ref: ${GITHUB_REF}"
+            echo "run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          } > bin/BUILD-INFO.txt
+
+      - name: Upload tarball
+        uses: actions/upload-artifact@v4
+        with:
+          name: Juggler-linux
+          path: |
+            bin/juggler-linux-*.tar.gz
+            bin/BUILD-INFO.txt
+          if-no-files-found: error
+
+  # ---------------------------------------------------------------------------
+  # Publish: only on a tag, and only once every platform has built.
+  # ---------------------------------------------------------------------------
+  release:
+    needs: [macos, windows, linux]
+    if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download every artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Show what will be published
+        run: find dist -type f -printf '%p  %s bytes\n' | sort
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Collect the packaged files by extension rather than by shell glob:
+          # the artifacts land one directory deep (dist/<name>/<file>), and a
+          # `**` glob is `globstar`-dependent, so a wrong shell silently passes
+          # a literal path to gh.
+          files=()
+          while IFS= read -r f; do files+=("$f"); done < <(
+            find dist -type f \( -name '*.dmg' -o -name '*-setup.exe' -o -name '*.tar.gz' \) | sort
+          )
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "no release artifacts found under dist/" >&2
+            find dist -type f >&2 || true
+            exit 1
+          fi
+          printf 'will publish:\n'
+          printf '  %s\n' "${files[@]}"
+
+          # The tag already exists (it is what triggered this). Create the
+          # release on the first run; on a re-run, refresh the assets instead of
+          # failing that the release is there.
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            gh release upload "${GITHUB_REF_NAME}" "${files[@]}" --clobber
+          else
+            gh release create "${GITHUB_REF_NAME}" \
+              --title "Juggler ${GITHUB_REF_NAME}" \
+              --notes "Built from ${GITHUB_SHA} by the Build workflow.
+
+          These binaries are UNSIGNED. On macOS, the first launch needs right-click → Open (or \`xattr -dr com.apple.quarantine /Applications/Juggler.app\`). On Windows, SmartScreen warns once." \
+              "${files[@]}"
+          fi
