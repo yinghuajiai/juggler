@@ -289,6 +289,17 @@ export async function followUILocale() {
   wsService.on('settings-changed', (/** @type {any} */ settings) => {
     void applyEngineUILocale(typeof settings?.uiLocale === 'string' ? settings.uiLocale : '');
   });
+  // The language this engine was served in, injected by serveEngine: the chosen
+  // one, or the language this machine asks for. Read first so the engine starts
+  // in the right language rather than applying English and then correcting —
+  // and so it is translated even when the settings read below fails.
+  const injected = typeof /** @type {any} */ (globalThis).__jugglerUILocale === 'string'
+    ? /** @type {any} */ (globalThis).__jugglerUILocale
+    : '';
+  if (injected) await applyEngineUILocale(injected);
   const settings = await fetchJson(apiUrl('/settings'), { fallback: null });
-  await applyEngineUILocale(typeof settings?.uiLocale === 'string' ? settings.uiLocale : '');
+  const stored = typeof settings?.uiLocale === 'string' ? settings.uiLocale : '';
+  // A language the user chose afterwards wins; with none stored the injected one
+  // stands, since clearing the setting means "follow the machine", not "English".
+  if (stored || !injected) await applyEngineUILocale(stored);
 }

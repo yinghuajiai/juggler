@@ -279,10 +279,18 @@ func (s *Server) serveEngine(w http.ResponseWriter, r *http.Request) {
 	}
 
 	nonce := generateCSPNonce()
+	// The engine has no page of its own to read, so it is told the language to
+	// load its catalogue in, by the same rule the viewer's page follows — the
+	// chosen language, else the language the engine's own request asks for.
+	// Without this the engine ran in English while the interface was translated,
+	// so the strings the engine renders (status rows, tool results) disagreed
+	// with the window around them.
+	engineLocale := s.uiLocaleFor(r)
 	serveTemplatedHTML(w, string(content), map[string]string{
 		"StaticVersion": s.staticVersion,
 		"CSPNonce":      nonce,
 		"APIToken":      s.apiToken,
+		"UILocale":      engineLocale,
 		// Safe to substitute unescaped: requestBasePath admits only plain
 		// path segments.
 		"BasePath": requestBasePath(r),
@@ -492,9 +500,10 @@ func (s *Server) serveIndex(w http.ResponseWriter, r *http.Request) {
 	// The UI language, and its catalogue inline, so the first frame is already
 	// in that language (see ui_locale.go). Unlike theme and zoom it is the
 	// person's rather than the window's, so every window and every remote
-	// viewer gets the same one. With none chosen the page is plain English and
-	// carries no catalogue at all.
-	uiLocale := s.uiLocale()
+	// viewer gets the same one. With none chosen the viewer's own languages are
+	// followed (Accept-Language), and failing those the page is plain English
+	// and carries no catalogue at all.
+	uiLocale := s.uiLocaleFor(r)
 	if pinned, ok := s.testPageUILocale(r); ok {
 		uiLocale = pinned
 	}

@@ -57,6 +57,13 @@
         // Where this server is mounted ('' when reached directly); passed to
         // the worker alongside the token.
         window.__jugglerBase = '{{.BasePath}}';
+        // The UI language this engine was served in, resolved by the server the
+        // same way the visible page's was — the chosen language, else the one
+        // this machine asks for. Empty means English. The engine has no page of
+        // its own to read a catalogue from, so it loads the one for this tag at
+        // startup (services/ui-locale.js, followUILocale). Without it the engine
+        // stayed English while the window around it was translated.
+        window.__jugglerUILocale = '{{.UILocale}}';
         window.JUGGLER_ENGINE = true;
     </script>
 

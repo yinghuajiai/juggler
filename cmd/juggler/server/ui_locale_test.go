@@ -315,3 +315,68 @@ func TestUILocalesRoute(t *testing.T) {
 		}
 	}
 }
+
+// With no language chosen the viewer's own languages decide, so a fresh install
+// opens translated rather than in English.
+func TestMatchAcceptedLocale(t *testing.T) {
+	available := []string{"de", "fr", "zh-CN", "zh-Hant", "zh-Hant-TW"}
+	cases := []struct {
+		name   string
+		header string
+		want   string
+	}{
+		{"empty header", "", ""},
+		{"exact tag", "fr", "fr"},
+		{"region kept", "zh-Hant-TW", "zh-Hant-TW"},
+		{"region dropped to the language's catalogue", "zh-Hant-HK", "zh-Hant"},
+		{"simplified Chinese", "zh-CN", "zh-CN"},
+		{"region the catalogues lack", "fr-CA", "fr"},
+		{"q-values decide", "de;q=0.5,fr;q=0.9", "fr"},
+		{"the header's order breaks a tie", "de,fr", "de"},
+		{"q=0 is a refusal", "fr;q=0,de", "de"},
+		{"a language we have no catalogue for is skipped", "ja,fr", "fr"},
+		{"nothing we have", "ja,ko", ""},
+		{"wildcard is not a preference", "*,fr", "fr"},
+		{"garbage still finds the usable part", "not a tag!,fr;q=0.3", "fr"},
+		// A browser narrows as it broadens, so the weight it gave decides. These
+		// are the headers Chrome and Safari send for Traditional Chinese.
+		{"Traditional Chinese, region shipped", "zh-Hant-TW,zh-Hant;q=0.9,zh;q=0.8", "zh-Hant-TW"},
+		{"Traditional Chinese, region not shipped", "zh-Hant-HK,zh-Hant;q=0.9,zh;q=0.8", "zh-Hant"},
+		{"a heavier weight beats a more specific tag", "zh;q=0.9,zh-Hant;q=0.8", "zh-CN"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := matchAcceptedLocale(tc.header, available); got != tc.want {
+				t.Fatalf("matchAcceptedLocale(%q) = %q, want %q", tc.header, got, tc.want)
+			}
+		})
+	}
+	if got := matchAcceptedLocale("fr", nil); got != "" {
+		t.Fatalf("with no catalogue at all = %q, want English", got)
+	}
+}
+
+// A chosen language always wins; clearing it resumes following the viewer.
+func TestUILocaleForPrefersTheChoice(t *testing.T) {
+	userpathstest.Isolate(t)
+	s := &Server{settings: newSettingsStore()}
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	req.Header.Set("Accept-Language", "fr")
+
+	// Nothing chosen, and no catalogue in this bare server's asset tree, so the
+	// viewer's header has nothing to match and the page is English.
+	if got := s.uiLocaleFor(req); got != "" {
+		t.Fatalf("with nothing chosen and no catalogue = %q, want English", got)
+	}
+
+	putSettings(t, s, `{"uiLocale":"de"}`, http.StatusOK)
+	if got := s.uiLocaleFor(req); got != "de" {
+		t.Fatalf("the chosen language must win over the header: got %q, want de", got)
+	}
+
+	// Clearing it goes back to following the viewer rather than pinning English.
+	putSettings(t, s, `{"uiLocale":""}`, http.StatusOK)
+	if got := s.uiLocale(); got != "" {
+		t.Fatalf("stored uiLocale = %q, want cleared", got)
+	}
+}

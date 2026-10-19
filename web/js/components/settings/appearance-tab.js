@@ -195,10 +195,11 @@ export class AppearanceTab {
   }
 
   /**
-   * Build the language row, hidden until it is known to be wanted: dev mode, or
-   * the user preference. It opens offering English alone and gains the server's
-   * languages once they are known (fetchUILocales). Choosing a language saves it and reloads this window
-   * into it; other windows follow once idle (createUILocaleReloader).
+   * Build the language row: dev mode, the user preference, or a language to
+   * choose. It opens offering English alone and gains the server's languages
+   * once they are known (fetchUILocales). Choosing a language saves it and
+   * reloads this window into it; other windows follow once idle
+   * (createUILocaleReloader).
    * @returns {HTMLElement} The row.
    * @private
    */
@@ -226,7 +227,13 @@ export class AppearanceTab {
       const dev = isDevMode();
       const current = pageUILocale();
       fillSelect(select, uiLocaleChoices(available, { pseudo: dev, current }), current);
-      row.hidden = !(dev || shown === true);
+      // Shown when there is a language to choose, or when asked for explicitly.
+      // The preference used to be the only way to see it, because no language
+      // shipped and a normal build had to look untouched; now that a catalogue
+      // does ship, hiding the row is what would leave the language unreachable
+      // — the interface would follow the machine and nothing could change it.
+      // With no catalogue at all the row stays hidden, exactly as before.
+      row.hidden = !(dev || shown === true || available.length > 0);
     });
     return row;
   }

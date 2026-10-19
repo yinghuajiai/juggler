@@ -5,12 +5,13 @@
 /**
  * Settings → Appearance: the theme menu, and the Language row.
  *
- * The Language row is hidden unless dev mode is on or the user preference
- * `juggler-language-picker` is set — no language ships yet, so a normal build
- * must look exactly as it did. Choosing a language saves it and reloads the
- * window that chose it. The languages it offers are the server's list
- * (`GET /api/i18n/locales`), each named in itself; the pseudo-locale is
- * offered in dev mode only.
+ * The Language row is shown when there is a language to choose, when dev mode
+ * is on, or when the user preference `juggler-language-picker` is set. With no
+ * catalogue on the server there is nothing to choose, so the row stays hidden
+ * and the build looks exactly as it did before any language shipped. Choosing a
+ * language saves it and reloads the window that chose it. The languages it
+ * offers are the server's list (`GET /api/i18n/locales`), each named in itself;
+ * the pseudo-locale is offered in dev mode only.
  *
  * Under the en-XA pseudo-locale, using the generated web/i18n/en-XA.json (read
  * through /api/i18n/catalog, as the engine reads it), every
@@ -114,16 +115,35 @@ export async function runTests(_ctx) {
   const savedDevMode = w.JUGGLER_DEV_MODE;
   w.JUGGLER_DEV_MODE = false;
   try {
-    await run('the Language row is hidden in a normal build', async () => {
+    await run('with no language on the server the row stays hidden in a normal build', async () => {
       await setUserPref(LANGUAGE_PICKER_PREF, null);
+      const restore = stubServer([]);
       const { host, tab } = mount();
       try {
         await tab.languageRowSettled;
         const row = /** @type {HTMLElement|null} */ (host.querySelector('#appearance-language-row'));
         assert(row, 'the row is built (so turning the preference on needs no rebuild)');
-        assert(row.hidden, 'and hidden');
+        assert(row.hidden, 'and hidden — there is nothing to choose');
         assert(host.querySelector('#appearance-theme-select'), 'the theme menu is unaffected');
       } finally {
+        restore();
+        tab.dispose();
+        host.remove();
+      }
+    });
+
+    await run('a language on the server shows it without the preference', async () => {
+      await setUserPref(LANGUAGE_PICKER_PREF, null);
+      const restore = stubServer(['fr']);
+      const { host, tab } = mount();
+      try {
+        await tab.languageRowSettled;
+        const row = /** @type {HTMLElement} */ (host.querySelector('#appearance-language-row'));
+        assert(!row.hidden, 'shown, so the language is reachable without a preference');
+        const values = languageOptions(host).map((o) => o.value);
+        assert(JSON.stringify(values) === JSON.stringify(['', 'en', 'fr']), `options were ${JSON.stringify(values)}`);
+      } finally {
+        restore();
         tab.dispose();
         host.remove();
       }

@@ -112,3 +112,6 @@ txn_*.json
 .claude/
 
 demo_project/
+
+# Local tool state, never shared
+.local/
